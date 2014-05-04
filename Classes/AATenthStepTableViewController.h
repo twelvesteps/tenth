@@ -1,5 +1,5 @@
 //
-//  AAViewController.h
+//  AATenthStepTableViewController.h
 //  Steps
 //
 //  Created by Tom on 5/4/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AAViewController : UIViewController
+@interface AATenthStepTableViewController : UITableViewController
 
 @end

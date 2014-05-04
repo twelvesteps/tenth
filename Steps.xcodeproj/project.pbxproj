@@ -15,13 +15,15 @@
 		84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3441915CD250063F4EA /* AAAppDelegate.m */; };
 		84EBC3481915CD250063F4EA /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC3461915CD250063F4EA /* Main_iPhone.storyboard */; };
 		84EBC34B1915CD250063F4EA /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC3491915CD250063F4EA /* Main_iPad.storyboard */; };
-		84EBC34E1915CD250063F4EA /* AAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC34D1915CD250063F4EA /* AAViewController.m */; };
 		84EBC3501915CD250063F4EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC34F1915CD250063F4EA /* Images.xcassets */; };
 		84EBC3571915CD250063F4EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
 		84EBC3581915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3591915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
 		84EBC3611915CD250063F4EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC35F1915CD250063F4EA /* InfoPlist.strings */; };
-		84EBC3631915CD250063F4EA /* StepsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3621915CD250063F4EA /* StepsTests.m */; };
+		84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */; };
+		84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */; };
+		84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37919161DA60063F4EA /* AATenthStepItem.m */; };
+		84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,14 +49,18 @@
 		84EBC3441915CD250063F4EA /* AAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAAppDelegate.m; sourceTree = "<group>"; };
 		84EBC3471915CD250063F4EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		84EBC34A1915CD250063F4EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		84EBC34C1915CD250063F4EA /* AAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAViewController.h; sourceTree = "<group>"; };
-		84EBC34D1915CD250063F4EA /* AAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAViewController.m; sourceTree = "<group>"; };
 		84EBC34F1915CD250063F4EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84EBC3551915CD250063F4EA /* StepsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StepsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3561915CD250063F4EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		84EBC35E1915CD250063F4EA /* StepsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StepsTests-Info.plist"; sourceTree = "<group>"; };
 		84EBC3601915CD250063F4EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84EBC3621915CD250063F4EA /* StepsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepsTests.m; sourceTree = "<group>"; };
+		84EBC36F1915D3700063F4EA /* AATenthStepTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepTableViewController.h; path = Classes/AATenthStepTableViewController.h; sourceTree = "<group>"; };
+		84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepTableViewController.m; path = Classes/AATenthStepTableViewController.m; sourceTree = "<group>"; };
+		84EBC37519161B2A0063F4EA /* AATenthStepItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItemViewController.h; path = Classes/AATenthStepItemViewController.h; sourceTree = "<group>"; };
+		84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItemViewController.m; path = Classes/AATenthStepItemViewController.m; sourceTree = "<group>"; };
+		84EBC37819161DA60063F4EA /* AATenthStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItem.h; path = Classes/AATenthStepItem.h; sourceTree = SOURCE_ROOT; };
+		84EBC37919161DA60063F4EA /* AATenthStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItem.m; path = Classes/AATenthStepItem.m; sourceTree = SOURCE_ROOT; };
+		84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestTenthStepItems.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,12 +120,12 @@
 		84EBC33A1915CD250063F4EA /* Steps */ = {
 			isa = PBXGroup;
 			children = (
+				84EBC3721915D3750063F4EA /* View Controllers */,
+				84EBC37B19161DB00063F4EA /* Cells */,
 				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
 				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
 				84EBC3461915CD250063F4EA /* Main_iPhone.storyboard */,
 				84EBC3491915CD250063F4EA /* Main_iPad.storyboard */,
-				84EBC34C1915CD250063F4EA /* AAViewController.h */,
-				84EBC34D1915CD250063F4EA /* AAViewController.m */,
 				84EBC34F1915CD250063F4EA /* Images.xcassets */,
 				84EBC33B1915CD250063F4EA /* Supporting Files */,
 			);
@@ -140,7 +146,7 @@
 		84EBC35C1915CD250063F4EA /* StepsTests */ = {
 			isa = PBXGroup;
 			children = (
-				84EBC3621915CD250063F4EA /* StepsTests.m */,
+				84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */,
 				84EBC35D1915CD250063F4EA /* Supporting Files */,
 			);
 			path = StepsTests;
@@ -153,6 +159,27 @@
 				84EBC35F1915CD250063F4EA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84EBC3721915D3750063F4EA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84EBC36F1915D3700063F4EA /* AATenthStepTableViewController.h */,
+				84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */,
+				84EBC37519161B2A0063F4EA /* AATenthStepItemViewController.h */,
+				84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */,
+			);
+			name = "View Controllers";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		84EBC37B19161DB00063F4EA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
+				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +230,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "spitzgoby LLC";
 				TargetAttributes = {
+					84EBC3301915CD250063F4EA = {
+						DevelopmentTeam = ZV7JS29D52;
+					};
 					84EBC3541915CD250063F4EA = {
 						TestTargetID = 84EBC3301915CD250063F4EA;
 					};
@@ -254,8 +284,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
+				84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
-				84EBC34E1915CD250063F4EA /* AAViewController.m in Sources */,
+				84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EBC3631915CD250063F4EA /* StepsTests.m in Sources */,
+				84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,10 +423,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Steps/Steps-Prefix.pch";
 				INFOPLIST_FILE = "Steps/Steps-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -404,10 +440,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Steps/Steps-Prefix.pch";
 				INFOPLIST_FILE = "Steps/Steps-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -471,6 +511,7 @@
 				84EBC3681915CD250063F4EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84EBC3691915CD250063F4EA /* Build configuration list for PBXNativeTarget "StepsTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +520,7 @@
 				84EBC36B1915CD250063F4EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
