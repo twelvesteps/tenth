@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84491B2919178A1E006073B3 /* AAStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B2819178A1E006073B3 /* AAStepItem.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84491B2719178A1E006073B3 /* AAStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAStepItem.h; path = Classes/AAStepItem.h; sourceTree = SOURCE_ROOT; };
+		84491B2819178A1E006073B3 /* AAStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAStepItem.m; path = Classes/AAStepItem.m; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,6 +179,8 @@
 		84EBC37B19161DB00063F4EA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				84491B2719178A1E006073B3 /* AAStepItem.h */,
+				84491B2819178A1E006073B3 /* AAStepItem.m */,
 				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
 				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
 			);
@@ -284,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84491B2919178A1E006073B3 /* AAStepItem.m in Sources */,
 				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
 				84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,

@@ -33,6 +33,7 @@
     
     assert([item.title isEqualToString:@"Title"]);
     assert([item.description isEqualToString:@""]);
+    assert([item.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
     
     NSString* title = @"New Title";
     [item setTitle:title];
@@ -41,6 +42,8 @@
     NSString* description = @"Description";
     [item setDescription:description];
     assert([item.description isEqualToString:description]);
+    
+    assert([item.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
 }
 
 -(void)testEncoding
@@ -64,7 +67,7 @@
     decodedItem = [NSKeyedUnarchiver unarchiveObjectWithData:retrievedItem];
     assert([decodedItem.title isEqualToString:item.title]);
     assert([decodedItem.description isEqualToString:item.description]);
-    
+    assert([decodedItem.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
 }
 
 @end

@@ -34,7 +34,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="HSh-kQ-Ovn"/>
                         <barButtonItem key="rightBarButtonItem" title="+" id="v4E-NB-fig">
                             <connections>
-                                <action selector="newTenthStepItem:" destination="UE9-Bx-UN8" id="Xg8-NR-bTq"/>
+                                <action selector="addButtonPressed:" destination="UE9-Bx-UN8" id="mdu-QB-LPr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

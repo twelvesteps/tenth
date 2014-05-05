@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AAStepItem.h"
 
-@interface AATenthStepItem : NSObject <NSCoding>
+@interface AATenthStepItem : AAStepItem
 
-@property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* description;
+
 
 @end

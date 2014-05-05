@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "AATenthStepItem.h"
 
+NS_ENUM(int, AAStepItemEditAction) {
+    AAStepItemEditActionCreated,
+    AAStepItemEditActionSaved,
+    AAStepItemEditActionCancelled,
+    AAStepItemEditActionDeleted,
+};
+
 @class AATenthStepItemViewController;
 @protocol AATenthStepItemViewControllerDelegate <NSObject>
 

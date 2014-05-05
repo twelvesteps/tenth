@@ -10,6 +10,7 @@
 #import "AATenthStepItemViewController.h"
 #import "AATenthStepItem.h"
 
+#define AA_ITEM_VIEW_SEGUE_ID   @"setItem"
 #define AA_TENTH_STEP_CELL_ID   @"tenthStepItem"
 #define AA_TENTH_STEP_ITEMS     @"tenthStepItems"
 @interface AATenthStepTableViewController () <AATenthStepItemViewControllerDelegate>
@@ -74,15 +75,17 @@
     [defaults synchronize];
 }
 
+#pragma mark - UI Events
+- (IBAction)addButtonPressed:(UIBarButtonItem *)sender {
+    [self performSegueWithIdentifier:AA_ITEM_VIEW_SEGUE_ID sender:sender];
+}
+
+#pragma mark - Item view delegate
 -(void)viewControllerDidSave:(AATenthStepItemViewController*)vc
 {
     [self saveTenthStepItem:vc.item];
 }
 
-- (IBAction)newTenthStepItem:(UIBarButtonItem *)sender
-{
-    [self performSegueWithIdentifier:@"setItem" sender:self];
-}
 
 #pragma mark - Table view data source
 
@@ -148,22 +151,16 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"setItem"]) {
-        UIViewController* vc = segue.destinationViewController;
-        
-        if ([vc isKindOfClass:[AATenthStepItemViewController class]]) {
-            AATenthStepItemViewController* ivc = (AATenthStepItemViewController*) vc;
+    if ([segue.identifier isEqualToString:AA_ITEM_VIEW_SEGUE_ID]) {
+        if ([segue.destinationViewController isKindOfClass:[AATenthStepItemViewController class]]) {
+            AATenthStepItemViewController* ivc = (AATenthStepItemViewController*) segue.destinationViewController;
             AATenthStepItem* item = nil;
-            
             if ([sender isKindOfClass:[UITableViewCell class]]) {
-                
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* cellIndexPath = [self.tableView indexPathForCell:cell];
                 item = [self getTenthStepItemAtIndexPath:cellIndexPath];
                 self.selectedItemIndexPath = cellIndexPath;
-                
             } else {
-                
                 item = [[AATenthStepItem alloc] init];
                 self.selectedItemIndexPath = nil;
             }
