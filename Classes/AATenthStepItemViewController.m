@@ -17,11 +17,23 @@
 
 @implementation AATenthStepItemViewController
 
-- (IBAction)saveItem:(UIBarButtonItem *)sender {
-    self.item.title = self.tenthStepItemTitle.text;
-    self.item.description = self.tenthStepItemText.text;
+- (AATenthStepItem*)item
+{
+    if (!_item) _item = [[AATenthStepItem alloc] init];
+    return _item;
+}
+
+- (IBAction)confirmEditButtonTapped:(UIBarButtonItem *)sender {
+
     
-    [self.delegate viewControllerDidSave:self];
+    if ([sender isEqual:self.navigationItem.rightBarButtonItem]) {
+        self.item.title =       self.tenthStepItemTitle.text;
+        self.item.description = self.tenthStepItemText.text;
+        [self.delegate viewController:self didExitWithAction:AAStepItemEditActionSaved];
+    } else {
+        [self.delegate viewController:self didExitWithAction:AAStepItemEditActionCancelled];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -29,8 +41,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tenthStepItemTitle.text = self.item.title;
-    self.tenthStepItemText.text = self.item.description;
+    self.tenthStepItemTitle.text =  self.item.title;
+    self.tenthStepItemText.text =   self.item.description;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(confirmEditButtonTapped:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)didReceiveMemoryWarning

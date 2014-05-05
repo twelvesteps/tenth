@@ -67,7 +67,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="vEz-bD-0CH">
                         <nil key="title"/>
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="GKV-pu-1Fo"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="center" minimumFontSize="17" id="Z6I-G6-Q2k">
                             <rect key="frame" x="112" y="7" width="97" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,7 +75,7 @@
                         </textField>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="wTw-DO-Z5r">
                             <connections>
-                                <action selector="saveItem:" destination="Lj7-W6-itS" id="Gff-4y-P4o"/>
+                                <action selector="confirmEditButtonTapped:" destination="Lj7-W6-itS" id="i3c-r1-rc7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

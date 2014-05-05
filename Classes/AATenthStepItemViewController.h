@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AATenthStepItem.h"
 
-NS_ENUM(int, AAStepItemEditAction) {
+typedef NS_ENUM(int, AAStepItemEditAction) {
     AAStepItemEditActionCreated,
     AAStepItemEditActionSaved,
     AAStepItemEditActionCancelled,
@@ -19,7 +19,7 @@ NS_ENUM(int, AAStepItemEditAction) {
 @class AATenthStepItemViewController;
 @protocol AATenthStepItemViewControllerDelegate <NSObject>
 
--(void)viewControllerDidSave:(AATenthStepItemViewController*)vc;
+-(void)viewController:(AATenthStepItemViewController*)vc didExitWithAction:(AAStepItemEditAction)action;
 
 @end
 

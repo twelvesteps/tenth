@@ -81,9 +81,10 @@
 }
 
 #pragma mark - Item view delegate
--(void)viewControllerDidSave:(AATenthStepItemViewController*)vc
+-(void)viewController:(AATenthStepItemViewController *)vc didExitWithAction:(AAStepItemEditAction)action
 {
-    [self saveTenthStepItem:vc.item];
+    if (action == AAStepItemEditActionSaved)
+        [self saveTenthStepItem:vc.item];
 }
 
 
@@ -154,19 +155,17 @@
     if ([segue.identifier isEqualToString:AA_ITEM_VIEW_SEGUE_ID]) {
         if ([segue.destinationViewController isKindOfClass:[AATenthStepItemViewController class]]) {
             AATenthStepItemViewController* ivc = (AATenthStepItemViewController*) segue.destinationViewController;
-            AATenthStepItem* item = nil;
             if ([sender isKindOfClass:[UITableViewCell class]]) {
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* cellIndexPath = [self.tableView indexPathForCell:cell];
-                item = [self getTenthStepItemAtIndexPath:cellIndexPath];
+                AATenthStepItem* item = [self getTenthStepItemAtIndexPath:cellIndexPath];
+                ivc.item = item;
                 self.selectedItemIndexPath = cellIndexPath;
             } else {
-                item = [[AATenthStepItem alloc] init];
                 self.selectedItemIndexPath = nil;
             }
             
             ivc.delegate = self;
-            ivc.item = item;
         }
     }
 }
