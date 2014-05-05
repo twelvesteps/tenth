@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84491B2919178A1E006073B3 /* AAStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B2819178A1E006073B3 /* AAStepItem.m */; };
+		84491B2E1917E836006073B3 /* AAItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B2D1917E836006073B3 /* AAItemManager.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		84491B2719178A1E006073B3 /* AAStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAStepItem.h; path = Classes/AAStepItem.h; sourceTree = SOURCE_ROOT; };
 		84491B2819178A1E006073B3 /* AAStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAStepItem.m; path = Classes/AAStepItem.m; sourceTree = SOURCE_ROOT; };
+		84491B2C1917E836006073B3 /* AAItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAItemManager.h; path = Classes/AAItemManager.h; sourceTree = SOURCE_ROOT; };
+		84491B2D1917E836006073B3 /* AAItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAItemManager.m; path = Classes/AAItemManager.m; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -90,6 +93,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84491B2A1917E348006073B3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84491B2719178A1E006073B3 /* AAStepItem.h */,
+				84491B2819178A1E006073B3 /* AAStepItem.m */,
+				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
+				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
+				84491B2C1917E836006073B3 /* AAItemManager.h */,
+				84491B2D1917E836006073B3 /* AAItemManager.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		84491B2B1917E38D006073B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		84EBC3281915CD250063F4EA = {
 			isa = PBXGroup;
 			children = (
@@ -123,8 +146,9 @@
 		84EBC33A1915CD250063F4EA /* Steps */ = {
 			isa = PBXGroup;
 			children = (
-				84EBC3721915D3750063F4EA /* View Controllers */,
-				84EBC37B19161DB00063F4EA /* Cells */,
+				84491B2A1917E348006073B3 /* Models */,
+				84491B2B1917E38D006073B3 /* Views */,
+				84EBC3721915D3750063F4EA /* Controllers */,
 				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
 				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
 				84EBC3461915CD250063F4EA /* Main_iPhone.storyboard */,
@@ -164,7 +188,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		84EBC3721915D3750063F4EA /* View Controllers */ = {
+		84EBC3721915D3750063F4EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				84EBC36F1915D3700063F4EA /* AATenthStepTableViewController.h */,
@@ -172,19 +196,8 @@
 				84EBC37519161B2A0063F4EA /* AATenthStepItemViewController.h */,
 				84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */,
 			);
-			name = "View Controllers";
+			name = Controllers;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		84EBC37B19161DB00063F4EA /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				84491B2719178A1E006073B3 /* AAStepItem.h */,
-				84491B2819178A1E006073B3 /* AAStepItem.m */,
-				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
-				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
-			);
-			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84491B2919178A1E006073B3 /* AAStepItem.m in Sources */,
+				84491B2E1917E836006073B3 /* AAItemManager.m in Sources */,
 				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
 				84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,

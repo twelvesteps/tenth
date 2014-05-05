@@ -10,6 +10,8 @@
 
 @interface AATenthStepItemViewController ()
 
+@property (nonatomic) BOOL newItem;
+
 @property (weak, nonatomic) IBOutlet UITextField *tenthStepItemTitle;
 @property (weak, nonatomic) IBOutlet UITextView *tenthStepItemText;
 
@@ -17,9 +19,13 @@
 
 @implementation AATenthStepItemViewController
 
+
 - (AATenthStepItem*)item
 {
-    if (!_item) _item = [[AATenthStepItem alloc] init];
+    if (!_item) {
+        _item = [[AATenthStepItem alloc] init];
+        self.newItem = true;
+    }
     return _item;
 }
 
@@ -29,7 +35,10 @@
     if ([sender isEqual:self.navigationItem.rightBarButtonItem]) {
         self.item.title =       self.tenthStepItemTitle.text;
         self.item.description = self.tenthStepItemText.text;
-        [self.delegate viewController:self didExitWithAction:AAStepItemEditActionSaved];
+        if (self.newItem)
+            [self.delegate viewController:self didExitWithAction:AAStepItemEditActionSaved];
+        else
+            [self.delegate viewController:self didExitWithAction:AAStepItemEditActionCreated];
     } else {
         [self.delegate viewController:self didExitWithAction:AAStepItemEditActionCancelled];
     }
@@ -41,6 +50,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.newItem = false;
     self.tenthStepItemTitle.text =  self.item.title;
     self.tenthStepItemText.text =   self.item.description;
 }
