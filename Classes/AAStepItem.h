@@ -10,8 +10,8 @@
 
 @interface AAStepItem : NSObject <NSCoding>
 
-@property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* description;
-@property (nonatomic, strong) NSNumber* number; // virtual, must be overriden by child
+@property (nonatomic, strong) NSString* itemTitle;
+@property (nonatomic, strong) NSString* itemDescription;
+@property (nonatomic, strong) NSNumber* stepNumber; // virtual, must be overriden by child
 
 @end

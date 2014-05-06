@@ -106,7 +106,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AA_TENTH_STEP_CELL_ID forIndexPath:indexPath];
     AATenthStepItem* item = [self getTenthStepItemAtIndexPath:indexPath];
     
-    cell.textLabel.text = item.title;
+    cell.textLabel.text = item.itemTitle;
     
     return cell;
 }

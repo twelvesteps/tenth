@@ -27,8 +27,8 @@
 
     
     if ([sender isEqual:self.navigationItem.rightBarButtonItem]) {
-        self.item.title =       self.tenthStepItemTitle.text;
-        self.item.description = self.tenthStepItemText.text;
+        self.item.itemTitle =       self.tenthStepItemTitle.text;
+        self.item.itemDescription = self.tenthStepItemText.text;
         [self.delegate viewController:self didExitWithAction:AAStepItemEditActionSaved];
     } else {
         [self.delegate viewController:self didExitWithAction:AAStepItemEditActionCancelled];
@@ -41,8 +41,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tenthStepItemTitle.text =  self.item.title;
-    self.tenthStepItemText.text =   self.item.description;
+    self.tenthStepItemTitle.text =  self.item.itemTitle;
+    self.tenthStepItemText.text =   self.item.itemDescription;
 }
 
 - (void)viewWillAppear:(BOOL)animated

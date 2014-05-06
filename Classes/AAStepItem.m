@@ -15,16 +15,16 @@
 @implementation AAStepItem
 
 #pragma mark Properties
--(NSString*)title
+-(NSString*)itemTitle
 {
-    if (!_title) _title = @"Title";
-    return _title;
+    if (!_itemTitle) _itemTitle = @"Title";
+    return _itemTitle;
 }
 
--(NSString*)description
+-(NSString*)itemDescription
 {
-    if (!_description) _description = @"";
-    return _description;
+    if (!_itemDescription) _itemDescription = @"";
+    return _itemDescription;
 }
 
 -(NSNumber*)number
@@ -35,8 +35,8 @@
 #pragma mark Encoding Methods
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.title forKey:AA_STEP_ITEM_TITLE];
-    [aCoder encodeObject:self.description forKey:AA_STEP_ITEM_DESCRIPTION];
+    [aCoder encodeObject:self.itemTitle forKey:AA_STEP_ITEM_TITLE];
+    [aCoder encodeObject:self.itemDescription forKey:AA_STEP_ITEM_DESCRIPTION];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -44,8 +44,8 @@
     self = [super init];
     
     if (self) {
-        _title =        [aDecoder decodeObjectForKey:AA_STEP_ITEM_TITLE];
-        _description =  [aDecoder decodeObjectForKey:AA_STEP_ITEM_DESCRIPTION];
+        self.itemTitle =       [aDecoder decodeObjectForKey:AA_STEP_ITEM_TITLE];
+        self.itemDescription = [aDecoder decodeObjectForKey:AA_STEP_ITEM_DESCRIPTION];
     }
     
     return self;
