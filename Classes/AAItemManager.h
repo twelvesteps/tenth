@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "AAStepItem.h"
 
+typedef NS_ENUM(NSInteger, AAStepItemsFileAccessResult) {
+    AAStepItemsFileAccessError = 0,
+    AAStepItemsFileAccessSuccess = 1,
+};
+
 @interface AAItemManager : NSObject
 
 // CREATING
@@ -24,33 +29,23 @@
 // use:     NSArray* tenthStepItems = [manager getItemsForStep:10];
 - (NSArray*)getItemsForStep:(NSUInteger)step;
 
-// info:    All AAStepItems modified after a given date.
-// returns: A possibly empty NSArray on success, nil on failure.
-// use:     NSArray* recentItems = [manager getItemsSinceDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
-- (NSArray*)getItemsSinceDate:(NSUInteger)date;
-
 
 // MODIFYING DATA
-// info:    Modifies the given item within AAItemManager's memory (non-persistent).
-// returns: 1 on success, 0 on item not found, -1 on failure.
-// use:     NSInteger result = [manager modifyItem:modifiedItem];
-- (NSInteger)modifyItem:(AAStepItem*)item;
-
-// info:    Adds the given item to AAItemManager's memory (non-persistent).
-// returns: 1 on success, -1 on failure.
-// use:     NSInteger result = [manager addItem:newItem];
-- (NSInteger)addItem:(AAStepItem*)item;
-
-// info:    Removes the given item from AAItemManager's memory (non-persistent)
-// returns: 1 on success, 0 on item not found, -1 on failure.
-// use:     NSInteger result = [manager removeItem];
-- (NSInteger)removeItem:(AAStepItem*)item;
+// info:    Updates the item managers data for the given step
+// returns: void
+// use:     [manager updateStepItemsForStep:[item stepNumber] withItems:modifiedItems];
+- (void)updateStepItemsForStep:(NSUInteger)step withItems:(NSArray*)items;
 
 
 // PERSISTENCE
-// info:    Updates the persistent store to reflect current state (thread-safe).
-// returns: 1 on success, -1 on failure
-// use:     NSInteger result = [manager synchronize];
-- (void)synchronize;
+// info:    Updates the persistent store to reflect current state.
+// returns: AAStepItemsFileAccessResult indicating success or error
+// use:     AAStepItemsFileAccessResult result = [manager synchronize];
+- (AAStepItemsFileAccessResult)synchronize;
+
+// info:    Releases memory objects and commits the current state to file.
+// returns: AAStepItemsFileAccessResult indicating success or error
+// use:     AAStepItesmFileAccessResult result = [manager flush];
+- (AAStepItemsFileAccessResult)flush;
 
 @end

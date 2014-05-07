@@ -26,6 +26,7 @@
 		84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */; };
 		84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37919161DA60063F4EA /* AATenthStepItem.m */; };
 		84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */; };
+		84FAD125191A3F9900B72BC5 /* AATestItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FAD124191A3F9900B72BC5 /* AATestItemManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		84EBC37819161DA60063F4EA /* AATenthStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItem.h; path = Classes/AATenthStepItem.h; sourceTree = SOURCE_ROOT; };
 		84EBC37919161DA60063F4EA /* AATenthStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItem.m; path = Classes/AATenthStepItem.m; sourceTree = SOURCE_ROOT; };
 		84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestTenthStepItems.m; sourceTree = "<group>"; };
+		84FAD124191A3F9900B72BC5 /* AATestItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestItemManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */,
 				84EBC35D1915CD250063F4EA /* Supporting Files */,
+				84FAD124191A3F9900B72BC5 /* AATestItemManager.m */,
 			);
 			path = StepsTests;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FAD125191A3F9900B72BC5 /* AATestItemManager.m in Sources */,
 				84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

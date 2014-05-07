@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString* itemTitle;
 @property (nonatomic, strong) NSString* itemDescription;
-@property (nonatomic, strong) NSNumber* stepNumber; // virtual, must be overriden by child
+@property (nonatomic, strong) NSDate* dateCreated;
+@property (nonatomic) NSUInteger stepNumber; // virtual, must be overriden by child
 
 @end

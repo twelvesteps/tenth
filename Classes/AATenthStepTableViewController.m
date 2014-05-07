@@ -9,6 +9,7 @@
 #import "AATenthStepTableViewController.h"
 #import "AATenthStepItemViewController.h"
 #import "AATenthStepItem.h"
+#import "AAItemManager.h"
 
 #define AA_ITEM_VIEW_SEGUE_ID   @"setItem"
 #define AA_TENTH_STEP_CELL_ID   @"tenthStepItem"
@@ -16,45 +17,30 @@
 @interface AATenthStepTableViewController () <AATenthStepItemViewControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath* selectedItemIndexPath;
+@property (strong, nonatomic) NSArray* tenthStepItems;
 
 @end
 
 @implementation AATenthStepTableViewController
 
-- (NSArray*)getTenthStepItems
+- (NSArray*)tenthStepItems
 {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    NSArray* tenthStepItems = [defaults objectForKey:AA_TENTH_STEP_ITEMS];
-    
-    if (!tenthStepItems) {
-        tenthStepItems = [[NSArray alloc] init];
-        [defaults setObject:tenthStepItems forKey:AA_TENTH_STEP_ITEMS];
-    }
-    
-    return tenthStepItems;
-}
-
-- (AATenthStepItem*)getTenthStepItemAtIndexPath:(NSIndexPath*)indexPath
-{
-    NSArray* tenthStepItems = [self getTenthStepItems];
-    NSData* encodedItem = [tenthStepItems objectAtIndex:indexPath.row];
-    AATenthStepItem* item = [NSKeyedUnarchiver unarchiveObjectWithData:encodedItem];
-    
-    return item;
+    if (!_tenthStepItems) _tenthStepItems = [[AAItemManager sharedItemManager] getItemsForStep:10];
+    return _tenthStepItems;
 }
 
 - (void)removeTenthStepItemAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSMutableArray* tenthStepItems = [[self getTenthStepItems] mutableCopy];
+    NSMutableArray* mutableTenthStepItems = [self.tenthStepItems mutableCopy];
+    [mutableTenthStepItems removeObjectAtIndex:indexPath.row];
+    self.tenthStepItems = [mutableTenthStepItems copy];
     
-    [tenthStepItems removeObjectAtIndex:indexPath.row];
-    
-    [self setTenthStepItems:tenthStepItems];
+    [[AAItemManager sharedItemManager] updateStepItemsForStep:10 withItems:self.tenthStepItems];
 }
 
 - (void)saveTenthStepItem:(AATenthStepItem*)item
 {
-    NSMutableArray* tenthStepItems = [[self getTenthStepItems] mutableCopy];
+    
     NSData* encodedItem = [NSKeyedArchiver archivedDataWithRootObject:item];
     if (self.selectedItemIndexPath) {
         [tenthStepItems removeObjectAtIndex:self.selectedItemIndexPath.row];
@@ -65,14 +51,6 @@
     
     [self setTenthStepItems:tenthStepItems];
     [self.tableView reloadData];
-}
-
-- (void)setTenthStepItems:(NSArray*)tenthStepItems
-{
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setObject:tenthStepItems forKey:AA_TENTH_STEP_ITEMS];
-    [defaults synchronize];
 }
 
 #pragma mark - UI Events

@@ -8,15 +8,13 @@
 
 #import "AAItemManager.h"
 
-typedef NS_ENUM(NSInteger, AAStepItemsFileAccessResult) {
-    AAStepItemsFileAccessError = 0,
-    AAStepItemsFileAccessSuccess = 1,
-};
+
 
 #define AA_ITEMS_FILE_NAME @"StepItems"
 
 @interface AAItemManager ()
 
+@property (nonatomic) BOOL dataWasModified;
 @property (strong, nonatomic) NSDictionary* stepItems;
 
 @end
@@ -37,39 +35,59 @@ typedef NS_ENUM(NSInteger, AAStepItemsFileAccessResult) {
 }
 
 
+- (NSDictionary*)stepItems
+{
+    if (!_stepItems) _stepItems = [self getDataFromStepsFile];
+    return _stepItems;
+}
+
+
 - (NSArray*)getItemsForStep:(NSUInteger)step
 {
+    if (step < 1 || step > 12) {
+        DLog(@"<DEBUG> Step parameter is outside allowed bounds, requested step was: %d", (int)step);
+        return nil;
+    }
     
+    NSArray* requestedStepItems = [self.stepItems objectForKey:[NSString stringWithFormat:@"%d", (int)step]];
+    return requestedStepItems;
+}
+
+
+- (void)updateStepItemsForStep:(NSUInteger)step withItems:(NSArray *)items
+{
+    NSMutableDictionary* mutableStepItems = [self.stepItems mutableCopy];
+    NSString* stepNumberKey = [NSString stringWithFormat:@"%d", (int)step];
     
-    return @[];
+    [mutableStepItems setObject:items forKey:stepNumberKey];
+    self.stepItems = [mutableStepItems copy];
+    self.dataWasModified = YES;
 }
 
-
-- (NSArray*)getItemsSinceDate:(NSUInteger)date
+- (AAStepItemsFileAccessResult)synchronize
 {
-    return @[];
+    BOOL result = [NSKeyedArchiver archiveRootObject:self.stepItems toFile:[self pathForStepsDocument]];
+    
+    if (!result) {
+        ALog("<ERROR> Unable to write step items to file");
+    } else {
+        self.dataWasModified = NO;
+    }
+    
+    return result ? AAStepItemsFileAccessSuccess : AAStepItemsFileAccessError;
 }
 
-
-- (NSInteger)modifyItem:(AAStepItem *)item
+- (AAStepItemsFileAccessResult)flush
 {
-    return 0;
+    AAStepItemsFileAccessResult result = [self synchronize];
+    if (result == AAStepItemsFileAccessSuccess) {
+        self.stepItems = nil;
+    }
+    
+    return result;
 }
 
-
-- (NSInteger)addItem:(AAStepItem *)item
-{
-    return 0;
-}
-
-
-- (NSInteger)removeItem:(AAStepItem *)item
-{
-    return 0;
-}
-
-
-- (NSDictionary*)loadDataFromStepsDocument
+- (NSDictionary*)getDataFromStepsFile
 {
     NSFileManager* manager = [NSFileManager defaultManager];
     NSString* stepsDocumentPath = [self pathForStepsDocument];
@@ -87,9 +105,16 @@ typedef NS_ENUM(NSInteger, AAStepItemsFileAccessResult) {
 - (AAStepItemsFileAccessResult)createStepsDocumentAtPath:(NSString*)path
 {
     NSFileManager* manager = [NSFileManager defaultManager];
-    NSData* empty = [NSKeyedArchiver archivedDataWithRootObject:@{}];
+    NSMutableDictionary* stepItems = [[NSMutableDictionary alloc] init];
     
-    if ([manager createFileAtPath:path contents:empty attributes:nil]) {
+    for (int i = 1; i <= 12; i++) {
+        NSString* stepNumberKey = [NSString stringWithFormat:@"%d", i];
+        [stepItems setObject:@[] forKey:stepNumberKey];
+    }
+    
+    NSData* stepItemsData = [NSKeyedArchiver archivedDataWithRootObject:stepItems];
+    
+    if ([manager createFileAtPath:path contents:stepItemsData attributes:nil]) {
         DLog(@"<DEBUG> Steps document successfully created");
         return AAStepItemsFileAccessSuccess;
     } else {

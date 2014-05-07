@@ -11,9 +11,9 @@
 
 @implementation AATenthStepItem
 
--(NSNumber*)stepNumber
+-(NSUInteger)stepNumber
 {
-    return [[NSNumber alloc] initWithInt:10];
+    return 10;
 }
 
 @end

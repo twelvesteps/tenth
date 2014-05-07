@@ -25,13 +25,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/AATenthStepTableViewController.m"
-            timestampString = "420975339.916343"
+            filePath = "StepsTests/AATestItemManager.m"
+            timestampString = "421152698.741389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-getTenthStepItems"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-testModifyStepItems"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StepsTests/AATestItemManager.m"
+            timestampString = "421154190.814001"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-testSynchronize"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
