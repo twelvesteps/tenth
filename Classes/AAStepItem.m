@@ -8,7 +8,7 @@
 
 #import "AAStepItem.h"
 
-#define AA_STEP_ITEM_TITLE          @"title"
+#define AA_STEP_ITEM_PERSON         @"person"
 #define AA_STEP_ITEM_DESCRIPTION    @"description"
 #define AA_STEP_ITEM_DATE_CREATED   @"dateCreated"
 #define AA_STEP_ITEM_NUMBER         @"number"
@@ -28,10 +28,10 @@
 }
 
 
-- (NSString*)itemTitle
+- (NSString*)person
 {
-    if (!_itemTitle) _itemTitle = @"Title";
-    return _itemTitle;
+    if (!_person) _person = @"Somebody";
+    return _person;
 }
 
 - (NSString*)itemDescription
@@ -48,7 +48,7 @@
 #pragma mark Encoding Methods
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.itemTitle forKey:AA_STEP_ITEM_TITLE];
+    [aCoder encodeObject:self.person forKey:AA_STEP_ITEM_PERSON];
     [aCoder encodeObject:self.itemDescription forKey:AA_STEP_ITEM_DESCRIPTION];
     [aCoder encodeObject:self.dateCreated forKey:AA_STEP_ITEM_DATE_CREATED];
 }
@@ -58,7 +58,7 @@
     self = [super init];
     
     if (self) {
-        self.itemTitle =        [aDecoder decodeObjectForKey:AA_STEP_ITEM_TITLE];
+        self.person =        [aDecoder decodeObjectForKey:AA_STEP_ITEM_PERSON];
         self.itemDescription =  [aDecoder decodeObjectForKey:AA_STEP_ITEM_DESCRIPTION];
         self.dateCreated =      [aDecoder decodeObjectForKey:AA_STEP_ITEM_DATE_CREATED];
     }
@@ -70,7 +70,7 @@
 - (NSString*)description
 {
     NSString* description = [NSString stringWithFormat:@"Step (title: %@, description: %@, number: %d)\n",
-                                                            self.itemTitle, self.itemDescription, (int)self.stepNumber];
+                                                            self.person, self.itemDescription, (int)self.stepNumber];
     return description;
 }
 

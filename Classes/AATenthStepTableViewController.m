@@ -7,7 +7,7 @@
 //
 
 #import "AATenthStepTableViewController.h"
-#import "AATenthStepItemViewController.h"
+#import "AATenthStepItemTableViewController.h"
 #import "AATenthStepItem.h"
 #import "AAItemManager.h"
 
@@ -62,7 +62,7 @@
 }
 
 #pragma mark - Item view delegate
--(void)viewController:(AATenthStepItemViewController *)vc didExitWithAction:(AAStepItemEditAction)action
+-(void)viewController:(AATenthStepItemTableViewController *)vc didExitWithAction:(AAStepItemEditAction)action
 {
     switch (action) {
         case AAStepItemEditActionSaved:
@@ -101,7 +101,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AA_TENTH_STEP_CELL_ID forIndexPath:indexPath];
     AATenthStepItem* item = self.tenthStepItems[indexPath.row];
     
-    cell.textLabel.text = item.itemTitle;
+    cell.textLabel.text = item.person;
+    cell.detailTextLabel.text = item.itemDescription;
     
     return cell;
 }
@@ -148,8 +149,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:AA_ITEM_VIEW_SEGUE_ID]) {
-        if ([segue.destinationViewController isKindOfClass:[AATenthStepItemViewController class]]) {
-            AATenthStepItemViewController* ivc = (AATenthStepItemViewController*) segue.destinationViewController;
+        if ([segue.destinationViewController isKindOfClass:[AATenthStepItemTableViewController class]]) {
+            AATenthStepItemTableViewController* ivc = (AATenthStepItemTableViewController*) segue.destinationViewController;
             if ([sender isKindOfClass:[UITableViewCell class]]) {
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* cellIndexPath = [self.tableView indexPathForCell:cell];

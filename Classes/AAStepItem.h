@@ -10,7 +10,7 @@
 
 @interface AAStepItem : NSObject <NSCoding>
 
-@property (nonatomic, strong) NSString* itemTitle;
+@property (nonatomic, strong) NSString* person;
 @property (nonatomic, strong) NSString* itemDescription;
 @property (nonatomic, strong) NSDate* dateCreated;
 @property (nonatomic) NSUInteger stepNumber; // virtual, must be overriden by child

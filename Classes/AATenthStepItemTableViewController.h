@@ -1,8 +1,8 @@
 //
-//  AATenthStepItemViewController.h
+//  AATenthStepItemTableViewController.h
 //  Steps
 //
-//  Created by Tom on 5/4/14.
+//  Created by Tom on 5/8/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -16,14 +16,14 @@ typedef NS_ENUM(int, AAStepItemEditAction) {
     AAStepItemEditActionDeleted,
 };
 
-@class AATenthStepItemViewController;
+@class AATenthStepItemTableViewController;
 @protocol AATenthStepItemViewControllerDelegate <NSObject>
 
--(void)viewController:(AATenthStepItemViewController*)vc didExitWithAction:(AAStepItemEditAction)action;
+-(void)viewController:(AATenthStepItemTableViewController*)vc didExitWithAction:(AAStepItemEditAction)action;
 
 @end
 
-@interface AATenthStepItemViewController : UIViewController
+@interface AATenthStepItemTableViewController : UITableViewController
 
 @property (weak, nonatomic) id<AATenthStepItemViewControllerDelegate> delegate;
 @property (strong, nonatomic) AATenthStepItem* item;

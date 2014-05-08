@@ -23,7 +23,6 @@
 		84EBC3591915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
 		84EBC3611915CD250063F4EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC35F1915CD250063F4EA /* InfoPlist.strings */; };
 		84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */; };
-		84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */; };
 		84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37919161DA60063F4EA /* AATenthStepItem.m */; };
 		84FAD12B191A8F1800B72BC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
 		84FAD12C191A8F1800B72BC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
@@ -31,6 +30,7 @@
 		84FAD13E191B590D00B72BC5 /* AATestTenthStepItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */; };
 		84FAD13F191B590D00B72BC5 /* AATestItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FAD124191A3F9900B72BC5 /* AATestItemManager.m */; };
 		84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEDF03191B77F900767CB0 /* EventKit.framework */; };
+		84FEDF07191B844B00767CB0 /* AATenthStepItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF06191B844B00767CB0 /* AATenthStepItemTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,14 +74,14 @@
 		84EBC3601915CD250063F4EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84EBC36F1915D3700063F4EA /* AATenthStepTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepTableViewController.h; path = Classes/AATenthStepTableViewController.h; sourceTree = "<group>"; };
 		84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepTableViewController.m; path = Classes/AATenthStepTableViewController.m; sourceTree = "<group>"; };
-		84EBC37519161B2A0063F4EA /* AATenthStepItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItemViewController.h; path = Classes/AATenthStepItemViewController.h; sourceTree = "<group>"; };
-		84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItemViewController.m; path = Classes/AATenthStepItemViewController.m; sourceTree = "<group>"; };
 		84EBC37819161DA60063F4EA /* AATenthStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItem.h; path = Classes/AATenthStepItem.h; sourceTree = SOURCE_ROOT; };
 		84EBC37919161DA60063F4EA /* AATenthStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItem.m; path = Classes/AATenthStepItem.m; sourceTree = SOURCE_ROOT; };
 		84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestTenthStepItems.m; sourceTree = "<group>"; };
 		84FAD124191A3F9900B72BC5 /* AATestItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestItemManager.m; sourceTree = "<group>"; };
 		84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Steps_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FEDF03191B77F900767CB0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		84FEDF05191B844B00767CB0 /* AATenthStepItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItemTableViewController.h; path = Classes/AATenthStepItemTableViewController.h; sourceTree = "<group>"; };
+		84FEDF06191B844B00767CB0 /* AATenthStepItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItemTableViewController.m; path = Classes/AATenthStepItemTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,10 +207,10 @@
 		84EBC3721915D3750063F4EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84FEDF05191B844B00767CB0 /* AATenthStepItemTableViewController.h */,
+				84FEDF06191B844B00767CB0 /* AATenthStepItemTableViewController.m */,
 				84EBC36F1915D3700063F4EA /* AATenthStepTableViewController.h */,
 				84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */,
-				84EBC37519161B2A0063F4EA /* AATenthStepItemViewController.h */,
-				84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */,
 			);
 			name = Controllers;
 			path = ..;
@@ -363,9 +363,9 @@
 				84491B2919178A1E006073B3 /* AAStepItem.m in Sources */,
 				84491B321918A785006073B3 /* AAItemManager.m in Sources */,
 				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
-				84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */,
+				84FEDF07191B844B00767CB0 /* AATenthStepItemTableViewController.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
