@@ -31,6 +31,10 @@
 		84FAD13F191B590D00B72BC5 /* AATestItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FAD124191A3F9900B72BC5 /* AATestItemManager.m */; };
 		84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEDF03191B77F900767CB0 /* EventKit.framework */; };
 		84FEDF07191B844B00767CB0 /* AATenthStepItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF06191B844B00767CB0 /* AATenthStepItemTableViewController.m */; };
+		84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */; };
+		84FEDF16191BD34300767CB0 /* Amend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF15191BD34300767CB0 /* Amend.m */; };
+		84FEDF19191BD34400767CB0 /* Resentment.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF18191BD34400767CB0 /* Resentment.m */; };
+		84FEDF1C191BD34400767CB0 /* DailyInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF1B191BD34400767CB0 /* DailyInventory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,13 @@
 		84FEDF03191B77F900767CB0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		84FEDF05191B844B00767CB0 /* AATenthStepItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItemTableViewController.h; path = Classes/AATenthStepItemTableViewController.h; sourceTree = "<group>"; };
 		84FEDF06191B844B00767CB0 /* AATenthStepItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItemTableViewController.m; path = Classes/AATenthStepItemTableViewController.m; sourceTree = "<group>"; };
+		84FEDF09191BCBD700767CB0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		84FEDF14191BD34300767CB0 /* Amend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Amend.h; path = Classes/Amend.h; sourceTree = SOURCE_ROOT; };
+		84FEDF15191BD34300767CB0 /* Amend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Amend.m; path = Classes/Amend.m; sourceTree = SOURCE_ROOT; };
+		84FEDF17191BD34400767CB0 /* Resentment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resentment.h; path = Classes/Resentment.h; sourceTree = SOURCE_ROOT; };
+		84FEDF18191BD34400767CB0 /* Resentment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Resentment.m; path = Classes/Resentment.m; sourceTree = SOURCE_ROOT; };
+		84FEDF1A191BD34400767CB0 /* DailyInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DailyInventory.h; path = Classes/DailyInventory.h; sourceTree = SOURCE_ROOT; };
+		84FEDF1B191BD34400767CB0 /* DailyInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DailyInventory.m; path = Classes/DailyInventory.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,12 +230,19 @@
 		84EBC37B19161DB00063F4EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84FEDF1A191BD34400767CB0 /* DailyInventory.h */,
+				84FEDF1B191BD34400767CB0 /* DailyInventory.m */,
+				84FEDF17191BD34400767CB0 /* Resentment.h */,
+				84FEDF18191BD34400767CB0 /* Resentment.m */,
+				84FEDF14191BD34300767CB0 /* Amend.h */,
+				84FEDF15191BD34300767CB0 /* Amend.m */,
 				84491B311918A785006073B3 /* AAItemManager.h */,
 				84491B301918A785006073B3 /* AAItemManager.m */,
 				84491B2719178A1E006073B3 /* AAStepItem.h */,
 				84491B2819178A1E006073B3 /* AAStepItem.m */,
 				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
 				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
+				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -360,12 +378,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FEDF1C191BD34400767CB0 /* DailyInventory.m in Sources */,
 				84491B2919178A1E006073B3 /* AAStepItem.m in Sources */,
 				84491B321918A785006073B3 /* AAItemManager.m in Sources */,
 				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
+				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */,
 				84FEDF07191B844B00767CB0 /* AATenthStepItemTableViewController.m in Sources */,
+				84FEDF16191BD34300767CB0 /* Amend.m in Sources */,
+				84FEDF19191BD34400767CB0 /* Resentment.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,6 +685,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84FEDF09191BCBD700767CB0 /* Model.xcdatamodel */,
+			);
+			currentVersion = 84FEDF09191BCBD700767CB0 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = ../Classes/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84EBC3291915CD250063F4EA /* Project object */;
 }
