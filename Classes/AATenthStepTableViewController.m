@@ -25,7 +25,10 @@
 
 - (NSArray*)tenthStepItems
 {
-    if (!_tenthStepItems) _tenthStepItems = [[AAItemManager sharedItemManager] getItemsForStep:10];
+    if (!_tenthStepItems) {
+        _tenthStepItems = [[AAItemManager sharedItemManager] getItemsForStep:10];
+        [self.tableView reloadData];
+    }
     return _tenthStepItems;
 }
 
@@ -40,16 +43,17 @@
 
 - (void)saveTenthStepItem:(AATenthStepItem*)item
 {
+    NSMutableArray* mutableTenthStepItems = [self.tenthStepItems mutableCopy];
     
-    NSData* encodedItem = [NSKeyedArchiver archivedDataWithRootObject:item];
     if (self.selectedItemIndexPath) {
-        [tenthStepItems removeObjectAtIndex:self.selectedItemIndexPath.row];
-        [tenthStepItems insertObject:encodedItem atIndex:self.selectedItemIndexPath.row];
+        mutableTenthStepItems[self.selectedItemIndexPath.row] = item;
+        self.selectedItemIndexPath = nil;
     } else {
-        [tenthStepItems addObject:encodedItem];
+        [mutableTenthStepItems addObject:item];
     }
     
-    [self setTenthStepItems:tenthStepItems];
+    self.tenthStepItems = [mutableTenthStepItems copy];
+    [[AAItemManager sharedItemManager] updateStepItemsForStep:10 withItems:self.tenthStepItems];
     [self.tableView reloadData];
 }
 
@@ -75,14 +79,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self getTenthStepItems] count];
+    return [self.tenthStepItems count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AA_TENTH_STEP_CELL_ID forIndexPath:indexPath];
-    AATenthStepItem* item = [self getTenthStepItemAtIndexPath:indexPath];
+    AATenthStepItem* item = self.tenthStepItems[indexPath.row];
     
     cell.textLabel.text = item.itemTitle;
     
@@ -136,7 +140,7 @@
             if ([sender isKindOfClass:[UITableViewCell class]]) {
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* cellIndexPath = [self.tableView indexPathForCell:cell];
-                AATenthStepItem* item = [self getTenthStepItemAtIndexPath:cellIndexPath];
+                AATenthStepItem* item = self.tenthStepItems[cellIndexPath.row];
                 ivc.item = item;
                 self.selectedItemIndexPath = cellIndexPath;
             } else {

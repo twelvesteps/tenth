@@ -8,7 +8,18 @@
 
 #import "AAItemManager.h"
 
-
+void dispatch_once_on_main_thread(dispatch_once_t *predicate,
+                                  dispatch_block_t block) {
+    if ([NSThread isMainThread]) {
+        dispatch_once(predicate, block);
+    } else {
+        if (DISPATCH_EXPECT(*predicate == 0L, NO)) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_once(predicate, block);
+            });
+        }
+    }
+}
 
 #define AA_ITEMS_FILE_NAME @"StepItems"
 
@@ -21,24 +32,17 @@
 
 @implementation AAItemManager
 
-
-
-+ (AAItemManager*)sharedItemManager
++ (instancetype)sharedItemManager
 {
-    static AAItemManager* sharedItemManager = nil;
-    dispatch_once_t once;
-    dispatch_once(&once, ^{
-        sharedItemManager = [[AAItemManager alloc] init];
+    static AAItemManager* sharedManager = nil;
+    static dispatch_once_t once;
+    
+    dispatch_once_on_main_thread(&once, ^{
+        sharedManager = [[self alloc] init];
+        [sharedManager loadDataFromStepsFile];
     });
     
-    return sharedItemManager;
-}
-
-
-- (NSDictionary*)stepItems
-{
-    if (!_stepItems) _stepItems = [self getDataFromStepsFile];
-    return _stepItems;
+    return sharedManager;
 }
 
 
@@ -61,7 +65,7 @@
     
     [mutableStepItems setObject:items forKey:stepNumberKey];
     self.stepItems = [mutableStepItems copy];
-    self.dataWasModified = YES;
+    [self synchronize];
 }
 
 - (AAStepItemsFileAccessResult)synchronize
@@ -87,18 +91,17 @@
     return result;
 }
 
-- (NSDictionary*)getDataFromStepsFile
+- (void)loadDataFromStepsFile
 {
     NSFileManager* manager = [NSFileManager defaultManager];
     NSString* stepsDocumentPath = [self pathForStepsDocument];
     
     if (![manager fileExistsAtPath:stepsDocumentPath])
         if ([self createStepsDocumentAtPath:stepsDocumentPath] == AAStepItemsFileAccessError) {
-            return nil;
+            ALog(@"<ERROR> Unable to create steps document");
         }
     
-    NSDictionary* stepItems = [NSKeyedUnarchiver unarchiveObjectWithFile:stepsDocumentPath];
-    return stepItems;
+    self.stepItems = [NSKeyedUnarchiver unarchiveObjectWithFile:stepsDocumentPath];
 }
 
 
