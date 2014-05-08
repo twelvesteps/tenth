@@ -9,6 +9,7 @@
 #import "AATenthStepTableViewController.h"
 #import "AATenthStepItemViewController.h"
 #import "AATenthStepItem.h"
+#import "AAItemManager.h"
 
 #define AA_ITEM_VIEW_SEGUE_ID   @"setItem"
 #define AA_TENTH_STEP_CELL_ID   @"tenthStepItem"
@@ -16,63 +17,43 @@
 @interface AATenthStepTableViewController () <AATenthStepItemViewControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath* selectedItemIndexPath;
+@property (strong, nonatomic) NSArray* tenthStepItems;
 
 @end
 
 @implementation AATenthStepTableViewController
 
-- (NSArray*)getTenthStepItems
+- (NSArray*)tenthStepItems
 {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    NSArray* tenthStepItems = [defaults objectForKey:AA_TENTH_STEP_ITEMS];
-    
-    if (!tenthStepItems) {
-        tenthStepItems = [[NSArray alloc] init];
-        [defaults setObject:tenthStepItems forKey:AA_TENTH_STEP_ITEMS];
+    if (!_tenthStepItems) {
+        _tenthStepItems = [[AAItemManager sharedItemManager] getItemsForStep:10];
+        [self.tableView reloadData];
     }
-    
-    return tenthStepItems;
-}
-
-- (AATenthStepItem*)getTenthStepItemAtIndexPath:(NSIndexPath*)indexPath
-{
-    NSArray* tenthStepItems = [self getTenthStepItems];
-    NSData* encodedItem = [tenthStepItems objectAtIndex:indexPath.row];
-    AATenthStepItem* item = [NSKeyedUnarchiver unarchiveObjectWithData:encodedItem];
-    
-    return item;
+    return _tenthStepItems;
 }
 
 - (void)removeTenthStepItemAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSMutableArray* tenthStepItems = [[self getTenthStepItems] mutableCopy];
+    NSMutableArray* mutableTenthStepItems = [self.tenthStepItems mutableCopy];
+    [mutableTenthStepItems removeObjectAtIndex:indexPath.row];
+    self.tenthStepItems = [mutableTenthStepItems copy];
     
-    [tenthStepItems removeObjectAtIndex:indexPath.row];
-    
-    [self setTenthStepItems:tenthStepItems];
+    [[AAItemManager sharedItemManager] updateStepItemsForStep:10 withItems:self.tenthStepItems];
 }
 
 - (void)saveTenthStepItem:(AATenthStepItem*)item
 {
-    NSMutableArray* tenthStepItems = [[self getTenthStepItems] mutableCopy];
-    NSData* encodedItem = [NSKeyedArchiver archivedDataWithRootObject:item];
+    NSMutableArray* mutableTenthStepItems = [self.tenthStepItems mutableCopy];
+    
     if (self.selectedItemIndexPath) {
-        [tenthStepItems removeObjectAtIndex:self.selectedItemIndexPath.row];
-        [tenthStepItems insertObject:encodedItem atIndex:self.selectedItemIndexPath.row];
+        mutableTenthStepItems[self.selectedItemIndexPath.row] = item;
+        self.selectedItemIndexPath = nil;
     } else {
-        [tenthStepItems addObject:encodedItem];
+        [mutableTenthStepItems addObject:item];
     }
     
-    [self setTenthStepItems:tenthStepItems];
-    [self.tableView reloadData];
-}
-
-- (void)setTenthStepItems:(NSArray*)tenthStepItems
-{
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setObject:tenthStepItems forKey:AA_TENTH_STEP_ITEMS];
-    [defaults synchronize];
+    self.tenthStepItems = [mutableTenthStepItems copy];
+    [[AAItemManager sharedItemManager] updateStepItemsForStep:10 withItems:self.tenthStepItems];
 }
 
 #pragma mark - UI Events
@@ -83,8 +64,22 @@
 #pragma mark - Item view delegate
 -(void)viewController:(AATenthStepItemViewController *)vc didExitWithAction:(AAStepItemEditAction)action
 {
-    if (action == AAStepItemEditActionSaved)
-        [self saveTenthStepItem:vc.item];
+    switch (action) {
+        case AAStepItemEditActionSaved:
+        case AAStepItemEditActionCreated:
+            [self saveTenthStepItem:vc.item];
+            break;
+            
+        case AAStepItemEditActionDeleted:
+            [self removeTenthStepItemAtIndexPath:self.selectedItemIndexPath];
+            break;
+        case AAStepItemEditActionCancelled:
+        default:
+            // do nothing
+            break;
+    }
+
+    [self.tableView reloadData];
 }
 
 
@@ -97,16 +92,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self getTenthStepItems] count];
+    return [self.tenthStepItems count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AA_TENTH_STEP_CELL_ID forIndexPath:indexPath];
-    AATenthStepItem* item = [self getTenthStepItemAtIndexPath:indexPath];
+    AATenthStepItem* item = self.tenthStepItems[indexPath.row];
     
-    cell.textLabel.text = item.title;
+    cell.textLabel.text = item.itemTitle;
     
     return cell;
 }
@@ -158,7 +153,7 @@
             if ([sender isKindOfClass:[UITableViewCell class]]) {
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* cellIndexPath = [self.tableView indexPathForCell:cell];
-                AATenthStepItem* item = [self getTenthStepItemAtIndexPath:cellIndexPath];
+                AATenthStepItem* item = self.tenthStepItems[cellIndexPath.row];
                 ivc.item = item;
                 self.selectedItemIndexPath = cellIndexPath;
             } else {

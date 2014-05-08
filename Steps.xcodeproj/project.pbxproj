@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84491B2919178A1E006073B3 /* AAStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B2819178A1E006073B3 /* AAStepItem.m */; };
-		84491B2E1917E836006073B3 /* AAItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B2D1917E836006073B3 /* AAItemManager.m */; };
+		84491B321918A785006073B3 /* AAItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84491B301918A785006073B3 /* AAItemManager.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -25,11 +25,23 @@
 		84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3701915D3700063F4EA /* AATenthStepTableViewController.m */; };
 		84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37619161B2A0063F4EA /* AATenthStepItemViewController.m */; };
 		84EBC37A19161DA60063F4EA /* AATenthStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37919161DA60063F4EA /* AATenthStepItem.m */; };
-		84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */; };
+		84FAD12B191A8F1800B72BC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
+		84FAD12C191A8F1800B72BC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
+		84FAD12D191A8F1800B72BC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
+		84FAD13E191B590D00B72BC5 /* AATestTenthStepItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */; };
+		84FAD13F191B590D00B72BC5 /* AATestItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FAD124191A3F9900B72BC5 /* AATestItemManager.m */; };
+		84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEDF03191B77F900767CB0 /* EventKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		84EBC35A1915CD250063F4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84EBC3291915CD250063F4EA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84EBC3301915CD250063F4EA;
+			remoteInfo = Steps;
+		};
+		84FAD137191A8F1800B72BC5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84EBC3291915CD250063F4EA /* Project object */;
 			proxyType = 1;
@@ -41,8 +53,8 @@
 /* Begin PBXFileReference section */
 		84491B2719178A1E006073B3 /* AAStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAStepItem.h; path = Classes/AAStepItem.h; sourceTree = SOURCE_ROOT; };
 		84491B2819178A1E006073B3 /* AAStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAStepItem.m; path = Classes/AAStepItem.m; sourceTree = SOURCE_ROOT; };
-		84491B2C1917E836006073B3 /* AAItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAItemManager.h; path = Classes/AAItemManager.h; sourceTree = SOURCE_ROOT; };
-		84491B2D1917E836006073B3 /* AAItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAItemManager.m; path = Classes/AAItemManager.m; sourceTree = SOURCE_ROOT; };
+		84491B301918A785006073B3 /* AAItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAItemManager.m; path = Classes/AAItemManager.m; sourceTree = SOURCE_ROOT; };
+		84491B311918A785006073B3 /* AAItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAItemManager.h; path = Classes/AAItemManager.h; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -67,6 +79,9 @@
 		84EBC37819161DA60063F4EA /* AATenthStepItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATenthStepItem.h; path = Classes/AATenthStepItem.h; sourceTree = SOURCE_ROOT; };
 		84EBC37919161DA60063F4EA /* AATenthStepItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATenthStepItem.m; path = Classes/AATenthStepItem.m; sourceTree = SOURCE_ROOT; };
 		84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestTenthStepItems.m; sourceTree = "<group>"; };
+		84FAD124191A3F9900B72BC5 /* AATestItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATestItemManager.m; sourceTree = "<group>"; };
+		84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Steps_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FEDF03191B77F900767CB0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */,
 				84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */,
 				84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */,
 				84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */,
@@ -90,23 +106,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84FAD127191A8F1800B72BC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84FAD12B191A8F1800B72BC5 /* XCTest.framework in Frameworks */,
+				84FAD12D191A8F1800B72BC5 /* UIKit.framework in Frameworks */,
+				84FAD12C191A8F1800B72BC5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84491B2A1917E348006073B3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				84491B2719178A1E006073B3 /* AAStepItem.h */,
-				84491B2819178A1E006073B3 /* AAStepItem.m */,
-				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
-				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
-				84491B2C1917E836006073B3 /* AAItemManager.h */,
-				84491B2D1917E836006073B3 /* AAItemManager.m */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		84491B2B1917E38D006073B3 /* Views */ = {
+		84491B2F1918A767006073B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -128,6 +141,7 @@
 			children = (
 				84EBC3311915CD250063F4EA /* Steps.app */,
 				84EBC3551915CD250063F4EA /* StepsTests.xctest */,
+				84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +149,7 @@
 		84EBC3331915CD250063F4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84FEDF03191B77F900767CB0 /* EventKit.framework */,
 				84EBC3341915CD250063F4EA /* Foundation.framework */,
 				84EBC3361915CD250063F4EA /* CoreGraphics.framework */,
 				84EBC3381915CD250063F4EA /* UIKit.framework */,
@@ -146,8 +161,8 @@
 		84EBC33A1915CD250063F4EA /* Steps */ = {
 			isa = PBXGroup;
 			children = (
-				84491B2A1917E348006073B3 /* Models */,
-				84491B2B1917E38D006073B3 /* Views */,
+				84EBC37B19161DB00063F4EA /* Models */,
+				84491B2F1918A767006073B3 /* Views */,
 				84EBC3721915D3750063F4EA /* Controllers */,
 				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
 				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
@@ -174,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				84EBC37C19163C120063F4EA /* AATestTenthStepItems.m */,
+				84FAD124191A3F9900B72BC5 /* AATestItemManager.m */,
 				84EBC35D1915CD250063F4EA /* Supporting Files */,
 			);
 			path = StepsTests;
@@ -198,6 +214,19 @@
 			);
 			name = Controllers;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		84EBC37B19161DB00063F4EA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84491B311918A785006073B3 /* AAItemManager.h */,
+				84491B301918A785006073B3 /* AAItemManager.m */,
+				84491B2719178A1E006073B3 /* AAStepItem.h */,
+				84491B2819178A1E006073B3 /* AAStepItem.m */,
+				84EBC37819161DA60063F4EA /* AATenthStepItem.h */,
+				84EBC37919161DA60063F4EA /* AATenthStepItem.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +267,24 @@
 			productReference = 84EBC3551915CD250063F4EA /* StepsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		84FAD129191A8F1800B72BC5 /* Steps_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84FAD139191A8F1800B72BC5 /* Build configuration list for PBXNativeTarget "Steps_Tests" */;
+			buildPhases = (
+				84FAD126191A8F1800B72BC5 /* Sources */,
+				84FAD127191A8F1800B72BC5 /* Frameworks */,
+				84FAD128191A8F1800B72BC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84FAD138191A8F1800B72BC5 /* PBXTargetDependency */,
+			);
+			name = Steps_Tests;
+			productName = Steps_Tests;
+			productReference = 84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,6 +299,9 @@
 						DevelopmentTeam = ZV7JS29D52;
 					};
 					84EBC3541915CD250063F4EA = {
+						TestTargetID = 84EBC3301915CD250063F4EA;
+					};
+					84FAD129191A8F1800B72BC5 = {
 						TestTargetID = 84EBC3301915CD250063F4EA;
 					};
 				};
@@ -271,6 +321,7 @@
 			targets = (
 				84EBC3301915CD250063F4EA /* Steps */,
 				84EBC3541915CD250063F4EA /* StepsTests */,
+				84FAD129191A8F1800B72BC5 /* Steps_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,6 +346,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84FAD128191A8F1800B72BC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -303,7 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84491B2919178A1E006073B3 /* AAStepItem.m in Sources */,
-				84491B2E1917E836006073B3 /* AAItemManager.m in Sources */,
+				84491B321918A785006073B3 /* AAItemManager.m in Sources */,
 				84EBC3711915D3700063F4EA /* AATenthStepTableViewController.m in Sources */,
 				84EBC37719161B2A0063F4EA /* AATenthStepItemViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
@@ -316,7 +374,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EBC37D19163C120063F4EA /* AATestTenthStepItems.m in Sources */,
+				84FAD13F191B590D00B72BC5 /* AATestItemManager.m in Sources */,
+				84FAD13E191B590D00B72BC5 /* AATestTenthStepItems.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84FAD126191A8F1800B72BC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +393,11 @@
 			isa = PBXTargetDependency;
 			target = 84EBC3301915CD250063F4EA /* Steps */;
 			targetProxy = 84EBC35A1915CD250063F4EA /* PBXContainerItemProxy */;
+		};
+		84FAD138191A8F1800B72BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84EBC3301915CD250063F4EA /* Steps */;
+			targetProxy = 84FAD137191A8F1800B72BC5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -512,6 +583,46 @@
 			};
 			name = Release;
 		};
+		84FAD13A191A8F1800B72BC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Steps.app/Steps";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Steps_Tests/Steps_Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Steps_Tests/Steps_Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		84FAD13B191A8F1800B72BC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Steps.app/Steps";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Steps_Tests/Steps_Tests-Prefix.pch";
+				INFOPLIST_FILE = "Steps_Tests/Steps_Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -538,6 +649,15 @@
 			buildConfigurations = (
 				84EBC36A1915CD250063F4EA /* Debug */,
 				84EBC36B1915CD250063F4EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84FAD139191A8F1800B72BC5 /* Build configuration list for PBXNativeTarget "Steps_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84FAD13A191A8F1800B72BC5 /* Debug */,
+				84FAD13B191A8F1800B72BC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

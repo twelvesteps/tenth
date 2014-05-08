@@ -31,32 +31,32 @@
 {
     AATenthStepItem* item = [[AATenthStepItem alloc] init];
     
-    assert([item.title isEqualToString:@"Title"]);
-    assert([item.description isEqualToString:@""]);
-    assert([item.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
+    assert([item.itemTitle isEqualToString:@"Title"]);
+    assert([item.itemDescription isEqualToString:@""]);
+    assert(item.stepNumber == 10);
     
     NSString* title = @"New Title";
-    [item setTitle:title];
-    assert([item.title isEqualToString:title]);
+    item.itemTitle = title;
+    assert([item.itemTitle isEqualToString:title]);
     
     NSString* description = @"Description";
-    [item setDescription:description];
-    assert([item.description isEqualToString:description]);
+    item.itemDescription = description;
+    assert([item.itemDescription isEqualToString:description]);
     
-    assert([item.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
+    assert(item.stepNumber == 10);
 }
 
 -(void)testEncoding
 {
     AATenthStepItem* item = [[AATenthStepItem alloc] init];
-    item.title = @"Encoded";
-    item.description = @"Encoded";
+    item.itemTitle = @"Encoded";
+    item.itemDescription = @"Encoded";
     
     NSData* encodedItem = [NSKeyedArchiver archivedDataWithRootObject:item];
     AATenthStepItem* decodedItem = [NSKeyedUnarchiver unarchiveObjectWithData:encodedItem];
     
-    assert([decodedItem.title isEqualToString:item.title]);
-    assert([decodedItem.description isEqualToString:item.description]);
+    assert([decodedItem.itemTitle isEqualToString:item.itemTitle]);
+    assert([decodedItem.itemDescription isEqualToString:item.itemDescription]);
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:encodedItem forKey:@"item"];
@@ -65,9 +65,9 @@
     
     NSData* retrievedItem = [[NSUserDefaults standardUserDefaults] objectForKey:@"item"];
     decodedItem = [NSKeyedUnarchiver unarchiveObjectWithData:retrievedItem];
-    assert([decodedItem.title isEqualToString:item.title]);
-    assert([decodedItem.description isEqualToString:item.description]);
-    assert([decodedItem.number isEqualToNumber:[[NSNumber alloc] initWithInt:10]]);
+    assert([decodedItem.itemTitle isEqualToString:item.itemTitle]);
+    assert([decodedItem.itemDescription isEqualToString:item.itemDescription]);
+    assert(decodedItem.stepNumber == 10);
 }
 
 @end
