@@ -39,10 +39,16 @@ void dispatch_once_on_main_thread(dispatch_once_t *predicate,
     
     dispatch_once_on_main_thread(&once, ^{
         sharedManager = [[self alloc] init];
-        [sharedManager loadDataFromStepsFile];
     });
     
     return sharedManager;
+}
+
+
+- (NSDictionary*)stepItems
+{
+    if (!_stepItems) _stepItems = [self loadDataFromStepsFile];
+    return _stepItems;
 }
 
 
@@ -65,33 +71,32 @@ void dispatch_once_on_main_thread(dispatch_once_t *predicate,
     
     [mutableStepItems setObject:items forKey:stepNumberKey];
     self.stepItems = [mutableStepItems copy];
-    [self synchronize];
+    self.dataWasModified = YES;
 }
 
-- (AAStepItemsFileAccessResult)synchronize
+- (void)synchronize
 {
-    BOOL result = [NSKeyedArchiver archiveRootObject:self.stepItems toFile:[self pathForStepsDocument]];
-    
-    if (!result) {
-        ALog("<ERROR> Unable to write step items to file");
-    } else {
-        self.dataWasModified = NO;
+    if (self.dataWasModified) {
+        BOOL result = [NSKeyedArchiver archiveRootObject:self.stepItems toFile:[self pathForStepsDocument]];
+        
+        if (!result) {
+            ALog("<ERROR> Unable to write step items to file");
+        } else {
+            self.dataWasModified = NO;
+        }
     }
-    
-    return result ? AAStepItemsFileAccessSuccess : AAStepItemsFileAccessError;
 }
 
-- (AAStepItemsFileAccessResult)flush
+- (void)flush
 {
-    AAStepItemsFileAccessResult result = [self synchronize];
-    if (result == AAStepItemsFileAccessSuccess) {
-        self.stepItems = nil;
+    if (self.dataWasModified) {
+        [self synchronize];
     }
-    
-    return result;
+
+    self.stepItems = nil;
 }
 
-- (void)loadDataFromStepsFile
+- (NSDictionary*)loadDataFromStepsFile
 {
     NSFileManager* manager = [NSFileManager defaultManager];
     NSString* stepsDocumentPath = [self pathForStepsDocument];
@@ -101,7 +106,7 @@ void dispatch_once_on_main_thread(dispatch_once_t *predicate,
             ALog(@"<ERROR> Unable to create steps document");
         }
     
-    self.stepItems = [NSKeyedUnarchiver unarchiveObjectWithFile:stepsDocumentPath];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:stepsDocumentPath];
 }
 
 

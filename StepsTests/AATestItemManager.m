@@ -86,8 +86,9 @@
     
     [mutableTenthStepItems addObject:tenthStepItem];
     [manager updateStepItemsForStep:10 withItems:[mutableTenthStepItems copy]];
-    assert([manager flush] == AAStepItemsFileAccessSuccess);
-    assert([[manager getItemsForStep:10] count] == 1);
+    [manager flush]; // calls synchronize method and forces manager to reload data from file
+    NSArray* tenthStepItems = [manager getItemsForStep:10];
+    assert([tenthStepItems count] == 1);
 }
 
 @end

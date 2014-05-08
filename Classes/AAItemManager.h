@@ -41,11 +41,11 @@ typedef NS_ENUM(NSInteger, AAStepItemsFileAccessResult) {
 // info:    Updates the persistent store to reflect current state.
 // returns: AAStepItemsFileAccessResult indicating success or error
 // use:     AAStepItemsFileAccessResult result = [manager synchronize];
-- (AAStepItemsFileAccessResult)synchronize;
+- (void)synchronize;
 
 // info:    Releases memory objects and commits the current state to file.
 // returns: AAStepItemsFileAccessResult indicating success or error
 // use:     AAStepItesmFileAccessResult result = [manager flush];
-- (AAStepItemsFileAccessResult)flush;
+- (void)flush;
 
 @end

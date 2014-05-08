@@ -54,7 +54,6 @@
     
     self.tenthStepItems = [mutableTenthStepItems copy];
     [[AAItemManager sharedItemManager] updateStepItemsForStep:10 withItems:self.tenthStepItems];
-    [self.tableView reloadData];
 }
 
 #pragma mark - UI Events
@@ -65,8 +64,22 @@
 #pragma mark - Item view delegate
 -(void)viewController:(AATenthStepItemViewController *)vc didExitWithAction:(AAStepItemEditAction)action
 {
-    if (action == AAStepItemEditActionSaved)
-        [self saveTenthStepItem:vc.item];
+    switch (action) {
+        case AAStepItemEditActionSaved:
+        case AAStepItemEditActionCreated:
+            [self saveTenthStepItem:vc.item];
+            break;
+            
+        case AAStepItemEditActionDeleted:
+            [self removeTenthStepItemAtIndexPath:self.selectedItemIndexPath];
+            break;
+        case AAStepItemEditActionCancelled:
+        default:
+            // do nothing
+            break;
+    }
+
+    [self.tableView reloadData];
 }
 
 
