@@ -2,7 +2,7 @@
 //  DailyInventory.m
 //  Steps
 //
-//  Created by Tom on 5/8/14.
+//  Created by Tom on 5/9/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @dynamic date;
 @dynamic answers;
 @dynamic notes;
+@dynamic creationDate;
 @dynamic amends;
 @dynamic resentment;
 

@@ -2,7 +2,7 @@
 //  Resentment.m
 //  Steps
 //
-//  Created by Tom on 5/8/14.
+//  Created by Tom on 5/9/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 @dynamic effects;
 @dynamic contactID;
 @dynamic contactName;
+@dynamic creationDate;
 @dynamic amends;
 @dynamic inventory;
 

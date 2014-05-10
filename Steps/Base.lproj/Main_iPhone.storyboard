@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Daily Inventory View Controller - Daily Iventory-->
+        <!--Daily Inventory View Controller - Daily Inventory-->
         <scene sceneID="bko-cP-d5E">
             <objects>
                 <viewController id="BUA-3q-KLa" customClass="AADailyInventoryViewController" sceneMemberID="viewController">
@@ -16,47 +16,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDN-1f-dQ5">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="d2Z-zD-RDy"/>
-                                    <constraint firstAttribute="height" constant="44" id="i3E-jJ-LLo"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="Call" id="Wmq-3v-KP6"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="x7T-MC-rl1"/>
-                                    <barButtonItem title="+" id="N6F-69-DFB"/>
-                                </items>
-                            </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-3i-1kM">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="inventoryItem" id="Gsa-Na-0wc">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gsa-Na-0wc" id="By1-eJ-iU4">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="s7h-Ol-3EI" kind="push" identifier="setDailyInventory" id="gVB-CR-qwz"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="pDN-1f-dQ5" secondAttribute="trailing" id="3E3-NE-d16"/>
-                            <constraint firstItem="pDN-1f-dQ5" firstAttribute="top" secondItem="31h-UH-yh9" secondAttribute="bottom" id="O1S-84-KUk"/>
-                            <constraint firstAttribute="bottom" secondItem="pDN-1f-dQ5" secondAttribute="bottom" constant="504" id="XzI-dN-hFs"/>
-                            <constraint firstAttribute="trailing" secondItem="pDN-1f-dQ5" secondAttribute="trailing" id="ZU8-w8-8qj"/>
-                            <constraint firstItem="pDN-1f-dQ5" firstAttribute="leading" secondItem="uGn-Dc-eK1" secondAttribute="leading" id="fZL-xH-Gfq"/>
-                            <constraint firstItem="pDN-1f-dQ5" firstAttribute="leading" secondItem="uGn-Dc-eK1" secondAttribute="leading" id="nBk-4Y-Tnf"/>
-                            <constraint firstItem="pDN-1f-dQ5" firstAttribute="top" secondItem="uGn-Dc-eK1" secondAttribute="top" constant="20" id="pa3-b0-H33"/>
-                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Daily Iventory" id="lbu-u1-vUQ"/>
+                    <navigationItem key="navigationItem" title="Daily Inventory" id="Dyq-Ct-fbo">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="T7O-9v-ZpK">
+                            <connections>
+                                <action selector="editInventory:" destination="BUA-3q-KLa" id="HHz-eq-Sx5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="callButton" destination="Wmq-3v-KP6" id="JyL-I6-dUB"/>
-                        <outlet property="plusButton" destination="N6F-69-DFB" id="7yP-nS-cBN"/>
                         <outlet property="tableView" destination="9dG-3i-1kM" id="c1R-1Q-eRI"/>
-                        <outlet property="toolbar" destination="pDN-1f-dQ5" id="YMZ-DP-vuO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rci-gH-jY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1997" y="205"/>
+            <point key="canvasLocation" x="2503" y="205"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="IK7-V6-BPI">
+            <objects>
+                <viewController id="s7h-Ol-3EI" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a4e-45-KPc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z51-AB-fhn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZPT-fk-Df3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CXB-Zd-Lz5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9LQ-gy-EdL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2979" y="205"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">
@@ -69,12 +82,31 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BUA-3q-KLa" kind="relationship" relationship="viewControllers" id="ZHq-vp-qwS"/>
+                        <segue destination="E7V-5V-Mso" kind="relationship" relationship="viewControllers" id="ZHq-vp-qwS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0eT-dr-cSO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1488" y="205"/>
+        </scene>
+        <!--Navigation Controller - Daily Iventory-->
+        <scene sceneID="Gbn-eo-5m3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E7V-5V-Mso" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Daily Iventory" id="lbu-u1-vUQ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHI-Vq-rFC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BUA-3q-KLa" kind="relationship" relationship="rootViewController" id="arY-73-n2i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hCp-Az-DA2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1997" y="205"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

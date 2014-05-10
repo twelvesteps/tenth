@@ -7,12 +7,14 @@
 //
 
 #import "AADailyInventoryViewController.h"
+#import "AAUserDataManager.h"
+#import "DailyInventory.h"
 
 @interface AADailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *callButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *plusButton;
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSArray* dailyInventories;
 
 @end
 
@@ -39,17 +41,38 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    self.dailyInventories = nil;
+}
+
+- (NSArray*)dailyInventories
+{
+    if (!_dailyInventories) _dailyInventories = [[AAUserDataManager sharedManager] fetchUserDailyInventories];
+    return _dailyInventories;
+}
+
+- (IBAction)editInventory:(UIBarButtonItem *)sender
+{
+    
+}
+
+- (NSString*)titleForInventory:(DailyInventory*)inventory
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"MMM d, yyy";
+    
+    return [formatter stringFromDate:inventory.creationDate];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.dailyInventories.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"inventoryItem"];
     
+    cell.textLabel.text = [self titleForInventory:self.dailyInventories[indexPath.row]];
     
     return cell;
 }
