@@ -91,9 +91,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[AAEditDailyInventoryViewController class]]) {
-        AAEditDailyInventoryViewController* edivc = segue.destinationViewController;
-    }
+
 }
 
 

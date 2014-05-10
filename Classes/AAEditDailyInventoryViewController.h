@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DailyInventory+AAAdditions.h"
+
+@class AAEditDailyInventoryViewController;
+@protocol AAEditDailyInventoryViewControllerDelegate <NSObject>
+
+- (void)viewController:(AAEditDailyInventoryViewController*)controller didEditDailyInventory:(DailyInventory*)dailyInventory;
+
+@end
 
 @interface AAEditDailyInventoryViewController : UIViewController
+
+@property (strong, nonatomic) DailyInventory* dailyInventory;
 
 @end

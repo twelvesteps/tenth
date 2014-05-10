@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+#define AA_DAILY_INVENTORY_QUESTIONS_COUNT  9
+
+typedef NSUInteger AADailyInventoryQuestionsAnswerCode;
+
 @interface AADailyInventoryQuestion : NSObject
 
-@property (nonatomic, strong) NSString* question;
+@property (nonatomic) NSUInteger number;
+@property (nonatomic) BOOL answer;
+@property (nonatomic, strong) NSString* questionText;
 
-+ (instancetype)questionNumber:(NSUInteger)number;
-
++ (instancetype)questionWithNumber:(NSUInteger)number;
++ (AADailyInventoryQuestionsAnswerCode)answerCodeForQuestions:(NSArray*)questions;
++ (NSArray*)questionsForAnswerCode:(AADailyInventoryQuestionsAnswerCode)answerCode;
 @end

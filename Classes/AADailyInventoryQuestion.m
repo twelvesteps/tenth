@@ -28,13 +28,13 @@
     self = [super init];
     
     if (self) {
-        self.question = question;
+        self.questionText = question;
     }
     
     return self;
 }
 
-+ (instancetype)questionNumber:(NSUInteger)number
++ (instancetype)questionWithNumber:(NSUInteger)number
 {
     if (number >= [AADailyInventoryQuestion questions].count)
         number = [AADailyInventoryQuestion questions].count - 1;
@@ -42,6 +42,34 @@
     NSString* question = [[AADailyInventoryQuestion questions] objectAtIndex:number];
     
     return [[AADailyInventoryQuestion alloc] initWithQuestion:question];
+}
+
++ (AADailyInventoryQuestionsAnswerCode)answerCodeForQuestions:(NSArray *)questions
+{
+    AADailyInventoryQuestionsAnswerCode answerCode = 0;
+    for (AADailyInventoryQuestion* question in questions) {
+        if (question.answer == YES) {
+            answerCode += 1 << question.number;
+        }
+    }
+    
+    return answerCode;
+}
+
+
++ (NSArray*)questionsForAnswerCode:(AADailyInventoryQuestionsAnswerCode)answerCode
+{
+    NSMutableArray* questions = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < AA_DAILY_INVENTORY_QUESTIONS_COUNT; i++) {
+        NSUInteger answerMask = 1 << i;
+        AADailyInventoryQuestion* question = [AADailyInventoryQuestion questionWithNumber:i];
+        question.answer = ((answerCode & answerMask) != 0) ? YES : NO;
+        
+        [questions addObject:question];
+    }
+    
+    return [questions copy];
 }
 
 

@@ -7,8 +7,11 @@
 //
 
 #import "AAEditDailyInventoryViewController.h"
+#import "AADailyInventoryQuestionTableViewCell.h"
 
-@interface AAEditDailyInventoryViewController ()
+@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -26,12 +29,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 9;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"YesNoQuestionCell"];
+    
+    if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
+        AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
+        diqtvc.question = [AADailyInventoryQuestion questionWithNumber:indexPath.row];
+    }
+    
+    return cell;
 }
 
 /*

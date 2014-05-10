@@ -52,10 +52,10 @@
             </objects>
             <point key="canvasLocation" x="2503" y="205"/>
         </scene>
-        <!--View Controller - Daily Inventory-->
+        <!--Edit Daily Inventory View Controller - Daily Inventory-->
         <scene sceneID="IK7-V6-BPI">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="s7h-Ol-3EI" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="s7h-Ol-3EI" customClass="AAEditDailyInventoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a4e-45-KPc"/>
                         <viewControllerLayoutGuide type="bottom" id="Z51-AB-fhn"/>
@@ -69,7 +69,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YesNoQuestionCell" id="qza-5B-Uvc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YesNoQuestionCell" id="qza-5B-Uvc" customClass="AADailyInventoryQuestionTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qza-5B-Uvc" id="CN0-L8-h6y">
@@ -80,24 +80,19 @@
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </switch>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvK-HQ-L9j">
+                                                    <rect key="frame" x="20" y="11" width="223" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4AK-nA-g3K">
-                                        <rect key="frame" x="0.0" y="130" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4AK-nA-g3K" id="erQ-uL-952">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5aW-qr-AYZ">
-                                        <rect key="frame" x="0.0" y="174" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5aW-qr-AYZ" id="HiV-hY-yHu">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="questionTextLabel" destination="cvK-HQ-L9j" id="cDD-8P-vUn"/>
+                                            <outlet property="yesNoSwitch" destination="dPT-31-5ul" id="t2n-HK-A6W"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -105,7 +100,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Daily Inventory" id="CXB-Zd-Lz5"/>
+                    <navigationItem key="navigationItem" title="Daily Inventory" id="CXB-Zd-Lz5">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="zoK-6j-7ot"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="3IO-Uc-cTZ" id="JPC-6F-rjo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LQ-gy-EdL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
