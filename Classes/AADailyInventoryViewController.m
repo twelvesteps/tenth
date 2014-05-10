@@ -7,6 +7,7 @@
 //
 
 #import "AADailyInventoryViewController.h"
+#import "AAEditDailyInventoryViewController.h"
 #import "AAUserDataManager.h"
 #import "DailyInventory.h"
 
@@ -20,6 +21,7 @@
 
 @implementation AADailyInventoryViewController
 
+#pragma mark - View Controller Lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,16 +46,23 @@
     self.dailyInventories = nil;
 }
 
+#pragma mark - Properties
+
 - (NSArray*)dailyInventories
 {
     if (!_dailyInventories) _dailyInventories = [[AAUserDataManager sharedManager] fetchUserDailyInventories];
     return _dailyInventories;
 }
 
+#pragma mark - UI Events
+
 - (IBAction)editInventory:(UIBarButtonItem *)sender
 {
-    
+    [self performSegueWithIdentifier:@"setDailyInventory" sender:self];
 }
+
+
+#pragma mark - Tableview Datasource and Delegate
 
 - (NSString*)titleForInventory:(DailyInventory*)inventory
 {
@@ -77,15 +86,15 @@
     return cell;
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[AAEditDailyInventoryViewController class]]) {
+        AAEditDailyInventoryViewController* edivc = segue.destinationViewController;
+    }
 }
-*/
+
 
 @end

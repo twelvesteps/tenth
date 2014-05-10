@@ -34,6 +34,8 @@
 		84FEDF35191D29E000767CB0 /* Resentment.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF34191D29E000767CB0 /* Resentment.m */; };
 		84FEDF38191D29E100767CB0 /* DailyInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF37191D29E100767CB0 /* DailyInventory.m */; };
 		84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */; };
+		84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */; };
+		84FEDF41191DBD5300767CB0 /* AADailyInventoryQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF40191DBD5300767CB0 /* AADailyInventoryQuestion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,10 @@
 		84FEDF37191D29E100767CB0 /* DailyInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DailyInventory.m; path = Classes/DailyInventory.m; sourceTree = SOURCE_ROOT; };
 		84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DailyInventory+AAAdditions.h"; path = "Classes/DailyInventory+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DailyInventory+AAAdditions.m"; path = "Classes/DailyInventory+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
+		84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditDailyInventoryViewController.h; path = Classes/AAEditDailyInventoryViewController.h; sourceTree = "<group>"; };
+		84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditDailyInventoryViewController.m; path = Classes/AAEditDailyInventoryViewController.m; sourceTree = "<group>"; };
+		84FEDF3F191DBD5300767CB0 /* AADailyInventoryQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestion.h; path = Classes/AADailyInventoryQuestion.h; sourceTree = SOURCE_ROOT; };
+		84FEDF40191DBD5300767CB0 /* AADailyInventoryQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestion.m; path = Classes/AADailyInventoryQuestion.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +224,8 @@
 			children = (
 				84FEDF23191BD9BF00767CB0 /* AADailyInventoryViewController.h */,
 				84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */,
+				84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */,
+				84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */,
 			);
 			name = Controllers;
 			path = ..;
@@ -226,19 +234,21 @@
 		84EBC37B19161DB00063F4EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
-				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
-				84FEDF2D191D292700767CB0 /* Amend+AAAdditions.h */,
-				84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */,
 				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
-				84FEDF30191D29E000767CB0 /* Amend.h */,
-				84FEDF31191D29E000767CB0 /* Amend.m */,
-				84FEDF33191D29E000767CB0 /* Resentment.h */,
-				84FEDF34191D29E000767CB0 /* Resentment.m */,
-				84FEDF36191D29E100767CB0 /* DailyInventory.h */,
-				84FEDF37191D29E100767CB0 /* DailyInventory.m */,
 				84FEDF26191CDF3700767CB0 /* AAUserDataManager.h */,
 				84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */,
+				84FEDF30191D29E000767CB0 /* Amend.h */,
+				84FEDF31191D29E000767CB0 /* Amend.m */,
+				84FEDF2D191D292700767CB0 /* Amend+AAAdditions.h */,
+				84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */,
+				84FEDF36191D29E100767CB0 /* DailyInventory.h */,
+				84FEDF37191D29E100767CB0 /* DailyInventory.m */,
+				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
+				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
+				84FEDF33191D29E000767CB0 /* Resentment.h */,
+				84FEDF34191D29E000767CB0 /* Resentment.m */,
+				84FEDF3F191DBD5300767CB0 /* AADailyInventoryQuestion.h */,
+				84FEDF40191DBD5300767CB0 /* AADailyInventoryQuestion.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -375,8 +385,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */,
+				84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */,
 				84FEDF25191BD9BF00767CB0 /* AADailyInventoryViewController.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
+				84FEDF41191DBD5300767CB0 /* AADailyInventoryQuestion.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */,
 				84FEDF32191D29E000767CB0 /* Amend.m in Sources */,
