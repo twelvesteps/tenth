@@ -11,7 +11,7 @@
 #import "AAUserDataManager.h"
 #import "DailyInventory.h"
 
-@interface AADailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface AADailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, AAEditDailyInventoryViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
@@ -50,8 +50,7 @@
 
 - (NSArray*)dailyInventories
 {
-    if (!_dailyInventories) _dailyInventories = [[AAUserDataManager sharedManager] fetchUserDailyInventories];
-    return _dailyInventories;
+    return[[AAUserDataManager sharedManager] fetchUserDailyInventories];
 }
 
 #pragma mark - UI Events
@@ -59,6 +58,17 @@
 - (IBAction)editInventory:(UIBarButtonItem *)sender
 {
     [self performSegueWithIdentifier:@"setDailyInventory" sender:self];
+}
+
+#pragma mark - EditDailyInventoryView Delegate
+
+- (void)viewController:(AAEditDailyInventoryViewController *)controller didEditDailyInventory:(DailyInventory *)dailyInventory
+{
+    if (dailyInventory) {
+        [self.tableView reloadData];
+    }
+    
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 
@@ -91,7 +101,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-
+    if ([segue.destinationViewController isKindOfClass:[AAEditDailyInventoryViewController class]]) {
+        AAEditDailyInventoryViewController* edivc = (AAEditDailyInventoryViewController*)segue.destinationViewController;
+        
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath* cellPath = [self.tableView indexPathForCell:(UITableViewCell*)sender];
+            edivc.dailyInventory = self.dailyInventories[cellPath.row];
+        }
+        
+        edivc.delegate = self;
+    }
 }
 
 

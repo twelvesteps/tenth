@@ -30,6 +30,10 @@
 - (Resentment*)createResentment;
 - (DailyInventory*)createDailyInventory;
 
+- (void)deleteAmend:(Amend*)amend;
+- (void)deleteResentment:(Resentment*)resentment;
+- (void)deleteDailyInventory:(DailyInventory*)dailyInventory;
+
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 
 // info:    Convenience methods for fetching all entities of the given type,
@@ -38,6 +42,7 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
+
 
 // *** MAINTAINING PERSISTENCE ***
 

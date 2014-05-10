@@ -8,14 +8,19 @@
 
 #import "AAEditDailyInventoryViewController.h"
 #import "AADailyInventoryQuestionTableViewCell.h"
+#import "AAUserDataManager.h"
 
 @interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) BOOL newDailyInventory;
+@property (strong, nonatomic) NSArray* questions;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation AAEditDailyInventoryViewController
+
+#pragma mark - View Controller Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,42 +35,88 @@
 {
     [super viewDidLoad];
     
+    // set delegates
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    // add custom cancel button navigation bar
+    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Properties
+
+- (DailyInventory*)dailyInventory
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (!_dailyInventory) {
+        _dailyInventory = [[AAUserDataManager sharedManager] createDailyInventory];
+        self.newDailyInventory = YES;
+    }
+    return _dailyInventory;
 }
+
+- (NSArray*)questions
+{
+    if (!_questions) _questions = [AADailyInventoryQuestion questionsForAnswerCode:[self.dailyInventory.answers integerValue]];
+    return _questions;
+}
+
+#pragma mark - UI Events
+
+- (IBAction)saveButtonTapped:(UIBarButtonItem *)sender
+{
+    // set questions data based on tableViewCells
+    for (NSUInteger i = 0; i < AA_DAILY_INVENTORY_QUESTIONS_COUNT; i++) {
+        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:i inSection:0];
+        AADailyInventoryQuestionTableViewCell* cell = (AADailyInventoryQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
+        cell.question.answer = cell.yesNoSwitch.on;
+    }
+    
+    AADailyInventoryQuestionsAnswerCode answers = [AADailyInventoryQuestion answerCodeForQuestions:self.questions];
+    [self.dailyInventory setAnswers:[NSNumber numberWithInteger:answers]];
+    
+    [self.delegate viewController:self didEditDailyInventory:self.dailyInventory];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)cancelButtonTapped:(UIBarButtonItem*)sender
+{
+    if (self.newDailyInventory)
+        [[AAUserDataManager sharedManager] deleteDailyInventory:self.dailyInventory];
+    
+    [self.delegate viewController:self didEditDailyInventory:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITableView Delegate and Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+    return AA_DAILY_INVENTORY_QUESTIONS_COUNT;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"YesNoQuestionCell"];
+    UITableViewCell* cell = nil;
+    // determine type of cell based on index path
+    if (indexPath.row <= AA_DAILY_INVENTORY_QUESTIONS_COUNT) cell = [self questionTableViewCellForIndexPath:indexPath];
     
-    if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
-        AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
-        diqtvc.question = [AADailyInventoryQuestion questionWithNumber:indexPath.row];
-    }
     
     return cell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (UITableViewCell*)questionTableViewCellForIndexPath:(NSIndexPath*)indexPath
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"YesNoQuestionCell"];
+    
+    // set up cell's UI
+    if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
+        AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
+        diqtvc.question = self.questions[indexPath.row];
+        diqtvc.yesNoSwitch.on = diqtvc.question.answer;
+    }
+    
+    return cell;
 }
-*/
 
 @end

@@ -39,9 +39,13 @@
     if (number >= [AADailyInventoryQuestion questions].count)
         number = [AADailyInventoryQuestion questions].count - 1;
     
-    NSString* question = [[AADailyInventoryQuestion questions] objectAtIndex:number];
+    NSString* questionText = [[AADailyInventoryQuestion questions] objectAtIndex:number];
     
-    return [[AADailyInventoryQuestion alloc] initWithQuestion:question];
+    
+    AADailyInventoryQuestion* question = [[AADailyInventoryQuestion alloc] initWithQuestion:questionText];
+    question.number = number;
+    
+    return question;
 }
 
 + (AADailyInventoryQuestionsAnswerCode)answerCodeForQuestions:(NSArray *)questions

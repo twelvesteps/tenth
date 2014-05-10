@@ -11,6 +11,7 @@
 #define AA_DAILY_INVENTORY_QUESTIONS_COUNT  9
 
 typedef NSUInteger AADailyInventoryQuestionsAnswerCode;
+static const AADailyInventoryQuestionsAnswerCode AADailyInventoryEmptyAnswerCode = 0;
 
 @interface AADailyInventoryQuestion : NSObject
 
@@ -18,7 +19,6 @@ typedef NSUInteger AADailyInventoryQuestionsAnswerCode;
 @property (nonatomic) BOOL answer;
 @property (nonatomic, strong) NSString* questionText;
 
-+ (instancetype)questionWithNumber:(NSUInteger)number;
 + (AADailyInventoryQuestionsAnswerCode)answerCodeForQuestions:(NSArray*)questions;
 + (NSArray*)questionsForAnswerCode:(AADailyInventoryQuestionsAnswerCode)answerCode;
 @end

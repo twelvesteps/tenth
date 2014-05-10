@@ -22,6 +22,8 @@
 
 @implementation AAUserDataManager
 
+#pragma mark - Initialization
+
 + (instancetype)sharedManager
 {
     static AAUserDataManager* sharedManager = nil;
@@ -33,6 +35,7 @@
     return sharedManager;
 }
 
+#pragma mark - Fetching Objects
 
 - (NSArray*)fetchUserAmends
 {
@@ -77,6 +80,8 @@
 }
 
 
+#pragma mark - Creating/Deleting Objects
+
 - (Amend*)createAmend
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
@@ -92,6 +97,22 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
+- (void)deleteAmend:(Amend *)amend
+{
+    [self.managedObjectContext deleteObject:amend];
+}
+
+- (void)deleteDailyInventory:(DailyInventory *)dailyInventory
+{
+    [self.managedObjectContext deleteObject:dailyInventory];
+}
+
+- (void)deleteResentment:(Resentment *)resentment
+{
+    [self.managedObjectContext deleteObject:resentment];
+}
+
+#pragma mark - Core Data Management
 
 - (void)synchronize
 {
