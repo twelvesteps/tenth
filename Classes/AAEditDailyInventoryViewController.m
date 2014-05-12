@@ -97,12 +97,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AADailyInventoryQuestion* question = self.questions[indexPath.row];
-    if (question.questionText.length > 30) {
-        return 88.0f;
-    } else {
-        return 44.0f;
-    }
+    return ([self numLinesForQuestionCellAtIndexPath:indexPath] + 1) * 22.0f;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,23 +112,26 @@
 
 - (UITableViewCell*)questionTableViewCellForIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell* cell = nil;
-    AADailyInventoryQuestion* question = self.questions[indexPath.row];
-    
-    if (question.questionText.length > 30) {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:@"TallYesNoQuestionCell"];
-    } else {
-        cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShortYesNoQuestionCell"];
-    }
-    
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"YesNoQuestionCell"];
+
     // set up cell's UI
     if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
         AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
+        AADailyInventoryQuestion* question = self.questions[indexPath.row];
         diqtvc.question = question;
         diqtvc.yesNoSwitch.on = question.answer;
+        diqtvc.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        diqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
     }
     
     return cell;
+}
+
+- (NSUInteger)numLinesForQuestionCellAtIndexPath:(NSIndexPath*)indexPath
+{
+    AADailyInventoryQuestion* question = self.questions[indexPath.row];
+
+    return (question.questionText.length / 31) + 1;
 }
 
 @end

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
-		84E582EE191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E582ED191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.m */; };
-		84E582F4191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E582F3191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -61,10 +59,6 @@
 /* Begin PBXFileReference section */
 		843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestionTableViewCell.h; path = Classes/AADailyInventoryQuestionTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTableViewCell.m; path = Classes/AADailyInventoryQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		84E582EC191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestionShortTableViewCell.h; path = Classes/AADailyInventoryQuestionShortTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		84E582ED191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionShortTableViewCell.m; path = Classes/AADailyInventoryQuestionShortTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		84E582F2191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestionTallTableViewCell.h; path = Classes/AADailyInventoryQuestionTallTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		84E582F3191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTallTableViewCell.m; path = Classes/AADailyInventoryQuestionTallTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -146,10 +140,6 @@
 		84491B2F1918A767006073B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				84E582F2191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.h */,
-				84E582F3191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.m */,
-				84E582EC191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.h */,
-				84E582ED191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.m */,
 				843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */,
 				843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */,
 			);
@@ -402,10 +392,8 @@
 				84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */,
 				84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */,
 				84FEDF25191BD9BF00767CB0 /* AADailyInventoryViewController.m in Sources */,
-				84E582F4191F76C8008F1CB5 /* AADailyInventoryQuestionTallTableViewCell.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
-				84E582EE191E6FD6008F1CB5 /* AADailyInventoryQuestionShortTableViewCell.m in Sources */,
 				84FEDF41191DBD5300767CB0 /* AADailyInventoryQuestion.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */,
