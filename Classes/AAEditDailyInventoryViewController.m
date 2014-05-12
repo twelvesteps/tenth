@@ -39,9 +39,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    // add custom cancel button navigation bar
-    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 #pragma mark - Properties
@@ -49,6 +46,7 @@
 - (DailyInventory*)dailyInventory
 {
     if (!_dailyInventory) {
+        // dailyInventory was not set by previous controller, create new inventory
         _dailyInventory = [[AAUserDataManager sharedManager] createDailyInventory];
         self.newDailyInventory = YES;
     }
@@ -79,9 +77,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)cancelButtonTapped:(UIBarButtonItem*)sender
+- (IBAction)cancelButtonTapped:(UIBarButtonItem*)sender
 {
+
     if (self.newDailyInventory)
+        // user cancelled creation of new inventory, don't add to database
         [[AAUserDataManager sharedManager] deleteDailyInventory:self.dailyInventory];
     
     [self.delegate viewController:self didEditDailyInventory:nil];
@@ -100,7 +100,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+    return ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
+            AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

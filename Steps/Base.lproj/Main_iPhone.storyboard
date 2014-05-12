@@ -124,6 +124,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Daily Inventory" id="CXB-Zd-Lz5">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="uTb-aE-DSn">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="s7h-Ol-3EI" id="RfS-bR-yHP"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="zoK-6j-7ot">
                             <connections>
                                 <action selector="saveButtonTapped:" destination="s7h-Ol-3EI" id="DWg-Hk-dkY"/>

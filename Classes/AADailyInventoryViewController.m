@@ -50,6 +50,7 @@
 
 - (NSArray*)dailyInventories
 {
+    // always refetch from AAUserDataManager
     return [[AAUserDataManager sharedManager] fetchUserDailyInventories];
 }
 
@@ -57,7 +58,7 @@
 
 - (IBAction)editInventory:(UIBarButtonItem *)sender
 {
-    [self performSegueWithIdentifier:@"setDailyInventory" sender:self];
+    [self performSegueWithIdentifier:@"setDailyInventory" sender:sender];
 }
 
 #pragma mark - EditDailyInventoryView Delegate
