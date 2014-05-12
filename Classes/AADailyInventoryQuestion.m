@@ -36,10 +36,10 @@
 
 + (instancetype)questionWithNumber:(NSUInteger)number
 {
-    if (number >= [AADailyInventoryQuestion questions].count)
-        number = [AADailyInventoryQuestion questions].count - 1;
+    if (number >= [AADailyInventoryQuestion questionStrings].count)
+        number = [AADailyInventoryQuestion questionStrings].count - 1;
     
-    NSString* questionText = [[AADailyInventoryQuestion questions] objectAtIndex:number];
+    NSString* questionText = [[AADailyInventoryQuestion questionStrings] objectAtIndex:number];
     
     
     AADailyInventoryQuestion* question = [[AADailyInventoryQuestion alloc] initWithQuestion:questionText];
@@ -60,6 +60,11 @@
     return answerCode;
 }
 
++ (NSArray*)allQuestions
+{
+    return [AADailyInventoryQuestion questionsForAnswerCode:AADailyInventoryEmptyAnswerCode];
+}
+
 
 + (NSArray*)questionsForAnswerCode:(AADailyInventoryQuestionsAnswerCode)answerCode
 {
@@ -77,12 +82,12 @@
 }
 
 
-+ (NSArray*)questions
++ (NSArray*)questionStrings
 {
-    static NSArray* questions = nil;
+    static NSArray* questionStrings = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        questions = @[@"Was I resentful?",
+        questionStrings = @[@"Was I resentful?",
                       @"Was I selfish?",
                       @"Was I dishonest",
                       @"Was I afraid?",
@@ -93,7 +98,7 @@
                       @"Was I thinking of myself most of the time?"];
     });
     
-    return questions;
+    return questionStrings;
 }
 
 @end

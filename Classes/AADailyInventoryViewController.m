@@ -50,7 +50,7 @@
 
 - (NSArray*)dailyInventories
 {
-    return[[AAUserDataManager sharedManager] fetchUserDailyInventories];
+    return [[AAUserDataManager sharedManager] fetchUserDailyInventories];
 }
 
 #pragma mark - UI Events

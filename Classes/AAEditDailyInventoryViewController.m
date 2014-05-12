@@ -95,6 +95,16 @@
     return AA_DAILY_INVENTORY_QUESTIONS_COUNT;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AADailyInventoryQuestion* question = self.questions[indexPath.row];
+    if (question.questionText.length > 30) {
+        return 88.0f;
+    } else {
+        return 44.0f;
+    }
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = nil;
@@ -107,13 +117,20 @@
 
 - (UITableViewCell*)questionTableViewCellForIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"YesNoQuestionCell"];
+    UITableViewCell* cell = nil;
+    AADailyInventoryQuestion* question = self.questions[indexPath.row];
+    
+    if (question.questionText.length > 30) {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"TallYesNoQuestionCell"];
+    } else {
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"ShortYesNoQuestionCell"];
+    }
     
     // set up cell's UI
     if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
         AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
-        diqtvc.question = self.questions[indexPath.row];
-        diqtvc.yesNoSwitch.on = diqtvc.question.answer;
+        diqtvc.question = question;
+        diqtvc.yesNoSwitch.on = question.answer;
     }
     
     return cell;

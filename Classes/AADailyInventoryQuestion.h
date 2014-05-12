@@ -21,4 +21,5 @@ static const AADailyInventoryQuestionsAnswerCode AADailyInventoryEmptyAnswerCode
 
 + (AADailyInventoryQuestionsAnswerCode)answerCodeForQuestions:(NSArray*)questions;
 + (NSArray*)questionsForAnswerCode:(AADailyInventoryQuestionsAnswerCode)answerCode;
++ (NSArray*)allQuestions;
 @end
