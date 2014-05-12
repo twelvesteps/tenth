@@ -8,13 +8,15 @@
 
 #import "AAEditDailyInventoryViewController.h"
 #import "AADailyInventoryQuestionTableViewCell.h"
+#import "AADailyInventoryNotesTableViewCell.h"
 #import "AAUserDataManager.h"
 
-@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
-@property (nonatomic) BOOL newDailyInventory;
 @property (strong, nonatomic) NSArray* questions;
+@property (weak, nonatomic) UITextView* notesTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end
 
@@ -39,6 +41,14 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Properties
@@ -47,8 +57,7 @@
 {
     if (!_dailyInventory) {
         // dailyInventory was not set by previous controller, create new inventory
-        _dailyInventory = [[AAUserDataManager sharedManager] createDailyInventory];
-        self.newDailyInventory = YES;
+        _dailyInventory = [[AAUserDataManager sharedManager] todaysDailyInventory];
     }
     return _dailyInventory;
 }
@@ -72,6 +81,9 @@
     
     AADailyInventoryQuestionsAnswerCode answers = [AADailyInventoryQuestion answerCodeForQuestions:self.questions];
     [self.dailyInventory setAnswers:[NSNumber numberWithInteger:answers]];
+    [self.dailyInventory setNotes:self.notesTextView.text];
+    DLog(@"<DEBUG> notesTextView.text: %@", self.notesTextView.text);
+    DLog(@"<DEBUG> inventory.notes: %@", self.dailyInventory.notes);
     
     [self.delegate viewController:self didEditDailyInventory:self.dailyInventory];
     [self.navigationController popViewControllerAnimated:YES];
@@ -79,20 +91,52 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem*)sender
 {
-
-    if (self.newDailyInventory)
-        // user cancelled creation of new inventory, don't add to database
-        [[AAUserDataManager sharedManager] deleteDailyInventory:self.dailyInventory];
-    
     [self.delegate viewController:self didEditDailyInventory:nil];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITextView Delegate and Keyboard Notifications
+
+- (void)keyboardWillShow:(NSNotification*)notification
+{
+    CGFloat keyboardHeight = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    NSTimeInterval animationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    UIEdgeInsets contentInset = self.tableView.contentInset;
+    contentInset.bottom = keyboardHeight;
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.tableView.contentInset = contentInset;
+    }];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification
+{
+    NSTimeInterval animationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    UIEdgeInsets contentInset = self.tableView.contentInset;
+    contentInset.bottom = 0.0f;
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.tableView.contentInset = contentInset;
+    }];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
 }
 
 #pragma mark - UITableView Delegate and Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return AA_DAILY_INVENTORY_QUESTIONS_COUNT;
+    // +1 for notes cell
+    return AA_DAILY_INVENTORY_QUESTIONS_COUNT + 1;
 }
 
 #define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT 21.0f
@@ -100,18 +144,22 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
-            AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+    if (indexPath.row < AA_DAILY_INVENTORY_QUESTIONS_COUNT) {
+        return ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
+                AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+    } else {
+        return 132.0f;
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = nil;
     // determine type of cell based on index path
-    if (indexPath.row <= AA_DAILY_INVENTORY_QUESTIONS_COUNT) cell = [self questionTableViewCellForIndexPath:indexPath];
+    if (indexPath.row < AA_DAILY_INVENTORY_QUESTIONS_COUNT)
+        return [self questionTableViewCellForIndexPath:indexPath];
+    else
+        return [self notesTableViewCellForIndexPath:indexPath];
     
-    
-    return cell;
 }
 
 - (UITableViewCell*)questionTableViewCellForIndexPath:(NSIndexPath*)indexPath
@@ -126,6 +174,21 @@
         diqtvc.yesNoSwitch.on = question.answer;
         diqtvc.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
         diqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
+    }
+    
+    return cell;
+}
+
+- (UITableViewCell*)notesTableViewCellForIndexPath:(NSIndexPath*)indexPath
+{
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"InventoryNotesCell"];
+    
+    if ([cell isKindOfClass:[AADailyInventoryNotesTableViewCell class]]) {
+        AADailyInventoryNotesTableViewCell* notesCell = (AADailyInventoryNotesTableViewCell*)cell;
+        self.notesTextView = notesCell.notesTextView;
+        self.notesTextView.delegate = self;
+        self.notesTextView.text = self.dailyInventory.notes;
+        self.notesTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
     }
     
     return cell;

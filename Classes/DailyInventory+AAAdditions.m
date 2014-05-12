@@ -13,7 +13,7 @@
 - (void)awakeFromInsert
 {
     [super awakeFromInsert];
-    [self setCreationDate:[NSDate date]];
+    [self setDate:[NSDate date]];
 }
 
 @end

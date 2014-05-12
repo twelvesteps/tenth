@@ -80,7 +80,7 @@
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"MMM d, yyy";
     
-    return [formatter stringFromDate:inventory.creationDate];
+    return [formatter stringFromDate:inventory.date];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

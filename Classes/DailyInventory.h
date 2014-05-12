@@ -16,7 +16,6 @@
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSNumber * answers;
 @property (nonatomic, retain) NSString * notes;
-@property (nonatomic, retain) NSDate * creationDate;
 @property (nonatomic, retain) NSSet *amends;
 @property (nonatomic, retain) NSSet *resentment;
 @end

@@ -70,7 +70,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3IO-Uc-cTZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3IO-Uc-cTZ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,6 +109,45 @@
                                         <connections>
                                             <outlet property="questionTextLabel" destination="cvK-HQ-L9j" id="P31-Cn-Tss"/>
                                             <outlet property="yesNoSwitch" destination="J6b-Wo-mnt" id="Tpp-aF-ILf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryNotesCell" rowHeight="132" id="hok-cN-I2b" customClass="AADailyInventoryNotesTableViewCell">
+                                        <rect key="frame" x="0.0" y="130" width="320" height="132"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hok-cN-I2b" id="acD-6s-2kb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dj-ac-dUg">
+                                                    <rect key="frame" x="20" y="20" width="300" height="111"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRL-RP-VxE">
+                                                    <rect key="frame" x="20" y="0.0" width="46" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="O6r-nz-rCd"/>
+                                                        <constraint firstAttribute="width" constant="46" id="wyf-Wy-3k9"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="2Dj-ac-dUg" secondAttribute="bottom" id="2tP-Ay-b6q"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Dj-ac-dUg" secondAttribute="trailing" id="Bg6-Pw-ksm"/>
+                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="leading" secondItem="acD-6s-2kb" secondAttribute="leading" constant="20" symbolic="YES" id="Idp-Hp-Tcx"/>
+                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="top" secondItem="acD-6s-2kb" secondAttribute="top" id="YiU-GW-rNL"/>
+                                                <constraint firstItem="2Dj-ac-dUg" firstAttribute="top" secondItem="acD-6s-2kb" secondAttribute="top" constant="20" symbolic="YES" id="eaw-ar-fwJ"/>
+                                                <constraint firstItem="2Dj-ac-dUg" firstAttribute="leading" secondItem="HRL-RP-VxE" secondAttribute="leading" id="qN6-0U-Nsj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="notesTextView" destination="2Dj-ac-dUg" id="BbQ-Zq-Y7M"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

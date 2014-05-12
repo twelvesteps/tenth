@@ -16,7 +16,6 @@
 @dynamic date;
 @dynamic answers;
 @dynamic notes;
-@dynamic creationDate;
 @dynamic amends;
 @dynamic resentment;
 

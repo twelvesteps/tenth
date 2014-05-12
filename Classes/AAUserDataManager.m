@@ -7,6 +7,7 @@
 //
 
 #import "AAUserDataManager.h"
+#import "NSDate+AAAdditions.h"
 #import <CoreData/CoreData.h>
 
 #define AA_AMEND_ITEM_NAME              @"Amend"
@@ -45,7 +46,7 @@
 
 - (NSArray*)fetchUserDailyInventories
 {
-    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
+    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     return [self fetchItemsForEntityName:AA_DAILY_INVENTORY_ITEM_NAME withSortDescriptors:@[sortByDate]];
 }
 
@@ -87,9 +88,25 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
-- (DailyInventory*)createDailyInventory
+- (DailyInventory*)todaysDailyInventory
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_DAILY_INVENTORY_ITEM_NAME];
+    NSPredicate* startDatePredicate = [NSPredicate predicateWithFormat:@"date >= %@", [NSDate dateForStartOfToday]];
+    NSPredicate* endDatePredicate = [NSPredicate predicateWithFormat:@"date <= %@", [NSDate dateForEndOfToday]];
+    NSPredicate* todayPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[startDatePredicate, endDatePredicate]];
+    request.predicate = todayPredicate;
+    
+    NSError* err;
+    NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
+    
+    if (results.count == 0) {
+        return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    } else if (results.count == 1) {
+        return [results lastObject];
+    } else {
+        ALog(@"<ERROR> Database state violates invariant \"Only one inventory per day\"\n %@, %@", err, err.userInfo);
+        return nil;
+    }
 }
 
 - (Resentment*)createResentment
