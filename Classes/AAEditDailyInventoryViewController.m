@@ -95,9 +95,12 @@
     return AA_DAILY_INVENTORY_QUESTIONS_COUNT;
 }
 
+#define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT 21.0f
+#define AA_DAILY_INVENTORY_QUESTION_LABEL_INSET 22.0f
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([self numLinesForQuestionCellAtIndexPath:indexPath] + 1) * 22.0f;
+    return ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
