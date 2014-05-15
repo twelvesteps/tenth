@@ -12,5 +12,6 @@
 
 + (NSDate*)dateForStartOfToday;
 + (NSDate*)dateForEndOfToday;
++ (BOOL)dateIsSameDayAsToday:(NSDate*)date;
 
 @end

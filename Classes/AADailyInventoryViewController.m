@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "NSDate+AAAdditions.h"
 #import "AADailyInventoryViewController.h"
 #import "AAEditDailyInventoryViewController.h"
 #import "AAUserDataManager.h"
@@ -77,10 +78,14 @@
 
 - (NSString*)titleForInventory:(DailyInventory*)inventory
 {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"MMM d, yyy";
-    
-    return [formatter stringFromDate:inventory.date];
+    if ([NSDate dateIsSameDayAsToday:inventory.date]) {
+        return @"Today";
+    } else {
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"MMM d, yyy";
+        
+        return [formatter stringFromDate:inventory.date];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -107,6 +112,9 @@
     UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"inventoryItem"];
     
     cell.textLabel.text = [self titleForInventory:self.dailyInventories[indexPath.row]];
+    if ([cell.textLabel.text isEqualToString:@"Today"]) {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    }
     
     return cell;
 }

@@ -216,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AADailyInventoryViewController.m"
-            timestampString = "421564781.243106"
+            timestampString = "421608040.389468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "-viewController:didEditDailyInventory:"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AADailyInventoryViewController.m"
-            timestampString = "421564781.243106"
+            timestampString = "421608040.389468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,7 +248,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "421583517.044172"
+            timestampString = "421656836.962016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
@@ -264,27 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "421583517.044172"
+            timestampString = "421857126.813204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "421583517.044172"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-saveButtonTapped:"
             landmarkType = "5">
          </BreakpointContent>
@@ -296,12 +280,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "421583511.92519"
+            timestampString = "421857410.826631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "-notesTableViewCellForIndexPath:"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "-descriptionQuestionTableViewCellForIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421656836.962016"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-yesNoSwitchValueChanged:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421857126.813204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421857410.826631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421857408.793553"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421857843.800368"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "-yesNoQuestionTableViewCellForIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAEditDailyInventoryViewController.m"
+            timestampString = "421857903.781986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-saveButtonTapped:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

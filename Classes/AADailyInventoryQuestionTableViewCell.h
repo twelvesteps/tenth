@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AADailyInventoryQuestion.h"
+#import "InventoryQuestion+AAAdditions.h"
 
 @interface AADailyInventoryQuestionTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) AADailyInventoryQuestion* question;
+@property (strong, nonatomic) InventoryQuestion* question;
 @property (weak, nonatomic) IBOutlet UILabel *questionTextLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *yesNoSwitch;
 

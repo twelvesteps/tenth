@@ -16,7 +16,15 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="amends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Amend" inverseName="inventory" inverseEntity="Amend" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="InventoryQuestion" inverseName="inventory" inverseEntity="InventoryQuestion" syncable="YES"/>
         <relationship name="resentment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Resentment" inverseName="inventory" inverseEntity="Resentment" syncable="YES"/>
+    </entity>
+    <entity name="InventoryQuestion" representedClassName="InventoryQuestion" syncable="YES">
+        <attribute name="descriptiveAnswer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="yesNoAnswer" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="inventory" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="DailyInventory" inverseName="questions" inverseEntity="DailyInventory" syncable="YES"/>
     </entity>
     <entity name="Resentment" representedClassName="Resentment" syncable="YES">
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -29,7 +37,8 @@
     </entity>
     <elements>
         <element name="Amend" positionX="-63" positionY="-18" width="128" height="178"/>
-        <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="120"/>
+        <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="133"/>
         <element name="Resentment" positionX="160" positionY="9" width="128" height="148"/>
+        <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>
     </elements>
 </model>

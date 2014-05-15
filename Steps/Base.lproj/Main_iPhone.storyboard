@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -70,7 +70,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3IO-Uc-cTZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3IO-Uc-cTZ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,7 +86,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="223" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="223" id="Z7u-U0-0ep"/>
+                                                        <constraint firstAttribute="width" constant="223" id="Ef0-z7-svj"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -98,12 +98,12 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="centerY" secondItem="cvK-HQ-L9j" secondAttribute="centerY" id="Qbg-dw-lXa"/>
-                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="leading" secondItem="cvK-HQ-L9j" secondAttribute="trailing" priority="750" constant="8" symbolic="YES" id="TUP-xr-cr4"/>
-                                                <constraint firstAttribute="trailing" secondItem="J6b-Wo-mnt" secondAttribute="trailing" constant="20" symbolic="YES" id="bkt-12-xK4"/>
-                                                <constraint firstAttribute="bottom" secondItem="cvK-HQ-L9j" secondAttribute="bottom" id="iRc-zU-PJG"/>
-                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="leading" secondItem="CN0-L8-h6y" secondAttribute="leading" constant="20" symbolic="YES" id="nVU-SM-RtQ"/>
-                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="top" secondItem="CN0-L8-h6y" secondAttribute="top" id="oKn-Ew-ZtK"/>
+                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="leading" secondItem="CN0-L8-h6y" secondAttribute="leading" constant="20" symbolic="YES" id="7jt-pC-k6W"/>
+                                                <constraint firstAttribute="trailing" secondItem="J6b-Wo-mnt" secondAttribute="trailing" constant="20" symbolic="YES" id="P0w-qy-tYH"/>
+                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="top" secondItem="CN0-L8-h6y" secondAttribute="top" id="Sx1-Bg-ERP"/>
+                                                <constraint firstAttribute="bottom" secondItem="cvK-HQ-L9j" secondAttribute="bottom" id="h1p-rM-edG"/>
+                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="centerY" secondItem="cvK-HQ-L9j" secondAttribute="centerY" id="x7y-a6-3x1"/>
+                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="leading" secondItem="cvK-HQ-L9j" secondAttribute="trailing" constant="8" symbolic="YES" id="z8p-vv-nWe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -111,26 +111,26 @@
                                             <outlet property="yesNoSwitch" destination="J6b-Wo-mnt" id="Tpp-aF-ILf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryNotesCell" rowHeight="132" id="hok-cN-I2b" customClass="AADailyInventoryNotesTableViewCell">
-                                        <rect key="frame" x="0.0" y="130" width="320" height="132"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryNotesCell" rowHeight="144" id="hok-cN-I2b" customClass="AADailyInventoryNotesTableViewCell">
+                                        <rect key="frame" x="0.0" y="130" width="320" height="144"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hok-cN-I2b" id="acD-6s-2kb">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dj-ac-dUg">
-                                                    <rect key="frame" x="20" y="20" width="300" height="111"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Dj-ac-dUg">
+                                                    <rect key="frame" x="20" y="40" width="280" height="92"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRL-RP-VxE">
-                                                    <rect key="frame" x="20" y="0.0" width="46" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="46" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="O6r-nz-rCd"/>
-                                                        <constraint firstAttribute="width" constant="46" id="wyf-Wy-3k9"/>
+                                                        <constraint firstAttribute="width" constant="46" id="Igk-cC-J69"/>
+                                                        <constraint firstAttribute="height" constant="21" id="dOl-WB-Eco"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -138,12 +138,12 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="2Dj-ac-dUg" secondAttribute="bottom" id="2tP-Ay-b6q"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Dj-ac-dUg" secondAttribute="trailing" id="Bg6-Pw-ksm"/>
-                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="leading" secondItem="acD-6s-2kb" secondAttribute="leading" constant="20" symbolic="YES" id="Idp-Hp-Tcx"/>
-                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="top" secondItem="acD-6s-2kb" secondAttribute="top" id="YiU-GW-rNL"/>
-                                                <constraint firstItem="2Dj-ac-dUg" firstAttribute="top" secondItem="acD-6s-2kb" secondAttribute="top" constant="20" symbolic="YES" id="eaw-ar-fwJ"/>
-                                                <constraint firstItem="2Dj-ac-dUg" firstAttribute="leading" secondItem="HRL-RP-VxE" secondAttribute="leading" id="qN6-0U-Nsj"/>
+                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="top" secondItem="acD-6s-2kb" secondAttribute="top" constant="11" id="3HM-4T-rc7"/>
+                                                <constraint firstItem="2Dj-ac-dUg" firstAttribute="top" secondItem="HRL-RP-VxE" secondAttribute="bottom" constant="8" symbolic="YES" id="G75-ag-0C1"/>
+                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="leading" secondItem="acD-6s-2kb" secondAttribute="leading" constant="20" symbolic="YES" id="X5D-aM-nd1"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Dj-ac-dUg" secondAttribute="trailing" constant="20" symbolic="YES" id="YBR-Cn-OyT"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Dj-ac-dUg" secondAttribute="bottom" constant="11" id="hgV-1K-KTU"/>
+                                                <constraint firstItem="HRL-RP-VxE" firstAttribute="leading" secondItem="2Dj-ac-dUg" secondAttribute="leading" id="xl4-u1-rlw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

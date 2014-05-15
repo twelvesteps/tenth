@@ -10,7 +10,7 @@
 
 @implementation AADailyInventoryQuestionTableViewCell
 
-- (void)setQuestion:(AADailyInventoryQuestion *)question
+- (void)setQuestion:(InventoryQuestion*)question
 {
     _question = question;
     if (_question) {

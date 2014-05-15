@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "AAUserDataManager.h"
+#import "InventoryQuestion+AAAdditions.h"
 
 @interface AAUserDataManagerTests : XCTestCase
 
@@ -59,6 +60,10 @@
     NSAssert([amend.creationDate compare:beforeCreation] == NSOrderedDescending &&
              [amend.creationDate compare:afterCreation] == NSOrderedAscending,
              @"CreationDate not properly set");
+    
+    DailyInventory* inventory = [manager todaysDailyInventory];
+    NSArray* questions = [[inventory.questions allObjects] sortedArrayUsingSelector:@selector(compareQuestionNumber:)];
+    DLog(@"First Question Text: %@", [[questions firstObject] questionText]);
 }
 
 @end

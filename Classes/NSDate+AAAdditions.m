@@ -20,6 +20,11 @@
     return [self dateForTodayWithHour:23 Minute:59 Second:59];
 }
 
++ (BOOL)dateIsSameDayAsToday:(NSDate *)date
+{
+    return ([date timeIntervalSinceDate:[NSDate dateForStartOfToday]] > 0 && [date timeIntervalSinceDate:[NSDate dateForEndOfToday]]);
+}
+
 + (NSDate*)dateForTodayWithHour:(NSUInteger)hour Minute:(NSUInteger)minute Second:(NSUInteger)second
 {
     NSCalendar* calender = [NSCalendar autoupdatingCurrentCalendar];
