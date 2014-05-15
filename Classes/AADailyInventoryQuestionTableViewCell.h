@@ -13,6 +13,5 @@
 
 @property (strong, nonatomic) InventoryQuestion* question;
 @property (weak, nonatomic) IBOutlet UILabel *questionTextLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *yesNoSwitch;
 
 @end

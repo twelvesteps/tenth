@@ -44,7 +44,7 @@
     
     NSArray* amends = [manager fetchUserAmends];
     NSAssert(amends, @"AAUserDataManager unable to fetch amends");
-    DLog(@"Amends count: %d", [amends count]);
+    DLog(@"Amends count: %d", (int)[amends count]);
 }
 
 - (void)testAAUserDataManagerCreationMethods

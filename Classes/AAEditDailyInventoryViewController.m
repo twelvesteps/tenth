@@ -8,7 +8,8 @@
 
 #import "InventoryQuestion+AAAdditions.h"
 #import "AAEditDailyInventoryViewController.h"
-#import "AADailyInventoryQuestionTableViewCell.h"
+#import "AADailyInventoryYesNoQuestionTableViewCell.h"
+#import "AADailyInventoryDescriptiveQuestionTableViewCell.h"
 #import "AADailyInventoryNotesTableViewCell.h"
 #import "AAUserDataManager.h"
 
@@ -84,14 +85,16 @@
     // set questions data based on tableViewCells
     for (NSUInteger i = 0; i < AA_DAILY_INVENTORY_QUESTION_COUNT; i++) {
         NSIndexPath* cellPath = [NSIndexPath indexPathForRow:i inSection:0];
-        AADailyInventoryQuestionTableViewCell* cell = (AADailyInventoryQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
+        InventoryQuestion* question = self.questions[i];
         
-        if ([cell.question.type integerValue] == AADailyInventoryQuestionYesNoType) {
-            InventoryQuestion* question = self.questions[i];
+        if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
+            AADailyInventoryYesNoQuestionTableViewCell* cell = (AADailyInventoryYesNoQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
             question.yesNoAnswer = [NSNumber numberWithBool:cell.yesNoSwitch.on];
+        } else {
+            AADailyInventoryDescriptiveQuestionTableViewCell* cell = (AADailyInventoryDescriptiveQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
+            question.descriptiveAnswer = cell.answerTextView.text;
         }
     }
-    
 
     [self.dailyInventory setNotes:self.notesTextView.text];
     [self.dailyInventory setQuestions:[NSSet setWithArray:self.questions]];
@@ -121,8 +124,8 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.tableView.contentInset = contentInset;
     }];
-    
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+#warning Refactor
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification
@@ -135,8 +138,8 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.tableView.contentInset = contentInset;
     }];
-    
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+#warning Refactor
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 #pragma mark - UITableView Delegate and Datasource
@@ -147,17 +150,20 @@
     return AA_DAILY_INVENTORY_QUESTION_COUNT;
 }
 
-#define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT 21.0f
-#define AA_DAILY_INVENTORY_QUESTION_LABEL_INSET 22.0f
+#define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT         21.0f
+#define AA_DAILY_INVENTORY_QUESTION_LABEL_INSET         22.0f
+#define AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT    92.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < AA_DAILY_INVENTORY_QUESTION_COUNT) {
+    InventoryQuestion* question = (InventoryQuestion*)self.questions[indexPath.row];
+    if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
                             AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
         return height;
     } else {
-        return 144.0f;
+        CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET + AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT;
+        return height;
     }
 }
 
@@ -170,11 +176,11 @@
 {
     InventoryQuestion* question = self.questions[indexPath.row];
         
-//    if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
+    if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
         return [self yesNoQuestionTableViewCellForIndexPath:indexPath];
-//    } else {
-//        return [self descriptionQuestionTableViewCellForIndexPath:indexPath];
-//    }
+    } else {
+        return [self descriptionQuestionTableViewCellForIndexPath:indexPath];
+    }
 }
 
 - (UITableViewCell*)yesNoQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath
@@ -183,14 +189,14 @@
 
     // set up cell's UI
     if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
-        AADailyInventoryQuestionTableViewCell* diqtvc = (AADailyInventoryQuestionTableViewCell*)cell;
+        AADailyInventoryYesNoQuestionTableViewCell* diynqtvc = (AADailyInventoryYesNoQuestionTableViewCell*)cell;
         InventoryQuestion* question = self.questions[indexPath.row];
-        diqtvc.question = question;
-        diqtvc.yesNoSwitch.on = [question.yesNoAnswer boolValue];
-        diqtvc.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        diqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
+        diynqtvc.question = question;
+        diynqtvc.yesNoSwitch.on = [question.yesNoAnswer boolValue];
+        diynqtvc.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        diynqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
         
-        [diqtvc.yesNoSwitch addTarget:self action:@selector(yesNoSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [diynqtvc.yesNoSwitch addTarget:self action:@selector(yesNoSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
     }
     
     return cell;
@@ -198,17 +204,24 @@
 
 - (UITableViewCell*)descriptionQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"InventoryNotesCell"];
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"DescriptiveQuestionCell"];
     
-    if ([cell isKindOfClass:[AADailyInventoryNotesTableViewCell class]]) {
-        AADailyInventoryNotesTableViewCell* notesCell = (AADailyInventoryNotesTableViewCell*)cell;
-        self.notesTextView = notesCell.notesTextView;
-        self.notesTextView.delegate = self;
-        self.notesTextView.text = self.dailyInventory.notes;
-        self.notesTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
+    if ([cell isKindOfClass:[AADailyInventoryDescriptiveQuestionTableViewCell class]]) {
+        AADailyInventoryDescriptiveQuestionTableViewCell* didqtvc = (AADailyInventoryDescriptiveQuestionTableViewCell*)cell;
+        InventoryQuestion* question = self.questions[indexPath.row];
+        didqtvc.answerTextView.delegate = self;
+        didqtvc.answerTextView.text = question.descriptiveAnswer;
+        didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
+        didqtvc.questionTextLabel.text = question.questionText;
     }
     
     return cell;
+}
+
+- (UITableViewCell*)notesTableViewCellForIndexPath:(NSIndexPath*)indexPath
+{
+#warning Incomplete method implementation
+    return nil;
 }
 
 - (NSUInteger)numLinesForQuestionCellAtIndexPath:(NSIndexPath*)indexPath
