@@ -11,7 +11,6 @@
 		842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */; };
 		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
-		844A7B791920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B781920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -70,8 +69,6 @@
 		843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTableViewCell.m; path = Classes/AADailyInventoryQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		844A7B741920C62B004AD4A8 /* NSDate+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+AAAdditions.h"; path = "Classes/NSDate+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+AAAdditions.m"; path = "Classes/NSDate+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
-		844A7B771920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryNotesTableViewCell.h; path = Classes/AADailyInventoryNotesTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		844A7B781920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryNotesTableViewCell.m; path = Classes/AADailyInventoryNotesTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,8 +152,6 @@
 		84491B2F1918A767006073B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				844A7B771920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.h */,
-				844A7B781920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.m */,
 				843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */,
 				843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */,
 				842AC506192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.h */,
@@ -426,7 +421,6 @@
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
 				84FC238219235A780012F57C /* DailyInventory.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
-				844A7B791920D9E9004AD4A8 /* AADailyInventoryNotesTableViewCell.m in Sources */,
 				84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */,
 				84FEDF2F191D292700767CB0 /* Amend+AAAdditions.m in Sources */,
 				84FC238519235A790012F57C /* Resentment.m in Sources */,

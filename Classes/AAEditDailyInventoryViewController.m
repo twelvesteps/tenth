@@ -10,15 +10,13 @@
 #import "AAEditDailyInventoryViewController.h"
 #import "AADailyInventoryYesNoQuestionTableViewCell.h"
 #import "AADailyInventoryDescriptiveQuestionTableViewCell.h"
-#import "AADailyInventoryNotesTableViewCell.h"
 #import "AAUserDataManager.h"
 
 @interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
 @property (strong, nonatomic) NSArray* questions;
-@property (weak, nonatomic) UITextView* notesTextView;
+@property (weak, nonatomic) UITextView* descriptiveQuestionTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 
 @end
 
@@ -64,6 +62,24 @@
     return _dailyInventory;
 }
 
+- (void)updateDailyInventory
+{
+    for (NSUInteger i = 0; i < AA_DAILY_INVENTORY_QUESTION_COUNT; i++) {
+        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:i inSection:0];
+        InventoryQuestion* question = self.questions[i];
+        
+        if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
+            AADailyInventoryYesNoQuestionTableViewCell* cell = (AADailyInventoryYesNoQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
+            question.yesNoAnswer = [NSNumber numberWithBool:cell.yesNoSwitch.on];
+        } else {
+            AADailyInventoryDescriptiveQuestionTableViewCell* cell = (AADailyInventoryDescriptiveQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
+            question.descriptiveAnswer = cell.answerTextView.text;
+        }
+    }
+    
+    [self.dailyInventory setQuestions:[NSSet setWithArray:self.questions]];
+}
+
 - (NSArray*)questions
 {
     if (!_questions) _questions = [[self.dailyInventory.questions allObjects] sortedArrayUsingSelector:@selector(compareQuestionNumber:)];
@@ -82,25 +98,7 @@
 
 - (IBAction)saveButtonTapped:(UIBarButtonItem *)sender
 {
-    // set questions data based on tableViewCells
-    for (NSUInteger i = 0; i < AA_DAILY_INVENTORY_QUESTION_COUNT; i++) {
-        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:i inSection:0];
-        InventoryQuestion* question = self.questions[i];
-        
-        if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
-            AADailyInventoryYesNoQuestionTableViewCell* cell = (AADailyInventoryYesNoQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
-            question.yesNoAnswer = [NSNumber numberWithBool:cell.yesNoSwitch.on];
-        } else {
-            AADailyInventoryDescriptiveQuestionTableViewCell* cell = (AADailyInventoryDescriptiveQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:cellPath];
-            question.descriptiveAnswer = cell.answerTextView.text;
-        }
-    }
-
-    [self.dailyInventory setNotes:self.notesTextView.text];
-    [self.dailyInventory setQuestions:[NSSet setWithArray:self.questions]];
-    DLog(@"<DEBUG> notesTextView.text: %@", self.notesTextView.text);
-    DLog(@"<DEBUG> inventory.notes: %@", self.dailyInventory.notes);
-    
+    [self updateDailyInventory];
     [self.delegate viewController:self didEditDailyInventory:self.dailyInventory];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -124,8 +122,8 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.tableView.contentInset = contentInset;
     }];
-#warning Refactor
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification
@@ -138,15 +136,14 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.tableView.contentInset = contentInset;
     }];
-#warning Refactor
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - UITableView Delegate and Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // +1 for notes cell
     return AA_DAILY_INVENTORY_QUESTION_COUNT;
 }
 
@@ -159,7 +156,7 @@
     InventoryQuestion* question = (InventoryQuestion*)self.questions[indexPath.row];
     if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
-                            AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+        AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
         return height;
     } else {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET + AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT;
@@ -169,7 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.notesTextView resignFirstResponder];
+    [self.descriptiveQuestionTextView resignFirstResponder];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -209,6 +206,7 @@
     if ([cell isKindOfClass:[AADailyInventoryDescriptiveQuestionTableViewCell class]]) {
         AADailyInventoryDescriptiveQuestionTableViewCell* didqtvc = (AADailyInventoryDescriptiveQuestionTableViewCell*)cell;
         InventoryQuestion* question = self.questions[indexPath.row];
+        self.descriptiveQuestionTextView = didqtvc.answerTextView;
         didqtvc.answerTextView.delegate = self;
         didqtvc.answerTextView.text = question.descriptiveAnswer;
         didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
@@ -216,12 +214,6 @@
     }
     
     return cell;
-}
-
-- (UITableViewCell*)notesTableViewCellForIndexPath:(NSIndexPath*)indexPath
-{
-#warning Incomplete method implementation
-    return nil;
 }
 
 - (NSUInteger)numLinesForQuestionCellAtIndexPath:(NSIndexPath*)indexPath
