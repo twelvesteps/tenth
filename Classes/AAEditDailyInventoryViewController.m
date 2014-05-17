@@ -10,10 +10,12 @@
 #import "AAEditDailyInventoryViewController.h"
 #import "AADailyInventoryYesNoQuestionTableViewCell.h"
 #import "AADailyInventoryDescriptiveQuestionTableViewCell.h"
+#import "AACallButton.h"
 #import "AAUserDataManager.h"
 
-@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, AADailyInventoryYesNoQuestionTableViewCellDelegate>
 
+@property (nonatomic) BOOL showCallButtons;
 @property (strong, nonatomic) NSArray* questions;
 @property (weak, nonatomic) UITextView* descriptiveQuestionTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -88,14 +90,6 @@
 
 #pragma mark - UI Events
 
-- (void)yesNoSwitchValueChanged:(UISwitch*)sender
-{
-    // find the cell that was switched
-    // expand its view with additional materials
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-}
-
 - (IBAction)saveButtonTapped:(UIBarButtonItem *)sender
 {
     [self updateDailyInventory];
@@ -140,6 +134,22 @@
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+#pragma mark - AADailyInventoryYesNoQuestion Delegate and Datasource
+
+- (void)tableViewCellSwitchDidChangeValue:(AADailyInventoryYesNoQuestionTableViewCell *)cell
+{
+    self.showCallButtons = cell.yesNoSwitch.on;
+    
+    if (self.showCallButtons) {
+        cell.accessoryButtonHeightConstraint.constant = 44.0f;
+    } else {
+        cell.accessoryButtonHeightConstraint.constant = 0.0f;
+    }
+    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
 #pragma mark - UITableView Delegate and Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -150,6 +160,7 @@
 #define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT         21.0f
 #define AA_DAILY_INVENTORY_QUESTION_LABEL_INSET         22.0f
 #define AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT    92.0f
+#define AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT           44.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -157,6 +168,12 @@
     if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
         AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+        
+        if ([question.number integerValue] == AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX &&
+            self.showCallButtons) {
+            height += AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT;
+        }
+        
         return height;
     } else {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET + AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT;
@@ -188,15 +205,43 @@
     if ([cell isKindOfClass:[AADailyInventoryQuestionTableViewCell class]]) {
         AADailyInventoryYesNoQuestionTableViewCell* diynqtvc = (AADailyInventoryYesNoQuestionTableViewCell*)cell;
         InventoryQuestion* question = self.questions[indexPath.row];
-        diynqtvc.question = question;
-        diynqtvc.yesNoSwitch.on = [question.yesNoAnswer boolValue];
-        diynqtvc.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        diynqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
         
-        [diynqtvc.yesNoSwitch addTarget:self action:@selector(yesNoSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [self setupYesNoQuestionTableViewCell:diynqtvc withQuestion:question];
+        // index path needed to find numberOfLines
+        diynqtvc.questionTextLabel.numberOfLines = [self numLinesForQuestionCellAtIndexPath:indexPath];
     }
     
     return cell;
+}
+
+- (void)setupYesNoQuestionTableViewCell:(AADailyInventoryYesNoQuestionTableViewCell*)cell withQuestion:(InventoryQuestion*)question
+{
+    cell.question = question;
+    cell.yesNoSwitch.on = [question.yesNoAnswer boolValue];
+    cell.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.delegate = self;
+
+    if (question.yesNoAnswer && [question.number integerValue] == AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX) {
+        [self showCallButtonsForCell:cell];
+    } else {
+        [self hideCallButtonsForCell:cell];
+    }
+}
+
+- (void)hideCallButtonsForCell:(AADailyInventoryYesNoQuestionTableViewCell*)cell
+{
+    for (AACallButton* button in cell.callButtons) {
+        button.hidden = YES;
+    }
+    cell.accessoryButtonHeightConstraint.constant = 0.0f;
+}
+
+- (void)showCallButtonsForCell:(AADailyInventoryYesNoQuestionTableViewCell*)cell
+{
+    for (AACallButton* button in cell.callButtons) {
+        button.hidden = NO;
+    }
+    cell.accessoryButtonHeightConstraint.constant = AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT;
 }
 
 - (UITableViewCell*)descriptionQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath

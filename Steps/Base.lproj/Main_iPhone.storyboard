@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--Daily Inventory View Controller - Daily Inventory-->
@@ -75,44 +75,87 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YesNoQuestionCell" rowHeight="44" id="qza-5B-Uvc" customClass="AADailyInventoryYesNoQuestionTableViewCell">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YesNoQuestionCell" rowHeight="117" id="qza-5B-Uvc" customClass="AADailyInventoryYesNoQuestionTableViewCell">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="117"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qza-5B-Uvc" id="CN0-L8-h6y">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Question Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvK-HQ-L9j">
-                                                    <rect key="frame" x="20" y="0.0" width="223" height="43"/>
+                                                    <rect key="frame" x="20" y="0.0" width="223" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="223" id="Ef0-z7-svj"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="J6b-Wo-mnt">
-                                                    <rect key="frame" x="251" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="251" y="16" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="yesNoSwitchValueChanged:" destination="qza-5B-Uvc" eventType="valueChanged" id="VCK-1F-zUA"/>
+                                                    </connections>
                                                 </switch>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrM-8h-fpi" customClass="AACallButton">
+                                                    <rect key="frame" x="20" y="72" width="44" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="cOV-UG-lT6"/>
+                                                        <constraint firstAttribute="height" constant="44" id="iZc-Yo-NVu"/>
+                                                    </constraints>
+                                                    <state key="normal" title="S">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN2-AH-BOa" customClass="AACallButton">
+                                                    <rect key="frame" x="138" y="72" width="44" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="aVr-Oz-M57"/>
+                                                        <constraint firstAttribute="height" constant="44" id="ski-iP-6ru"/>
+                                                    </constraints>
+                                                    <state key="normal" title="S">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3s-8P-2T0" customClass="AACallButton">
+                                                    <rect key="frame" x="256" y="72" width="44" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="wDH-a6-4Z4"/>
+                                                        <constraint firstAttribute="height" constant="44" id="wm7-RU-wex"/>
+                                                    </constraints>
+                                                    <state key="normal" title="S">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="leading" secondItem="CN0-L8-h6y" secondAttribute="leading" constant="20" symbolic="YES" id="7jt-pC-k6W"/>
-                                                <constraint firstAttribute="trailing" secondItem="J6b-Wo-mnt" secondAttribute="trailing" constant="20" symbolic="YES" id="P0w-qy-tYH"/>
-                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="top" secondItem="CN0-L8-h6y" secondAttribute="top" id="Sx1-Bg-ERP"/>
-                                                <constraint firstAttribute="bottom" secondItem="cvK-HQ-L9j" secondAttribute="bottom" id="h1p-rM-edG"/>
-                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="centerY" secondItem="cvK-HQ-L9j" secondAttribute="centerY" id="x7y-a6-3x1"/>
-                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="leading" secondItem="cvK-HQ-L9j" secondAttribute="trailing" constant="8" symbolic="YES" id="z8p-vv-nWe"/>
+                                                <constraint firstItem="DN2-AH-BOa" firstAttribute="centerX" secondItem="CN0-L8-h6y" secondAttribute="centerX" id="5SJ-UU-Rap"/>
+                                                <constraint firstItem="VrM-8h-fpi" firstAttribute="top" secondItem="cvK-HQ-L9j" secondAttribute="bottom" constant="8" symbolic="YES" id="GkG-fO-zBG"/>
+                                                <constraint firstItem="DN2-AH-BOa" firstAttribute="baseline" secondItem="VrM-8h-fpi" secondAttribute="baseline" id="Wbo-P1-bSW"/>
+                                                <constraint firstAttribute="trailing" secondItem="J6b-Wo-mnt" secondAttribute="trailing" constant="20" symbolic="YES" id="XIN-AT-qlQ"/>
+                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="top" secondItem="CN0-L8-h6y" secondAttribute="top" constant="16" id="a0x-Da-8s5"/>
+                                                <constraint firstItem="J6b-Wo-mnt" firstAttribute="leading" secondItem="cvK-HQ-L9j" secondAttribute="trailing" constant="8" symbolic="YES" id="iUZ-JQ-A44"/>
+                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="leading" secondItem="CN0-L8-h6y" secondAttribute="leading" constant="20" symbolic="YES" id="itp-cL-3Cm"/>
+                                                <constraint firstAttribute="bottom" secondItem="VrM-8h-fpi" secondAttribute="bottom" id="kqP-bj-SZS"/>
+                                                <constraint firstItem="k3s-8P-2T0" firstAttribute="trailing" secondItem="J6b-Wo-mnt" secondAttribute="trailing" id="m9l-ej-mha"/>
+                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="top" secondItem="CN0-L8-h6y" secondAttribute="top" id="msw-pm-ftd"/>
+                                                <constraint firstItem="cvK-HQ-L9j" firstAttribute="leading" secondItem="VrM-8h-fpi" secondAttribute="leading" id="okQ-xX-OBR"/>
+                                                <constraint firstItem="k3s-8P-2T0" firstAttribute="baseline" secondItem="DN2-AH-BOa" secondAttribute="baseline" id="usG-Lq-OAe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="accessoryButtonHeightConstraint" destination="wm7-RU-wex" id="xE6-og-haX"/>
                                             <outlet property="questionTextLabel" destination="cvK-HQ-L9j" id="P31-Cn-Tss"/>
                                             <outlet property="yesNoSwitch" destination="J6b-Wo-mnt" id="Tpp-aF-ILf"/>
+                                            <outletCollection property="callButtons" destination="k3s-8P-2T0" id="pV7-lt-6IL"/>
+                                            <outletCollection property="callButtons" destination="DN2-AH-BOa" id="wov-Vj-qyv"/>
+                                            <outletCollection property="callButtons" destination="VrM-8h-fpi" id="qFx-KS-MJO"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DescriptiveQuestionCell" rowHeight="144" id="hok-cN-I2b" customClass="AADailyInventoryDescriptiveQuestionTableViewCell">
-                                        <rect key="frame" x="0.0" y="130" width="320" height="144"/>
+                                        <rect key="frame" x="0.0" y="203" width="320" height="144"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hok-cN-I2b" id="acD-6s-2kb">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>

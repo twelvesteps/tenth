@@ -2,7 +2,7 @@
 //  InventoryQuestion.h
 //  Steps
 //
-//  Created by Tom on 5/14/14.
+//  Created by Tom on 5/16/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @interface InventoryQuestion : NSManagedObject
 
+@property (nonatomic, retain) NSString * descriptiveAnswer;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSNumber * yesNoAnswer;
-@property (nonatomic, retain) NSString * descriptiveAnswer;
 @property (nonatomic, retain) DailyInventory *inventory;
 
 @end

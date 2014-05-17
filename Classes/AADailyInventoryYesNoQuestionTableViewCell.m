@@ -19,6 +19,12 @@
     return self;
 }
 
+
+- (IBAction)yesNoSwitchValueChanged:(UISwitch *)sender
+{
+    [self.delegate tableViewCellSwitchDidChangeValue:self];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

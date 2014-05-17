@@ -8,7 +8,8 @@
 
 #import "InventoryQuestion.h"
 
-#define AA_DAILY_INVENTORY_QUESTION_COUNT   9
+#define AA_DAILY_INVENTORY_QUESTION_COUNT                   9
+#define AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX  5
 
 typedef NS_ENUM(NSUInteger, AADailyInventoryQuestionType) {
     AADailyInventoryQuestionYesNoType,
