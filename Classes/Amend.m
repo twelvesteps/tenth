@@ -2,7 +2,7 @@
 //  Amend.m
 //  Steps
 //
-//  Created by Tom on 5/9/14.
+//  Created by Tom on 5/16/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -13,13 +13,13 @@
 
 @implementation Amend
 
-@dynamic date;
+@dynamic amends;
 @dynamic contactID;
 @dynamic contactName;
-@dynamic harm;
-@dynamic amends;
-@dynamic reminder;
 @dynamic creationDate;
+@dynamic date;
+@dynamic harm;
+@dynamic reminder;
 @dynamic inventory;
 @dynamic resentment;
 

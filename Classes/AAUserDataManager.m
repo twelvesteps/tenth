@@ -7,6 +7,7 @@
 //
 
 #import "AAUserDataManager.h"
+#import "NSDate+AAAdditions.h"
 #import <CoreData/CoreData.h>
 
 #define AA_AMEND_ITEM_NAME              @"Amend"
@@ -22,6 +23,8 @@
 
 @implementation AAUserDataManager
 
+#pragma mark - Initialization
+
 + (instancetype)sharedManager
 {
     static AAUserDataManager* sharedManager = nil;
@@ -33,10 +36,11 @@
     return sharedManager;
 }
 
+#pragma mark - Fetching Objects
 
 - (NSArray*)fetchUserAmends
 {
-    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
     return [self fetchItemsForEntityName:AA_AMEND_ITEM_NAME withSortDescriptors:@[sortByDate]];
 }
 
@@ -48,7 +52,7 @@
 
 - (NSArray*)fetchUserResentments
 {
-    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
     return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME withSortDescriptors:@[sortByDate]];
 }
 
@@ -77,14 +81,32 @@
 }
 
 
+#pragma mark - Creating/Deleting Objects
+
 - (Amend*)createAmend
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
-- (DailyInventory*)createDailyInventory
+- (DailyInventory*)todaysDailyInventory
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_DAILY_INVENTORY_ITEM_NAME];
+    NSPredicate* startDatePredicate = [NSPredicate predicateWithFormat:@"date >= %@", [NSDate dateForStartOfToday]];
+    NSPredicate* endDatePredicate = [NSPredicate predicateWithFormat:@"date <= %@", [NSDate dateForEndOfToday]];
+    NSPredicate* todayPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[startDatePredicate, endDatePredicate]];
+    request.predicate = todayPredicate;
+    
+    NSError* err;
+    NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
+    
+    if (results.count == 0) {
+        return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    } else if (results.count == 1) {
+        return [results lastObject];
+    } else {
+        ALog(@"<ERROR> Database state violates invariant \"Only one inventory per day\"\n %@, %@", err, err.userInfo);
+        return nil;
+    }
 }
 
 - (Resentment*)createResentment
@@ -92,6 +114,22 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
+- (void)deleteAmend:(Amend *)amend
+{
+    [self.managedObjectContext deleteObject:amend];
+}
+
+- (void)deleteDailyInventory:(DailyInventory *)dailyInventory
+{
+    [self.managedObjectContext deleteObject:dailyInventory];
+}
+
+- (void)deleteResentment:(Resentment *)resentment
+{
+    [self.managedObjectContext deleteObject:resentment];
+}
+
+#pragma mark - Core Data Management
 
 - (void)synchronize
 {

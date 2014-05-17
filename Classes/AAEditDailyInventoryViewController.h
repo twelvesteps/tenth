@@ -19,5 +19,6 @@
 @interface AAEditDailyInventoryViewController : UIViewController
 
 @property (strong, nonatomic) DailyInventory* dailyInventory;
+@property (weak, nonatomic) id<AAEditDailyInventoryViewControllerDelegate> delegate;
 
 @end

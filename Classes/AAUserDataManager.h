@@ -28,7 +28,11 @@
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
 - (Resentment*)createResentment;
-- (DailyInventory*)createDailyInventory;
+- (DailyInventory*)todaysDailyInventory;
+
+- (void)deleteAmend:(Amend*)amend;
+- (void)deleteResentment:(Resentment*)resentment;
+- (void)deleteDailyInventory:(DailyInventory*)dailyInventory;
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 
@@ -38,6 +42,7 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
+
 
 // *** MAINTAINING PERSISTENCE ***
 

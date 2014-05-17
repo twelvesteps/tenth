@@ -2,7 +2,7 @@
 //  Resentment.h
 //  Steps
 //
-//  Created by Tom on 5/9/14.
+//  Created by Tom on 5/16/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -13,11 +13,11 @@
 
 @interface Resentment : NSManagedObject
 
-@property (nonatomic, retain) NSString * date;
-@property (nonatomic, retain) NSNumber * effects;
 @property (nonatomic, retain) NSNumber * contactID;
 @property (nonatomic, retain) NSString * contactName;
 @property (nonatomic, retain) NSDate * creationDate;
+@property (nonatomic, retain) NSString * date;
+@property (nonatomic, retain) NSNumber * effects;
 @property (nonatomic, retain) NSSet *amends;
 @property (nonatomic, retain) DailyInventory *inventory;
 @end
