@@ -43,6 +43,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    InventoryQuestion* discussionQuestion = self.questions[AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX];
+    self.showCallButtons = [discussionQuestion.yesNoAnswer boolValue];
+    
     // respond to keyboard appearance by scrolling tableview
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -140,14 +143,14 @@
 {
     self.showCallButtons = cell.yesNoSwitch.on;
     
-    if (self.showCallButtons) {
-        cell.accessoryButtonHeightConstraint.constant = 44.0f;
-    } else {
-        cell.accessoryButtonHeightConstraint.constant = 0.0f;
-    }
-    
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+    
+    if (self.showCallButtons) {
+        [self showCallButtonsForCell:cell];
+    } else {
+        [self hideCallButtonsForCell:cell];
+    }
 }
 
 #pragma mark - UITableView Delegate and Datasource
@@ -158,7 +161,7 @@
 }
 
 #define AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT         21.0f
-#define AA_DAILY_INVENTORY_QUESTION_LABEL_INSET         22.0f
+#define AA_DAILY_INVENTORY_QUESTION_INSET               11.0f
 #define AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT    92.0f
 #define AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT           44.0f
 
@@ -167,7 +170,7 @@
     InventoryQuestion* question = (InventoryQuestion*)self.questions[indexPath.row];
     if ([question.type integerValue] == AADailyInventoryQuestionYesNoType) {
         CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
-        AA_DAILY_INVENTORY_QUESTION_LABEL_INSET;
+        2 * AA_DAILY_INVENTORY_QUESTION_INSET;
         
         if ([question.number integerValue] == AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX &&
             self.showCallButtons) {
@@ -176,7 +179,8 @@
         
         return height;
     } else {
-        CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) + AA_DAILY_INVENTORY_QUESTION_LABEL_INSET + AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT;
+        CGFloat height = ([self numLinesForQuestionCellAtIndexPath:indexPath] * AA_DAILY_INVENTORY_QUESTION_LINE_HEIGHT) +
+            2 * AA_DAILY_INVENTORY_QUESTION_INSET + AA_DAILY_INVENTORY_QUESTION_TEXT_VIEW_HEIGHT;
         return height;
     }
 }
@@ -195,6 +199,23 @@
     } else {
         return [self descriptionQuestionTableViewCellForIndexPath:indexPath];
     }
+}
+
+- (UITableViewCell*)descriptionQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath
+{
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"DescriptiveQuestionCell"];
+    
+    if ([cell isKindOfClass:[AADailyInventoryDescriptiveQuestionTableViewCell class]]) {
+        AADailyInventoryDescriptiveQuestionTableViewCell* didqtvc = (AADailyInventoryDescriptiveQuestionTableViewCell*)cell;
+        InventoryQuestion* question = self.questions[indexPath.row];
+        self.descriptiveQuestionTextView = didqtvc.answerTextView;
+        didqtvc.answerTextView.delegate = self;
+        didqtvc.answerTextView.text = question.descriptiveAnswer;
+        didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
+        didqtvc.questionTextLabel.text = question.questionText;
+    }
+    
+    return cell;
 }
 
 - (UITableViewCell*)yesNoQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath
@@ -219,10 +240,16 @@
     cell.question = question;
     cell.yesNoSwitch.on = [question.yesNoAnswer boolValue];
     cell.questionTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.delegate = self;
+    
+    if ([question.number integerValue] == AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX) {
+        cell.delegate = self;
+        self.showCallButtons = [question.yesNoAnswer boolValue];
 
-    if (question.yesNoAnswer && [question.number integerValue] == AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX) {
-        [self showCallButtonsForCell:cell];
+        if ([question.yesNoAnswer boolValue]) {
+            [self showCallButtonsForCell:cell];
+        } else {
+            [self hideCallButtonsForCell:cell];
+        }
     } else {
         [self hideCallButtonsForCell:cell];
     }
@@ -230,35 +257,33 @@
 
 - (void)hideCallButtonsForCell:(AADailyInventoryYesNoQuestionTableViewCell*)cell
 {
+    for (NSLayoutConstraint* constraint in cell.buttonHeightLayoutConstraints) {
+        constraint.constant = 0.0f;
+    }
+    
+    for (NSLayoutConstraint* constraint in cell.buttonBottomSpacingLayoutConstraints) {
+        constraint.constant = 0.0f;
+    }
+    
     for (AACallButton* button in cell.callButtons) {
         button.hidden = YES;
     }
-    cell.accessoryButtonHeightConstraint.constant = 0.0f;
 }
 
 - (void)showCallButtonsForCell:(AADailyInventoryYesNoQuestionTableViewCell*)cell
 {
+    for (NSLayoutConstraint* constraint in cell.buttonHeightLayoutConstraints) {
+        constraint.constant = AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT;
+    }
+    
+    for (NSLayoutConstraint* constraint in cell.buttonBottomSpacingLayoutConstraints) {
+        constraint.constant = AA_DAILY_INVENTORY_QUESTION_INSET;
+    }
+    
     for (AACallButton* button in cell.callButtons) {
         button.hidden = NO;
+        [button setNeedsDisplay];
     }
-    cell.accessoryButtonHeightConstraint.constant = AA_DAILY_INVENTORY_CALL_BUTTON_HEIGHT;
-}
-
-- (UITableViewCell*)descriptionQuestionTableViewCellForIndexPath:(NSIndexPath*)indexPath
-{
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"DescriptiveQuestionCell"];
-    
-    if ([cell isKindOfClass:[AADailyInventoryDescriptiveQuestionTableViewCell class]]) {
-        AADailyInventoryDescriptiveQuestionTableViewCell* didqtvc = (AADailyInventoryDescriptiveQuestionTableViewCell*)cell;
-        InventoryQuestion* question = self.questions[indexPath.row];
-        self.descriptiveQuestionTextView = didqtvc.answerTextView;
-        didqtvc.answerTextView.delegate = self;
-        didqtvc.answerTextView.text = question.descriptiveAnswer;
-        didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
-        didqtvc.questionTextLabel.text = question.questionText;
-    }
-    
-    return cell;
 }
 
 - (NSUInteger)numLinesForQuestionCellAtIndexPath:(NSIndexPath*)indexPath

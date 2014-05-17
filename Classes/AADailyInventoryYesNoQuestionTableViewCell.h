@@ -28,5 +28,8 @@
 
 @property (weak, nonatomic) id<AADailyInventoryYesNoQuestionTableViewCellDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *accessoryButtonHeightConstraint;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *buttonHeightLayoutConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *buttonBottomSpacingLayoutConstraints;
+
+
 @end
