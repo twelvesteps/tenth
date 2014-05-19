@@ -41,6 +41,8 @@
 		84FEDF2F191D292700767CB0 /* Amend+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */; };
 		84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */; };
 		84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */; };
+		E2006252192A103C00142609 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2006251192A103C00142609 /* AddressBook.framework */; };
+		E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2006257192A11A900142609 /* AAContactsListViewController.m */; };
 		E246D1291926187700D0CC1E /* AACallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E246D1281926187700D0CC1E /* AACallButton.m */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +114,9 @@
 		84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DailyInventory+AAAdditions.m"; path = "Classes/DailyInventory+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditDailyInventoryViewController.h; path = Classes/AAEditDailyInventoryViewController.h; sourceTree = "<group>"; };
 		84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditDailyInventoryViewController.m; path = Classes/AAEditDailyInventoryViewController.m; sourceTree = "<group>"; };
+		E2006251192A103C00142609 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		E2006256192A11A900142609 /* AAContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactsListViewController.h; path = Classes/AAContactsListViewController.h; sourceTree = "<group>"; };
+		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
 		E246D1271926187700D0CC1E /* AACallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACallButton.h; path = Classes/AACallButton.h; sourceTree = SOURCE_ROOT; };
 		E246D1281926187700D0CC1E /* AACallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACallButton.m; path = Classes/AACallButton.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -121,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2006252192A103C00142609 /* AddressBook.framework in Frameworks */,
 				84FEDF2A191CE05400767CB0 /* CoreData.framework in Frameworks */,
 				84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */,
 				84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */,
@@ -157,12 +163,7 @@
 			children = (
 				E246D1271926187700D0CC1E /* AACallButton.h */,
 				E246D1281926187700D0CC1E /* AACallButton.m */,
-				843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */,
-				843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */,
-				842AC506192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.h */,
-				842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */,
-				842AC5091925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.h */,
-				842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */,
+				E2006255192A117C00142609 /* Daily Inventory */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -190,6 +191,7 @@
 		84EBC3331915CD250063F4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E2006251192A103C00142609 /* AddressBook.framework */,
 				84FEDF29191CE05400767CB0 /* CoreData.framework */,
 				84FEDF03191B77F900767CB0 /* EventKit.framework */,
 				84EBC3341915CD250063F4EA /* Foundation.framework */,
@@ -250,10 +252,8 @@
 		84EBC3721915D3750063F4EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				84FEDF23191BD9BF00767CB0 /* AADailyInventoryViewController.h */,
-				84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */,
-				84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */,
-				84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */,
+				E2006254192A117000142609 /* Contacts */,
+				E2006253192A116600142609 /* Daily Inventory */,
 			);
 			name = Controllers;
 			path = ..;
@@ -263,24 +263,57 @@
 			isa = PBXGroup;
 			children = (
 				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
-				842AC5151925B757001EC6CC /* DailyInventory.h */,
-				842AC5161925B757001EC6CC /* DailyInventory.m */,
-				842AC5121925B757001EC6CC /* Resentment.h */,
-				842AC5131925B757001EC6CC /* Resentment.m */,
-				842AC50F1925B757001EC6CC /* InventoryQuestion.h */,
-				842AC5101925B757001EC6CC /* InventoryQuestion.m */,
-				842AC50C1925B756001EC6CC /* Amend.h */,
-				842AC50D1925B756001EC6CC /* Amend.m */,
 				84FEDF26191CDF3700767CB0 /* AAUserDataManager.h */,
 				84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */,
+				842AC50C1925B756001EC6CC /* Amend.h */,
+				842AC50D1925B756001EC6CC /* Amend.m */,
 				84FEDF2D191D292700767CB0 /* Amend+AAAdditions.h */,
 				84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */,
+				842AC5121925B757001EC6CC /* Resentment.h */,
+				842AC5131925B757001EC6CC /* Resentment.m */,
+				842AC5151925B757001EC6CC /* DailyInventory.h */,
+				842AC5161925B757001EC6CC /* DailyInventory.m */,
 				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
 				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
+				842AC50F1925B757001EC6CC /* InventoryQuestion.h */,
+				842AC5101925B757001EC6CC /* InventoryQuestion.m */,
 				84FC238919235AC10012F57C /* InventoryQuestion+AAAdditions.h */,
 				84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		E2006253192A116600142609 /* Daily Inventory */ = {
+			isa = PBXGroup;
+			children = (
+				84FEDF23191BD9BF00767CB0 /* AADailyInventoryViewController.h */,
+				84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */,
+				84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */,
+				84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */,
+			);
+			name = "Daily Inventory";
+			sourceTree = "<group>";
+		};
+		E2006254192A117000142609 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				E2006256192A11A900142609 /* AAContactsListViewController.h */,
+				E2006257192A11A900142609 /* AAContactsListViewController.m */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		E2006255192A117C00142609 /* Daily Inventory */ = {
+			isa = PBXGroup;
+			children = (
+				843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */,
+				843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */,
+				842AC506192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.h */,
+				842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */,
+				842AC5091925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.h */,
+				842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */,
+			);
+			name = "Daily Inventory";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +464,7 @@
 				842AC5141925B757001EC6CC /* Resentment.m in Sources */,
 				84FEDF2F191D292700767CB0 /* Amend+AAAdditions.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
+				E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */,
 				842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,7 +618,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Steps/Steps-Prefix.pch";
 				INFOPLIST_FILE = "Steps/Steps-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -601,7 +635,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Steps/Steps-Prefix.pch";
 				INFOPLIST_FILE = "Steps/Steps-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

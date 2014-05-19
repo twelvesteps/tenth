@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AddressBook/AddressBook.h>
 #import "Amend.h"
 #import "DailyInventory.h"
 #import "Resentment.h"
@@ -42,6 +43,7 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
+- (NSArray*)fetchUserContacts;
 
 
 // *** MAINTAINING PERSISTENCE ***
@@ -49,7 +51,7 @@
 // info:    Saves the data changes to disk
 // returns: void
 // use:     [manager synchronize];
-- (void)synchronize;
-
+- (BOOL)synchronize;
+- (BOOL)flush;
 
 @end

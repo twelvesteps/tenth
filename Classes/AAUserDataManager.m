@@ -56,6 +56,11 @@
     return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME withSortDescriptors:@[sortByDate]];
 }
 
+- (NSArray*)fetchUserContacts
+{
+    return nil;
+}
+
 
 - (NSArray*)fetchItemsForEntityName:(NSString*)name withSortDescriptors:(NSArray*)descriptors
 {
@@ -127,14 +132,34 @@
 - (void)deleteResentment:(Resentment *)resentment
 {
     [self.managedObjectContext deleteObject:resentment];
+
 }
 
 #pragma mark - Core Data Management
 
-- (void)synchronize
+- (BOOL)synchronize
 {
     NSError* err;
-    [self.managedObjectContext save:&err];
+    BOOL result = [self.managedObjectContext save:&err];
+    
+    if (!result) {
+        ALog(@"<ERROR> Unable to save changes to file\nError: %@, User Info: %@", err, [err userInfo]);
+    }
+    
+    return result;
+}
+
+
+- (BOOL)flush
+{
+    BOOL result = [self synchronize];
+    if (result) {
+        self.managedObjectContext = nil;
+        self.managedObjectModel = nil;
+        self.persistentStoreCoordinator = nil;
+    }
+    
+    return result;
 }
 
 

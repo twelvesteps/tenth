@@ -116,11 +116,7 @@
     UIEdgeInsets contentInset = self.tableView.contentInset;
     contentInset.bottom = keyboardHeight;
     
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.tableView.contentInset = contentInset;
-    }];
-
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self scrollTableViewForKeyboardAppearanceWithInset:contentInset duration:animationDuration];
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification
@@ -130,8 +126,13 @@
     UIEdgeInsets contentInset = self.tableView.contentInset;
     contentInset.bottom = 0.0f;
     
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.tableView.contentInset = contentInset;
+    [self scrollTableViewForKeyboardAppearanceWithInset:contentInset duration:animationDuration];
+}
+
+- (void)scrollTableViewForKeyboardAppearanceWithInset:(UIEdgeInsets)inset duration:(NSTimeInterval)duration
+{
+    [UIView animateWithDuration:duration animations:^{
+        self.tableView.contentInset = inset;
     }];
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:8 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -211,7 +212,7 @@
         self.descriptiveQuestionTextView = didqtvc.answerTextView;
         didqtvc.answerTextView.delegate = self;
         didqtvc.answerTextView.text = question.descriptiveAnswer;
-        didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 0.0f);
+        didqtvc.answerTextView.contentInset = UIEdgeInsetsMake(0.0f, AA_DAILY_INVENTORY_QUESTION_INSET, 0.0f, 0.0f);
         didqtvc.questionTextLabel.text = question.questionText;
     }
     
