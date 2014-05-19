@@ -2,12 +2,13 @@
 //  Resentment.m
 //  Steps
 //
-//  Created by Tom on 5/16/14.
+//  Created by tom on 5/19/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
 #import "Resentment.h"
 #import "Amend.h"
+#import "Contact.h"
 #import "DailyInventory.h"
 
 
@@ -20,5 +21,6 @@
 @dynamic effects;
 @dynamic amends;
 @dynamic inventory;
+@dynamic contact;
 
 @end

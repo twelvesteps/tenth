@@ -8,8 +8,18 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="harm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="amend" inverseEntity="Contact" syncable="YES"/>
         <relationship name="inventory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyInventory" inverseName="amends" inverseEntity="DailyInventory" syncable="YES"/>
         <relationship name="resentment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Resentment" inverseName="amends" inverseEntity="Resentment" syncable="YES"/>
+    </entity>
+    <entity name="Contact" representedClassName="Contact" syncable="YES">
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="isFellow" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sobrietyDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="amend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Amend" inverseName="contact" inverseEntity="Amend" syncable="YES"/>
+        <relationship name="resentment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Resentment" inverseName="contact" inverseEntity="Resentment" syncable="YES"/>
     </entity>
     <entity name="DailyInventory" representedClassName="DailyInventory" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -31,12 +41,14 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="effects" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="amends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Amend" inverseName="resentment" inverseEntity="Amend" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="resentment" inverseEntity="Contact" syncable="YES"/>
         <relationship name="inventory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyInventory" inverseName="resentment" inverseEntity="DailyInventory" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Amend" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Amend" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="103"/>
         <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>
-        <element name="Resentment" positionX="160" positionY="9" width="128" height="148"/>
+        <element name="Resentment" positionX="241" positionY="0" width="128" height="163"/>
+        <element name="Contact" positionX="117" positionY="203" width="128" height="148"/>
     </elements>
 </model>

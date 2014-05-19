@@ -13,6 +13,7 @@
 #define AA_AMEND_ITEM_NAME              @"Amend"
 #define AA_DAILY_INVENTORY_ITEM_NAME    @"DailyInventory"
 #define AA_RESENTMENT_ITEM_NAME         @"Resentment"
+#define AA_CONTACT_ITEM_NAME            @"Contact"
 
 @interface AAUserDataManager ()
 
@@ -56,9 +57,23 @@
     return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME withSortDescriptors:@[sortByDate]];
 }
 
-- (NSArray*)fetchUserContacts
+- (NSArray*)fetchUserAAContacts
 {
-    return nil;
+    NSSortDescriptor* sortByFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:NO];
+    NSSortDescriptor* sortByLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:NO];
+    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByFirstName, sortByLastName]];
+    
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    NSMutableArray* contacts = [[NSMutableArray alloc] init];
+    
+    for (Contact* contact in contactItems) {
+        if (contact.isFellow) {
+            CFStringRef contactNameRef = (__bridge CFStringRef)contact.firstName;
+            ABRecordRef contactRef = ABAddressBookCopyPeopleWithName(addressBook, contactNameRef);
+        }
+    }
+    
+    return [contacts copy];
 }
 
 
