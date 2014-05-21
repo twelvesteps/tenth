@@ -11,6 +11,7 @@
 		842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */; };
 		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
+		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -73,6 +74,7 @@
 		843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTableViewCell.m; path = Classes/AADailyInventoryQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		844A7B741920C62B004AD4A8 /* NSDate+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+AAAdditions.h"; path = "Classes/NSDate+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+AAAdditions.m"; path = "Classes/NSDate+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
+		846ABC27192BB15A00558785 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */,
 				E2006252192A103C00142609 /* AddressBook.framework in Frameworks */,
 				84FEDF2A191CE05400767CB0 /* CoreData.framework in Frameworks */,
 				84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */,
@@ -171,6 +174,39 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		846ABC25192B308200558785 /* Managed Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E2006268192A1B8300142609 /* Amend.h */,
+				E2006269192A1B8300142609 /* Amend.m */,
+				84FEDF2D191D292700767CB0 /* Amend+AAAdditions.h */,
+				84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */,
+				E200626E192A1B8400142609 /* Contact.h */,
+				E200626F192A1B8400142609 /* Contact.m */,
+				E2006271192A1B8400142609 /* DailyInventory.h */,
+				E2006272192A1B8400142609 /* DailyInventory.m */,
+				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
+				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
+				E2006274192A1B8400142609 /* InventoryQuestion.h */,
+				E2006275192A1B8400142609 /* InventoryQuestion.m */,
+				84FC238919235AC10012F57C /* InventoryQuestion+AAAdditions.h */,
+				84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */,
+				E200626B192A1B8400142609 /* Resentment.h */,
+				E200626C192A1B8400142609 /* Resentment.m */,
+			);
+			name = "Managed Objects";
+			sourceTree = "<group>";
+		};
+		846ABC26192B30F700558785 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				84FEDF1D191BD46200767CB0 /* Main_iPhone.storyboard */,
+				84EBC3491915CD250063F4EA /* Main_iPad.storyboard */,
+				84EBC34F1915CD250063F4EA /* Images.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		84EBC3281915CD250063F4EA = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +230,7 @@
 		84EBC3331915CD250063F4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				846ABC27192BB15A00558785 /* AddressBookUI.framework */,
 				E2006251192A103C00142609 /* AddressBook.framework */,
 				84FEDF29191CE05400767CB0 /* CoreData.framework */,
 				84FEDF03191B77F900767CB0 /* EventKit.framework */,
@@ -211,11 +248,7 @@
 				84EBC37B19161DB00063F4EA /* Models */,
 				84491B2F1918A767006073B3 /* Views */,
 				84EBC3721915D3750063F4EA /* Controllers */,
-				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
-				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
-				84FEDF1D191BD46200767CB0 /* Main_iPhone.storyboard */,
-				84EBC3491915CD250063F4EA /* Main_iPad.storyboard */,
-				84EBC34F1915CD250063F4EA /* Images.xcassets */,
+				846ABC26192B30F700558785 /* Assets */,
 				84EBC33B1915CD250063F4EA /* Supporting Files */,
 			);
 			path = Steps;
@@ -224,6 +257,8 @@
 		84EBC33B1915CD250063F4EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
+				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
 				844A7B741920C62B004AD4A8 /* NSDate+AAAdditions.h */,
 				844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */,
 				84EBC33C1915CD250063F4EA /* Steps-Info.plist */,
@@ -265,25 +300,10 @@
 		84EBC37B19161DB00063F4EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				846ABC25192B308200558785 /* Managed Objects */,
 				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
-				E2006274192A1B8400142609 /* InventoryQuestion.h */,
-				E2006275192A1B8400142609 /* InventoryQuestion.m */,
-				E2006271192A1B8400142609 /* DailyInventory.h */,
-				E2006272192A1B8400142609 /* DailyInventory.m */,
-				E200626E192A1B8400142609 /* Contact.h */,
-				E200626F192A1B8400142609 /* Contact.m */,
-				E200626B192A1B8400142609 /* Resentment.h */,
-				E200626C192A1B8400142609 /* Resentment.m */,
-				E2006268192A1B8300142609 /* Amend.h */,
-				E2006269192A1B8300142609 /* Amend.m */,
 				84FEDF26191CDF3700767CB0 /* AAUserDataManager.h */,
 				84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */,
-				84FEDF2D191D292700767CB0 /* Amend+AAAdditions.h */,
-				84FEDF2E191D292700767CB0 /* Amend+AAAdditions.m */,
-				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
-				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
-				84FC238919235AC10012F57C /* InventoryQuestion+AAAdditions.h */,
-				84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";

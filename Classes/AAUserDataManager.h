@@ -16,6 +16,7 @@
 
 @interface AAUserDataManager : NSObject
 
+@property (nonatomic) BOOL hasUserAddressBookAccess;
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
 // *** CREATING OBJECTS ***
@@ -30,6 +31,7 @@
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
+- (Contact*)createContact;
 - (Resentment*)createResentment;
 - (DailyInventory*)todaysDailyInventory;
 
@@ -45,7 +47,12 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
-- (NSArray*)fetchUserContacts;
+- (NSArray*)fetchUserAAContacts;
+
+// *** USER ADDRESS BOOK ***
+- (ABRecordRef)personRecordForContact:(Contact*)contact;
+- (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
+- (BOOL)addContactToUserAddressBook:(Contact*)contact;
 
 
 // *** MAINTAINING PERSISTENCE ***

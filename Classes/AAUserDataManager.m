@@ -37,6 +37,7 @@
     return sharedManager;
 }
 
+
 #pragma mark - Fetching Objects
 
 - (NSArray*)fetchUserAmends
@@ -59,23 +60,12 @@
 
 - (NSArray*)fetchUserAAContacts
 {
-    NSSortDescriptor* sortByFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:NO];
-    NSSortDescriptor* sortByLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:NO];
-    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByFirstName, sortByLastName]];
-    
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-    NSMutableArray* contacts = [[NSMutableArray alloc] init];
-    
-    for (Contact* contact in contactItems) {
-        if (contact.isFellow) {
-            CFStringRef contactNameRef = (__bridge CFStringRef)contact.firstName;
-            ABRecordRef contactRef = ABAddressBookCopyPeopleWithName(addressBook, contactNameRef);
-        }
-    }
-    
-    return [contacts copy];
-}
+    NSSortDescriptor* sortByFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
+    NSSortDescriptor* sortByLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES];
+    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByLastName, sortByFirstName]];
 
+    return contactItems;
+}
 
 - (NSArray*)fetchItemsForEntityName:(NSString*)name withSortDescriptors:(NSArray*)descriptors
 {
@@ -106,6 +96,11 @@
 - (Amend*)createAmend
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+}
+
+- (Contact*)createContact
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_CONTACT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
 - (DailyInventory*)todaysDailyInventory
@@ -150,6 +145,7 @@
 
 }
 
+
 #pragma mark - Core Data Management
 
 - (BOOL)synchronize
@@ -164,7 +160,6 @@
     return result;
 }
 
-
 - (BOOL)flush
 {
     BOOL result = [self synchronize];
@@ -176,7 +171,6 @@
     
     return result;
 }
-
 
 - (NSManagedObjectContext *)managedObjectContext {
 	
@@ -231,6 +225,102 @@
     }
     
     return _persistentStoreCoordinator;
+}
+
+
+#pragma mark - Address Book Management
+- (BOOL)hasUserAddressBookAccess
+{
+    __block BOOL hasAccess = NO;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    if (status == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error){
+            if (granted && !error) {
+                hasAccess = YES;
+            } else {
+                hasAccess = NO;
+            }
+        });
+    } else {
+        hasAccess = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
+    }
+    
+    CFRelease(addressBook);
+    
+    return hasAccess;
+}
+
+- (BOOL)addContactForPersonRecord:(ABRecordRef)contact
+{
+    if (self.hasUserAddressBookAccess) {
+        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonFirstNameProperty);
+        NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
+        NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
+        
+        Contact* managedContact = [self createContact];
+        
+        if (managedContact) {
+            managedContact.firstName = firstName;
+            managedContact.lastName = lastName;
+            managedContact.id = contactID;
+            
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (ABRecordRef)personRecordForContact:(Contact *)contact
+{
+    if (!self.hasUserAddressBookAccess) {
+        return NULL;
+    }
+    
+    ABRecordRef record = NULL;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+
+    // use contact's id
+    if (contact.id) {
+        DLog(@"<DEBUG> contact id stored in database, using id");
+        ABRecordID contactID = (ABRecordID)[contact.id intValue];
+        record = ABAddressBookGetPersonWithRecordID(addressBook, contactID);
+    }
+    
+    // use contact's name if id is nil or record was not found
+    if (!record) {
+        DLog(@"<DEBUG> not able to find contact using id, using name");
+        CFStringRef name = (__bridge CFStringRef)[contact.firstName stringByAppendingFormat:@" %@", contact.lastName];
+        CFArrayRef records = ABAddressBookCopyPeopleWithName(addressBook, name);
+        
+        if (records) {
+            NSUInteger count = CFArrayGetCount(records);
+            for (NSUInteger i = 0; i < count && !record; i++) {
+                ABRecordRef cur = CFArrayGetValueAtIndex(records, i);
+                
+                // verify that first and last name match
+                NSString* curFirstName = (__bridge_transfer NSString*)ABRecordCopyValue(cur, kABPersonFirstNameProperty);
+                NSString* curLastName = (__bridge_transfer NSString*)ABRecordCopyValue(cur, kABPersonLastNameProperty);
+                if ([contact.firstName isEqualToString:curFirstName] && [contact.lastName isEqualToString:curLastName]) {
+                    record = cur;
+                }
+            }
+        }
+    }
+    
+    CFRelease(addressBook);
+    
+    return record;
+}
+
+- (BOOL)addContactToUserAddressBook:(Contact *)contact
+{
+    if (!self.hasUserAddressBookAccess) {
+        return NO;
+    }
+    
+    return NO;
 }
 
 @end
