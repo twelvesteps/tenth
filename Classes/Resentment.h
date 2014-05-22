@@ -2,7 +2,7 @@
 //  Resentment.h
 //  Steps
 //
-//  Created by tom on 5/19/14.
+//  Created by tom on 5/22/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * date;
 @property (nonatomic, retain) NSNumber * effects;
 @property (nonatomic, retain) NSSet *amends;
-@property (nonatomic, retain) DailyInventory *inventory;
 @property (nonatomic, retain) Contact *contact;
+@property (nonatomic, retain) DailyInventory *inventory;
 @end
 
 @interface Resentment (CoreDataGeneratedAccessors)

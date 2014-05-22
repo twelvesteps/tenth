@@ -123,6 +123,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ABRecordRef person = [[AAUserDataManager sharedManager] personRecordFromAddressBookForContact:self.contacts[indexPath.row]];
+    
     ABPersonViewController* controller = [[ABPersonViewController alloc] init];
     controller.displayedPerson = person;
     controller.personViewDelegate = self;

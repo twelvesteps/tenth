@@ -246,13 +246,19 @@
 
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact
 {
-    if (self.hasUserAddressBookAccess) {
-        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonFirstNameProperty);
-        NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
-        NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
-        
-        Contact* managedContact = [self createContact];
-        
+    if (!self.hasUserAddressBookAccess) {
+        if (![self requestUserAddressBookAccess]) {
+            ALog(@"<ERROR> User has denied phonebook access");
+            return NO;
+        }
+    }
+    
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
+    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
+    
+    Contact* managedContact = [self createContact];
+    
         if (managedContact) {
             managedContact.firstName = firstName;
             managedContact.lastName = lastName;
@@ -263,17 +269,13 @@
             ALog(@"<ERROR> Unable to create contact in application's local database");
             return NO;
         }
-        
-    } else {
-        ALog(@"<ERROR> User has denied phonebook access");
-        return NO;
-    }
 }
 
 - (ABRecordRef)personRecordFromAddressBookForContact:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
         if (![self requestUserAddressBookAccess]) {
+            ALog(@"<ERROR> User has denied phonebook access");
             return NULL;
         }
     }
@@ -314,11 +316,34 @@
 - (BOOL)addContactToUserAddressBook:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
-        return NO;
+        if (![self requestUserAddressBookAccess]) {
+            ALog(@"<ERROR> User has denied phonebook access");
+            return NO;
+        }
     }
-#warning Method not implemented
-    ALog(@"<ERROR> METHOD NOT IMPLEMENTED");
-    return NO;
+    
+    ABRecordRef record = [self personRecordFromAddressBookForContact:contact];
+    CFErrorRef error;
+
+    if (!record) {
+        record = ABPersonCreate();
+        ABRecordSetValue(record, kABPersonFirstNameProperty, (__bridge CFStringRef)contact.firstName, NULL);
+        ABRecordSetValue(record, kABPersonLastNameProperty, (__bridge CFStringRef)contact.lastName, NULL);
+        
+        ABMultiValueRef phones = ABMultiValueCreateMutable(kABPersonPhoneProperty);
+        ABMultiValueAddValueAndLabel(phones, NULL, kABPersonPhone, <#ABMultiValueIdentifier *outIdentifier#>)
+#warning addContactToUserAddressBook will always cause program termination
+        assert(NO); // should fail every time right now,
+    }
+    
+
+    BOOL result = (BOOL)ABAddressBookAddRecord(self.addressBook, record, &error);
+
+    if (!result) {
+        ALog(@"<ERROR> Unable to save contact to phone, Error: %@", (__bridge_transfer NSString*)CFErrorCopyDescription(error));
+    }
+    
+    return result;
 }
 
 

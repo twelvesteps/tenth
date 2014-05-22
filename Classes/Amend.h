@@ -2,7 +2,7 @@
 //  Amend.h
 //  Steps
 //
-//  Created by tom on 5/19/14.
+//  Created by tom on 5/22/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -20,8 +20,8 @@
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * harm;
 @property (nonatomic, retain) NSData * reminder;
+@property (nonatomic, retain) Contact *contact;
 @property (nonatomic, retain) DailyInventory *inventory;
 @property (nonatomic, retain) Resentment *resentment;
-@property (nonatomic, retain) Contact *contact;
 
 @end
