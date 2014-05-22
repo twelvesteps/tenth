@@ -50,7 +50,7 @@
 - (NSArray*)fetchUserAAContacts;
 
 // *** USER ADDRESS BOOK ***
-- (ABRecordRef)personRecordForContact:(Contact*)contact;
+- (ABRecordRef)personRecordFromAddressBookForContact:(Contact*)contact;
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
 - (BOOL)addContactToUserAddressBook:(Contact*)contact;
 

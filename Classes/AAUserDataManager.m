@@ -17,6 +17,7 @@
 
 @interface AAUserDataManager ()
 
+@property (nonatomic, assign) ABAddressBookRef addressBook;
 @property (nonatomic, strong) NSManagedObjectModel* managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator* persistentStoreCoordinator;
 
@@ -24,7 +25,7 @@
 
 @implementation AAUserDataManager
 
-#pragma mark - Initialization
+#pragma mark - Lifecycle
 
 + (instancetype)sharedManager
 {
@@ -35,6 +36,14 @@
     });
     
     return sharedManager;
+}
+
+
+- (void)dealloc
+{
+    if (_addressBook) {
+        CFRelease(_addressBook);
+    }
 }
 
 
@@ -272,7 +281,7 @@
     return NO;
 }
 
-- (ABRecordRef)personRecordForContact:(Contact *)contact
+- (ABRecordRef)personRecordFromAddressBookForContact:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
         return NULL;
