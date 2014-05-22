@@ -49,8 +49,17 @@
 - (NSArray*)fetchUserAAContacts;
 
 // *** USER ADDRESS BOOK ***
+// info:    This methods allow translations from a managed object to an address book record.
+// returns: The requested person record or NULL on error or person not found
+// use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
 - (ABRecordRef)personRecordFromAddressBookForContact:(Contact*)contact;
+
+// info:    These methods allow for contacts to be added to the phone's database or the app's database.
+// returns: YES on success, NO on failure, error message printed to console
+// use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
+
+// WARNING - METHOD CURRENTLY NOT IMPLEMENTED
 - (BOOL)addContactToUserAddressBook:(Contact*)contact;
 
 

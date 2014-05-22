@@ -259,10 +259,15 @@
             managedContact.id = contactID;
             
             return YES;
+        } else {
+            ALog(@"<ERROR> Unable to create contact in application's local database");
+            return NO;
         }
+        
+    } else {
+        ALog(@"<ERROR> User has denied phonebook access");
+        return NO;
     }
-    
-    return NO;
 }
 
 - (ABRecordRef)personRecordFromAddressBookForContact:(Contact *)contact
@@ -311,7 +316,8 @@
     if (!self.hasUserAddressBookAccess) {
         return NO;
     }
-    
+#warning Method not implemented
+    ALog(@"<ERROR> METHOD NOT IMPLEMENTED");
     return NO;
 }
 
