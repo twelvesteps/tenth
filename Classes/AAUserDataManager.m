@@ -17,6 +17,7 @@
 
 @interface AAUserDataManager ()
 
+@property (nonatomic) BOOL hasUserAddressBookAccess;
 @property (nonatomic, assign) ABAddressBookRef addressBook;
 @property (nonatomic, strong) NSManagedObjectModel* managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator* persistentStoreCoordinator;
@@ -33,11 +34,11 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         sharedManager = [[AAUserDataManager alloc] init];
+        sharedManager.hasUserAddressBookAccess = NO;
     });
     
     return sharedManager;
 }
-
 
 - (void)dealloc
 {
@@ -157,30 +158,6 @@
 
 #pragma mark - Core Data Management
 
-- (BOOL)synchronize
-{
-    NSError* err;
-    BOOL result = [self.managedObjectContext save:&err];
-    
-    if (!result) {
-        ALog(@"<ERROR> Unable to save changes to file\nError: %@, User Info: %@", err, [err userInfo]);
-    }
-    
-    return result;
-}
-
-- (BOOL)flush
-{
-    BOOL result = [self synchronize];
-    if (result) {
-        self.managedObjectContext = nil;
-        self.managedObjectModel = nil;
-        self.persistentStoreCoordinator = nil;
-    }
-    
-    return result;
-}
-
 - (NSManagedObjectContext *)managedObjectContext {
 	
     if (_managedObjectContext != nil) {
@@ -238,26 +215,33 @@
 
 
 #pragma mark - Address Book Management
-- (BOOL)hasUserAddressBookAccess
+
+- (ABAddressBookRef)addressBook
 {
-    __block BOOL hasAccess = NO;
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    if (!_addressBook) _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    return _addressBook;
+}
+
+- (BOOL)requestUserAddressBookAccess
+{
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    
     if (status == kABAuthorizationStatusNotDetermined) {
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error){
+        __block __weak AAUserDataManager *weakself = self;
+        ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error){
             if (granted && !error) {
-                hasAccess = YES;
+                ABAddressBookRevert(weakself.addressBook);
+                weakself.hasUserAddressBookAccess = YES;
             } else {
-                hasAccess = NO;
+                weakself.hasUserAddressBookAccess = NO;
             }
         });
     } else {
-        hasAccess = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
+        self.hasUserAddressBookAccess = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
     }
     
-    CFRelease(addressBook);
     
-    return hasAccess;
+    return self.hasUserAddressBookAccess;
 }
 
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact
@@ -284,24 +268,25 @@
 - (ABRecordRef)personRecordFromAddressBookForContact:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
-        return NULL;
+        if (![self requestUserAddressBookAccess]) {
+            return NULL;
+        }
     }
     
     ABRecordRef record = NULL;
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
 
     // use contact's id
     if (contact.id) {
         DLog(@"<DEBUG> contact id stored in database, using id");
         ABRecordID contactID = (ABRecordID)[contact.id intValue];
-        record = ABAddressBookGetPersonWithRecordID(addressBook, contactID);
+        record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
     }
     
     // use contact's name if id is nil or record was not found
     if (!record) {
         DLog(@"<DEBUG> not able to find contact using id, using name");
         CFStringRef name = (__bridge CFStringRef)[contact.firstName stringByAppendingFormat:@" %@", contact.lastName];
-        CFArrayRef records = ABAddressBookCopyPeopleWithName(addressBook, name);
+        CFArrayRef records = ABAddressBookCopyPeopleWithName(self.addressBook, name);
         
         if (records) {
             NSUInteger count = CFArrayGetCount(records);
@@ -318,8 +303,6 @@
         }
     }
     
-    CFRelease(addressBook);
-    
     return record;
 }
 
@@ -330,6 +313,67 @@
     }
     
     return NO;
+}
+
+
+#pragma mark - Persistence
+
+- (BOOL)synchronize
+{
+    BOOL cdResult = [self saveManagedObjectContextChanges];
+    BOOL abResult = [self saveAddressBookChanges];
+    
+    return cdResult && abResult;
+}
+
+- (BOOL)flush
+{
+    BOOL result = [self synchronize];
+    
+    // if save was successful continue
+    if (result) {
+        // clean core data memory
+        self.managedObjectContext = nil;
+        self.managedObjectModel = nil;
+        self.persistentStoreCoordinator = nil;
+        
+        // clean address book memory
+        CFRelease(self.addressBook);
+        self.addressBook = NULL;
+    } else {
+        ALog(@"<ERROR> Unable to save changes to user data, aborting flush. Check log for error details");
+    }
+    
+    return result;
+}
+
+- (BOOL)saveManagedObjectContextChanges
+{
+    NSError* err;
+    BOOL result = [self.managedObjectContext save:&err];
+    
+    if (!result) {
+        ALog(@"<ERROR> Unable to save changes to file\nError: %@, User Info: %@", err, [err userInfo]);
+    }
+    
+    return result;
+}
+
+- (BOOL)saveAddressBookChanges
+{
+    BOOL result = YES; // pessimism :(
+    
+    if (ABAddressBookHasUnsavedChanges(self.addressBook)) {
+        CFErrorRef error;
+        result = (BOOL)(ABAddressBookSave(self.addressBook, &error));
+        
+        if (!result) {
+            ALog(@"<ERROR> Unable to save changes to user address book, %@",
+                 (__bridge_transfer NSString*)CFErrorCopyDescription(error));
+        }
+    }
+    
+    return result;
 }
 
 @end
