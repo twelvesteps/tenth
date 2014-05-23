@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AddressBook/AddressBook.h>
 #import "Amend.h"
-#import "DailyInventory.h"
+#import "Contact.h"
 #import "Resentment.h"
+#import "DailyInventory.h"
+
 
 @interface AAUserDataManager : NSObject
 
@@ -27,6 +30,7 @@
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
+- (Contact*)createContact;
 - (Resentment*)createResentment;
 - (DailyInventory*)todaysDailyInventory;
 
@@ -42,6 +46,21 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
+- (NSArray*)fetchUserAAContacts;
+
+// *** USER ADDRESS BOOK ***
+// info:    This methods allow translations from a managed object to an address book record.
+// returns: The requested person record or NULL on error or person not found
+// use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
+- (ABRecordRef)personRecordFromAddressBookForContact:(Contact*)contact;
+
+// info:    These methods allow for contacts to be added to the phone's database or the app's database.
+// returns: YES on success, NO on failure, error message printed to console
+// use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
+- (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
+
+// WARNING - METHOD CURRENTLY NOT IMPLEMENTED
+- (BOOL)addContactToUserAddressBook:(Contact*)contact;
 
 
 // *** MAINTAINING PERSISTENCE ***
@@ -49,7 +68,7 @@
 // info:    Saves the data changes to disk
 // returns: void
 // use:     [manager synchronize];
-- (void)synchronize;
-
+- (BOOL)synchronize;
+- (BOOL)flush;
 
 @end
