@@ -157,6 +157,11 @@
 
 }
 
+- (void)deleteAAContact:(Contact*)contact
+{
+    [self.managedObjectContext deleteObject:contact];
+}
+
 
 #pragma mark - Core Data Management
 

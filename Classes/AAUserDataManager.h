@@ -37,6 +37,7 @@
 - (void)deleteAmend:(Amend*)amend;
 - (void)deleteResentment:(Resentment*)resentment;
 - (void)deleteDailyInventory:(DailyInventory*)dailyInventory;
+- (void)deleteAAContact:(Contact*)contact;
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 

@@ -105,6 +105,20 @@
     return 1;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[AAUserDataManager sharedManager] deleteAAContact:self.contacts[indexPath.row]];
+    }
+    
+    [self.tableView reloadData];
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
