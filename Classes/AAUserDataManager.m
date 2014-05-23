@@ -8,6 +8,8 @@
 
 #import "AAUserDataManager.h"
 #import "NSDate+AAAdditions.h"
+#import "Phone.h"
+#import "Email.h"
 #import <CoreData/CoreData.h>
 
 #define AA_AMEND_ITEM_NAME              @"Amend"
@@ -287,6 +289,13 @@
         DLog(@"<DEBUG> contact id stored in database, using id");
         ABRecordID contactID = (ABRecordID)[contact.id intValue];
         record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
+        
+        // make sure the id is correct
+        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
+        NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
+        if (!([contact.firstName isEqualToString:firstName] && [contact.lastName isEqualToString:lastName])) {
+            record = NULL;
+        }
     }
     
     // use contact's name if id is nil or record was not found
@@ -305,6 +314,7 @@
                 NSString* curLastName = (__bridge_transfer NSString*)ABRecordCopyValue(cur, kABPersonLastNameProperty);
                 if ([contact.firstName isEqualToString:curFirstName] && [contact.lastName isEqualToString:curLastName]) {
                     record = cur;
+                    contact.id = [NSNumber numberWithInt:ABRecordGetRecordID(record)];
                 }
             }
         }
@@ -330,12 +340,8 @@
         ABRecordSetValue(record, kABPersonFirstNameProperty, (__bridge CFStringRef)contact.firstName, NULL);
         ABRecordSetValue(record, kABPersonLastNameProperty, (__bridge CFStringRef)contact.lastName, NULL);
         
-        ABMultiValueRef phones = ABMultiValueCreateMutable(kABPersonPhoneProperty);
-        ABMultiValueAddValueAndLabel(phones, NULL, kABPersonPhone, <#ABMultiValueIdentifier *outIdentifier#>)
-#warning addContactToUserAddressBook will always cause program termination
-        assert(NO); // should fail every time right now,
+        [self addContactProperties:contact toPersonRecord:record];
     }
-    
 
     BOOL result = (BOOL)ABAddressBookAddRecord(self.addressBook, record, &error);
 
@@ -344,6 +350,35 @@
     }
     
     return result;
+}
+
+- (void)addContactProperties:(Contact*)contact toPersonRecord:(ABRecordRef)person
+{
+    if (person) {
+        // add phone numbers
+        ABMultiValueRef phones = [self getMultiValueRefForPersonRecord:person forProperty:kABPersonPhoneProperty];
+        NSArray* contactPhones = [contact.phones allObjects];
+        for (Phone* phone in contactPhones) {
+            ABMultiValueAddValueAndLabel(phones, (__bridge CFStringRef)phone.number, (__bridge CFStringRef)phone.title, NULL  );
+        }
+        
+        ABMultiValueRef emails = [self getMultiValueRefForPersonRecord:person forProperty:kABPersonEmailProperty];
+        NSArray* contactEmails = [contact.emails allObjects];
+        for (Email* email in contactEmails) {
+            ABMultiValueAddValueAndLabel(emails, (__bridge CFStringRef)email.address, (__bridge CFStringRef)email.title, NULL);
+        }
+        
+        ABRecordSetValue(person, kABPersonPhoneProperty, phones, NULL);
+        ABRecordSetValue(person, kABPersonEmailProperty, emails, NULL);
+    }
+}
+
+- (ABMultiValueRef)getMultiValueRefForPersonRecord:(ABRecordRef)person forProperty:(ABPropertyType)property
+{
+    ABMultiValueRef values = ABRecordCopyValue(person, property);
+    if (!values)
+        values = ABMultiValueCreateMutable(property);
+    return values;
 }
 
 
