@@ -291,9 +291,7 @@
         record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
         
         // make sure the id is correct
-        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-        NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
-        if (!([contact.firstName isEqualToString:firstName] && [contact.lastName isEqualToString:lastName])) {
+        if ([self personRecord:record nameMatchesContactName:contact]) {
             record = NULL;
         }
     }
@@ -310,9 +308,7 @@
                 ABRecordRef cur = CFArrayGetValueAtIndex(records, i);
                 
                 // verify that first and last name match
-                NSString* curFirstName = (__bridge_transfer NSString*)ABRecordCopyValue(cur, kABPersonFirstNameProperty);
-                NSString* curLastName = (__bridge_transfer NSString*)ABRecordCopyValue(cur, kABPersonLastNameProperty);
-                if ([contact.firstName isEqualToString:curFirstName] && [contact.lastName isEqualToString:curLastName]) {
+                if ([self personRecord:cur nameMatchesContactName:contact]) {
                     record = cur;
                     contact.id = [NSNumber numberWithInt:ABRecordGetRecordID(record)];
                 }
@@ -350,6 +346,13 @@
     }
     
     return result;
+}
+
+- (BOOL)personRecord:(ABRecordRef)person nameMatchesContactName:(Contact*)contact
+{
+    NSString* curFirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* curLastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    return ([contact.firstName isEqualToString:curFirstName] && [contact.lastName isEqualToString:curLastName]);
 }
 
 - (void)addContactProperties:(Contact*)contact toPersonRecord:(ABRecordRef)person

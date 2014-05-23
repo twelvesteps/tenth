@@ -12,6 +12,8 @@
 
 @interface AAUserDataManagerTests : XCTestCase
 
+@property (strong, nonatomic) AAUserDataManager* manager;
+
 @end
 
 @implementation AAUserDataManagerTests
@@ -20,6 +22,8 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    if (!_manager)
+        _manager = [AAUserDataManager sharedManager];
 }
 
 - (void)tearDown
@@ -39,31 +43,41 @@
 
 - (void)testFetchUserAmends
 {
-    AAUserDataManager* manager = [AAUserDataManager sharedManager];
-    NSAssert(manager, @"AAUserDataManager unable to allocate shared instance");
-    
-    NSArray* amends = [manager fetchUserAmends];
+    NSArray* amends = [self.manager fetchUserAmends];
     NSAssert(amends, @"AAUserDataManager unable to fetch amends");
     DLog(@"Amends count: %d", (int)[amends count]);
 }
 
 - (void)testAAUserDataManagerCreationMethods
 {
-    AAUserDataManager* manager = [AAUserDataManager sharedManager];
-    
     NSDate* beforeCreation = [NSDate date];
-    Amend* amend = [manager createAmend];
+    Amend* amend = [self.manager createAmend];
     NSDate* afterCreation = [NSDate date];
-    NSArray* amends = [manager fetchUserAmends];
+    NSArray* amends = [self.manager fetchUserAmends];
     
     NSAssert([amends count] == 1, @"Amend not properly added to context");
     NSAssert([amend.creationDate compare:beforeCreation] == NSOrderedDescending &&
              [amend.creationDate compare:afterCreation] == NSOrderedAscending,
              @"CreationDate not properly set");
     
-    DailyInventory* inventory = [manager todaysDailyInventory];
+    DailyInventory* inventory = [self.manager todaysDailyInventory];
     NSArray* questions = [[inventory.questions allObjects] sortedArrayUsingSelector:@selector(compareQuestionNumber:)];
     DLog(@"First Question Text: %@", [[questions firstObject] questionText]);
+}
+
+- (void)testAddPersonToUserAddressBook
+{
+    Contact* contact = [self.manager createContact];
+    contact.firstName = @"Johnny";
+    contact.lastName  = @"Appleseed";
+    
+    ABRecordRef person = [self.manager personRecordFromAddressBookForContact:contact];
+    NSAssert(!person, @"Person should not exist");
+    
+    BOOL result = [self.manager addContactToUserAddressBook:contact];
+    result = [self.manager synchronize];
+    person = [self.manager personRecordFromAddressBookForContact:contact];
+    NSAssert(person, @"Person record not successfully added");
 }
 
 @end
