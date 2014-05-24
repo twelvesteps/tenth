@@ -30,14 +30,24 @@
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
-- (Contact*)createContact;
 - (Resentment*)createResentment;
+
+// info:    Creates a managed contact if it does not already exist or fetches the contact matching the description
+// returns: A contact object with the given properties or nil on error
+// use:     Contact* johnny = [manager createContactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
+- (Contact*)createContactWithFirstName:(NSString*)firstName
+                              lastName:(NSString*)lastName
+                             contactID:(NSNumber*)contactID;
+
+// info:    Creates a managed inventory for the current date if it does not already exist or fetches the inventory for today
+// returns: An inventory for the current day (based on user's local calendar) or nil on error
+// use:     DailyInventory* todaysInventory = [manager todaysDailyInventory];
 - (DailyInventory*)todaysDailyInventory;
 
-- (void)deleteAmend:(Amend*)amend;
-- (void)deleteResentment:(Resentment*)resentment;
-- (void)deleteDailyInventory:(DailyInventory*)dailyInventory;
-- (void)deleteAAContact:(Contact*)contact;
+- (void)removeAmend:(Amend*)amend;
+- (void)removeResentment:(Resentment*)resentment;
+- (void)removeDailyInventory:(DailyInventory*)dailyInventory;
+- (void)removeAAContact:(Contact*)contact;
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 
@@ -55,15 +65,11 @@
 // use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
 - (ABRecordRef)personRecordFromAddressBookForContact:(Contact*)contact;
 
-// info:    These methods allow for contacts to be added to the phone's database or the app's database.
+// info:    These methods allow for contacts to be added or removed to the phone's database or the app's database.
 // returns: YES on success, NO on failure, error message printed to console
 // use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
-
-#warning update interface
-// WARNING - METHOD CURRENTLY NOT IMPLEMENTED
 - (BOOL)addContactToUserAddressBook:(Contact*)contact;
-
 - (BOOL)removeContactFromUserAddressBook:(Contact*)contact;
 
 
