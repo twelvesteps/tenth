@@ -115,6 +115,49 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_CONTACT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
+- (Contact*)createContactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
+{
+    NSMutableArray* predicates = [[NSMutableArray alloc] init];
+    NSPredicate* firstNamePredicate = nil;
+    NSPredicate* lastNamePredicate = nil;
+    NSPredicate* contactIDPredicate = nil;
+    
+    if (firstName) {
+        firstNamePredicate = [NSPredicate predicateWithFormat:@"firstName == %@", firstName];
+        [predicates addObject:firstNamePredicate];
+    }
+    
+    if (lastName) {
+        lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName == %@", lastName];
+        [predicates addObject:lastNamePredicate];
+    }
+    
+    if (contactID) {
+        contactIDPredicate = [NSPredicate predicateWithFormat:@"id == %@", contactID];
+        [predicates addObject:contactIDPredicate];
+    }
+    
+    if ([predicates count] > 0) {
+        NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
+        NSPredicate* contactPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[predicates copy]];
+        request.predicate = contactPredicate;
+
+        NSError* err;
+        NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
+        
+        if (results.count == 0) {
+            return [self createContact];
+        } else if (results.count == 1) {
+            return [results lastObject];
+        } else {
+            ALog(@"<ERROR> Database state violates invarient \"Only one contact with same name and id\"\n %@, %@", err, err.userInfo);
+            return nil;
+        }
+    } else {
+        return [self createContact];
+    }
+}
+
 - (DailyInventory*)todaysDailyInventory
 {
     NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_DAILY_INVENTORY_ITEM_NAME];
@@ -266,7 +309,7 @@
     NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
     NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
     
-    Contact* managedContact = [self createContact];
+    Contact* managedContact = [self createContactWithFirstName:firstName lastName:lastName contactID:contactID];
     
         if (managedContact) {
             managedContact.firstName = firstName;
@@ -438,8 +481,10 @@
         self.persistentStoreCoordinator = nil;
         
         // clean address book memory
-        CFRelease(self.addressBook);
-        self.addressBook = NULL;
+        if (self.addressBook) {
+            CFRelease(self.addressBook);
+            self.addressBook = NULL;
+        }
     } else {
         ALog(@"<ERROR> Unable to save changes to user data, aborting flush. Check log for error details");
     }

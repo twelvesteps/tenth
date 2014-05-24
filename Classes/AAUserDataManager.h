@@ -30,8 +30,18 @@
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
-- (Contact*)createContact;
 - (Resentment*)createResentment;
+
+// info:    Creates a managed contact if it does not already exist or fetches the contact matching the description
+// returns: A contact object with the given properties or nil on error
+// use:     Contact* johnny = [manager createContactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
+- (Contact*)createContactWithFirstName:(NSString*)firstName
+                              lastName:(NSString*)lastName
+                             contactID:(NSNumber*)contactID;
+
+// info:    Creates a managed inventory for the current date if it does not already exist or fetches the inventory for today
+// returns: An inventory for the current day (based on user's local calendar) or nil on error
+// use:     DailyInventory* todaysInventory = [manager todaysDailyInventory];
 - (DailyInventory*)todaysDailyInventory;
 
 - (void)removeAmend:(Amend*)amend;
