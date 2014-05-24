@@ -103,8 +103,8 @@
 }
 
 
-#pragma mark - Creating/Deleting Objects
-
+#pragma mark - Creating/Removing Objects
+#pragma mark Create
 - (Amend*)createAmend
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
@@ -141,23 +141,25 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
-- (void)deleteAmend:(Amend *)amend
+#pragma mark Remove
+
+- (void)removeAmend:(Amend *)amend
 {
     [self.managedObjectContext deleteObject:amend];
 }
 
-- (void)deleteDailyInventory:(DailyInventory *)dailyInventory
+- (void)removeDailyInventory:(DailyInventory *)dailyInventory
 {
     [self.managedObjectContext deleteObject:dailyInventory];
 }
 
-- (void)deleteResentment:(Resentment *)resentment
+- (void)removeResentment:(Resentment *)resentment
 {
     [self.managedObjectContext deleteObject:resentment];
 
 }
 
-- (void)deleteAAContact:(Contact*)contact
+- (void)removeAAContact:(Contact*)contact
 {
     [self.managedObjectContext deleteObject:contact];
 }
@@ -296,7 +298,7 @@
         record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
         
         // make sure the id is correct
-        if ([self personRecord:record nameMatchesContactName:contact]) {
+        if (![self personRecord:record nameMatchesContactName:contact]) {
             record = NULL;
         }
     }
@@ -352,6 +354,8 @@
         ABAddressBookSave(self.addressBook, &error);
     }
     
+    result = [self saveAddressBookChanges];
+    
     return result;
 }
 
@@ -365,6 +369,8 @@
         if (!result) {
             ALog(@"<ERROR> Unable to remove contact from address book, ERROR: %@", (__bridge_transfer NSString*)CFErrorCopyDescription(error));
         }
+        
+        result = [self saveAddressBookChanges];
         
         return result;
     } else {
@@ -455,7 +461,7 @@
 
 - (BOOL)saveAddressBookChanges
 {
-    BOOL result = YES; // pessimism :(
+    BOOL result = YES;
     
     if (ABAddressBookHasUnsavedChanges(self.addressBook)) {
         CFErrorRef error;

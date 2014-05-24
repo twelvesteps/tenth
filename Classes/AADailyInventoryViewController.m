@@ -101,7 +101,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[AAUserDataManager sharedManager] deleteDailyInventory:self.dailyInventories[indexPath.row]];
+        [[AAUserDataManager sharedManager] removeDailyInventory:self.dailyInventories[indexPath.row]];
     }
     
     [self.tableView reloadData];

@@ -171,7 +171,7 @@
         }
         
         // remove contact from database
-        [manager deleteAAContact:contact];
+        [manager removeAAContact:contact];
         
         [self.tableView reloadData];
     }
