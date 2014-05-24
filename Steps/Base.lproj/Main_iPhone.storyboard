@@ -41,7 +41,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="rightBarButtonItem" title="+" id="mv7-Kn-K1w">
+                        <barButtonItem key="rightBarButtonItem" title="Add Contact" id="mv7-Kn-K1w">
                             <connections>
                                 <action selector="addContactButtonTapped:" destination="T2K-zy-WU3" id="U1h-K3-nYR"/>
                             </connections>
@@ -95,7 +95,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Daily Inventory" id="Dyq-Ct-fbo">
-                        <barButtonItem key="rightBarButtonItem" title="+" id="T7O-9v-ZpK">
+                        <barButtonItem key="rightBarButtonItem" title="Today" id="T7O-9v-ZpK">
                             <connections>
                                 <action selector="editInventory:" destination="BUA-3q-KLa" id="HHz-eq-Sx5"/>
                             </connections>

@@ -60,8 +60,11 @@
 // use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
 
+#warning update interface
 // WARNING - METHOD CURRENTLY NOT IMPLEMENTED
 - (BOOL)addContactToUserAddressBook:(Contact*)contact;
+
+- (BOOL)removeContactFromUserAddressBook:(Contact*)contact;
 
 
 // *** MAINTAINING PERSISTENCE ***
