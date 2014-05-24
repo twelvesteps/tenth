@@ -37,6 +37,7 @@
 - (void)deleteAmend:(Amend*)amend;
 - (void)deleteResentment:(Resentment*)resentment;
 - (void)deleteDailyInventory:(DailyInventory*)dailyInventory;
+- (void)deleteAAContact:(Contact*)contact;
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 
@@ -59,8 +60,11 @@
 // use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
 - (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
 
+#warning update interface
 // WARNING - METHOD CURRENTLY NOT IMPLEMENTED
 - (BOOL)addContactToUserAddressBook:(Contact*)contact;
+
+- (BOOL)removeContactFromUserAddressBook:(Contact*)contact;
 
 
 // *** MAINTAINING PERSISTENCE ***

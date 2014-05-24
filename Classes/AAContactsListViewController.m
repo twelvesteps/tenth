@@ -10,10 +10,12 @@
 #import "AAContactsListViewController.h"
 #import "AAUserDataManager.h"
 
-@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate>
+@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* contacts;
+
+@property (strong, nonatomic) NSIndexPath* deletedContactIndexPath;
 
 @end
 
@@ -48,6 +50,16 @@
     picker.peoplePickerDelegate = self;
     
     [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)showDeleteActionSheet
+{
+    UIActionSheet* deleteSheet = [[UIActionSheet alloc] initWithTitle:@"Delete Contact"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Remove from phone"
+                                                    otherButtonTitles:@"Remove from AA contacts", nil];
+    [deleteSheet showInView:self.view];
 }
 
 
@@ -129,6 +141,40 @@
     controller.personViewDelegate = self;
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.deletedContactIndexPath = indexPath;
+        [self showDeleteActionSheet];
+    }
+}
+
+#pragma mark - UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        self.deletedContactIndexPath = nil;
+    } else {
+        AAUserDataManager* manager = [AAUserDataManager sharedManager];
+        Contact* contact = self.contacts[self.deletedContactIndexPath.row];
+        
+        // remove contact from address book
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            [manager removeContactFromUserAddressBook:contact];
+        }
+        
+        // remove contact from database
+        [manager deleteAAContact:contact];
+        
+        [self.tableView reloadData];
+    }
 }
 
 /*

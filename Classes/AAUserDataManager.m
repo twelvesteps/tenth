@@ -157,6 +157,11 @@
 
 }
 
+- (void)deleteAAContact:(Contact*)contact
+{
+    [self.managedObjectContext deleteObject:contact];
+}
+
 
 #pragma mark - Core Data Management
 
@@ -340,12 +345,32 @@
     }
 
     BOOL result = (BOOL)ABAddressBookAddRecord(self.addressBook, record, &error);
-
+    
     if (!result) {
         ALog(@"<ERROR> Unable to save contact to phone, Error: %@", (__bridge_transfer NSString*)CFErrorCopyDescription(error));
+    } else {
+        ABAddressBookSave(self.addressBook, &error);
     }
     
     return result;
+}
+
+- (BOOL)removeContactFromUserAddressBook:(Contact *)contact
+{
+    ABRecordRef person = [self personRecordFromAddressBookForContact:contact];
+    if (person) {
+        CFErrorRef error;
+        BOOL result = ABAddressBookRemoveRecord(self.addressBook, person, &error);
+        
+        if (!result) {
+            ALog(@"<ERROR> Unable to remove contact from address book, ERROR: %@", (__bridge_transfer NSString*)CFErrorCopyDescription(error));
+        }
+        
+        return result;
+    } else {
+        DLog(@"<DEBUG> Contact could not be found in address book");
+        return NO;
+    }
 }
 
 - (BOOL)personRecord:(ABRecordRef)person nameMatchesContactName:(Contact*)contact
