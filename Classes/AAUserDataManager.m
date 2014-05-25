@@ -115,7 +115,7 @@
     return [NSEntityDescription insertNewObjectForEntityForName:AA_CONTACT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
 }
 
-- (Contact*)createContactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
+- (Contact*)contactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
 {
     NSMutableArray* predicates = [[NSMutableArray alloc] init];
     NSPredicate* firstNamePredicate = nil;
@@ -146,7 +146,11 @@
         NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
         
         if (results.count == 0) {
-            return [self createContact];
+            Contact* contact = [self createContact];
+            contact.firstName = firstName;
+            contact.lastName = lastName;
+            contact.id = contactID;
+            return contact;
         } else if (results.count == 1) {
             return [results lastObject];
         } else {
@@ -156,6 +160,14 @@
     } else {
         return [self createContact];
     }
+}
+
+- (Contact*)contactForPersonRecord:(ABRecordRef)person
+{
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+    return [self contactWithFirstName:firstName lastName:lastName contactID:contactID];
 }
 
 - (DailyInventory*)todaysDailyInventory
@@ -309,7 +321,7 @@
     NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
     NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
     
-    Contact* managedContact = [self createContactWithFirstName:firstName lastName:lastName contactID:contactID];
+    Contact* managedContact = [self contactWithFirstName:firstName lastName:lastName contactID:contactID];
     
         if (managedContact) {
             managedContact.firstName = firstName;
