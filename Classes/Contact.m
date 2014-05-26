@@ -2,7 +2,7 @@
 //  Contact.m
 //  Steps
 //
-//  Created by tom on 5/22/14.
+//  Created by tom on 5/26/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -16,13 +16,13 @@
 @implementation Contact
 
 @dynamic firstName;
-@dynamic id;
+@dynamic contactID;
 @dynamic isFellow;
 @dynamic lastName;
 @dynamic sobrietyDate;
 @dynamic amend;
-@dynamic resentment;
-@dynamic phones;
 @dynamic emails;
+@dynamic phones;
+@dynamic resentment;
 
 @end
