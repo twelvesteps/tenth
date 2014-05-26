@@ -8,9 +8,10 @@
 
 #import <AddressBookUI/AddressBookUI.h>
 #import "AAContactsListViewController.h"
+#import "AAContactViewController.h"
 #import "AAUserDataManager.h"
 
-@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAContactViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* contacts;
@@ -59,14 +60,23 @@
     [deleteSheet showInView:self.view];
 }
 
+#pragma mark - AAContactViewController Delegate
+
+- (void)viewController:(AAContactViewController *)controller didExitWithAction:(AAContactEditAction)action
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - Peoplepicker Delegate
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
     [[AAUserDataManager sharedManager] addContactForPersonRecord:person];
+    Contact* contact = [[AAUserDataManager sharedManager] contactForPersonRecord:person];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [self showContactViewControllerForContact:contact];
     
     [self.tableView reloadData];
     
@@ -149,7 +159,7 @@
     if (indexPath.section == AddContactSectionIndex) {
         [self showPeoplePickerViewController];
     } else {
-        [self showPersonViewControllerForContact:self.contacts[indexPath.row]];
+        [self showContactViewControllerForContact:self.contacts[indexPath.row]];
     }
 }
 
@@ -161,15 +171,9 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (void)showPersonViewControllerForContact:(Contact*)contact
+- (void)showContactViewControllerForContact:(Contact*)contact
 {
-    ABRecordRef person = [[AAUserDataManager sharedManager] personRecordFromAddressBookForContact:contact];
     
-    ABPersonViewController* controller = [[ABPersonViewController alloc] init];
-    controller.displayedPerson = person;
-    controller.personViewDelegate = self;
-    
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -210,15 +214,26 @@
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([segue.destinationViewController isKindOfClass:[AAContactViewController class]]) {
+//        AAContactViewController* aacvc = (AAContactViewController*)segue.destinationViewController;
+//        aacvc.delegate = self;
+//        
+//        if ([segue.identifier isEqualToString:@"setContact"]) {
+//            if ([sender isKindOfClass:[UITableViewCell class]]) {
+//                UITableViewCell* cell = (UITableViewCell*)sender;
+//                NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+//                Contact* contact = self.contacts[indexPath.row];
+//                aacvc.contact = contact;
+//            }
+//        }
+//    }
+//}
+
 
 @end

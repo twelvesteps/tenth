@@ -21,11 +21,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddContactCell" id="YXv-xa-mfj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AddContactCell" id="YXv-xa-mfj">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YXv-xa-mfj" id="1cg-7h-FBu">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4m-JE-lop">
@@ -36,8 +36,8 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="c4m-JE-lop" firstAttribute="centerY" secondItem="1cg-7h-FBu" secondAttribute="centerY" id="2fP-rL-9w3"/>
-                                                <constraint firstItem="c4m-JE-lop" firstAttribute="centerX" secondItem="1cg-7h-FBu" secondAttribute="centerX" id="gt6-5i-wia"/>
+                                                <constraint firstAttribute="trailing" secondItem="c4m-JE-lop" secondAttribute="trailing" constant="78" id="cVQ-aD-4nt"/>
+                                                <constraint firstItem="c4m-JE-lop" firstAttribute="centerY" secondItem="1cg-7h-FBu" secondAttribute="centerY" id="fOY-z7-XdF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -61,7 +61,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="mv7-Kn-K1w">
+                        <barButtonItem key="rightBarButtonItem" title="Call" id="mv7-Kn-K1w">
                             <connections>
                                 <action selector="settingsButtonTapped:" destination="T2K-zy-WU3" id="zF2-PO-aqF"/>
                             </connections>
@@ -69,11 +69,37 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="EtO-jG-gvw" id="0X5-fm-0Et"/>
+                        <segue destination="6h0-85-ldh" kind="push" id="ytL-5g-j0E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Drh-pr-eLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2503" y="-473"/>
+        </scene>
+        <!--Contact View Controller - Contact-->
+        <scene sceneID="kQo-Vs-Yk3">
+            <objects>
+                <viewController storyboardIdentifier="contact" id="6h0-85-ldh" customClass="AAContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QSL-iI-2pM"/>
+                        <viewControllerLayoutGuide type="bottom" id="8fx-bE-Phz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LLm-jV-XTy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Contact" id="GZr-8c-asY">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="XM9-eY-u7W">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="6h0-85-ldh" id="Kev-rY-VOw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sya-2B-uXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2979" y="-473"/>
         </scene>
         <!--Daily Inventory View Controller - Daily Inventory-->
         <scene sceneID="bko-cP-d5E">

@@ -40,6 +40,7 @@
 		E2006252192A103C00142609 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2006251192A103C00142609 /* AddressBook.framework */; };
 		E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2006257192A11A900142609 /* AAContactsListViewController.m */; };
 		E246D1291926187700D0CC1E /* AACallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E246D1281926187700D0CC1E /* AACallButton.m */; };
+		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
 		E2DADF8B1932E7D700E934E5 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8A1932E7D700E934E5 /* Contact.m */; };
 		E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */; };
@@ -116,6 +117,8 @@
 		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
 		E246D1271926187700D0CC1E /* AACallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACallButton.h; path = Classes/AACallButton.h; sourceTree = SOURCE_ROOT; };
 		E246D1281926187700D0CC1E /* AACallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACallButton.m; path = Classes/AACallButton.m; sourceTree = SOURCE_ROOT; };
+		E2980143193339AD007A0F49 /* AAContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactViewController.h; path = Classes/AAContactViewController.h; sourceTree = "<group>"; };
+		E2980144193339AD007A0F49 /* AAContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactViewController.m; path = Classes/AAContactViewController.m; sourceTree = "<group>"; };
 		E2DADF851932E2F400E934E5 /* AASettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AASettingsViewController.h; path = Classes/AASettingsViewController.h; sourceTree = "<group>"; };
 		E2DADF861932E2F400E934E5 /* AASettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AASettingsViewController.m; path = Classes/AASettingsViewController.m; sourceTree = "<group>"; };
 		E2DADF891932E7D700E934E5 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
@@ -341,6 +344,8 @@
 		E2006254192A117000142609 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				E2980143193339AD007A0F49 /* AAContactViewController.h */,
+				E2980144193339AD007A0F49 /* AAContactViewController.m */,
 				E2006256192A11A900142609 /* AAContactsListViewController.h */,
 				E2006257192A11A900142609 /* AAContactsListViewController.m */,
 			);
@@ -510,6 +515,7 @@
 				844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */,
 				E246D1291926187700D0CC1E /* AACallButton.m in Sources */,
 				84FEDF25191BD9BF00767CB0 /* AADailyInventoryViewController.m in Sources */,
+				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
