@@ -48,6 +48,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="6h0-85-ldh" kind="push" identifier="setContact" id="NzG-7k-6dJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -61,15 +64,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="rightBarButtonItem" title="Call" id="mv7-Kn-K1w">
-                            <connections>
-                                <action selector="settingsButtonTapped:" destination="T2K-zy-WU3" id="zF2-PO-aqF"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Call" id="mv7-Kn-K1w"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="EtO-jG-gvw" id="0X5-fm-0Et"/>
-                        <segue destination="6h0-85-ldh" kind="push" id="ytL-5g-j0E"/>
+                        <segue destination="6h0-85-ldh" kind="push" identifier="newContact" id="ytL-5g-j0E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Drh-pr-eLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -90,6 +89,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="GZr-8c-asY">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="BoD-r0-HCF">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="6h0-85-ldh" id="41Z-jt-1TA"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="XM9-eY-u7W">
                             <connections>
                                 <action selector="saveButtonTapped:" destination="6h0-85-ldh" id="Kev-rY-VOw"/>
@@ -478,4 +482,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="NzG-7k-6dJ"/>
+    </inferredMetricsTieBreakers>
 </document>

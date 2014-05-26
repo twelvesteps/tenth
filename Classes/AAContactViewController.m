@@ -7,6 +7,7 @@
 //
 
 #import "AAContactViewController.h"
+#import "Contact+AAAdditions.h"
 
 @interface AAContactViewController ()
 
@@ -26,7 +27,7 @@
         self.navigationItem.title = @"New Contact";
     } else {
         self.newContact = NO;
-        self.navigationItem.title = @"View Contact";
+        self.navigationItem.title = [self.contact fullName];
     }
 }
 
@@ -37,6 +38,15 @@
     } else {
         [self.delegate viewController:self didExitWithAction:AAContactEditActionSave];
     }
+}
+
+- (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
+{
+    if (self.newContact) {
+        [[AAUserDataManager sharedManager] removeAAContact:self.contact];
+    }
+    
+    [self.delegate viewController:self didExitWithAction:AAContactEditActionCancel];
 }
 
 /*

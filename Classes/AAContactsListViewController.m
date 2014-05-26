@@ -45,26 +45,80 @@
 
 #pragma mark - UI Events
 
-- (IBAction)settingsButtonTapped:(UIBarButtonItem *)sender {
-    
-}
-
-
-- (void)showDeleteActionSheet
+- (void)showDeleteContactActionSheet
 {
-    UIActionSheet* deleteSheet = [[UIActionSheet alloc] initWithTitle:@"Delete Contact"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:@"Remove from phone"
-                                                    otherButtonTitles:@"Remove from AA contacts", nil];
-    [deleteSheet showInView:self.view];
+    UIActionSheet* deleteContactSheet = [[UIActionSheet alloc] initWithTitle:@"Delete Contact"
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"Cancel"
+                                                      destructiveButtonTitle:@"Remove from phone"
+                                                           otherButtonTitles:@"Remove from AA contacts", nil];
+    [deleteContactSheet showInView:self.view];
 }
+
+- (void)showAddContactActionSheet
+{
+    UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Create New Contact",
+                                                                          @"Import Existing Contact", nil];
+    [addContactSheet showInView:self.view];
+}
+
+
+#pragma mark - UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ([actionSheet.title isEqualToString:@"Delete Contact"]) {
+        [self deleteContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+    } else if ([actionSheet.title isEqualToString:@"Add Contact"]) {
+        [self addContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+    }
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+- (void)deleteContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        self.deletedContactIndexPath = nil;
+    } else {
+        AAUserDataManager* manager = [AAUserDataManager sharedManager];
+        Contact* contact = self.contacts[self.deletedContactIndexPath.row];
+        
+        // remove contact from address book
+        if (buttonIndex == actionSheet.destructiveButtonIndex) {
+            [manager removeContactFromUserAddressBook:contact];
+        }
+        
+        // remove contact from database
+        [manager removeAAContact:contact];
+        
+        [self.tableView reloadData];
+    }
+}
+
+- (void)addContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Create New Contact"]) {
+        [self performSegueWithIdentifier:@"newContact" sender:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Import Existing Contact"]) {
+        [self showPeoplePickerViewController];
+    }
+}
+
 
 #pragma mark - AAContactViewController Delegate
 
 - (void)viewController:(AAContactViewController *)controller didExitWithAction:(AAContactEditAction)action
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    if (action == AAContactEditActionCreate) {
+        [[AAUserDataManager sharedManager] addContactToUserAddressBook:controller.contact];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView reloadData];
 }
 
 
@@ -76,7 +130,7 @@
     Contact* contact = [[AAUserDataManager sharedManager] contactForPersonRecord:person];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self showContactViewControllerForContact:contact];
+    [self performSegueWithIdentifier:@"setContact" sender:contact];
     
     [self.tableView reloadData];
     
@@ -157,9 +211,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == AddContactSectionIndex) {
-        [self showPeoplePickerViewController];
-    } else {
-        [self showContactViewControllerForContact:self.contacts[indexPath.row]];
+        [self showAddContactActionSheet];
     }
 }
 
@@ -169,11 +221,6 @@
     picker.peoplePickerDelegate = self;
     
     [self presentViewController:picker animated:YES completion:NULL];
-}
-
-- (void)showContactViewControllerForContact:(Contact*)contact
-{
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,28 +236,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.deletedContactIndexPath = indexPath;
-        [self showDeleteActionSheet];
-    }
-}
-
-#pragma mark - UIActionSheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        self.deletedContactIndexPath = nil;
-    } else {
-        AAUserDataManager* manager = [AAUserDataManager sharedManager];
-        Contact* contact = self.contacts[self.deletedContactIndexPath.row];
-        
-        // remove contact from address book
-        if (buttonIndex == actionSheet.destructiveButtonIndex) {
-            [manager removeContactFromUserAddressBook:contact];
-        }
-        
-        // remove contact from database
-        [manager removeAAContact:contact];
-        
-        [self.tableView reloadData];
+        [self showDeleteContactActionSheet];
     }
 }
 
@@ -218,22 +244,27 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.destinationViewController isKindOfClass:[AAContactViewController class]]) {
-//        AAContactViewController* aacvc = (AAContactViewController*)segue.destinationViewController;
-//        aacvc.delegate = self;
-//        
-//        if ([segue.identifier isEqualToString:@"setContact"]) {
-//            if ([sender isKindOfClass:[UITableViewCell class]]) {
-//                UITableViewCell* cell = (UITableViewCell*)sender;
-//                NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
-//                Contact* contact = self.contacts[indexPath.row];
-//                aacvc.contact = contact;
-//            }
-//        }
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[AAContactViewController class]]) {
+        AAContactViewController* aacvc = (AAContactViewController*)segue.destinationViewController;
+        aacvc.delegate = self;
+        
+        if ([segue.identifier isEqualToString:@"setContact"]) {
+            Contact* contact = nil;
+            
+            if ([sender isKindOfClass:[UITableViewCell class]]) {
+                UITableViewCell* cell = (UITableViewCell*)sender;
+                NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+                contact = self.contacts[indexPath.row];
+            } else if ([sender isKindOfClass:[Contact class]]) {
+                contact = (Contact*)sender;
+            }
+            
+            aacvc.contact = contact;
+        }
+    }
+}
 
 
 @end
