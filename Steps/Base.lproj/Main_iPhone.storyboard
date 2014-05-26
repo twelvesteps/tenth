@@ -21,8 +21,28 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ContactCell" id="Sp7-Xq-XIn">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddContactCell" id="YXv-xa-mfj">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YXv-xa-mfj" id="1cg-7h-FBu">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4m-JE-lop">
+                                                    <rect key="frame" x="111" y="11" width="98" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="c4m-JE-lop" firstAttribute="centerY" secondItem="1cg-7h-FBu" secondAttribute="centerY" id="2fP-rL-9w3"/>
+                                                <constraint firstItem="c4m-JE-lop" firstAttribute="centerX" secondItem="1cg-7h-FBu" secondAttribute="centerX" id="gt6-5i-wia"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ContactCell" id="Sp7-Xq-XIn">
+                                        <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sp7-Xq-XIn" id="d1S-O6-nSf">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -41,9 +61,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="rightBarButtonItem" title="Add Contact" id="mv7-Kn-K1w">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="mv7-Kn-K1w">
                             <connections>
-                                <action selector="addContactButtonTapped:" destination="T2K-zy-WU3" id="U1h-K3-nYR"/>
+                                <action selector="settingsButtonTapped:" destination="T2K-zy-WU3" id="zF2-PO-aqF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -328,7 +348,7 @@
             </objects>
             <point key="canvasLocation" x="1997" y="205"/>
         </scene>
-        <!--Settings View Controller - Settings-->
+        <!--Settings View Controller - Profile-->
         <scene sceneID="Bpg-uL-9Rw">
             <objects>
                 <viewController id="Lh7-gZ-tM5" customClass="AASettingsViewController" sceneMemberID="viewController">
@@ -379,7 +399,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="MSt-p5-DUx"/>
+                    <navigationItem key="navigationItem" title="Profile" id="MSt-p5-DUx"/>
                     <connections>
                         <outlet property="tableView" destination="3xh-9i-y6c" id="zZU-2i-fYf"/>
                     </connections>
@@ -407,11 +427,11 @@
             </objects>
             <point key="canvasLocation" x="1997" y="-473"/>
         </scene>
-        <!--Navigation Controller - Settings-->
+        <!--Navigation Controller - Profile-->
         <scene sceneID="QkM-D6-NmD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sET-gL-wSt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="KhN-ir-2nh"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="KhN-ir-2nh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZKY-T7-Vho">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

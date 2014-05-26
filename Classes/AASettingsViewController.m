@@ -8,7 +8,6 @@
 
 #import "AASettingsViewController.h"
 #import "AASettingTableViewCell.h"
-#import "Settings.h"
 
 @interface AASettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,12 +23,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _settings = [[NSUserDefaults standardUserDefaults] objectForKey:AA_USER_SETTINGS];
-    if (!_settings) {
-        NSMutableDictionary* settings = [[NSMutableDictionary alloc] init];
-        [settings setObject:[NSNumber numberWithBool:NO] forKey:AA_USER_SETTING_LOCK_SCREEN];
-        [settings setObject:[NSNumber numberWithBool:NO] forKey:AA_USER_SETTING_USE_ADDRESS_BOOK];
-    }
 }
 
 

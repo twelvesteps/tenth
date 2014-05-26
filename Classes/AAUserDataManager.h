@@ -13,6 +13,14 @@
 #import "Resentment.h"
 #import "DailyInventory.h"
 
+// *** USER SETTINGS ***
+// info:    The following keys are used for accessing user settings
+#define AA_USER_SETTING_USE_ADDRESS_BOOK    @"AddressBook"      // NSNumber (boolean)
+#define AA_USER_SETTING_USE_LOCK_SCREEN     @"LockScreen"       // NSNumber (boolean)
+#define AA_USER_SETTING_SPONSOR             @"Sponsor"          // NSDictionary
+#define AA_USER_SETTING_SPONSOR_FIRST_NAME  @"SponsorFirstName" // NSString
+#define AA_USER_SETTING_SPONSOR_LAST_NAME   @"SponsorLastName"  // NSString
+#define AA_USER_SETTING_SPONSOR_CONTACT_ID  @"SponsorContactID" // NSNumber (int)
 
 @interface AAUserDataManager : NSObject
 

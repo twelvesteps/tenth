@@ -44,13 +44,10 @@
 
 #pragma mark - UI Events
 
-- (IBAction)addContactButtonTapped:(UIBarButtonItem *)sender
-{
-    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
+- (IBAction)settingsButtonTapped:(UIBarButtonItem *)sender {
     
-    [self presentViewController:picker animated:YES completion:NULL];
 }
+
 
 - (void)showDeleteActionSheet
 {
@@ -78,11 +75,13 @@
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     return NO;
 }
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -91,6 +90,7 @@
 
 - (BOOL)personViewController:(ABPersonViewController *)personViewController shouldPerformDefaultActionForPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     return YES;
 }
 
@@ -107,23 +107,35 @@
 
 #pragma mark - Tableview Delegate and Datasource
 
+#define AddContactSectionIndex 0
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.contacts.count;
+    if (section == AddContactSectionIndex) {
+        return 1;
+    } else {
+        return self.contacts.count;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
-    
-    cell.textLabel.text = [self titleForCellAtIndexPath:indexPath];
-    
-    return cell;
+    if (indexPath.section == AddContactSectionIndex) {
+        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"AddContactCell"];
+        
+        return cell;
+    } else {
+        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
+        
+        cell.textLabel.text = [self titleForCellAtIndexPath:indexPath];
+        
+        return cell;
+    }
 }
 
 - (NSString*)titleForCellAtIndexPath:(NSIndexPath*)indexPath
@@ -134,7 +146,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ABRecordRef person = [[AAUserDataManager sharedManager] personRecordFromAddressBookForContact:self.contacts[indexPath.row]];
+    if (indexPath.section == AddContactSectionIndex) {
+        [self showPeoplePickerViewController];
+    } else {
+        [self showPersonViewControllerForContact:self.contacts[indexPath.row]];
+    }
+}
+
+- (void)showPeoplePickerViewController
+{
+    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)showPersonViewControllerForContact:(Contact*)contact
+{
+    ABRecordRef person = [[AAUserDataManager sharedManager] personRecordFromAddressBookForContact:contact];
     
     ABPersonViewController* controller = [[ABPersonViewController alloc] init];
     controller.displayedPerson = person;
@@ -145,7 +174,11 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    if (indexPath.section == AddContactSectionIndex) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

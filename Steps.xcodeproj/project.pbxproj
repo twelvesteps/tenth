@@ -43,7 +43,6 @@
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
 		E2DADF8B1932E7D700E934E5 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8A1932E7D700E934E5 /* Contact.m */; };
 		E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */; };
-		E2DADF921932ECC300E934E5 /* AAUserSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF911932ECC300E934E5 /* AAUserSettingsManager.m */; };
 		E2EEF07F192E547200CDEF0D /* InventoryQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */; };
 		E2EEF082192E547300CDEF0D /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF081192E547300CDEF0D /* Phone.m */; };
 		E2EEF085192E547300CDEF0D /* Resentment.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF084192E547300CDEF0D /* Resentment.m */; };
@@ -123,9 +122,6 @@
 		E2DADF8A1932E7D700E934E5 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = Classes/Contact.m; sourceTree = SOURCE_ROOT; };
 		E2DADF8C1932E8F800E934E5 /* AASettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AASettingTableViewCell.h; path = Classes/AASettingTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AASettingTableViewCell.m; path = Classes/AASettingTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		E2DADF8F1932E9E400E934E5 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Settings.h; sourceTree = SOURCE_ROOT; };
-		E2DADF901932ECC300E934E5 /* AAUserSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAUserSettingsManager.h; path = Classes/AAUserSettingsManager.h; sourceTree = SOURCE_ROOT; };
-		E2DADF911932ECC300E934E5 /* AAUserSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserSettingsManager.m; path = Classes/AAUserSettingsManager.m; sourceTree = SOURCE_ROOT; };
 		E2EEF07D192E547200CDEF0D /* InventoryQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InventoryQuestion.h; path = Classes/InventoryQuestion.h; sourceTree = SOURCE_ROOT; };
 		E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InventoryQuestion.m; path = Classes/InventoryQuestion.m; sourceTree = SOURCE_ROOT; };
 		E2EEF080192E547300CDEF0D /* Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Phone.h; path = Classes/Phone.h; sourceTree = SOURCE_ROOT; };
@@ -287,7 +283,6 @@
 				84EBC33D1915CD250063F4EA /* InfoPlist.strings */,
 				84EBC3401915CD250063F4EA /* main.m */,
 				84EBC3421915CD250063F4EA /* Steps-Prefix.pch */,
-				E2DADF8F1932E9E400E934E5 /* Settings.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -328,8 +323,6 @@
 				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
 				84FEDF26191CDF3700767CB0 /* AAUserDataManager.h */,
 				84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */,
-				E2DADF901932ECC300E934E5 /* AAUserSettingsManager.h */,
-				E2DADF911932ECC300E934E5 /* AAUserSettingsManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -507,7 +500,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2DADF921932ECC300E934E5 /* AAUserSettingsManager.m in Sources */,
 				E2EEF088192E547300CDEF0D /* Email.m in Sources */,
 				842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */,
 				84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */,

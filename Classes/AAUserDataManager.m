@@ -133,7 +133,7 @@
     }
     
     if (contactID) {
-        contactIDPredicate = [NSPredicate predicateWithFormat:@"id == %@", contactID];
+        contactIDPredicate = [NSPredicate predicateWithFormat:@"contactID == %@", contactID];
         [predicates addObject:contactIDPredicate];
     }
     
