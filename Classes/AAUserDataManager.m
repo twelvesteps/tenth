@@ -149,7 +149,7 @@
             Contact* contact = [self createContact];
             contact.firstName = firstName;
             contact.lastName = lastName;
-            contact.id = contactID;
+            contact.contactID = contactID;
             return contact;
         } else if (results.count == 1) {
             return [results lastObject];
@@ -326,7 +326,7 @@
         if (managedContact) {
             managedContact.firstName = firstName;
             managedContact.lastName = lastName;
-            managedContact.id = contactID;
+            managedContact.contactID = contactID;
             
             return YES;
         } else {
@@ -347,9 +347,9 @@
     ABRecordRef record = NULL;
 
     // use contact's id
-    if (contact.id) {
+    if (contact.contactID) {
         DLog(@"<DEBUG> contact id stored in database, using id");
-        ABRecordID contactID = (ABRecordID)[contact.id intValue];
+        ABRecordID contactID = (ABRecordID)[contact.contactID intValue];
         record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
         
         // make sure the id is correct
@@ -372,7 +372,7 @@
                 // verify that first and last name match
                 if ([self personRecord:cur nameMatchesContactName:contact]) {
                     record = cur;
-                    contact.id = [NSNumber numberWithInt:ABRecordGetRecordID(record)];
+                    contact.contactID = [NSNumber numberWithInt:ABRecordGetRecordID(record)];
                 }
             }
         }
