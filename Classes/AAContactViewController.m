@@ -12,6 +12,7 @@
 @interface AAContactViewController ()
 
 @property (nonatomic) BOOL newContact;
+@property (nonatomic) BOOL editMode;
 
 @end
 
@@ -24,9 +25,11 @@
     if (!self.contact) {
         self.contact = [[AAUserDataManager sharedManager] contactWithFirstName:nil lastName:nil contactID:nil];
         self.newContact = YES;
+        self.editMode = YES;
         self.navigationItem.title = @"New Contact";
     } else {
         self.newContact = NO;
+        self.editMode = NO;
         self.navigationItem.title = [self.contact fullName];
     }
 }
