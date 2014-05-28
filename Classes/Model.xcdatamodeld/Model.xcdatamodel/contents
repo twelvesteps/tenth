@@ -15,6 +15,7 @@
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="isFellow" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sobrietyDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -58,7 +59,7 @@
     </entity>
     <elements>
         <element name="Amend" positionX="-63" positionY="-18" width="128" height="193"/>
-        <element name="Contact" positionX="81" positionY="198" width="128" height="178"/>
+        <element name="Contact" positionX="81" positionY="198" width="128" height="193"/>
         <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="103"/>
         <element name="Email" positionX="151" positionY="410" width="128" height="88"/>
         <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>

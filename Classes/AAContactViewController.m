@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "AAContactNameAndImageTableViewCell.h"
 #import "AAContactViewController.h"
 #import "Contact+AAAdditions.h"
 
@@ -34,6 +35,9 @@
         self.editMode = NO;
         self.navigationItem.title = [self.contact fullName];
     }
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 - (IBAction)saveButtonTapped:(UIBarButtonItem*)sender
@@ -62,12 +66,37 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 1;
 }
+
+#define CONTACT_NAME_CELL_ROW   0
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    switch (indexPath.row) {
+        case CONTACT_NAME_CELL_ROW:
+            return [self contactNameCell];
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
+}
+
+- (UITableViewCell*)contactNameCell
+{
+    AAContactNameAndImageTableViewCell* cell = (AAContactNameAndImageTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"nameCell"];
+    
+    UIImage* image = nil;
+    if (self.contact.image) {
+        image = [UIImage imageWithData:self.contact.image];
+    } else {
+        image = [UIImage imageNamed:@"AA_Blue_Circle.jpg"];
+    }
+    cell.contactImageView.image = image;
+    
+    return cell;
 }
 
 /*

@@ -8,6 +8,7 @@
 
 #import "AAUserDataManager.h"
 #import "NSDate+AAAdditions.h"
+#import "Contact+AAAdditions.h"
 #import "Phone.h"
 #import "Email.h"
 #import <CoreData/CoreData.h>
@@ -308,7 +309,7 @@
     return self.hasUserAddressBookAccess;
 }
 
-- (BOOL)addContactForPersonRecord:(ABRecordRef)contact
+- (BOOL)addContactForPersonRecord:(ABRecordRef)person
 {
     if (!self.hasUserAddressBookAccess) {
         if (![self requestUserAddressBookAccess]) {
@@ -317,16 +318,14 @@
         }
     }
     
-    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonFirstNameProperty);
-    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(contact, kABPersonLastNameProperty);
-    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(contact)];
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
     
     Contact* managedContact = [self contactWithFirstName:firstName lastName:lastName contactID:contactID];
     
         if (managedContact) {
-            managedContact.firstName = firstName;
-            managedContact.lastName = lastName;
-            managedContact.contactID = contactID;
+            [self addPersonRecordProperties:person toContact:managedContact];
             
             return YES;
         } else {
@@ -460,6 +459,37 @@
         ABRecordSetValue(person, kABPersonPhoneProperty, phones, NULL);
         ABRecordSetValue(person, kABPersonEmailProperty, emails, NULL);
     }
+}
+
+- (void)addPersonRecordProperties:(ABRecordRef)person toContact:(Contact*)contact
+{
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+    
+    contact.firstName = firstName;
+    contact.lastName = lastName;
+    contact.contactID = contactID;
+    
+    ABMultiValueRef phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
+    ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+    
+    for (int i = 0; i < ABMultiValueGetCount(phones); i++) {
+        NSString* title = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(phones, i);
+        NSString* number = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, i);
+        
+        [contact addPhoneWithTitle:title number:number];
+    }
+    
+    for (int i = 0; i < ABMultiValueGetCount(emails); i++) {
+        NSString* title = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(emails, i);
+        NSString* address = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emails, i);
+        
+        [contact addEmailWithTitle:title address:address];
+    }
+    
+    NSData* imageData = (__bridge_transfer NSData*)ABPersonCopyImageData(person);
+    [contact setImage:imageData];
 }
 
 - (ABMultiValueRef)getMultiValueRefForPersonRecord:(ABRecordRef)person forProperty:(ABPropertyType)property
