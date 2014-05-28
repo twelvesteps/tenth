@@ -92,7 +92,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" rowHeight="112" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="112" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="112"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CL5-fb-jhH" id="Y81-QC-BiN">
@@ -114,18 +114,59 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGf-BG-lZ6">
+                                                    <rect key="frame" x="80" y="35" width="101" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="leading" secondItem="UBf-LX-IKt" secondAttribute="trailing" constant="8" symbolic="YES" id="Bkh-EX-5KE"/>
                                                 <constraint firstAttribute="bottom" secondItem="LX7-bS-7IX" secondAttribute="bottom" constant="20" symbolic="YES" id="KXG-LX-3Sg"/>
                                                 <constraint firstItem="LX7-bS-7IX" firstAttribute="centerX" secondItem="UBf-LX-IKt" secondAttribute="centerX" id="SP6-Fm-v2H"/>
                                                 <constraint firstItem="UBf-LX-IKt" firstAttribute="leading" secondItem="Y81-QC-BiN" secondAttribute="leading" constant="20" symbolic="YES" id="cOw-6n-qxu"/>
                                                 <constraint firstItem="UBf-LX-IKt" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="20" symbolic="YES" id="gF9-fA-Nbz"/>
                                                 <constraint firstItem="LX7-bS-7IX" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="69" id="kNk-tR-cfv"/>
+                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="35" id="vw0-kk-BYA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contactImageView" destination="UBf-LX-IKt" id="nFz-5I-3zP"/>
+                                            <outlet property="contactNameLabel" destination="GGf-BG-lZ6" id="owh-TE-fH9"/>
                                             <outlet property="editImageButton" destination="LX7-bS-7IX" id="Kzl-5g-igH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhoneEmailCell" rowHeight="44" id="YOp-iB-Jrc" customClass="AAContactPhoneAndEmailTableViewCell">
+                                        <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YOp-iB-Jrc" id="vnB-dX-YQF">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIB-3y-izN">
+                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-ju-Uuh">
+                                                    <rect key="frame" x="70" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="baseline" secondItem="uIB-3y-izN" secondAttribute="baseline" id="C0W-RW-0t7"/>
+                                                <constraint firstItem="uIB-3y-izN" firstAttribute="centerY" secondItem="vnB-dX-YQF" secondAttribute="centerY" id="Dl1-Ix-7lx"/>
+                                                <constraint firstItem="uIB-3y-izN" firstAttribute="leading" secondItem="vnB-dX-YQF" secondAttribute="leading" constant="20" symbolic="YES" id="czR-ZP-PHy"/>
+                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="leading" secondItem="uIB-3y-izN" secondAttribute="trailing" constant="8" symbolic="YES" id="dRZ-Ka-3n7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="9CD-ju-Uuh" id="o9D-iE-aXL"/>
+                                            <outlet property="titleLabel" destination="uIB-3y-izN" id="WQh-ab-iRr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

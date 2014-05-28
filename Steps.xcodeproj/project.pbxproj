@@ -43,6 +43,7 @@
 		E27C2DC81935EA5200BE2AB6 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DC71935EA5200BE2AB6 /* Contact.m */; };
 		E27C2DCB1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */; };
 		E27C2DCE1935F19A00BE2AB6 /* AA_Blue_Circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */; };
+		E27C2DD11935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DD01935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m */; };
 		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980147193350D2007A0F49 /* Contact+AAAdditions.m */; };
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
@@ -125,6 +126,8 @@
 		E27C2DC91935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactNameAndImageTableViewCell.h; path = Classes/AAContactNameAndImageTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactNameAndImageTableViewCell.m; path = Classes/AAContactNameAndImageTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AA_Blue_Circle.jpg; sourceTree = "<group>"; };
+		E27C2DCF1935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactPhoneAndEmailTableViewCell.h; path = Classes/AAContactPhoneAndEmailTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		E27C2DD01935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactPhoneAndEmailTableViewCell.m; path = Classes/AAContactPhoneAndEmailTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E2980143193339AD007A0F49 /* AAContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactViewController.h; path = Classes/AAContactViewController.h; sourceTree = "<group>"; };
 		E2980144193339AD007A0F49 /* AAContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactViewController.m; path = Classes/AAContactViewController.m; sourceTree = "<group>"; };
 		E2980146193350D2007A0F49 /* Contact+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Contact+AAAdditions.h"; path = "Classes/Contact+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
@@ -380,6 +383,8 @@
 		E27C2DCC1935ED4F00BE2AB6 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				E27C2DCF1935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.h */,
+				E27C2DD01935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m */,
 				E27C2DC91935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.h */,
 				E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */,
 			);
@@ -541,6 +546,7 @@
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
+				E27C2DD11935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */,

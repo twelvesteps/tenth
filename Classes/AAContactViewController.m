@@ -6,7 +6,10 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "Phone.h"
+#import "Email.h"
 #import "AAContactNameAndImageTableViewCell.h"
+#import "AAContactPhoneAndEmailTableViewCell.h"
 #import "AAContactViewController.h"
 #import "Contact+AAAdditions.h"
 
@@ -59,6 +62,12 @@
 }
 
 #pragma mark - UITableView Delegate and Datasource
+
+#define CONTACT_NAME_CELL_ROW           0
+
+#define CONTACT_NAME_CELL_HEIGHT        112.0f
+#define CONTACT_PHONE_EMAIL_CELL_HEIGHT 44.0f
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -66,35 +75,62 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 1 + self.contact.emails.count + self.contact.phones.count;
 }
 
-#define CONTACT_NAME_CELL_ROW   0
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == CONTACT_NAME_CELL_ROW) {
+        return CONTACT_NAME_CELL_HEIGHT;
+    } else {
+        return CONTACT_PHONE_EMAIL_CELL_HEIGHT;
+    }
+}
+
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case CONTACT_NAME_CELL_ROW:
+    if (indexPath.row == CONTACT_NAME_CELL_ROW) {
             return [self contactNameCell];
-            break;
-            
-        default:
-            return nil;
-            break;
     }
+    else {
+        return [self phoneEmailCellForIndexPath:indexPath];
+    }
+
 }
 
 - (UITableViewCell*)contactNameCell
 {
-    AAContactNameAndImageTableViewCell* cell = (AAContactNameAndImageTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"nameCell"];
+    AAContactNameAndImageTableViewCell* cell = (AAContactNameAndImageTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"NameCell"];
     
-    UIImage* image = nil;
+    cell.contactNameLabel.text = self.contact.fullName;
+    
     if (self.contact.image) {
-        image = [UIImage imageWithData:self.contact.image];
-    } else {
-        image = [UIImage imageNamed:@"AA_Blue_Circle.jpg"];
+        UIImage* image = [UIImage imageWithData:self.contact.image];
+        cell.contactImageView.image = image;
     }
-    cell.contactImageView.image = image;
+    
+    return cell;
+}
+
+- (UITableViewCell*)phoneEmailCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAContactPhoneAndEmailTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"PhoneEmailCell"];
+    NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    
+    if (indexPath.row <= self.contact.phones.count) {
+        NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
+        Phone* phone = phones[indexPath.row - 1];
+        
+        cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
+        cell.descriptionLabel.text = phone.number;
+    } else {
+        NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
+        Email* email = emails[indexPath.row - self.contact.phones.count - 1];
+        
+        cell.titleLabel.text = [email.title stringByAppendingString:@":"];
+        cell.descriptionLabel.text = email.address;
+    }
     
     return cell;
 }

@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView* contactImageView;
 @property (weak, nonatomic) IBOutlet UIButton* editImageButton;
+@property (weak, nonatomic) IBOutlet UILabel *contactNameLabel;
 
 @end
