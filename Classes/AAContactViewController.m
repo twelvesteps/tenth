@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "NBPhoneNumberUtil.h"
 #import "Phone.h"
 #import "Email.h"
 #import "AAContactNameAndImageTableViewCell.h"
@@ -122,8 +123,12 @@
         NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Phone* phone = phones[indexPath.row - 1];
         
+        NBPhoneNumberUtil* phoneUtil = [NBPhoneNumberUtil sharedInstance];
+        NSString* regionCode = [phoneUtil getRegionCodeForCountryCode:[phoneUtil extractCountryCode:phone.number nationalNumber:nil]];
+        NBPhoneNumber* phoneNumber = [phoneUtil parse:phone.number defaultRegion:regionCode error:nil];
+        
         cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
-        cell.descriptionLabel.text = phone.number;
+        cell.descriptionLabel.text = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:nil];
     } else {
         NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Email* email = emails[indexPath.row - self.contact.phones.count - 1];
