@@ -19,7 +19,15 @@
 
 - (NSString*)fullName
 {
-    return [self.firstName stringByAppendingFormat:@" %@", self.lastName];
+    if (self.firstName && self.lastName) {
+        return [self.firstName stringByAppendingFormat:@" %@", self.lastName];
+    } else if (self.firstName) {
+        return self.firstName;
+    } else if (self.lastName) {
+        return self.lastName;
+    } else {
+        return @"No Name";
+    }
 }
 
 - (void)addPhoneWithTitle:(NSString *)title number:(NSString *)number

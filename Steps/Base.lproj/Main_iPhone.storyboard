@@ -88,28 +88,27 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="112" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SxR-Mq-Jf8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="20" y="0.0" width="300" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="112" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="112"/>
+                                        <rect key="frame" x="0.0" y="86" width="300" height="112"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CL5-fb-jhH" id="Y81-QC-BiN">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AA_Blue_Circle.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="UBf-LX-IKt">
                                                     <rect key="frame" x="20" y="20" width="52" height="52"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="52" id="7EA-ry-4pv"/>
-                                                        <constraint firstAttribute="width" constant="52" id="9UD-nv-RbO"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LX7-bS-7IX">
                                                     <rect key="frame" x="31" y="69" width="30" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="pfo-kp-okj"/>
+                                                    </constraints>
                                                     <state key="normal" title="edit">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -122,13 +121,15 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="leading" secondItem="UBf-LX-IKt" secondAttribute="trailing" constant="8" symbolic="YES" id="Bkh-EX-5KE"/>
-                                                <constraint firstAttribute="bottom" secondItem="LX7-bS-7IX" secondAttribute="bottom" constant="20" symbolic="YES" id="KXG-LX-3Sg"/>
-                                                <constraint firstItem="LX7-bS-7IX" firstAttribute="centerX" secondItem="UBf-LX-IKt" secondAttribute="centerX" id="SP6-Fm-v2H"/>
-                                                <constraint firstItem="UBf-LX-IKt" firstAttribute="leading" secondItem="Y81-QC-BiN" secondAttribute="leading" constant="20" symbolic="YES" id="cOw-6n-qxu"/>
-                                                <constraint firstItem="UBf-LX-IKt" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="20" symbolic="YES" id="gF9-fA-Nbz"/>
-                                                <constraint firstItem="LX7-bS-7IX" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="69" id="kNk-tR-cfv"/>
-                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="35" id="vw0-kk-BYA"/>
+                                                <constraint firstAttribute="bottom" secondItem="LX7-bS-7IX" secondAttribute="bottom" constant="20" symbolic="YES" id="7Mh-qK-TKV"/>
+                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="leading" secondItem="UBf-LX-IKt" secondAttribute="trailing" constant="8" symbolic="YES" id="E4D-Zp-fwW"/>
+                                                <constraint firstItem="LX7-bS-7IX" firstAttribute="leading" secondItem="Y81-QC-BiN" secondAttribute="leading" constant="31" id="PDi-UH-1lr"/>
+                                                <constraint firstItem="GGf-BG-lZ6" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="35" id="SUM-JF-SeZ"/>
+                                                <constraint firstItem="UBf-LX-IKt" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="20" symbolic="YES" id="WiU-Sc-QcT"/>
+                                                <constraint firstAttribute="bottom" secondItem="UBf-LX-IKt" secondAttribute="bottom" constant="39" id="cnC-GI-jVc"/>
+                                                <constraint firstItem="UBf-LX-IKt" firstAttribute="leading" secondItem="Y81-QC-BiN" secondAttribute="leading" constant="20" symbolic="YES" id="gIQ-LF-Fa5"/>
+                                                <constraint firstItem="LX7-bS-7IX" firstAttribute="top" secondItem="Y81-QC-BiN" secondAttribute="top" constant="69" id="sHE-87-h2q"/>
+                                                <constraint firstItem="LX7-bS-7IX" firstAttribute="centerX" secondItem="UBf-LX-IKt" secondAttribute="centerX" id="wdT-6z-nW1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -138,10 +139,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhoneEmailCell" rowHeight="44" id="YOp-iB-Jrc" customClass="AAContactPhoneAndEmailTableViewCell">
-                                        <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="198" width="300" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YOp-iB-Jrc" id="vnB-dX-YQF">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIB-3y-izN">
@@ -158,10 +159,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="baseline" secondItem="uIB-3y-izN" secondAttribute="baseline" id="C0W-RW-0t7"/>
-                                                <constraint firstItem="uIB-3y-izN" firstAttribute="centerY" secondItem="vnB-dX-YQF" secondAttribute="centerY" id="Dl1-Ix-7lx"/>
-                                                <constraint firstItem="uIB-3y-izN" firstAttribute="leading" secondItem="vnB-dX-YQF" secondAttribute="leading" constant="20" symbolic="YES" id="czR-ZP-PHy"/>
-                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="leading" secondItem="uIB-3y-izN" secondAttribute="trailing" constant="8" symbolic="YES" id="dRZ-Ka-3n7"/>
+                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="baseline" secondItem="uIB-3y-izN" secondAttribute="baseline" id="PxW-A4-7vE"/>
+                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="leading" secondItem="uIB-3y-izN" secondAttribute="trailing" constant="8" symbolic="YES" id="Xsb-bu-0fy"/>
+                                                <constraint firstItem="9CD-ju-Uuh" firstAttribute="centerY" secondItem="vnB-dX-YQF" secondAttribute="centerY" id="hMM-Oy-moY"/>
+                                                <constraint firstItem="uIB-3y-izN" firstAttribute="leading" secondItem="vnB-dX-YQF" secondAttribute="leading" constant="20" symbolic="YES" id="p1o-9R-KtV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -169,16 +170,44 @@
                                             <outlet property="titleLabel" destination="uIB-3y-izN" id="WQh-ab-iRr"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPhoneEmailCell" rowHeight="44" id="TQK-iU-89k">
+                                        <rect key="frame" x="0.0" y="242" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TQK-iU-89k" id="beI-9b-FFr">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-T2-oKf">
+                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qQ-px-HGD">
+                                                    <rect key="frame" x="70" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qSD-T2-oKf" firstAttribute="centerY" secondItem="beI-9b-FFr" secondAttribute="centerY" id="h2D-mQ-ILg"/>
+                                                <constraint firstItem="2qQ-px-HGD" firstAttribute="leading" secondItem="qSD-T2-oKf" secondAttribute="trailing" constant="8" symbolic="YES" id="iX5-w3-Pps"/>
+                                                <constraint firstItem="qSD-T2-oKf" firstAttribute="leading" secondItem="beI-9b-FFr" secondAttribute="leading" constant="20" symbolic="YES" id="pH6-Vw-lxg"/>
+                                                <constraint firstItem="qSD-T2-oKf" firstAttribute="baseline" secondItem="2qQ-px-HGD" secondAttribute="baseline" id="qGG-i9-c1x"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <sections/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="SxR-Mq-Jf8" secondAttribute="bottom" id="459-pJ-Hcq"/>
-                            <constraint firstAttribute="trailing" secondItem="SxR-Mq-Jf8" secondAttribute="trailing" id="7Bg-t8-vZj"/>
-                            <constraint firstItem="SxR-Mq-Jf8" firstAttribute="leading" secondItem="LLm-jV-XTy" secondAttribute="leading" id="MKb-A0-qRT"/>
-                            <constraint firstItem="SxR-Mq-Jf8" firstAttribute="top" secondItem="LLm-jV-XTy" secondAttribute="top" id="uSv-1p-Sr9"/>
+                            <constraint firstItem="SxR-Mq-Jf8" firstAttribute="leading" secondItem="LLm-jV-XTy" secondAttribute="leading" constant="20" symbolic="YES" id="KPi-F9-T5N"/>
+                            <constraint firstAttribute="trailing" secondItem="SxR-Mq-Jf8" secondAttribute="trailing" id="VrV-5D-rNN"/>
+                            <constraint firstAttribute="bottom" secondItem="SxR-Mq-Jf8" secondAttribute="bottom" id="gg7-X5-8OF"/>
+                            <constraint firstItem="SxR-Mq-Jf8" firstAttribute="top" secondItem="LLm-jV-XTy" secondAttribute="top" id="oo3-QJ-ePY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="GZr-8c-asY">

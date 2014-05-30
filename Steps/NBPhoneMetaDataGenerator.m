@@ -88,7 +88,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     NSData *fileData = [NSData dataWithContentsOfFile:filePathData];
     NSDictionary *unarchiveData = [NSKeyedUnarchiver unarchiveObjectWithData:fileData];
     
-    NSLog(@"Created file to...[%@ / %d]", filePathData, [unarchiveData count]);
+    NSLog(@"Created file to...[%@ / %d]", filePathData, (unsigned int)[unarchiveData count]);
 }
 
 
@@ -97,8 +97,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     NSMutableDictionary *resMedata = [[NSMutableDictionary alloc] init];
     NSDictionary *countryCodeToRegionCodeMap = [parsedJSONData objectForKey:@"countryCodeToRegionCodeMap"];
     NSDictionary *countryToMetadata = [parsedJSONData objectForKey:@"countryToMetadata"];
-    NSLog(@"- countryCodeToRegionCodeMap count [%d]", [countryCodeToRegionCodeMap count]);
-    NSLog(@"- countryToMetadata          count [%d]", [countryToMetadata count]);
+    NSLog(@"- countryCodeToRegionCodeMap count [%lu]", (unsigned long)[countryCodeToRegionCodeMap count]);
+    NSLog(@"- countryToMetadata          count [%d]", (unsigned int)[countryToMetadata count]);
     
     NSMutableDictionary *genetatedMetaData = [[NSMutableDictionary alloc] init];
     

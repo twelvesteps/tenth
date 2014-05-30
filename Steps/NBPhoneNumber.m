@@ -88,7 +88,7 @@
 {
     if (self = [super init])
     {
-        self.countryCode = [[coder decodeObjectForKey:@"countryCode"] longValue];
+        self.countryCode = (unsigned int)[[coder decodeObjectForKey:@"countryCode"] longValue];
         self.nationalNumber = [[coder decodeObjectForKey:@"nationalNumber"] longLongValue];
         self.extension = [coder decodeObjectForKey:@"extension"];
         self.italianLeadingZero = [[coder decodeObjectForKey:@"italianLeadingZero"] boolValue];

@@ -10,6 +10,7 @@
 #import "AAContactsListViewController.h"
 #import "AAContactViewController.h"
 #import "AAUserDataManager.h"
+#import "Contact+AAAdditions.h"
 
 @interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAContactViewControllerDelegate>
 
@@ -205,7 +206,7 @@
 - (NSString*)titleForCellAtIndexPath:(NSIndexPath*)indexPath
 {
     Contact* contact = self.contacts[indexPath.row];
-    return [contact.firstName stringByAppendingFormat:@" %@", contact.lastName];
+    return [contact fullName];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -254,14 +255,23 @@
             Contact* contact = nil;
             
             if ([sender isKindOfClass:[UITableViewCell class]]) {
+                // user selected contact from tableview
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
                 contact = self.contacts[indexPath.row];
+                aacvc.newContact = NO;
+                aacvc.editMode = NO;
             } else if ([sender isKindOfClass:[Contact class]]) {
+                // user selected contact from people picker
                 contact = (Contact*)sender;
+                aacvc.newContact = YES;
+                aacvc.editMode = NO;
             }
             
             aacvc.contact = contact;
+        } else if ([segue.identifier isEqualToString:@"newContact"]) {
+            aacvc.newContact = YES;
+            aacvc.editMode = YES;
         }
     }
 }

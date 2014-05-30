@@ -645,7 +645,7 @@
     [self.accruedInput_ appendString:nextChar];
     
     if (rememberPosition) {
-        self.originalPosition_ = self.accruedInput_.length;
+        self.originalPosition_ = (unsigned int)self.accruedInput_.length;
     }
     
     // We do formatting on-the-fly only when each character entered is either a
@@ -1128,7 +1128,7 @@
     }
     
     if (rememberPosition) {
-        self.positionToRemember_ = self.accruedInputWithoutFormatting_.length;
+        self.positionToRemember_ = (unsigned int)self.accruedInputWithoutFormatting_.length;
     }
     
     return normalizedChar;

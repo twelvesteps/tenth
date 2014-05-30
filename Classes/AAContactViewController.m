@@ -16,9 +16,6 @@
 
 @interface AAContactViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic) BOOL newContact;
-@property (nonatomic) BOOL editMode;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -31,12 +28,8 @@
     // Do any additional setup after loading the view.
     if (!self.contact) {
         self.contact = [[AAUserDataManager sharedManager] contactWithFirstName:nil lastName:nil contactID:nil];
-        self.newContact = YES;
-        self.editMode = YES;
         self.navigationItem.title = @"New Contact";
     } else {
-        self.newContact = NO;
-        self.editMode = NO;
         self.navigationItem.title = [self.contact fullName];
     }
     
@@ -123,12 +116,8 @@
         NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Phone* phone = phones[indexPath.row - 1];
         
-        NBPhoneNumberUtil* phoneUtil = [NBPhoneNumberUtil sharedInstance];
-        NSString* regionCode = [phoneUtil getRegionCodeForCountryCode:[phoneUtil extractCountryCode:phone.number nationalNumber:nil]];
-        NBPhoneNumber* phoneNumber = [phoneUtil parse:phone.number defaultRegion:regionCode error:nil];
-        
         cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
-        cell.descriptionLabel.text = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:nil];
+        cell.descriptionLabel.text = [self formattedPhoneNumberFromNumber:phone.number];
     } else {
         NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Email* email = emails[indexPath.row - self.contact.phones.count - 1];
@@ -138,6 +127,33 @@
     }
     
     return cell;
+}
+
+- (NSString*)formattedPhoneNumberFromNumber:(NSString*)number
+{
+    NBPhoneNumberUtil* phoneUtil = [NBPhoneNumberUtil sharedInstance];
+    NSString* normalizedPhoneNumber = [self numberByRemovingLeadingZerosFromNumber:[phoneUtil normalizePhoneNumber:number]];
+    NSString* regionCode = [phoneUtil getRegionCodeForCountryCode:[phoneUtil extractCountryCode:normalizedPhoneNumber nationalNumber:nil]];
+    NBPhoneNumber* phoneNumber = [phoneUtil parse:normalizedPhoneNumber defaultRegion:regionCode error:nil];
+    
+    return [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:nil];
+}
+
+- (NSString*)numberByRemovingLeadingZerosFromNumber:(NSString*)number
+{
+    NSString* newNumber = [number copy];
+    
+    if (newNumber) {
+        for (NSUInteger i = 0; i < number.length; i++) {
+            if ([number characterAtIndex:i] == '0') {
+                newNumber = [number substringFromIndex:(i + 1)];
+            } else {
+                return newNumber;
+            }
+        }
+    }
+    
+    return newNumber;
 }
 
 /*

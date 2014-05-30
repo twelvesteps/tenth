@@ -217,6 +217,14 @@
 
 - (void)removeAAContact:(Contact*)contact
 {
+    for (Email* email in contact.emails) {
+        [self.managedObjectContext deleteObject:email];
+    }
+    
+    for (Phone* phone in contact.phones) {
+        [self.managedObjectContext deleteObject:phone];
+    }
+    
     [self.managedObjectContext deleteObject:contact];
 }
 

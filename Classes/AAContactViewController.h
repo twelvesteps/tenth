@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, AAContactEditAction) {
 
 @interface AAContactViewController : UIViewController
 
+@property (nonatomic) BOOL newContact;
+@property (nonatomic) BOOL editMode;
 @property (strong, nonatomic) Contact* contact;
 @property (weak, nonatomic) id<AAContactViewControllerDelegate>delegate;
 

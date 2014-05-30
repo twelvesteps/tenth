@@ -97,7 +97,7 @@
         self.voicemail = [coder decodeObjectForKey:@"voicemail"];
         self.noInternationalDialling = [coder decodeObjectForKey:@"noInternationalDialling"];
         self.codeID = [coder decodeObjectForKey:@"codeID"];
-        self.countryCode = [[coder decodeObjectForKey:@"countryCode"] longValue];
+        self.countryCode = (unsigned int)[[coder decodeObjectForKey:@"countryCode"] longValue];
         self.internationalPrefix = [coder decodeObjectForKey:@"internationalPrefix"];
         self.preferredInternationalPrefix = [coder decodeObjectForKey:@"preferredInternationalPrefix"];
         self.nationalPrefix = [coder decodeObjectForKey:@"nationalPrefix"];
