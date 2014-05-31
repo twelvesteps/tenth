@@ -12,11 +12,13 @@
 #import "AAContactNameAndImageTableViewCell.h"
 #import "AAContactPhoneAndEmailTableViewCell.h"
 #import "AAContactViewController.h"
+#import "AAEditContactViewController.h"
 #import "Contact+AAAdditions.h"
 
-@interface AAContactViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface AAContactViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIBarButtonItem* leftToolbarButton;
 
 @end
 
@@ -25,35 +27,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    if (!self.contact) {
-        self.contact = [[AAUserDataManager sharedManager] contactWithFirstName:nil lastName:nil contactID:nil];
-        self.navigationItem.title = @"New Contact";
-    } else {
-        self.navigationItem.title = [self.contact fullName];
-    }
-    
+
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
 
-- (IBAction)saveButtonTapped:(UIBarButtonItem*)sender
+#pragma mark - UI Events
+
+- (IBAction)editButtonTapped:(UIBarButtonItem *)sender
 {
-    if (self.newContact) {
-        [self.delegate viewController:self didExitWithAction:AAContactEditActionCreate];
-    } else {
-        [self.delegate viewController:self didExitWithAction:AAContactEditActionSave];
-    }
+    AAEditContactViewController* ecvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"EditContact"];
+    [self.navigationController pushViewController:ecvc animated:NO];
 }
 
-- (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
-{
-    if (self.newContact) {
-        [[AAUserDataManager sharedManager] removeAAContact:self.contact];
-    }
-    
-    [self.delegate viewController:self didExitWithAction:AAContactEditActionCancel];
-}
 
 #pragma mark - UITableView Delegate and Datasource
 
@@ -134,9 +120,20 @@
     NBPhoneNumberUtil* phoneUtil = [NBPhoneNumberUtil sharedInstance];
     NSString* normalizedPhoneNumber = [self numberByRemovingLeadingZerosFromNumber:[phoneUtil normalizePhoneNumber:number]];
     NSString* regionCode = [phoneUtil getRegionCodeForCountryCode:[phoneUtil extractCountryCode:normalizedPhoneNumber nationalNumber:nil]];
-    NBPhoneNumber* phoneNumber = [phoneUtil parse:normalizedPhoneNumber defaultRegion:regionCode error:nil];
     
-    return [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:nil];
+    NSError* err = nil;
+    NBPhoneNumber* phoneNumber = [phoneUtil parse:normalizedPhoneNumber defaultRegion:regionCode error:&err];
+    
+    if (!phoneNumber) {
+        ALog(@"<ERROR> Unable to format phone number correctly\nError: %@\nUser Info:%@", err, err.userInfo);
+    }
+    
+    NSString* formattedNumber = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:&err];
+    if (!formattedNumber) {
+        ALog(@"<ERROR> Unable to format phone number correctly\nError: %@\nUser Info:%@", err, err.userInfo);
+    }
+    
+    return formattedNumber;
 }
 
 - (NSString*)numberByRemovingLeadingZerosFromNumber:(NSString*)number

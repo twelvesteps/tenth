@@ -12,11 +12,10 @@
 #import "AAUserDataManager.h"
 #import "Contact+AAAdditions.h"
 
-@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAContactViewControllerDelegate>
+@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* contacts;
-
 @property (strong, nonatomic) NSIndexPath* deletedContactIndexPath;
 
 @end
@@ -110,19 +109,6 @@
 }
 
 
-#pragma mark - AAContactViewController Delegate
-
-- (void)viewController:(AAContactViewController *)controller didExitWithAction:(AAContactEditAction)action
-{
-    if (action == AAContactEditActionCreate) {
-        [[AAUserDataManager sharedManager] addContactToUserAddressBook:controller.contact];
-    }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.tableView reloadData];
-}
-
-
 #pragma mark - Peoplepicker Delegate
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
@@ -162,10 +148,10 @@
 
 #pragma mark - Navigation Controller Delegate
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if ([viewController isEqual:self]) {
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+        [self.tableView reloadData];
     }
 }
 
@@ -249,29 +235,21 @@
 {
     if ([segue.destinationViewController isKindOfClass:[AAContactViewController class]]) {
         AAContactViewController* aacvc = (AAContactViewController*)segue.destinationViewController;
-        aacvc.delegate = self;
         
         if ([segue.identifier isEqualToString:@"setContact"]) {
-            Contact* contact = nil;
-            
             if ([sender isKindOfClass:[UITableViewCell class]]) {
                 // user selected contact from tableview
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
-                contact = self.contacts[indexPath.row];
+                aacvc.contact = self.contacts[indexPath.row];
                 aacvc.newContact = NO;
-                aacvc.editMode = NO;
             } else if ([sender isKindOfClass:[Contact class]]) {
                 // user selected contact from people picker
-                contact = (Contact*)sender;
+                aacvc.contact = (Contact*)sender;
                 aacvc.newContact = YES;
-                aacvc.editMode = NO;
             }
-            
-            aacvc.contact = contact;
         } else if ([segue.identifier isEqualToString:@"newContact"]) {
             aacvc.newContact = YES;
-            aacvc.editMode = YES;
         }
     }
 }
