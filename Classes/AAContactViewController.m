@@ -15,7 +15,7 @@
 #import "AAEditContactViewController.h"
 #import "Contact+AAAdditions.h"
 
-@interface AAContactViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate>
+@interface AAContactViewController () <UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIBarButtonItem* leftToolbarButton;

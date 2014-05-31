@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AAUserDataManager.h"
+#import "AATableViewController.h"
 
-
-
-
-@interface AAContactViewController : UIViewController
+@interface AAContactViewController : AATableViewController
 
 @property (nonatomic) BOOL newContact;
 @property (strong, nonatomic) Contact* contact;

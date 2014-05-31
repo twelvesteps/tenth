@@ -12,7 +12,7 @@
 #import "AAUserDataManager.h"
 #import "Contact+AAAdditions.h"
 
-@interface AAContactsListViewController () <UITableViewDelegate, UITableViewDataSource, ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* contacts;
@@ -177,12 +177,9 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == AddContactSectionIndex) {
-        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"AddContactCell"];
-        
-        return cell;
+        return [self.tableView dequeueReusableCellWithIdentifier:@"AddContactCell"];
     } else {
         UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
-        
         cell.textLabel.text = [self titleForCellAtIndexPath:indexPath];
         
         return cell;

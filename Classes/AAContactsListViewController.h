@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AATableViewController.h"
 
-@interface AAContactsListViewController : UIViewController
+@interface AAContactsListViewController : AATableViewController
 
 @end

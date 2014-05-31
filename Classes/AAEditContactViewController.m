@@ -10,6 +10,8 @@
 
 @interface AAEditContactViewController ()
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation AAEditContactViewController
@@ -18,6 +20,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 
