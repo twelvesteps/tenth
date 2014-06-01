@@ -78,7 +78,8 @@
     AAEditContactNameAndImageTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditNameCell"];
     
     if (self.contact.image) {
-        cell.contactImageView.image = [UIImage imageWithData:self.contact.image];
+        UIImage* image = [UIImage imageWithData:self.contact.image];
+        cell.contactImageView.image = image;
     }
     
     cell.contactFirstNameTextField.text = self.contact.firstName;
