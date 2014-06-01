@@ -27,9 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
     
     self.navigationController.delegate = self;
 }

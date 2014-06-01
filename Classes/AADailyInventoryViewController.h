@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AATableViewController.h"
 
-@interface AADailyInventoryViewController : UIViewController
+@interface AADailyInventoryViewController : AATableViewController
 
 @end

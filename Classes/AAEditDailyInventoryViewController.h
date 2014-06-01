@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AATableViewController.h"
 #import "DailyInventory+AAAdditions.h"
+
 
 @class AAEditDailyInventoryViewController;
 @protocol AAEditDailyInventoryViewControllerDelegate <NSObject>
@@ -16,7 +18,7 @@
 
 @end
 
-@interface AAEditDailyInventoryViewController : UIViewController
+@interface AAEditDailyInventoryViewController : AATableViewController
 
 @property (strong, nonatomic) DailyInventory* dailyInventory;
 @property (weak, nonatomic) id<AAEditDailyInventoryViewControllerDelegate> delegate;

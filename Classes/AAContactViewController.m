@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "NBPhoneNumberUtil.h"
+#import "NBPhoneNumberUtil+AAAdditions.h"
 #import "Phone.h"
 #import "Email.h"
 #import "AAContactNameAndImageTableViewCell.h"
@@ -24,43 +24,40 @@
 
 @implementation AAContactViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-}
-
 #pragma mark - UI Events
 
 - (IBAction)editButtonTapped:(UIBarButtonItem *)sender
 {
     AAEditContactViewController* ecvc = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"EditContact"];
+    ecvc.contact = self.contact;
     [self.navigationController pushViewController:ecvc animated:NO];
 }
 
 
 #pragma mark - UITableView Delegate and Datasource
 
-#define CONTACT_NAME_CELL_ROW           0
+#define CONTACT_NAME_CELL_SECTION       0
 
 #define CONTACT_NAME_CELL_HEIGHT        112.0f
 #define CONTACT_PHONE_EMAIL_CELL_HEIGHT 44.0f
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1 + self.contact.emails.count + self.contact.phones.count;
+    if (section == CONTACT_NAME_CELL_SECTION) {
+        return 1;
+    } else {
+        return self.contact.emails.count + self.contact.phones.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == CONTACT_NAME_CELL_ROW) {
+    if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
         return CONTACT_NAME_CELL_HEIGHT;
     } else {
         return CONTACT_PHONE_EMAIL_CELL_HEIGHT;
@@ -70,10 +67,9 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == CONTACT_NAME_CELL_ROW) {
-            return [self contactNameCell];
-    }
-    else {
+    if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
+        return [self contactNameCell];
+    } else {
         return [self phoneEmailCellForIndexPath:indexPath];
     }
 
@@ -98,59 +94,21 @@
     AAContactPhoneAndEmailTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"PhoneEmailCell"];
     NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     
-    if (indexPath.row <= self.contact.phones.count) {
+    if (indexPath.row < self.contact.phones.count) {
         NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
-        Phone* phone = phones[indexPath.row - 1];
+        Phone* phone = phones[indexPath.row];
         
         cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
-        cell.descriptionLabel.text = [self formattedPhoneNumberFromNumber:phone.number];
+        cell.descriptionLabel.text = [[NBPhoneNumberUtil sharedInstance] formattedPhoneNumberFromNumber:phone.number];
     } else {
         NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
-        Email* email = emails[indexPath.row - self.contact.phones.count - 1];
+        Email* email = emails[indexPath.row - self.contact.phones.count];
         
         cell.titleLabel.text = [email.title stringByAppendingString:@":"];
         cell.descriptionLabel.text = email.address;
     }
     
     return cell;
-}
-
-- (NSString*)formattedPhoneNumberFromNumber:(NSString*)number
-{
-    NBPhoneNumberUtil* phoneUtil = [NBPhoneNumberUtil sharedInstance];
-    NSString* normalizedPhoneNumber = [self numberByRemovingLeadingZerosFromNumber:[phoneUtil normalizePhoneNumber:number]];
-    NSString* regionCode = [phoneUtil getRegionCodeForCountryCode:[phoneUtil extractCountryCode:normalizedPhoneNumber nationalNumber:nil]];
-    
-    NSError* err = nil;
-    NBPhoneNumber* phoneNumber = [phoneUtil parse:normalizedPhoneNumber defaultRegion:regionCode error:&err];
-    
-    if (!phoneNumber) {
-        ALog(@"<ERROR> Unable to format phone number correctly\nError: %@\nUser Info:%@", err, err.userInfo);
-    }
-    
-    NSString* formattedNumber = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberTypeUNKNOWN error:&err];
-    if (!formattedNumber) {
-        ALog(@"<ERROR> Unable to format phone number correctly\nError: %@\nUser Info:%@", err, err.userInfo);
-    }
-    
-    return formattedNumber;
-}
-
-- (NSString*)numberByRemovingLeadingZerosFromNumber:(NSString*)number
-{
-    NSString* newNumber = [number copy];
-    
-    if (newNumber) {
-        for (NSUInteger i = 0; i < number.length; i++) {
-            if ([number characterAtIndex:i] == '0') {
-                newNumber = [number substringFromIndex:(i + 1)];
-            } else {
-                return newNumber;
-            }
-        }
-    }
-    
-    return newNumber;
 }
 
 /*

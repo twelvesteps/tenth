@@ -13,7 +13,7 @@
 #import "AACallButton.h"
 #import "AAUserDataManager.h"
 
-@interface AAEditDailyInventoryViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, AADailyInventoryYesNoQuestionTableViewCellDelegate>
+@interface AAEditDailyInventoryViewController () <UITextViewDelegate, AADailyInventoryYesNoQuestionTableViewCellDelegate>
 
 @property (nonatomic) BOOL showCallButtons;
 @property (strong, nonatomic) NSArray* questions;
@@ -26,22 +26,9 @@
 
 #pragma mark - View Controller Lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // set delegates
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
     
     InventoryQuestion* discussionQuestion = self.questions[AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX];
     self.showCallButtons = [discussionQuestion.yesNoAnswer boolValue];
