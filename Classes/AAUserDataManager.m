@@ -288,7 +288,7 @@
 
 
 #pragma mark - Address Book Management
-
+#pragma mark User Address Book Access
 - (ABAddressBookRef)addressBook
 {
     if (!_addressBook) _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -316,6 +316,8 @@
     
     return self.hasUserAddressBookAccess;
 }
+
+#pragma mark Matching Contacts and Address Book Records
 
 - (BOOL)addContactForPersonRecord:(ABRecordRef)person
 {
@@ -360,7 +362,7 @@
         record = ABAddressBookGetPersonWithRecordID(self.addressBook, contactID);
         
         // make sure the id is correct
-        if (![self personRecord:record nameMatchesContactName:contact]) {
+        if (![self personRecord:record matchesContact:contact]) {
             record = NULL;
         }
     }
@@ -373,15 +375,24 @@
         
         if (records) {
             NSUInteger count = CFArrayGetCount(records);
-            for (NSUInteger i = 0; i < count && !record; i++) {
-                ABRecordRef cur = CFArrayGetValueAtIndex(records, i);
-                
-                // verify that first and last name match
-                if ([self personRecord:cur nameMatchesContactName:contact]) {
-                    record = cur;
-                    contact.contactID = [NSNumber numberWithInt:ABRecordGetRecordID(record)];
+            if (count > 0) {
+                // multiple records match name, check that the record matches
+                for (NSUInteger i = 0; i < count && !record; i++) {
+                    ABRecordRef cur = CFArrayGetValueAtIndex(records, i);
+                    
+                    // verify that first and last name match
+                    if ([self personRecord:cur matchesContact:contact]) {
+                        record = cur;
+                        break;
+                    }
                 }
+            } else {
+                // only one record matches name, assume it's correct
+                record = CFArrayGetValueAtIndex(records, 0);
             }
+            
+            // synchronize the contact and person records
+            [self addContactProperties:contact toPersonRecord:record];
         }
     }
     
@@ -423,6 +434,13 @@
 
 - (BOOL)removeContactFromUserAddressBook:(Contact *)contact
 {
+    if (!self.hasUserAddressBookAccess) {
+        if (![self requestUserAddressBookAccess]) {
+            DLog(@"<DEBUG> User has denied AddressBook access");
+            return NO;
+        }
+    }
+    
     ABRecordRef person = [self personRecordFromAddressBookForContact:contact];
     if (person) {
         CFErrorRef error;
@@ -441,15 +459,90 @@
     }
 }
 
-- (BOOL)personRecord:(ABRecordRef)person nameMatchesContactName:(Contact*)contact
+- (BOOL)personRecord:(ABRecordRef)person matchesContact:(Contact*)contact
 {
-    NSString* curFirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    NSString* curLastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-    return ([contact.firstName isEqualToString:curFirstName] && [contact.lastName isEqualToString:curLastName]);
+    BOOL personNameMatchesContactName = [self personName:person matchesContactName:contact];
+
+    if (personNameMatchesContactName) {
+        BOOL personPhoneMatchesContactPhone = [self personPhones:person matchContactPhones:contact];
+        BOOL personEmailMatchesContactEmail = [self personEmails:person matchContactEmails:contact];
+        
+        return personPhoneMatchesContactPhone && personEmailMatchesContactEmail;
+    } else {
+        return NO;
+    }
 }
+
+- (BOOL)personName:(ABRecordRef)person matchesContactName:(Contact*)contact
+{
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    return [contact.firstName isEqualToString:firstName] && [contact.lastName isEqualToString:lastName];
+}
+
+- (BOOL)personPhones:(ABRecordRef)person matchContactPhones:(Contact*)contact
+{
+    ABMultiValueRef personPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
+
+    if (!personPhones && !contact.phones) {
+        return YES;
+    } else {
+        // check all phones for one match
+        for (int i = 0; i < CFArrayGetCount(personPhones); i++) {
+            NSString* phoneTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personPhones, i);
+            NSString* phoneNumber = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personPhones, i);
+            
+            NSSet* phonesWithTitleAndNumber = [contact.phones objectsPassingTest:^BOOL(id obj, BOOL* stop) {
+                Phone* phone = (Phone*)obj;
+                return [phone.title isEqualToString:phoneTitle] && [phone.number isEqualToString:phoneNumber];
+            }];
+            
+            if (phonesWithTitleAndNumber.count > 0) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+- (BOOL)personEmails:(ABRecordRef)person matchContactEmails:(Contact*)contact
+{
+    ABMultiValueRef personEmails = ABRecordCopyValue(person, kABPersonEmailProperty);
+    
+    if (!personEmails && !contact.emails) {
+        return YES;
+    } else {
+        // check all emails for one match
+        for (int i = 0; i < CFArrayGetCount(personEmails); i++) {
+            NSString* emailTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personEmails, i);
+            NSString* emailAddress = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personEmails, i);
+            
+            NSSet* emailsWithTitleAndAddress = [contact.emails objectsPassingTest:^BOOL(id obj, BOOL* stop) {
+                Email* email = (Email*)obj;
+                return [email.title isEqualToString:emailTitle] && [email.address isEqualToString:emailAddress];
+            }];
+            
+            if (emailsWithTitleAndAddress.count > 0) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+
+#pragma mark Synchronizing Properties
 
 - (void)addContactProperties:(Contact*)contact toPersonRecord:(ABRecordRef)person
 {
+    if (!self.hasUserAddressBookAccess) {
+        if (![self requestUserAddressBookAccess]) {
+            return;
+        }
+    }
+    
     if (person) {
         // add phone numbers
         ABMultiValueRef phones = [self getMultiValueRefForPersonRecord:person forProperty:kABPersonPhoneProperty];
@@ -466,11 +559,20 @@
         
         ABRecordSetValue(person, kABPersonPhoneProperty, phones, NULL);
         ABRecordSetValue(person, kABPersonEmailProperty, emails, NULL);
+        
+        CFRelease(phones);
+        CFRelease(emails);
     }
 }
 
 - (void)addPersonRecordProperties:(ABRecordRef)person toContact:(Contact*)contact
 {
+    if (!self.hasUserAddressBookAccess) {
+        if (![self requestUserAddressBookAccess]) {
+            return;
+        }
+    }
+    
     NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
     NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
     NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
@@ -498,6 +600,9 @@
     
     NSData* imageData = (__bridge_transfer NSData*)ABPersonCopyImageData(person);
     [contact setImage:imageData];
+    
+    CFRelease(phones);
+    CFRelease(emails);
 }
 
 - (ABMultiValueRef)getMultiValueRefForPersonRecord:(ABRecordRef)person forProperty:(ABPropertyType)property

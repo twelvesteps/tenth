@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAUserDataManager.m"
-            timestampString = "423136318.372179"
+            timestampString = "423395455.531968"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "-addContactForPersonRecord:"
             landmarkType = "5">
          </BreakpointContent>
