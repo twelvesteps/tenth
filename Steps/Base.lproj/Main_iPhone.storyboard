@@ -567,18 +567,7 @@
                             <constraint firstItem="3IO-Uc-cTZ" firstAttribute="leading" secondItem="ZPT-fk-Df3" secondAttribute="leading" id="rFf-6l-d57"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Daily Inventory" id="CXB-Zd-Lz5">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="uTb-aE-DSn">
-                            <connections>
-                                <action selector="cancelButtonTapped:" destination="s7h-Ol-3EI" id="RfS-bR-yHP"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="zoK-6j-7ot">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="s7h-Ol-3EI" id="DWg-Hk-dkY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Daily Inventory" id="CXB-Zd-Lz5"/>
                     <connections>
                         <outlet property="tableView" destination="3IO-Uc-cTZ" id="JPC-6F-rjo"/>
                     </connections>

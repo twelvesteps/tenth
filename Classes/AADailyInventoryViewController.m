@@ -12,7 +12,7 @@
 #import "AAUserDataManager.h"
 #import "DailyInventory.h"
 
-@interface AADailyInventoryViewController () <AAEditDailyInventoryViewControllerDelegate>
+@interface AADailyInventoryViewController () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
@@ -21,6 +21,15 @@
 @end
 
 @implementation AADailyInventoryViewController
+
+#pragma mark - ViewController Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.navigationController.delegate = self;
+}
 
 #pragma mark - Properties
 
@@ -37,17 +46,16 @@
     [self performSegueWithIdentifier:@"setDailyInventory" sender:sender];
 }
 
-#pragma mark - EditDailyInventoryView Delegate
+#pragma mark - NavigationController Delegate
 
-- (void)viewController:(AAEditDailyInventoryViewController *)controller didEditDailyInventory:(DailyInventory *)dailyInventory
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    if (dailyInventory) {
+    if ([viewController isEqual:self]) {
         [self.tableView reloadData];
     }
     
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
-
 
 #pragma mark - Tableview Datasource and Delegate
 

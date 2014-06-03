@@ -105,7 +105,8 @@
     XCTAssert([contact.lastName isEqualToString:@"Appleseed"], @"Last name not properly set");
 }
 
-- (void)testAddPersonToUserAddressBook
+
+- (void)testSimpleAddingAndRemovingFromAddressBook
 {
     // create new contact and add to address book
     Contact* contact = [self.manager contactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
@@ -132,17 +133,31 @@
     XCTAssert(firstRemoveResult, @"Could not remove contact");
     XCTAssertFalse(secondRemoveResult, @"Contact should only be removed once");
     
+    // clean up local database
     [self.manager removeAAContact:contact];
 }
+
+#define XCTAssertEqualContactID(contact, person) XCTAssertEqualObjects(contact.contactID, [NSNumber numberWithInt:ABRecordGetRecordID(person)], @"Contact ID did not update")
+
 
 - (void)testCorrectlyLocatesRecordAfterContactIDChange
 {
     Contact* contact = [self.manager contactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
-    XCTAssert(contact, @"Error adding contact");
-    XCTAssertNil(contact.contactID, @"Contact ID not set, should be nil");
-    
-    BOOL result = [self.manager addContactToUserAddressBook:contact];
+    [self.manager addContactToUserAddressBook:contact];
     ABRecordRef person = [self.manager personRecordFromAddressBookForContact:contact];
+    
+    // contact IDs should be unique, search database if ID is in use
+    XCTAssertEqualContactID(contact, person);
+    
+    // change contact ID
+    contact.contactID = [NSNumber numberWithInt:[contact.contactID intValue] + 1];
+    person = [self.manager personRecordFromAddressBookForContact:contact];
+    XCTAssertEqualContactID(contact, person);
+}
+
+- (void)testCorrectlyUpdatesAddressBook
+{
+    
 }
 
 @end

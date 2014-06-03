@@ -38,6 +38,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self updateDailyInventory];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -76,21 +83,6 @@
 {
     if (!_questions) _questions = [[self.dailyInventory.questions allObjects] sortedArrayUsingSelector:@selector(compareQuestionNumber:)];
     return _questions;
-}
-
-#pragma mark - UI Events
-
-- (IBAction)saveButtonTapped:(UIBarButtonItem *)sender
-{
-    [self updateDailyInventory];
-    [self.delegate viewController:self didEditDailyInventory:self.dailyInventory];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)cancelButtonTapped:(UIBarButtonItem*)sender
-{
-    [self.delegate viewController:self didEditDailyInventory:nil];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextView Delegate and Keyboard Notifications

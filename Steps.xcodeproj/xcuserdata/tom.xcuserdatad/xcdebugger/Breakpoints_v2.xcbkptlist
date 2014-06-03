@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "423336082.37109"
+            timestampString = "423484477.309547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "-yesNoQuestionTableViewCellForIndexPath:"
             landmarkType = "5">
             <Locations>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "423336082.37109"
+            timestampString = "423484477.309547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "-yesNoQuestionTableViewCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -158,38 +158,6 @@
             startingLineNumber = "94"
             endingLineNumber = "94"
             landmarkName = "-phoneEmailCellForIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StepsTests/AAUserDataManagerTests.m"
-            timestampString = "423411096.831667"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-testAddPersonToUserAddressBook"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StepsTests/AAUserDataManagerTests.m"
-            timestampString = "423411099.874212"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-testAddPersonToUserAddressBook"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
