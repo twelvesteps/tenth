@@ -10,10 +10,12 @@
 #import "AAUserDataManager.h"
 #import "InventoryQuestion+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
+#import <AddressBook/AddressBook.h>
 
 @interface AAUserDataManagerTests : XCTestCase
 
 @property (strong, nonatomic) AAUserDataManager* manager;
+@property (nonatomic) ABAddressBookRef addressBook;
 
 @end
 
@@ -25,6 +27,15 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     if (!_manager)
         _manager = [AAUserDataManager sharedManager];
+    
+    if (!_addressBook) {
+        _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+        ABAddressBookRequestAccessWithCompletion(_addressBook, ^(bool granted, CFErrorRef error) {
+            if (granted) {
+                ABAddressBookRevert(_addressBook);
+            }
+        });
+    }
 }
 
 - (void)tearDown
@@ -106,22 +117,32 @@
     XCTAssert(person, @"Contact could not be found");
     
     // retrieve contact from database, should return the newly created contact
-    Contact* copy = [self.manager contactForPersonRecord:person];
-    XCTAssert([contact isEqual:copy], @"Record not properly stored");
+    Contact* contactCopy = [self.manager contactForPersonRecord:person];
+    XCTAssert([contact isEqual:contactCopy], @"Record not properly stored");
     
-    result = [self.manager addContactToUserAddressBook:copy];
+    result = [self.manager addContactToUserAddressBook:contactCopy];
     XCTAssert(result, @"Failed to locate contact copy");
     
     ABRecordRef person1 = [self.manager personRecordFromAddressBookForContact:contact];
-    ABRecordRef person2 = [self.manager personRecordFromAddressBookForContact:copy];
+    ABRecordRef person2 = [self.manager personRecordFromAddressBookForContact:contactCopy];
     XCTAssert(CFEqual(person1, person2), @"Only one copy of the person record should exist");
     
     BOOL firstRemoveResult = [self.manager removeContactFromUserAddressBook:contact];
-    BOOL secondRemoveResult = [self.manager removeContactFromUserAddressBook:copy];
+    BOOL secondRemoveResult = [self.manager removeContactFromUserAddressBook:contactCopy];
     XCTAssert(firstRemoveResult, @"Could not remove contact");
     XCTAssertFalse(secondRemoveResult, @"Contact should only be removed once");
     
     [self.manager removeAAContact:contact];
+}
+
+- (void)testCorrectlyLocatesRecordAfterContactIDChange
+{
+    Contact* contact = [self.manager contactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
+    XCTAssert(contact, @"Error adding contact");
+    XCTAssertNil(contact.contactID, @"Contact ID not set, should be nil");
+    
+    BOOL result = [self.manager addContactToUserAddressBook:contact];
+    ABRecordRef person = [self.manager personRecordFromAddressBookForContact:contact];
 }
 
 @end

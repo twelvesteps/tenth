@@ -75,7 +75,8 @@
 {
     NSSortDescriptor* sortByFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
     NSSortDescriptor* sortByLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES];
-    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByLastName, sortByFirstName]];
+    NSSortDescriptor* sortByContactID = [NSSortDescriptor sortDescriptorWithKey:@"contactID" ascending:YES];
+    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByLastName, sortByFirstName, sortByContactID]];
 
     return contactItems;
 }
@@ -375,7 +376,7 @@
         
         if (records) {
             NSUInteger count = CFArrayGetCount(records);
-            if (count > 0) {
+            if (count > 1) {
                 // multiple records match name, check that the record matches
                 for (NSUInteger i = 0; i < count && !record; i++) {
                     ABRecordRef cur = CFArrayGetValueAtIndex(records, i);
@@ -386,13 +387,15 @@
                         break;
                     }
                 }
-            } else {
+            } else if (count == 1) {
                 // only one record matches name, assume it's correct
                 record = CFArrayGetValueAtIndex(records, 0);
+            } else {
+                return NULL;
             }
             
             // synchronize the contact and person records
-            [self addContactProperties:contact toPersonRecord:record];
+            [self addPersonRecordProperties:record toContact:contact];
         }
     }
     
@@ -420,12 +423,11 @@
     }
 
     BOOL result = (BOOL)ABAddressBookAddRecord(self.addressBook, record, &error);
+    CFRelease(record);
     
     if (!result) {
         ALog(@"<ERROR> Unable to save contact to phone, Error: %@", (__bridge_transfer NSString*)CFErrorCopyDescription(error));
-    } else {
-        ABAddressBookSave(self.addressBook, &error);
-    }
+    } 
     
     result = [self saveAddressBookChanges];
     
@@ -482,13 +484,15 @@
 
 - (BOOL)personPhones:(ABRecordRef)person matchContactPhones:(Contact*)contact
 {
+    BOOL result = NO;
     ABMultiValueRef personPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
 
-    if (!personPhones && !contact.phones) {
-        return YES;
+    int personPhonesCount = ABMultiValueGetCount(personPhones);
+    if (personPhonesCount == 0 && contact.phones.count) {
+        result = YES;
     } else {
         // check all phones for one match
-        for (int i = 0; i < CFArrayGetCount(personPhones); i++) {
+        for (int i = 0; i < personPhonesCount; i++) {
             NSString* phoneTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personPhones, i);
             NSString* phoneNumber = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personPhones, i);
             
@@ -498,23 +502,27 @@
             }];
             
             if (phonesWithTitleAndNumber.count > 0) {
-                return YES;
+                result = YES;
+                break;
             }
         }
     }
+    CFRelease(personPhones);
     
-    return NO;
+    return result;
 }
 
 - (BOOL)personEmails:(ABRecordRef)person matchContactEmails:(Contact*)contact
 {
+    BOOL result = NO;
     ABMultiValueRef personEmails = ABRecordCopyValue(person, kABPersonEmailProperty);
     
-    if (!personEmails && !contact.emails) {
-        return YES;
+    int personEmailsCount = ABMultiValueGetCount(personEmails);
+    if (personEmailsCount == 0 && contact.emails.count == 0) {
+        result = YES;
     } else {
         // check all emails for one match
-        for (int i = 0; i < CFArrayGetCount(personEmails); i++) {
+        for (int i = 0; i < personEmailsCount; i++) {
             NSString* emailTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personEmails, i);
             NSString* emailAddress = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personEmails, i);
             
@@ -524,12 +532,14 @@
             }];
             
             if (emailsWithTitleAndAddress.count > 0) {
-                return YES;
+                result = YES;
+                break;
             }
         }
     }
+    CFRelease(personEmails);
     
-    return NO;
+    return result;
 }
 
 

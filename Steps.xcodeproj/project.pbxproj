@@ -58,6 +58,7 @@
 		E27C2DCB1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */; };
 		E27C2DCE1935F19A00BE2AB6 /* AA_Blue_Circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */; };
 		E27C2DD11935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DD01935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m */; };
+		E27DCC37193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */; };
 		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980147193350D2007A0F49 /* Contact+AAAdditions.m */; };
 		E29956791939F3680053759F /* AAEditContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E29956781939F3680053759F /* AAEditContactViewController.m */; };
@@ -171,6 +172,8 @@
 		E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AA_Blue_Circle.jpg; sourceTree = "<group>"; };
 		E27C2DCF1935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactPhoneAndEmailTableViewCell.h; path = Classes/AAContactPhoneAndEmailTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E27C2DD01935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactPhoneAndEmailTableViewCell.m; path = Classes/AAContactPhoneAndEmailTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		E27DCC35193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactAddPhoneAndEmailTableViewCell.h; path = Classes/AAContactAddPhoneAndEmailTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactAddPhoneAndEmailTableViewCell.m; path = Classes/AAContactAddPhoneAndEmailTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E2980143193339AD007A0F49 /* AAContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactViewController.h; path = Classes/AAContactViewController.h; sourceTree = "<group>"; };
 		E2980144193339AD007A0F49 /* AAContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactViewController.m; path = Classes/AAContactViewController.m; sourceTree = "<group>"; };
 		E2980146193350D2007A0F49 /* Contact+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Contact+AAAdditions.h"; path = "Classes/Contact+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
@@ -477,6 +480,8 @@
 				E2249453193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m */,
 				E2249458193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.h */,
 				E2249459193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m */,
+				E27DCC35193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.h */,
+				E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -644,6 +649,7 @@
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
+				E27DCC37193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m in Sources */,
 				E2489FC71937756200861066 /* NBPhoneNumberDesc.m in Sources */,
 				E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */,
 				E27C2DD11935F5B700BE2AB6 /* AAContactPhoneAndEmailTableViewCell.m in Sources */,
