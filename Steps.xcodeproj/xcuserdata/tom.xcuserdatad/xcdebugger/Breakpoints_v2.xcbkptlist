@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "423484477.309547"
+            timestampString = "423561616.732696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "-yesNoQuestionTableViewCellForIndexPath:"
             landmarkType = "5">
             <Locations>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditDailyInventoryViewController.m"
-            timestampString = "423484477.309547"
+            timestampString = "423561616.732696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "-yesNoQuestionTableViewCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>

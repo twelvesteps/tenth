@@ -49,39 +49,48 @@
     AAUserDataManager* manager1 = [AAUserDataManager sharedManager];
     AAUserDataManager* manager2 = [AAUserDataManager sharedManager];
     
-    NSAssert(manager1 && manager2, @"AAUserDataManager unable to allocate shared instance");
-    NSAssert(manager1 == manager2, @"AAUserDataManager sharedManager returned different instances");
+    XCTAssert(manager1 && manager2, @"AAUserDataManager unable to allocate shared instance");
+    XCTAssert(manager1 == manager2, @"AAUserDataManager sharedManager returned different instances");
 }
 
-- (void)testFetchUserAmends
-{
-    NSArray* amends = [self.manager fetchUserAmends];
-    NSAssert(amends, @"AAUserDataManager unable to fetch amends");
-    DLog(@"Amends count: %d", (int)[amends count]);
-}
-
-- (void)testAAUserDataManagerCreationMethods
-{
-    [self amendCreationTests];
-    [self inventoryCreationTests];
-    [self contactCreationTests];
-}
-
-- (void)amendCreationTests
+- (void)testCreateOneAmend
 {
     NSDate* beforeCreation = [NSDate date];
     Amend* amend = [self.manager createAmend];
     NSDate* afterCreation = [NSDate date];
-    NSArray* amends = [self.manager fetchUserAmends];
     
-    NSAssert([amends count] == 1, @"Amend not properly added to context");
-    NSAssert([amend.creationDate compare:beforeCreation] == NSOrderedDescending &&
+    XCTAssert([self.manager fetchUserAmends].count == 1, @"Amend not properly added to context");
+    XCTAssert([amend.creationDate compare:beforeCreation] == NSOrderedDescending &&
              [amend.creationDate compare:afterCreation] == NSOrderedAscending,
              @"CreationDate not properly set");
+    
+    // clean amends from database
+    [self.manager removeAmend:amend];
+    XCTAssert([self.manager fetchUserAmends].count == 0, @"Amend not removed");
 }
 
-- (void)inventoryCreationTests
+- (void)testCreateMultipleAmmends
 {
+    // create multiple ammends
+    for (int i = 0; i < 10; i++) {
+        Amend* amend = [self.manager createAmend];
+        amend.amends = [NSString stringWithFormat:@"Amend%d", i];
+    }
+    
+    XCTAssert([self.manager fetchUserAmends].count == 10, @"Amends not properly added");
+    
+    // clean up amends
+    NSArray* amends = [self.manager fetchUserAmends];
+    for (Amend* amend in amends) {
+        [self.manager removeAmend:amend];
+    }
+    
+    XCTAssert([self.manager fetchUserAmends].count == 0, @"Amends not properly removed");
+}
+
+- (void)testUniqueInventoryForDay
+{
+    // create inventory
     DailyInventory* inventory = [self.manager todaysDailyInventory];
     DailyInventory* inventory2 = [self.manager todaysDailyInventory];
     XCTAssert([NSDate dateIsSameDayAsToday:inventory.date], @"Today's inventory is incorrect date");
@@ -89,7 +98,7 @@
     XCTAssert([inventory.questions count] == AA_DAILY_INVENTORY_QUESTION_COUNT, @"Improper number of questions created");
 }
 
-- (void)contactCreationTests
+- (void)testSimpleContactCreation
 {
     Contact* contact = [self.manager contactWithFirstName:nil lastName:nil contactID:nil];
     XCTAssert(contact, @"Contact with nil properties not created");
@@ -105,40 +114,69 @@
     XCTAssert([contact.lastName isEqualToString:@"Appleseed"], @"Last name not properly set");
 }
 
+#define BILL_FIRST_NAME @"Bill"
+#define BILL_LAST_NAME  @"Wilson"
+#define LOIS_FIRST_NAME @"Lois"
+#define LOIS_LAST_NAME  @"Wilson"
+#define BOB_FIRST_NAME  @"Doctor"
+#define BOB_LAST_NAME   @"Bob"
 
 - (void)testSimpleAddingAndRemovingFromAddressBook
 {
     // create new contact and add to address book
-    Contact* contact = [self.manager contactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
+    Contact* bill = [self.manager contactWithFirstName:BILL_FIRST_NAME lastName:BILL_LAST_NAME contactID:nil];
     
-    BOOL result = [self.manager addContactToUserAddressBook:contact];
+    BOOL result = [self.manager addContactToUserAddressBook:bill];
     XCTAssert(result, @"Error adding contact");
     
-    ABRecordRef person = [self.manager personRecordFromAddressBookForContact:contact];
+    ABRecordRef person = [self.manager personRecordFromAddressBookForContact:bill];
     XCTAssert(person, @"Contact could not be found");
     
-    // retrieve contact from database, should return the newly created contact
-    Contact* contactCopy = [self.manager contactForPersonRecord:person];
-    XCTAssert([contact isEqual:contactCopy], @"Record not properly stored");
+    NSString* personFirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* personLastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
     
-    result = [self.manager addContactToUserAddressBook:contactCopy];
+    XCTAssert([bill.firstName isEqualToString:personFirstName], @"Name not properly saved");
+    XCTAssert([bill.lastName isEqualToString:personLastName], @"Name not properly saved");
+
+    // retrieve contact from database, should return the newly created contact
+    Contact* billCopy = [self.manager contactForPersonRecord:person];
+    XCTAssert([bill isEqual:billCopy], @"Record not properly stored");
+    
+    result = [self.manager addContactToUserAddressBook:billCopy];
     XCTAssert(result, @"Failed to locate contact copy");
     
-    ABRecordRef person1 = [self.manager personRecordFromAddressBookForContact:contact];
-    ABRecordRef person2 = [self.manager personRecordFromAddressBookForContact:contactCopy];
+    ABRecordRef person1 = [self.manager personRecordFromAddressBookForContact:bill];
+    ABRecordRef person2 = [self.manager personRecordFromAddressBookForContact:billCopy];
     XCTAssert(CFEqual(person1, person2), @"Only one copy of the person record should exist");
     
-    BOOL firstRemoveResult = [self.manager removeContactFromUserAddressBook:contact];
-    BOOL secondRemoveResult = [self.manager removeContactFromUserAddressBook:contactCopy];
+    BOOL firstRemoveResult = [self.manager removeContactFromUserAddressBook:bill];
+    BOOL secondRemoveResult = [self.manager removeContactFromUserAddressBook:billCopy];
     XCTAssert(firstRemoveResult, @"Could not remove contact");
     XCTAssertFalse(secondRemoveResult, @"Contact should only be removed once");
     
     // clean up local database
-    [self.manager removeAAContact:contact];
+    [self.manager removeAAContact:bill];
 }
 
-#define XCTAssertEqualContactID(contact, person) XCTAssertEqualObjects(contact.contactID, [NSNumber numberWithInt:ABRecordGetRecordID(person)], @"Contact ID did not update")
+- (void)testAddingMultipleContactsWithSameName
+{
+    
+}
 
+- (void)testCorrectlyLocatesRecordAfterPropertyChanges
+{
+    
+}
+
+
+- (void)testCorrectlyLocatesRecordAfterNameChange
+{
+    
+}
+
+#define XCTAssertEqualContactID(contact, person) XCTAssertEqualObjects(contact.contactID, \
+                                                                        [NSNumber numberWithInt:ABRecordGetRecordID(person)], \
+                                                                        @"Contact ID did not update")
 
 - (void)testCorrectlyLocatesRecordAfterContactIDChange
 {

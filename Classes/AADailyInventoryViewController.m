@@ -114,8 +114,6 @@
             NSIndexPath* cellPath = [self.tableView indexPathForCell:(UITableViewCell*)sender];
             edivc.dailyInventory = self.dailyInventories[cellPath.row];
         }
-        
-        edivc.delegate = self;
     }
 }
 

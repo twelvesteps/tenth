@@ -7,6 +7,7 @@
 //
 
 #import "InventoryQuestion+AAAdditions.h"
+#import "NSDate+AAAdditions.h"
 #import "AAEditDailyInventoryViewController.h"
 #import "AADailyInventoryYesNoQuestionTableViewCell.h"
 #import "AADailyInventoryDescriptiveQuestionTableViewCell.h"
@@ -29,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = [self formattedInventoryDate];
     
     InventoryQuestion* discussionQuestion = self.questions[AA_DAILY_INVENTORY_QUESTION_DISCUSS_QUESTION_INDEX];
     self.showCallButtons = [discussionQuestion.yesNoAnswer boolValue];
@@ -83,6 +86,17 @@
 {
     if (!_questions) _questions = [[self.dailyInventory.questions allObjects] sortedArrayUsingSelector:@selector(compareQuestionNumber:)];
     return _questions;
+}
+
+- (NSString*)formattedInventoryDate
+{
+    if ([NSDate dateIsSameDayAsToday:self.dailyInventory.date]) {
+        return NSLocalizedString(@"Today", @"The word 'today'");
+    } else {
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"MMMM d, YYYY" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
+        return [formatter stringFromDate:self.dailyInventory.date];
+    }
 }
 
 #pragma mark - UITextView Delegate and Keyboard Notifications
