@@ -81,6 +81,19 @@
     return contactItems;
 }
 
+// internal search method
+- (NSArray*)fetchUserAAContactsWithContactID:(NSNumber*)contactID
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Contact"];
+    NSPredicate* contactIDPredicate = [NSPredicate predicateWithFormat:@"contactID == %@", contactID];
+    request.predicate = contactIDPredicate;
+    
+    NSError* err;
+    NSArray* contactsMatchingID = [self.managedObjectContext executeFetchRequest:request error:&err];
+    
+    return contactsMatchingID;
+}
+
 - (NSArray*)fetchItemsForEntityName:(NSString*)name withSortDescriptors:(NSArray*)descriptors
 {
     NSError* err;
@@ -460,6 +473,16 @@
     if (person) {
         NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
         contact.contactID = contactID;
+        [self invalidateContactIDsMatchingContact:contact];
+    }
+}
+
+- (void)invalidateContactIDsMatchingContact:(Contact*)contact
+{
+    NSArray* contactsMatchingID = [self fetchUserAAContactsWithContactID:contact.contactID];
+    for (Contact* curContact in contactsMatchingID) {
+        if (![curContact isEqual:contact])
+            curContact.contactID = nil;
     }
 }
 
@@ -494,6 +517,7 @@
         CFRelease(emails);
     }
 }
+
 
 #pragma mark - Core Data Management
 

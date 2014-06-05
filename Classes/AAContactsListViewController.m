@@ -86,7 +86,7 @@
         
         // remove contact from address book
         if (buttonIndex == actionSheet.destructiveButtonIndex) {
-            [manager removeContactFromUserAddressBook:contact];
+            //[manager removeContactFromUserAddressBook:contact];
         }
         
         // remove contact from database
@@ -110,8 +110,8 @@
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
-    [[AAUserDataManager sharedManager] addContactForPersonRecord:person];
-    Contact* contact = [[AAUserDataManager sharedManager] contactForPersonRecord:person];
+    //[[AAUserDataManager sharedManager] addContactForPersonRecord:person];
+    Contact* contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self performSegueWithIdentifier:@"setContact" sender:contact];
