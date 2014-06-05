@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
+
 // *** CREATING OBJECTS ***
 
 // info:    creates a singleton instance that should be shared by all objects. No controller should retain a unique copy
@@ -34,18 +35,17 @@
 // use:     AAUserDataManager* manager = [AAUserDataManager sharedManager];
 + (AAUserDataManager*)sharedManager;
 
-// info:    Creates a managed object of the desired type. The object will not be persistent unless a save event occurs
+// info:    Creates an empty managed object of the desired type. The object will not be persistent unless a save event occurs
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
 - (Amend*)createAmend;
 - (Resentment*)createResentment;
+- (Contact*)createContact;
 
-// info:    Creates a managed contact if it does not already exist or fetches the contact matching the description
-// returns: A contact object with the given properties or nil on error
-// use:     Contact* johnny = [manager createContactWithFirstName:@"Johnny" lastName:@"Appleseed" contactID:nil];
-- (Contact*)contactWithFirstName:(NSString*)firstName
-                        lastName:(NSString*)lastName
-                       contactID:(NSNumber*)contactID;
+// info:    Creates a managed contact object with the properties of the address book contact already set
+// returns: A newly created managed contact or nil on error
+// use:     Contact* contact = [manager createContactWithPersonRecord:person];
+- (Contact*)createContactWithPersonRecord:(ABRecordRef)person;
 
 // info:    Creates a managed inventory for the current date if it does not already exist or fetches the inventory for today
 // returns: An inventory for the current day (based on user's local calendar) or nil on error
@@ -57,6 +57,7 @@
 - (void)removeDailyInventory:(DailyInventory*)dailyInventory;
 - (void)removeAAContact:(Contact*)contact;
 
+
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
 
 // info:    Convenience methods for fetching all entities of the given type,
@@ -67,19 +68,13 @@
 - (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts;
 
+
 // *** USER ADDRESS BOOK ***
 // info:    These methods allow translation between a managed object and an address book record.
 // returns: The requested person record or contact, NULL or nil on error or person not found
 // use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
-- (ABRecordRef)personRecordFromAddressBookForContact:(Contact*)contact;
-- (Contact*)contactForPersonRecord:(ABRecordRef)person;
-
-// info:    These methods allow for contacts to be added or removed to the phone's database or the app's database.
-// returns: YES on success, NO on failure, error message printed to console
-// use:     BOOL saveWasSuccessful = [manager addContactForPersonRecord:contactFromPhone];
-- (BOOL)addContactForPersonRecord:(ABRecordRef)contact;
-- (BOOL)addContactToUserAddressBook:(Contact*)contact;
-- (BOOL)removeContactFromUserAddressBook:(Contact*)contact;
+- (ABRecordRef)fetchPersonRecordForContact:(Contact*)contact;
+- (Contact*)fetchContactForPersonRecord:(ABRecordRef)person;
 
 
 // *** MAINTAINING PERSISTENCE ***

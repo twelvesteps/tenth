@@ -121,6 +121,14 @@
 #define BOB_FIRST_NAME  @"Doctor"
 #define BOB_LAST_NAME   @"Bob"
 
+- (void)testCreateContactsWithIncompleteNames
+{
+    Contact* bill = [self.manager contactWithFirstName:BILL_FIRST_NAME lastName:BILL_LAST_NAME contactID:nil];
+    Contact* lois = [self.manager contactWithFirstName:nil lastName:LOIS_LAST_NAME contactID:nil];
+    
+    XCTAssertNotEqualObjects(bill, lois, @"Manager should not return a contact that matches only on last name");
+}
+
 - (void)testSimpleAddingAndRemovingFromAddressBook
 {
     // create new contact and add to address book
