@@ -20,7 +20,7 @@
 
 @interface AAUserDataManager ()
 
-@property (nonatomic) BOOL hasUserAddressBookAccess;
+@property (nonatomic, readwrite) BOOL hasUserAddressBookAccess;
 @property (nonatomic, assign) ABAddressBookRef addressBook;
 @property (nonatomic, strong) NSManagedObjectModel* managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator* persistentStoreCoordinator;
@@ -300,26 +300,30 @@
     return _addressBook;
 }
 
+- (BOOL)hasUserAddressBookAccess
+{
+    return [self requestUserAddressBookAccess];
+}
+
 - (BOOL)requestUserAddressBookAccess
 {
+    __block BOOL accessGranted = NO;
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
     if (status == kABAuthorizationStatusNotDetermined) {
-        __block __weak AAUserDataManager *weakself = self;
         ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error){
             if (granted && !error) {
-                ABAddressBookRevert(weakself.addressBook);
-                weakself.hasUserAddressBookAccess = YES;
+                ABAddressBookRevert(self.addressBook);
+                accessGranted = YES;
             } else {
-                weakself.hasUserAddressBookAccess = NO;
+                accessGranted = NO;
             }
         });
     } else {
-        self.hasUserAddressBookAccess = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
+        accessGranted = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
     }
     
-    
-    return self.hasUserAddressBookAccess;
+    return accessGranted;
 }
 
 #pragma mark Matching Contacts and Address Book Records
@@ -327,10 +331,8 @@
 - (Contact*)createContactWithPersonRecord:(ABRecordRef)person
 {
     if (!self.hasUserAddressBookAccess) {
-        if (![self requestUserAddressBookAccess]) {
-            ALog(@"<ERROR> User has denied phonebook access");
-            return nil;
-        }
+        ALog(@"<ERROR> User has denied phonebook access");
+        return nil;
     }
     
     Contact* contact = [self createContact];
@@ -346,10 +348,8 @@
 - (ABRecordRef)fetchPersonRecordForContact:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
-        if (![self requestUserAddressBookAccess]) {
-            ALog(@"<ERROR> User has denied phonebook access");
-            return NULL;
-        }
+        ALog(@"<ERROR> User has denied phonebook access");
+        return NULL;
     }
     
     ABRecordRef person = NULL;
@@ -509,9 +509,8 @@
 - (void)syncConactProperties:(Contact*)contact withPersonRecord:(ABRecordRef)person
 {
     if (!self.hasUserAddressBookAccess) {
-        if (![self requestUserAddressBookAccess]) {
-            return;
-        }
+        ALog(@"<ERROR> User has denied phonebook access");
+        return;
     }
     
     if (person && contact) {

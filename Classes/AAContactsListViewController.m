@@ -53,6 +53,14 @@
     [addContactSheet showInView:self.view];
 }
 
+- (void)showPeoplePickerViewController
+{
+    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
 
 #pragma mark - UIActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -161,14 +169,6 @@
     if (indexPath.section == AddContactSectionIndex) {
         [self showAddContactActionSheet];
     }
-}
-
-- (void)showPeoplePickerViewController
-{
-    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    
-    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

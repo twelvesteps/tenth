@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AATableViewController.h"
 
-@interface AASettingsViewController : UIViewController
+@interface AASettingsViewController : AATableViewController
 
 @end

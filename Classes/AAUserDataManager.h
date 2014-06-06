@@ -24,6 +24,8 @@
 
 @interface AAUserDataManager : NSObject
 
+@property (nonatomic, readonly) BOOL hasUserAddressBookAccess;
+
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
 
