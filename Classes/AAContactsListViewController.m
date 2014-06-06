@@ -42,16 +42,6 @@
 
 #pragma mark - UI Events
 
-- (void)showDeleteContactActionSheet
-{
-    UIActionSheet* deleteContactSheet = [[UIActionSheet alloc] initWithTitle:@"Delete Contact"
-                                                                    delegate:self
-                                                           cancelButtonTitle:@"Cancel"
-                                                      destructiveButtonTitle:@"Remove from phone"
-                                                           otherButtonTitles:@"Remove from AA contacts", nil];
-    [deleteContactSheet showInView:self.view];
-}
-
 - (void)showAddContactActionSheet
 {
     UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
@@ -67,33 +57,11 @@
 #pragma mark - UIActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if ([actionSheet.title isEqualToString:@"Delete Contact"]) {
-        [self deleteContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
-    } else if ([actionSheet.title isEqualToString:@"Add Contact"]) {
+    if ([actionSheet.title isEqualToString:@"Add Contact"]) {
         [self addContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
     }
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-}
-
-- (void)deleteContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        self.deletedContactIndexPath = nil;
-    } else {
-        AAUserDataManager* manager = [AAUserDataManager sharedManager];
-        Contact* contact = self.contacts[self.deletedContactIndexPath.row];
-        
-        // remove contact from address book
-        if (buttonIndex == actionSheet.destructiveButtonIndex) {
-            //[manager removeContactFromUserAddressBook:contact];
-        }
-        
-        // remove contact from database
-        [manager removeAAContact:contact];
-        
-        [self.tableView reloadData];
-    }
 }
 
 - (void)addContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -110,7 +78,6 @@
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
-    //[[AAUserDataManager sharedManager] addContactForPersonRecord:person];
     Contact* contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -217,7 +184,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.deletedContactIndexPath = indexPath;
-        [self showDeleteContactActionSheet];
+        [[AAUserDataManager sharedManager] removeAAContact:self.contacts[indexPath.row]];
+        [self.tableView reloadData];
     }
 }
 

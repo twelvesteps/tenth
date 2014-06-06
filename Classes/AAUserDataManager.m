@@ -56,19 +56,25 @@
 - (NSArray*)fetchUserAmends
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
-    return [self fetchItemsForEntityName:AA_AMEND_ITEM_NAME withSortDescriptors:@[sortByDate]];
+    return [self fetchItemsForEntityName:AA_AMEND_ITEM_NAME
+                     withSortDescriptors:@[sortByDate]
+                           withPredicate:nil];
 }
 
 - (NSArray*)fetchUserDailyInventories
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-    return [self fetchItemsForEntityName:AA_DAILY_INVENTORY_ITEM_NAME withSortDescriptors:@[sortByDate]];
+    return [self fetchItemsForEntityName:AA_DAILY_INVENTORY_ITEM_NAME
+                     withSortDescriptors:@[sortByDate]
+                           withPredicate:nil];
 }
 
 - (NSArray*)fetchUserResentments
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
-    return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME withSortDescriptors:@[sortByDate]];
+    return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME
+                     withSortDescriptors:@[sortByDate]
+                           withPredicate:nil];
 }
 
 - (NSArray*)fetchUserAAContacts
@@ -76,9 +82,35 @@
     NSSortDescriptor* sortByFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
     NSSortDescriptor* sortByLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES];
     NSSortDescriptor* sortByContactID = [NSSortDescriptor sortDescriptorWithKey:@"contactID" ascending:YES];
-    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME withSortDescriptors:@[sortByLastName, sortByFirstName, sortByContactID]];
+    NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME
+                                      withSortDescriptors:@[sortByLastName, sortByFirstName, sortByContactID]
+                                            withPredicate:nil];
 
     return contactItems;
+}
+
+- (Contact*)fetchSponsor
+{
+    NSPredicate* sponsorPredicate = [NSPredicate predicateWithFormat:@"isSponsor == %@", [NSNumber numberWithBool:YES]];
+    NSArray* sponsors = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME
+                                  withSortDescriptors:nil
+                                        withPredicate:sponsorPredicate];
+    
+    if (sponsors.count == 0) {
+        return nil;
+    } else if (sponsors.count == 1) {
+        return [sponsors lastObject];
+    } else {
+        DLog(@"<DEBUG> Only one contact should have sponsor property set");
+        return nil;
+    }
+}
+
+- (void)setContactAsSponsor:(Contact *)contact
+{
+    Contact* currentSponsor = [self fetchSponsor];
+    currentSponsor.isSponsor = [NSNumber numberWithBool:NO];
+    contact.isSponsor = [NSNumber numberWithBool:YES];
 }
 
 // internal search method
@@ -94,11 +126,12 @@
     return contactsMatchingID;
 }
 
-- (NSArray*)fetchItemsForEntityName:(NSString*)name withSortDescriptors:(NSArray*)descriptors
+- (NSArray*)fetchItemsForEntityName:(NSString*)name
+                withSortDescriptors:(NSArray*)descriptors
+                      withPredicate:(NSPredicate*)predicate
 {
     NSError* err;
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    NSEntityDescription* description = [NSEntityDescription entityForName:name inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:name];
     
     // if no descriptors were passed then sort by the date
     // this may change as the project develops
@@ -106,8 +139,9 @@
         descriptors = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     }
     
-    [request setEntity:description];
-    [request setSortDescriptors:descriptors];
+    request.sortDescriptors = descriptors;
+    request.predicate = predicate;
+    
     
     NSArray* fetchResult = [self.managedObjectContext executeFetchRequest:request error:&err];
     if (!fetchResult) {
@@ -122,17 +156,20 @@
 #pragma mark Create
 - (Amend*)createAmend
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME
+                                         inManagedObjectContext:self.managedObjectContext];
 }
 
 - (Resentment*)createResentment
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME
+                                         inManagedObjectContext:self.managedObjectContext];
 }
 
 - (Contact*)createContact
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_CONTACT_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_CONTACT_ITEM_NAME
+                                         inManagedObjectContext:self.managedObjectContext];
 }
 
 - (Contact*)fetchContactForPersonRecord:(ABRecordRef)person
@@ -140,7 +177,40 @@
     NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
     NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
     NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
-    return [self fetchContactWithFirstName:firstName lastName:lastName contactID:contactID];
+    Contact* contact = [self fetchContactWithFirstName:firstName lastName:lastName contactID:contactID];
+    
+    if (!contact) {
+        NSArray* contacts = [self fetchContactsWithFirstName:firstName lastName:lastName];
+        if (contacts.count == 0) {
+            // no matches
+            contact = nil;
+        } else if (contacts.count == 1) {
+            // found it!
+            contact = [contacts lastObject];
+        } else {
+            // multiple matches, check property fields
+            for (Contact* cur in contacts) {
+                if ([self personRecord:person matchesContact:cur]) {
+                    contact = cur;
+                    break;
+                }
+            }
+        }
+    }
+    
+    // make sure records remain in sync
+    [self syncConactProperties:contact withPersonRecord:person];
+    return contact;
+}
+
+- (NSArray*)fetchContactsWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
+{
+    NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"abFirstName == %@", firstName];
+    NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"abLastName == %@", lastName];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
+    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
+    
+    return [self.managedObjectContext executeFetchRequest:request error:nil];
 }
 
 - (Contact*)fetchContactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
@@ -159,11 +229,7 @@
     NSArray* contacts = [self.managedObjectContext executeFetchRequest:request error:&err];
     
     if (contacts.count == 0) {
-        Contact* contact = [self createContact];
-        contact.firstName = firstName;
-        contact.lastName = lastName;
-        contact.contactID = contactID;
-        return contact;
+        return nil;
     } else if (contacts.count == 1) {
         return [contacts lastObject];
     } else {
@@ -184,7 +250,8 @@
     NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
     
     if (results.count == 0) {
-        return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME inManagedObjectContext:self.managedObjectContext];
+        return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME
+                                             inManagedObjectContext:self.managedObjectContext];
     } else if (results.count == 1) {
         return [results lastObject];
     } else {
@@ -364,7 +431,7 @@
     if (person) {
         NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
         NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-        result = [contact.firstName isEqualToString:firstName] && [contact.lastName isEqualToString:lastName];
+        result = [contact.abFirstName isEqualToString:firstName] && [contact.abLastName isEqualToString:lastName];
     }
     
     return result;
@@ -447,7 +514,7 @@
         }
     }
     
-    if (person) {
+    if (person && contact) {
         [self syncContactName:contact withPersonName:person];
         [self syncContactID:contact withPersonID:person];
         [self syncContactPhones:contact withPersonPhones:person];
@@ -457,7 +524,7 @@
 
 - (void)syncContactName:(Contact*)contact withPersonName:(ABRecordRef)person
 {
-    if (person) {
+    if (person && contact) {
         NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
         NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
         
@@ -470,7 +537,7 @@
 
 - (void)syncContactID:(Contact*)contact withPersonID:(ABRecordRef)person
 {
-    if (person) {
+    if (person && contact) {
         NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
         contact.contactID = contactID;
         [self invalidateContactIDsMatchingContact:contact];
@@ -488,7 +555,7 @@
 
 - (void)syncContactPhones:(Contact*)contact withPersonPhones:(ABRecordRef)person
 {
-    if (person) {
+    if (person && contact) {
         ABMultiValueRef phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
         
         for (int i = 0; i < ABMultiValueGetCount(phones); i++) {
@@ -504,7 +571,7 @@
 
 - (void)syncContactEmails:(Contact*)contact withPersonEmails:(ABRecordRef)person
 {
-    if (person) {
+    if (person && contact) {
         ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
         
         for (int i = 0; i < ABMultiValueGetCount(emails); i++) {
@@ -553,7 +620,8 @@
 	
     if (!_persistentStoreCoordinator) {
         
-        NSString* stepItemsPath = [[[self applicationDocumentsDirectory] path] stringByAppendingPathComponent:@"StepItems.sqlite"];
+        NSString* stepItemsPath = [[[self applicationDocumentsDirectory] path]
+                                   stringByAppendingPathComponent:@"StepItems.sqlite"];
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:stepItemsPath]) {
             [[NSFileManager defaultManager] createFileAtPath:stepItemsPath contents:nil attributes:nil];

@@ -68,6 +68,10 @@
 - (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts;
 
+// info:    
+- (Contact*)fetchSponsor;
+- (void)setContactAsSponsor:(Contact*)contact;
+
 
 // *** USER ADDRESS BOOK ***
 // info:    These methods allow translation between a managed object and an address book record.

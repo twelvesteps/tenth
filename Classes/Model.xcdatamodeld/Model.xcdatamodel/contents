@@ -18,6 +18,7 @@
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFellow" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isSponsor" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sobrietyDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="amend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Amend" inverseName="contact" inverseEntity="Amend" syncable="YES"/>
@@ -60,7 +61,7 @@
     </entity>
     <elements>
         <element name="Amend" positionX="-63" positionY="-18" width="128" height="193"/>
-        <element name="Contact" positionX="88" positionY="191" width="128" height="208"/>
+        <element name="Contact" positionX="88" positionY="191" width="128" height="223"/>
         <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="103"/>
         <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
         <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>

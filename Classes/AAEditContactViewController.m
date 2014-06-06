@@ -38,7 +38,6 @@
 
     self.contactFirstName = self.contact.firstName;
     self.contactLastName = self.contact.lastName;
-    self.contactImageData = self.contact.image;
     self.contactPhones = sortedPhones;
     self.contactEmails = sortedEmails;
 }
@@ -105,11 +104,6 @@
 - (UITableViewCell*)editContactNameCell
 {
     AAEditContactNameAndImageTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"EditNameCell"];
-    
-    if (self.contact.image) {
-        UIImage* image = [UIImage imageWithData:self.contactImageData];
-        cell.contactImageView.image = image;
-    }
     
     cell.contactFirstNameTextField.text = self.contactFirstName;
     cell.contactLastNameTextField.text = self.contactLastName;

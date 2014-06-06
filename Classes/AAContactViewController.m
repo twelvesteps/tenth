@@ -81,11 +81,6 @@
     
     cell.contactNameLabel.text = self.contact.fullName;
     
-    if (self.contact.image) {
-        UIImage* image = [UIImage imageWithData:self.contact.image];
-        cell.contactImageView.image = image;
-    }
-    
     return cell;
 }
 
