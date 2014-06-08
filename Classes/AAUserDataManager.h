@@ -70,7 +70,10 @@
 - (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts;
 
-// info:    
+// info:
+// returns:
+// use:
+- (Contact*)fetchContactForPersonRecord:(ABRecordRef)person;
 - (Contact*)fetchSponsor;
 - (void)setContactAsSponsor:(Contact*)contact;
 
@@ -80,7 +83,7 @@
 // returns: The requested person record or contact, NULL or nil on error or person not found
 // use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
 - (ABRecordRef)fetchPersonRecordForContact:(Contact*)contact;
-- (Contact*)fetchContactForPersonRecord:(ABRecordRef)person;
+- (void)syncContact:(Contact*)contact withPersonRecord:(ABRecordRef)person;
 
 
 // *** MAINTAINING PERSISTENCE ***

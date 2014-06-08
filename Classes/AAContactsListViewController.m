@@ -42,6 +42,11 @@
 
 #pragma mark - UI Events
 
+- (IBAction)addContactButtonPressed:(UIBarButtonItem *)sender
+{
+    [self showAddContactActionSheet];
+}
+
 - (void)showAddContactActionSheet
 {
     UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
@@ -130,32 +135,23 @@
 
 #pragma mark - Tableview Delegate and Datasource
 
-#define AddContactSectionIndex 0
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == AddContactSectionIndex) {
-        return 1;
-    } else {
-        return self.contacts.count;
-    }
+    return self.contacts.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == AddContactSectionIndex) {
-        return [self.tableView dequeueReusableCellWithIdentifier:@"AddContactCell"];
-    } else {
-        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
-        cell.textLabel.text = [self titleForCellAtIndexPath:indexPath];
-        
-        return cell;
-    }
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
+    cell.textLabel.text = [self titleForCellAtIndexPath:indexPath];
+    
+    return cell;
 }
 
 - (NSString*)titleForCellAtIndexPath:(NSIndexPath*)indexPath
@@ -164,20 +160,9 @@
     return [contact fullName];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == AddContactSectionIndex) {
-        [self showAddContactActionSheet];
-    }
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == AddContactSectionIndex) {
-        return NO;
-    } else {
-        return YES;
-    }
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

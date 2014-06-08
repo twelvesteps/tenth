@@ -89,6 +89,37 @@
     return contactItems;
 }
 
+- (Contact*)fetchContactForPersonRecord:(ABRecordRef)person
+{
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+    Contact* contact = [self fetchContactWithFirstName:firstName lastName:lastName contactID:contactID];
+    
+    if (!contact) {
+        NSArray* contacts = [self fetchContactsWithFirstName:firstName lastName:lastName];
+        if (contacts.count == 0) {
+            // no matches
+            contact = nil;
+        } else if (contacts.count == 1) {
+            // found it!
+            contact = [contacts lastObject];
+        } else {
+            // multiple matches, check property fields
+            for (Contact* cur in contacts) {
+                if ([self personRecord:person matchesContact:cur]) {
+                    contact = cur;
+                    break;
+                }
+            }
+        }
+    }
+    
+    // make sure records remain in sync
+    [self syncContact:contact withPersonRecord:person];
+    return contact;
+}
+
 - (Contact*)fetchSponsor
 {
     NSPredicate* sponsorPredicate = [NSPredicate predicateWithFormat:@"isSponsor == %@", [NSNumber numberWithBool:YES]];
@@ -111,6 +142,41 @@
     Contact* currentSponsor = [self fetchSponsor];
     currentSponsor.isSponsor = [NSNumber numberWithBool:NO];
     contact.isSponsor = [NSNumber numberWithBool:YES];
+}
+
+- (NSArray*)fetchContactsWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
+{
+    NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"abFirstName == %@", firstName];
+    NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"abLastName == %@", lastName];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
+    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
+    
+    return [self.managedObjectContext executeFetchRequest:request error:nil];
+}
+
+- (Contact*)fetchContactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
+{
+    NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"abFirstName == %@", firstName];
+    NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"abLastName == %@", lastName];
+    NSPredicate* contactIDPredicate = [NSPredicate predicateWithFormat:@"contactID == %@", contactID];
+    
+    NSArray* predicates = @[firstNamePredicate, lastNamePredicate, contactIDPredicate];
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
+    NSPredicate* contactPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+    request.predicate = contactPredicate;
+    
+    NSError* err;
+    NSArray* contacts = [self.managedObjectContext executeFetchRequest:request error:&err];
+    
+    if (contacts.count == 0) {
+        return nil;
+    } else if (contacts.count == 1) {
+        return [contacts lastObject];
+    } else {
+        ALog(@"<ERROR> Database state violates invarient \"Only one contact with same name and id\"\n %@, %@", err, err.userInfo);
+        return nil;
+    }
 }
 
 // internal search method
@@ -172,68 +238,14 @@
                                          inManagedObjectContext:self.managedObjectContext];
 }
 
-- (Contact*)fetchContactForPersonRecord:(ABRecordRef)person
+- (Contact*)createContactWithPersonRecord:(ABRecordRef)person
 {
-    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-    NSNumber* contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
-    Contact* contact = [self fetchContactWithFirstName:firstName lastName:lastName contactID:contactID];
-    
-    if (!contact) {
-        NSArray* contacts = [self fetchContactsWithFirstName:firstName lastName:lastName];
-        if (contacts.count == 0) {
-            // no matches
-            contact = nil;
-        } else if (contacts.count == 1) {
-            // found it!
-            contact = [contacts lastObject];
-        } else {
-            // multiple matches, check property fields
-            for (Contact* cur in contacts) {
-                if ([self personRecord:person matchesContact:cur]) {
-                    contact = cur;
-                    break;
-                }
-            }
-        }
-    }
-    
-    // make sure records remain in sync
-    [self syncConactProperties:contact withPersonRecord:person];
-    return contact;
-}
-
-- (NSArray*)fetchContactsWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
-{
-    NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"abFirstName == %@", firstName];
-    NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"abLastName == %@", lastName];
-    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
-    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
-    
-    return [self.managedObjectContext executeFetchRequest:request error:nil];
-}
-
-- (Contact*)fetchContactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName contactID:(NSNumber *)contactID
-{
-    NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"abFirstName == %@", firstName];
-    NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"abLastName == %@", lastName];
-    NSPredicate* contactIDPredicate = [NSPredicate predicateWithFormat:@"contactID == %@", contactID];
-    
-    NSArray* predicates = @[firstNamePredicate, lastNamePredicate, contactIDPredicate];
-
-    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_CONTACT_ITEM_NAME];
-    NSPredicate* contactPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
-    request.predicate = contactPredicate;
-
-    NSError* err;
-    NSArray* contacts = [self.managedObjectContext executeFetchRequest:request error:&err];
-    
-    if (contacts.count == 0) {
-        return nil;
-    } else if (contacts.count == 1) {
-        return [contacts lastObject];
+    Contact* contact = [self createContact];
+    if (contact) {
+        [self syncContact:contact withPersonRecord:person];
+        return contact;
     } else {
-        ALog(@"<ERROR> Database state violates invarient \"Only one contact with same name and id\"\n %@, %@", err, err.userInfo);
+        ALog(@"<ERROR> Unable to create contact");
         return nil;
     }
 }
@@ -328,23 +340,6 @@
 
 #pragma mark Matching Contacts and Address Book Records
 
-- (Contact*)createContactWithPersonRecord:(ABRecordRef)person
-{
-    if (!self.hasUserAddressBookAccess) {
-        ALog(@"<ERROR> User has denied phonebook access");
-        return nil;
-    }
-    
-    Contact* contact = [self createContact];
-    if (contact) {
-        [self syncConactProperties:contact withPersonRecord:person];
-        return contact;
-    } else {
-        ALog(@"<ERROR> Unable to create contact");
-        return nil;
-    }
-}
-
 - (ABRecordRef)fetchPersonRecordForContact:(Contact *)contact
 {
     if (!self.hasUserAddressBookAccess) {
@@ -403,7 +398,7 @@
             }
             
             // synchronize the contact and person records
-            [self syncConactProperties:contact withPersonRecord:person];
+            [self syncContact:contact withPersonRecord:person];
         }
     }
     
@@ -506,13 +501,8 @@
 
 #pragma mark Synchronizing Properties
 
-- (void)syncConactProperties:(Contact*)contact withPersonRecord:(ABRecordRef)person
+- (void)syncContact:(Contact*)contact withPersonRecord:(ABRecordRef)person
 {
-    if (!self.hasUserAddressBookAccess) {
-        ALog(@"<ERROR> User has denied phonebook access");
-        return;
-    }
-    
     if (person && contact) {
         [self syncContactName:contact withPersonName:person];
         [self syncContactID:contact withPersonID:person];
