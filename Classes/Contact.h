@@ -2,7 +2,7 @@
 //  Contact.h
 //  Steps
 //
-//  Created by tom on 6/6/14.
+//  Created by tom on 6/9/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
@@ -17,10 +17,10 @@
 @property (nonatomic, retain) NSString * abLastName;
 @property (nonatomic, retain) NSNumber * contactID;
 @property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSNumber * isFellow;
+@property (nonatomic, retain) NSNumber * isSponsor;
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSDate * sobrietyDate;
-@property (nonatomic, retain) NSNumber * isSponsor;
+@property (nonatomic, retain) NSNumber * needsABLink;
 @property (nonatomic, retain) Amend *amend;
 @property (nonatomic, retain) NSSet *emails;
 @property (nonatomic, retain) NSSet *phones;

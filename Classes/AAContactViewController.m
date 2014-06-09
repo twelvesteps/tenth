@@ -16,10 +16,10 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface AAContactViewController () <UINavigationControllerDelegate, UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) UIBarButtonItem* leftToolbarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
 
 @end
 
@@ -27,48 +27,65 @@
 
 #pragma mark - ViewController Lifecycle
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([self needToLinkContact]) {
+        self.rightToolbarButton.title = NSLocalizedString(@"Link Contact", @"link contact with phone contacts");
+    } else if (!self.contact) {
+        self.rightToolbarButton.title = NSLocalizedString(@"Create Contact", @"create new contact");
+    } else {
+        self.rightToolbarButton.title = NSLocalizedString(@"Edit", @"edit");
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     if (!self.contact) {
-        [self presentNewPersonViewController];
+        // should create a new AB contact first
+        [self presentNewPersonViewControllerWithPerson:NULL];
+    } else if ([self shouldShowPersonRecordNotFoundAlert]){
+        [self showPersonRecordNotFoundAlert];
     }
 }
+
 
 #pragma mark - UI Events
 
-- (IBAction)editButtonTapped:(UIBarButtonItem *)sender
+- (void)updateContactDataWithPerson:(ABRecordRef)person
 {
-    AAUserDataManager* manager = [AAUserDataManager sharedManager];
-    
-    if (manager.hasUserAddressBookAccess) {
-        ABRecordRef person = [manager fetchPersonRecordForContact:self.contact];
-        if (person) {
-            [self presentEditPersonViewControllerWithPerson:person];
-        } else {
-            [self showPersonRecordNotFoundAlert];
+    if (person) {
+        if (self.contact) {
+            [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
+            self.newContact = NO;
+            [self.tableView reloadData];
+        } else if (self.newContact && person) {
+            self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
+            self.newContact = NO;
+            [self.tableView reloadData];
         }
-    } else {
-        [self showAddressBookAccessDeniedAlert];
     }
 }
 
-- (void)presentEditPersonViewControllerWithPerson:(ABRecordRef)person
+- (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
-    ABPersonViewController* abpvc = [[ABPersonViewController alloc] init];
-    abpvc.personViewDelegate = self;
-    abpvc.displayedPerson = person;
-    abpvc.allowsEditing = YES;
-    
-    [self.navigationController pushViewController:abpvc animated:YES];
-    // bug in ios 7 causes editing view not to be displayed
-    abpvc.editing = YES;
+    ABRecordRef person = [[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact];
+    if (person) {
+        // use new person view controller to go straight to edit screen
+        [self presentNewPersonViewControllerWithPerson:person];
+    } else {
+        [self presentPeoplePickerViewController];
+    }
 }
 
-- (void)presentNewPersonViewController
+- (void)presentNewPersonViewControllerWithPerson:(ABRecordRef)person
 {
     ABNewPersonViewController* abnpvc = [[ABNewPersonViewController alloc] init];
+    abnpvc.displayedPerson = person;
+    abnpvc.title = (person) ? @"" : NSLocalizedString(@"New Contact", @"New contact");
     abnpvc.newPersonViewDelegate = self;
     [self.navigationController pushViewController:abnpvc animated:YES];
 }
@@ -76,8 +93,24 @@
 - (void)presentPeoplePickerViewController
 {
     ABPeoplePickerNavigationController* abppnc = [[ABPeoplePickerNavigationController alloc] init];
-    abppnc.delegate = self;
+    abppnc.peoplePickerDelegate = self;
     [self presentViewController:abppnc animated:YES completion:nil];
+}
+
+- (BOOL)needToLinkContact
+{
+    if (!self.contact) {
+        return NO;
+    } else if (self.newContact) {
+        return NO;
+    } else {
+        return [self.contact.needsABLink boolValue];
+    }
+}
+
+- (BOOL)shouldShowPersonRecordNotFoundAlert
+{
+    return ([self needToLinkContact] && ![[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact]);
 }
 
 - (void)showPersonRecordNotFoundAlert
@@ -138,12 +171,15 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 - (void)newPersonViewController:(ABNewPersonViewController *)newPersonView didCompleteWithNewPerson:(ABRecordRef)person
 {
     if (person) { // user saved contact
-        self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
-
+        [self updateContactDataWithPerson:person];
         [self.navigationController popViewControllerAnimated:YES];
-        [self.tableView reloadData];
     } else { // user cancelled
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        if (self.newContact) { // user didn't create contact, return to list view and remove contact
+            [[AAUserDataManager sharedManager] removeAAContact:self.contact];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else { // user didn't edit contact, return to contact view
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -151,13 +187,19 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 #pragma mark - ABPeoplePickerNavigationController Delegate
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
-    [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
-    [self.tableView reloadData];
+    [self updateContactDataWithPerson:person];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.newContact) {
+            [self presentNewPersonViewControllerWithPerson:person];
+        }
+    }];
+    
     return NO;
 }
 
@@ -165,9 +207,6 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 {
     return NO;
 }
-
-#pragma mark - UINavigationController Delegate
-
 
 
 #pragma mark - UITableView Delegate and Datasource
@@ -230,7 +269,8 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         Phone* phone = phones[indexPath.row];
         
         cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
-        cell.descriptionLabel.text = [[NBPhoneNumberUtil sharedInstance] formattedPhoneNumberFromNumber:phone.number];
+        cell.descriptionLabel.text = phone.number;
+        //cell.descriptionLabel.text = [[NBPhoneNumberUtil sharedInstance] formattedPhoneNumberFromNumber:phone.number];
     } else {
         NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Email* email = emails[indexPath.row - self.contact.phones.count];

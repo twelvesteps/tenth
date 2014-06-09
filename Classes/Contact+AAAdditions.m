@@ -98,4 +98,14 @@
     return email;
 }
 
+- (void)clearPhones
+{
+    [self removePhones:self.phones];
+}
+
+- (void)clearEmails
+{
+    [self removeEmails:self.emails];
+}
+
 @end

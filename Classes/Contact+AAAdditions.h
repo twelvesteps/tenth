@@ -15,4 +15,7 @@
 - (void)addPhoneWithTitle:(NSString*)title number:(NSString*)number;
 - (void)addEmailWithTitle:(NSString*)title address:(NSString*)address;
 
+- (void)clearPhones;
+- (void)clearEmails;
+
 @end

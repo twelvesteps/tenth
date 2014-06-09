@@ -396,15 +396,16 @@
                     }
                 }
             }
-            
-            // synchronize the contact and person records
-            [self syncContact:contact withPersonRecord:person];
         }
     }
     
     if (!person) {
         DLog(@"<DEBUG> Not able to locate person record for contact");
+        contact.needsABLink = [NSNumber numberWithBool:YES];
     }
+    
+    // synchronize the contact and person records
+    [self syncContact:contact withPersonRecord:person];
     
     return person;
 }
@@ -459,7 +460,10 @@
                 }
             }
         }
-        CFRelease(personPhones);
+        
+        if (personPhones) {
+            CFRelease(personPhones);
+        }
     }
     
     return result;
@@ -492,7 +496,10 @@
                 }
             }
         }
-        CFRelease(personEmails);
+        
+        if (personEmails) {
+            CFRelease(personEmails);
+        }
     }
     
     return result;
@@ -508,6 +515,8 @@
         [self syncContactID:contact withPersonID:person];
         [self syncContactPhones:contact withPersonPhones:person];
         [self syncContactEmails:contact withPersonEmails:person];
+        
+        contact.needsABLink = [NSNumber numberWithBool:NO];
     }
 }
 
@@ -547,6 +556,7 @@
     if (person && contact) {
         ABMultiValueRef phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
         
+        [contact clearPhones];
         for (int i = 0; i < ABMultiValueGetCount(phones); i++) {
             NSString* title = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(phones, i);
             NSString* number = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, i);
@@ -554,7 +564,9 @@
             [contact addPhoneWithTitle:title number:number];
         }
         
-        CFRelease(phones);
+        if (phones) {
+            CFRelease(phones);
+        }
     }
 }
 
@@ -563,6 +575,7 @@
     if (person && contact) {
         ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
         
+        [contact clearEmails];
         for (int i = 0; i < ABMultiValueGetCount(emails); i++) {
             NSString* title = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(emails, i);
             NSString* address = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emails, i);
@@ -570,7 +583,9 @@
             [contact addEmailWithTitle:title address:address];
         }
 
-        CFRelease(emails);
+        if (emails) {
+            CFRelease(emails);
+        }
     }
 }
 

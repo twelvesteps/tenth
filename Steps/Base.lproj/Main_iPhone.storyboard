@@ -160,11 +160,12 @@
                     <navigationItem key="navigationItem" id="GZr-8c-asY">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="XM9-eY-u7W">
                             <connections>
-                                <action selector="editButtonTapped:" destination="6h0-85-ldh" id="gV6-GZ-n2e"/>
+                                <action selector="rightToolbarButtonTapped:" destination="6h0-85-ldh" id="hM2-zY-TEF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="rightToolbarButton" destination="XM9-eY-u7W" id="Zge-AU-phu"/>
                         <outlet property="tableView" destination="SxR-Mq-Jf8" id="E2D-4F-mJ6"/>
                     </connections>
                 </viewController>

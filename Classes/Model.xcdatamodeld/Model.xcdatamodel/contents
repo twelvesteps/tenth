@@ -17,9 +17,9 @@
         <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isFellow" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isSponsor" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="needsABLink" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sobrietyDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="amend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Amend" inverseName="contact" inverseEntity="Amend" syncable="YES"/>
         <relationship name="emails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Email" inverseName="contact" inverseEntity="Email" syncable="YES"/>
