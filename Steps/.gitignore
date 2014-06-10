@@ -1,0 +1,6 @@
+# ignore pngs
+*.png
+# ignore jpgs
+*.jpg
+# ignore vector files
+*.eps

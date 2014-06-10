@@ -193,7 +193,7 @@
             } else if ([sender isKindOfClass:[Contact class]]) {
                 // user selected contact from people picker
                 aacvc.contact = (Contact*)sender;
-                aacvc.newContact = YES;
+                aacvc.newContact = NO;
             }
         } else if ([segue.identifier isEqualToString:@"newContact"]) {
             aacvc.newContact = YES;

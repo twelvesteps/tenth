@@ -44,12 +44,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="leftBarButtonItem" title="Add" id="2Ef-0b-pFH">
+                        <barButtonItem key="leftBarButtonItem" image="add_btn.png" id="2Ef-0b-pFH">
                             <connections>
                                 <action selector="addContactButtonPressed:" destination="T2K-zy-WU3" id="uwi-ip-D8w"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Call" id="mv7-Kn-K1w"/>
+                        <barButtonItem key="rightBarButtonItem" image="phone_btn.png" id="mv7-Kn-K1w"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="EtO-jG-gvw" id="0X5-fm-0Et"/>
@@ -416,11 +416,11 @@
             </objects>
             <point key="canvasLocation" x="1488" y="205"/>
         </scene>
-        <!--Navigation Controller - Daily Iventory-->
+        <!--Navigation Controller - Daily Inventory-->
         <scene sceneID="Gbn-eo-5m3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E7V-5V-Mso" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Daily Iventory" id="lbu-u1-vUQ"/>
+                    <tabBarItem key="tabBarItem" title="Daily Inventory" image="stepwork_icon.png" id="lbu-u1-vUQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHI-Vq-rFC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -499,7 +499,7 @@
         <scene sceneID="wsD-lK-rgC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fph-5a-neK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Contacts" id="H33-Mb-dLf"/>
+                    <tabBarItem key="tabBarItem" title="Contacts" image="contacts_btn.png" id="H33-Mb-dLf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hoI-Se-hIB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -518,7 +518,7 @@
         <scene sceneID="QkM-D6-NmD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sET-gL-wSt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="KhN-ir-2nh"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile_icon.png" id="KhN-ir-2nh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZKY-T7-Vho">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -536,6 +536,11 @@
     </scenes>
     <resources>
         <image name="AA_Blue_Circle.jpg" width="118" height="118"/>
+        <image name="add_btn.png" width="23" height="23"/>
+        <image name="contacts_btn.png" width="22" height="22"/>
+        <image name="phone_btn.png" width="23" height="22"/>
+        <image name="profile_icon.png" width="22" height="22"/>
+        <image name="stepwork_icon.png" width="23" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

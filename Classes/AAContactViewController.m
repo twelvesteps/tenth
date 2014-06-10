@@ -7,8 +7,8 @@
 //
 
 #import "NBPhoneNumberUtil+AAAdditions.h"
-#import "Phone.h"
-#import "Email.h"
+#import "Phone+AAAdditions.h"
+#import "Email+AAAdditions.h"
 #import "AAContactNameAndImageTableViewCell.h"
 #import "AAContactPhoneAndEmailTableViewCell.h"
 #import "AAContactViewController.h"
@@ -60,11 +60,9 @@
     if (person) {
         if (self.contact) {
             [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
-            self.newContact = NO;
             [self.tableView reloadData];
         } else if (self.newContact && person) {
             self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
-            self.newContact = NO;
             [self.tableView reloadData];
         }
     }
@@ -174,10 +172,9 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         [self updateContactDataWithPerson:person];
         [self.navigationController popViewControllerAnimated:YES];
     } else { // user cancelled
-        if (self.newContact) { // user didn't create contact, return to list view and remove contact
-            [[AAUserDataManager sharedManager] removeAAContact:self.contact];
+        if (self.newContact) { // user didn't create contact
             [self.navigationController popToRootViewControllerAnimated:YES];
-        } else { // user didn't edit contact, return to contact view
+        } else { // user didn't edit contact
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
@@ -196,6 +193,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
     [self dismissViewControllerAnimated:YES completion:^{
         if (self.newContact) {
+            self.newContact = NO;
             [self presentNewPersonViewControllerWithPerson:person];
         }
     }];
@@ -268,14 +266,14 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Phone* phone = phones[indexPath.row];
         
-        cell.titleLabel.text = [phone.title stringByAppendingString:@":"];
+        cell.titleLabel.text = [[phone formattedTitle] stringByAppendingString:@":"];
         cell.descriptionLabel.text = phone.number;
         //cell.descriptionLabel.text = [[NBPhoneNumberUtil sharedInstance] formattedPhoneNumberFromNumber:phone.number];
     } else {
         NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
         Email* email = emails[indexPath.row - self.contact.phones.count];
         
-        cell.titleLabel.text = [email.title stringByAppendingString:@":"];
+        cell.titleLabel.text = [[email formattedTitle] stringByAppendingString:@": "];
         cell.descriptionLabel.text = email.address;
     }
     
