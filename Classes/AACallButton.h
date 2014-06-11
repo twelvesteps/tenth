@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Contact.h"
-
+#import "Phone+AAAdditions.h"
 @interface AACallButton : UIButton
 
-@property (weak, nonatomic) UILabel* contactLabel;
-@property (strong, nonatomic) Contact* contact;
+@property (weak, nonatomic) UILabel* nameLabel;
+@property (weak, nonatomic) UILabel* descriptionLabel;
+@property (strong, nonatomic) Phone* phone;
 
 @end

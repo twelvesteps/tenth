@@ -7,6 +7,7 @@
 //
 
 #import "AACallButton.h"
+#import "UIColor-Expanded.h"
 
 @implementation AACallButton
 
@@ -14,28 +15,13 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UILabel* contactLabel = [[UILabel alloc] initWithFrame:[self getLabelRect]];
-        [self addSubview:contactLabel];
-        self.contactLabel = contactLabel;
-        self.contactLabel.textAlignment = NSTextAlignmentCenter;
+        UIImageView* phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone_btn"]];
+        CGPoint phoneImageCenter = phoneImageView.center;
+        phoneImageCenter.x = self.bounds.origin.x + 22.0f;
+        phoneImageCenter.y = self.bounds.origin.y / 2;
+        phoneImageView.center = phoneImageCenter;
     }
     return self;
-}
-
-- (CGRect)getLabelRect
-{
-    return CGRectMake(self.bounds.origin.x + 10.0f,
-                      self.bounds.origin.y + 10.0f,
-                      self.bounds.size.width - 20.0f,
-                      self.bounds.size.height - 20.0f);
-}
-
-
-- (void)drawRect:(CGRect)rect
-{
-    [[UIColor greenColor] setFill];
-    UIBezierPath* path = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
-    [path fill];
 }
 
 @end

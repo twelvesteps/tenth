@@ -10,13 +10,17 @@
 #import "Phone+AAAdditions.h"
 #import "Email+AAAdditions.h"
 #import "AAContactNameAndImageTableViewCell.h"
-#import "AAContactPhoneAndEmailTableViewCell.h"
+#import "AAContactPhoneTableViewCell.h"
+#import "AAContactEmailTableViewCell.h"
+#import "AACallButton.h"
 #import "AAContactViewController.h"
 #import "Contact+AAAdditions.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <MessageUI/MessageUI.h>
 
-@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
+
+@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
@@ -55,19 +59,6 @@
 
 #pragma mark - UI Events
 
-- (void)updateContactDataWithPerson:(ABRecordRef)person
-{
-    if (person) {
-        if (self.contact) {
-            [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
-            [self.tableView reloadData];
-        } else if (self.newContact && person) {
-            self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
-            [self.tableView reloadData];
-        }
-    }
-}
-
 - (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
     ABRecordRef person = [[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact];
@@ -95,20 +86,13 @@
     [self presentViewController:abppnc animated:YES completion:nil];
 }
 
-- (BOOL)needToLinkContact
+- (void)presentMessageViewWithPhone:(Phone*)phone
 {
-    if (!self.contact) {
-        return NO;
-    } else if (self.newContact) {
-        return NO;
-    } else {
-        return [self.contact.needsABLink boolValue];
-    }
-}
-
-- (BOOL)shouldShowPersonRecordNotFoundAlert
-{
-    return ([self needToLinkContact] && ![[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact]);
+    MFMessageComposeViewController* mfcontroller = [[MFMessageComposeViewController alloc] init];
+    mfcontroller.messageComposeDelegate = self;
+    mfcontroller.recipients = @[phone.number];
+    
+    [self presentViewController:mfcontroller animated:YES completion:nil];
 }
 
 - (void)showPersonRecordNotFoundAlert
@@ -139,6 +123,22 @@
                                           otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     
     [alert show];
+}
+
+- (BOOL)needToLinkContact
+{
+    if (!self.contact) {
+        return NO;
+    } else if (self.newContact) {
+        return NO;
+    } else {
+        return [self.contact.needsABLink boolValue];
+    }
+}
+
+- (BOOL)shouldShowPersonRecordNotFoundAlert
+{
+    return ([self needToLinkContact] && ![[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact]);
 }
 
 #pragma mark - UIAlertView Delegate
@@ -201,30 +201,97 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     return NO;
 }
 
+- (void)updateContactDataWithPerson:(ABRecordRef)person
+{
+    if (person) {
+        if (self.contact) {
+            [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
+            [self.tableView reloadData];
+        } else if (self.newContact && person) {
+            self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
+            [self.tableView reloadData];
+        }
+    }
+}
+
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
     return NO;
+}
+
+#pragma mark - MFMessageCompositeView Delegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - AAContactPhoneTableViewCell and AAContactEmailTableViewCell Delegate
+
+- (void)phoneCell:(AAContactPhoneTableViewCell *)cell buttonWasPressed:(UIButton *)button
+{
+    if ([button isEqual:cell.callButton]) {
+        [self callPhone:cell.phone];
+    } else {
+        [self messagePhone:cell.phone];
+    }
+}
+
+- (void)emailCell:(AAContactEmailTableViewCell *)cell buttonWasPressed:(UIButton *)button
+{
+    [self sendMessageToEmail:cell.email];
+}
+
+- (void)callPhone:(Phone*)phone
+{
+    NSURL* phoneCallURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
+    if ([[UIApplication sharedApplication] canOpenURL:phoneCallURL]) {
+        [[UIApplication sharedApplication] openURL:phoneCallURL];
+    }
+
+}
+
+- (void)messagePhone:(Phone*)phone
+{
+    [self presentMessageViewWithPhone:phone];
+//    
+//    NSURL* smsMessageURL = [NSURL URLWithString:[NSString stringWithFormat:@"sms://%@", phone.number]];
+//    if ([[UIApplication sharedApplication] canOpenURL:smsMessageURL]) {
+//        [[UIApplication sharedApplication] openURL:smsMessageURL];
+//    }
+
+}
+
+- (void)sendMessageToEmail:(Email*)email
+{
+    
 }
 
 
 #pragma mark - UITableView Delegate and Datasource
 
 #define CONTACT_NAME_CELL_SECTION       0
+#define CONTACT_PHONES_SECTION          1
+#define CONTACT_EMAILS_SECTION          2
 
-#define CONTACT_NAME_CELL_HEIGHT        112.0f
-#define CONTACT_PHONE_EMAIL_CELL_HEIGHT 44.0f
+#define CONTACT_NAME_CELL_HEIGHT        102.0f
+#define CONTACT_PHONE_EMAIL_CELL_HEIGHT 52.0f
+#define CONTACT_CELL_INSETS             10.0f
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == CONTACT_NAME_CELL_SECTION) {
         return 1;
+    } else if (section == CONTACT_PHONES_SECTION){
+        return self.contact.phones.count;
     } else {
-        return self.contact.emails.count + self.contact.phones.count;
+        return self.contact.emails.count;
     }
 }
 
@@ -232,18 +299,21 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 {
     if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
         return CONTACT_NAME_CELL_HEIGHT;
+    } else if (indexPath.row == 0) {
+        return CONTACT_PHONE_EMAIL_CELL_HEIGHT + CONTACT_CELL_INSETS;
     } else {
         return CONTACT_PHONE_EMAIL_CELL_HEIGHT;
     }
 }
 
-
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
         return [self contactNameCell];
+    } else if (indexPath.section == CONTACT_PHONES_SECTION){
+        return [self phoneCellForIndexPath:indexPath];
     } else {
-        return [self phoneEmailCellForIndexPath:indexPath];
+        return [self emailCellForIndexPath:indexPath];
     }
 
 }
@@ -253,28 +323,49 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     AAContactNameAndImageTableViewCell* cell = (AAContactNameAndImageTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"NameCell"];
     
     cell.contactNameLabel.text = self.contact.fullName;
+    cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
     
     return cell;
 }
 
-- (UITableViewCell*)phoneEmailCellForIndexPath:(NSIndexPath*)indexPath
+- (UITableViewCell*)phoneCellForIndexPath:(NSIndexPath*)indexPath
 {
-    AAContactPhoneAndEmailTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"PhoneEmailCell"];
+    AAContactPhoneTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"PhoneCell"];
     NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     
-    if (indexPath.row < self.contact.phones.count) {
-        NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
-        Phone* phone = phones[indexPath.row];
-        
-        cell.titleLabel.text = [[phone formattedTitle] stringByAppendingString:@":"];
-        cell.descriptionLabel.text = phone.number;
-        //cell.descriptionLabel.text = [[NBPhoneNumberUtil sharedInstance] formattedPhoneNumberFromNumber:phone.number];
-    } else {
-        NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
-        Email* email = emails[indexPath.row - self.contact.phones.count];
-        
-        cell.titleLabel.text = [[email formattedTitle] stringByAppendingString:@": "];
-        cell.descriptionLabel.text = email.address;
+    
+    NSArray* phones = [[self.contact.phones allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
+    Phone* phone = phones[indexPath.row];
+
+    cell.delegate = self;
+    cell.phone = phone;
+    cell.titleLabel.text = [phone formattedTitle];
+    cell.descriptionLabel.text = phone.number;
+
+    // last item in phones should have a separator
+    if (indexPath.row != self.contact.phones.count - 1) {
+        cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
+    }
+    
+    return cell;
+}
+
+- (UITableViewCell*)emailCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAContactEmailTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"EmailCell"];
+    
+    NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    NSArray* emails = [[self.contact.emails allObjects] sortedArrayUsingDescriptors:@[sortByTitle]];
+    
+    Email* email = emails[indexPath.row];
+    
+    cell.delegate = self;
+    cell.email = email;
+    cell.titleLabel.text = [email formattedTitle];
+    cell.descriptionLabel.text = email.address;
+    
+    if (indexPath.row != self.contact.emails.count - 1) {
+        cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
     }
     
     return cell;
