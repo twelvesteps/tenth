@@ -39,8 +39,6 @@
 		84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */; };
 		E2006252192A103C00142609 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2006251192A103C00142609 /* AddressBook.framework */; };
 		E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2006257192A11A900142609 /* AAContactsListViewController.m */; };
-		E2249454193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2249453193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m */; };
-		E224945A193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2249459193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m */; };
 		E2249460193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E224945F193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m */; };
 		E239967F19460E2000DD30C9 /* contacts_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E239967E19460E2000DD30C9 /* contacts_btn@2x.png */; };
 		E23996811946114000DD30C9 /* phone_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996801946114000DD30C9 /* phone_btn@2x.png */; };
@@ -67,6 +65,10 @@
 		E23996B71948333700DD30C9 /* phone_btn_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996B51948333700DD30C9 /* phone_btn_highlighted@2x.png */; };
 		E23996B81948333700DD30C9 /* phone_btn_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996B61948333700DD30C9 /* phone_btn_highlighted.png */; };
 		E23996BA19486DA300DD30C9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E23996B919486DA300DD30C9 /* MessageUI.framework */; };
+		E23996BF1948A8BB00DD30C9 /* calendar_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BB1948A8BB00DD30C9 /* calendar_btn@2x.png */; };
+		E23996C01948A8BB00DD30C9 /* calendar_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BC1948A8BB00DD30C9 /* calendar_btn.png */; };
+		E23996C11948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BD1948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png */; };
+		E23996C21948A8BB00DD30C9 /* calendar_btn_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BE1948A8BB00DD30C9 /* calendar_btn_highlighted.png */; };
 		E246D1291926187700D0CC1E /* AACallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E246D1281926187700D0CC1E /* AACallButton.m */; };
 		E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB21937756200861066 /* NBAsYouTypeFormatter.m */; };
 		E2489FC31937756200861066 /* NBNumberFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB41937756200861066 /* NBNumberFormat.m */; };
@@ -82,7 +84,6 @@
 		E27C2DCB1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */; };
 		E27C2DCE1935F19A00BE2AB6 /* AA_Blue_Circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */; };
 		E27C2DD11935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DD01935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m */; };
-		E27DCC37193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */; };
 		E27DCC4319457CAB00A0861D /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E27DCC4219457CAB00A0861D /* Contact.m */; };
 		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980147193350D2007A0F49 /* Contact+AAAdditions.m */; };
@@ -160,10 +161,6 @@
 		E2006251192A103C00142609 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E2006256192A11A900142609 /* AAContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactsListViewController.h; path = Classes/AAContactsListViewController.h; sourceTree = "<group>"; };
 		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
-		E2249452193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditContactPhoneAndEmailTableViewCell.h; path = Classes/AAEditContactPhoneAndEmailTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		E2249453193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditContactPhoneAndEmailTableViewCell.m; path = Classes/AAEditContactPhoneAndEmailTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		E2249458193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditContactNameAndImageTableViewCell.h; path = Classes/AAEditContactNameAndImageTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		E2249459193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditContactNameAndImageTableViewCell.m; path = Classes/AAEditContactNameAndImageTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E224945E193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NBPhoneNumberUtil+AAAdditions.h"; path = "Classes/NBPhoneNumberUtil+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		E224945F193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NBPhoneNumberUtil+AAAdditions.m"; path = "Classes/NBPhoneNumberUtil+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		E239967E19460E2000DD30C9 /* contacts_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contacts_btn@2x.png"; sourceTree = "<group>"; };
@@ -194,6 +191,10 @@
 		E23996B51948333700DD30C9 /* phone_btn_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "phone_btn_highlighted@2x.png"; sourceTree = "<group>"; };
 		E23996B61948333700DD30C9 /* phone_btn_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phone_btn_highlighted.png; sourceTree = "<group>"; };
 		E23996B919486DA300DD30C9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E23996BB1948A8BB00DD30C9 /* calendar_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_btn@2x.png"; sourceTree = "<group>"; };
+		E23996BC1948A8BB00DD30C9 /* calendar_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_btn.png; sourceTree = "<group>"; };
+		E23996BD1948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_btn_highlighted@2x.png"; sourceTree = "<group>"; };
+		E23996BE1948A8BB00DD30C9 /* calendar_btn_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_btn_highlighted.png; sourceTree = "<group>"; };
 		E246D1271926187700D0CC1E /* AACallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACallButton.h; path = Classes/AACallButton.h; sourceTree = SOURCE_ROOT; };
 		E246D1281926187700D0CC1E /* AACallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACallButton.m; path = Classes/AACallButton.m; sourceTree = SOURCE_ROOT; };
 		E2489FB11937756200861066 /* NBAsYouTypeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBAsYouTypeFormatter.h; sourceTree = "<group>"; };
@@ -221,8 +222,6 @@
 		E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AA_Blue_Circle.jpg; sourceTree = "<group>"; };
 		E27C2DCF1935F5B700BE2AB6 /* AAContactPhoneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactPhoneTableViewCell.h; path = Classes/AAContactPhoneTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E27C2DD01935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactPhoneTableViewCell.m; path = Classes/AAContactPhoneTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		E27DCC35193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactAddPhoneAndEmailTableViewCell.h; path = Classes/AAContactAddPhoneAndEmailTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactAddPhoneAndEmailTableViewCell.m; path = Classes/AAContactAddPhoneAndEmailTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E27DCC4119457CAB00A0861D /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
 		E27DCC4219457CAB00A0861D /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = Classes/Contact.m; sourceTree = SOURCE_ROOT; };
 		E2980143193339AD007A0F49 /* AAContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactViewController.h; path = Classes/AAContactViewController.h; sourceTree = "<group>"; };
@@ -496,6 +495,10 @@
 		E239969B1946BCD500DD30C9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E23996BB1948A8BB00DD30C9 /* calendar_btn@2x.png */,
+				E23996BC1948A8BB00DD30C9 /* calendar_btn.png */,
+				E23996BD1948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png */,
+				E23996BE1948A8BB00DD30C9 /* calendar_btn_highlighted.png */,
 				E23996B51948333700DD30C9 /* phone_btn_highlighted@2x.png */,
 				E23996B61948333700DD30C9 /* phone_btn_highlighted.png */,
 				E23996AA1947E78600DD30C9 /* email_btn@2x.png */,
@@ -556,12 +559,6 @@
 				E23996B319481B6600DD30C9 /* AAContactEmailTableViewCell.m */,
 				E27C2DC91935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.h */,
 				E27C2DCA1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m */,
-				E2249452193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.h */,
-				E2249453193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m */,
-				E2249458193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.h */,
-				E2249459193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m */,
-				E27DCC35193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.h */,
-				E27DCC36193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -680,14 +677,18 @@
 				E23996871946147200DD30C9 /* contacts_icon@2x.png in Resources */,
 				E23996B81948333700DD30C9 /* phone_btn_highlighted.png in Resources */,
 				E23996B11947E78600DD30C9 /* email_btn_highlighted.png in Resources */,
+				E23996BF1948A8BB00DD30C9 /* calendar_btn@2x.png in Resources */,
 				E239969A1946BCCE00DD30C9 /* contacts_btn.png in Resources */,
 				84FEDF1F191BD46200767CB0 /* Main_iPhone.storyboard in Resources */,
 				E23996811946114000DD30C9 /* phone_btn@2x.png in Resources */,
+				E23996C11948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png in Resources */,
 				E23996A91946F77500DD30C9 /* sms_btn_highlighted.png in Resources */,
 				84EBC34B1915CD250063F4EA /* Main_iPad.storyboard in Resources */,
 				E23996B71948333700DD30C9 /* phone_btn_highlighted@2x.png in Resources */,
 				E23996B01947E78600DD30C9 /* email_btn_highlighted@2x.png in Resources */,
+				E23996C21948A8BB00DD30C9 /* calendar_btn_highlighted.png in Resources */,
 				E23996931946B4C300DD30C9 /* add_btn@2x.png in Resources */,
+				E23996C01948A8BB00DD30C9 /* calendar_btn.png in Resources */,
 				E239967F19460E2000DD30C9 /* contacts_btn@2x.png in Resources */,
 				E23996981946BCCE00DD30C9 /* stepwork_icon.png in Resources */,
 				E23996941946B4C300DD30C9 /* add_btn.png in Resources */,
@@ -731,7 +732,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E239968A194617B700DD30C9 /* Email+AAAdditions.m in Sources */,
-				E2249454193B8BD400C5CD86 /* AAEditContactPhoneAndEmailTableViewCell.m in Sources */,
 				E2EEF088192E547300CDEF0D /* Email.m in Sources */,
 				842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */,
 				E27DCC4319457CAB00A0861D /* Contact.m in Sources */,
@@ -750,7 +750,6 @@
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
-				E27DCC37193C8C7900A0861D /* AAContactAddPhoneAndEmailTableViewCell.m in Sources */,
 				E23996B419481B6600DD30C9 /* AAContactEmailTableViewCell.m in Sources */,
 				E2489FC71937756200861066 /* NBPhoneNumberDesc.m in Sources */,
 				E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */,
@@ -763,7 +762,6 @@
 				E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */,
 				84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */,
 				E2EEF082192E547300CDEF0D /* Phone.m in Sources */,
-				E224945A193B8C1E00C5CD86 /* AAEditContactNameAndImageTableViewCell.m in Sources */,
 				E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */,
 				E2489FC31937756200861066 /* NBNumberFormat.m in Sources */,
 				E2EEF08B192E547300CDEF0D /* DailyInventory.m in Sources */,

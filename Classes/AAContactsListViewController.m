@@ -31,6 +31,19 @@
     self.navigationController.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Properties
 
@@ -91,7 +104,12 @@
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
-    Contact* contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
+    
+    Contact* contact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:person];
+    
+    if (!contact) { // person record not stored
+        contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
+    }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self performSegueWithIdentifier:@"setContact" sender:contact];
@@ -121,17 +139,6 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     return YES;
 }
-
-
-#pragma mark - Navigation Controller Delegate
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if ([viewController isEqual:self]) {
-        [self.tableView reloadData];
-    }
-}
-
 
 #pragma mark - Tableview Delegate and Datasource
 

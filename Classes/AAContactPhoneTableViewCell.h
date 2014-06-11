@@ -26,7 +26,6 @@ typedef NS_ENUM(NSUInteger, AAPhoneCellAction) {
 @property (weak, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel* titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton* messageButton;
-@property (weak, nonatomic) IBOutlet UIButton* callButton;
 
 @property (weak, nonatomic) id<AAContactPhoneTableViewCellDelegate> delegate;
 @property (strong, nonatomic) Phone* phone;

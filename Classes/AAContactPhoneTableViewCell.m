@@ -10,11 +10,6 @@
 
 @implementation AAContactPhoneTableViewCell
 
-- (IBAction)phoneButtonTapped:(UIButton*)sender
-{
-    [self.delegate phoneCell:self buttonWasPressed:sender];
-}
-
 - (IBAction)messageButtonTapped:(UIButton*)sender
 {
     [self.delegate phoneCell:self buttonWasPressed:sender];

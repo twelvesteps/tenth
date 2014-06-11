@@ -20,7 +20,7 @@
 #import <MessageUI/MessageUI.h>
 
 
-@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
+@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
@@ -95,6 +95,16 @@
     [self presentViewController:mfcontroller animated:YES completion:nil];
 }
 
+- (void)presentMailViewWithEmail:(Email*)email
+{
+    MFMailComposeViewController* mfcontroller = [[MFMailComposeViewController alloc] init];
+    mfcontroller.mailComposeDelegate = self;
+    NSLog(@"%@", email.address);
+    [mfcontroller setToRecipients:@[email.address]];
+    
+    [self presentViewController:mfcontroller animated:YES completion:nil];
+}
+
 - (void)showPersonRecordNotFoundAlert
 {
     NSString* alertTitle = NSLocalizedString(@"Person Not Found",
@@ -115,6 +125,20 @@
     NSString* alertTitle = NSLocalizedString(@"Access Denied", @"access to contacts denied by user");
     NSString* alertMessage = NSLocalizedString(@"Change your privacy settings to allow Steps to access your phonebook",
                                                @"Instructions for allowing user phone book access");
+    
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:alertMessage
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                          otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
+    
+    [alert show];
+}
+
+- (void)showCallCouldNotBeCompletedAlert
+{
+    NSString* alertTitle = NSLocalizedString(@"Could not complete call", @"Couldn't call the phone number the user tapped");
+    NSString* alertMessage = NSLocalizedString(@"Please check the number to make sure it is correct", @"The user needs to review the phone number they have entered into the phone to make sure it is a valid number");
     
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
                                                     message:alertMessage
@@ -219,9 +243,14 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     return NO;
 }
 
-#pragma mark - MFMessageCompositeView Delegate
+#pragma mark - MFMessageComposeView MFMailComposeView Delegate
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -231,11 +260,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)phoneCell:(AAContactPhoneTableViewCell *)cell buttonWasPressed:(UIButton *)button
 {
-    if ([button isEqual:cell.callButton]) {
-        [self callPhone:cell.phone];
-    } else {
         [self messagePhone:cell.phone];
-    }
 }
 
 - (void)emailCell:(AAContactEmailTableViewCell *)cell buttonWasPressed:(UIButton *)button
@@ -245,11 +270,17 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)callPhone:(Phone*)phone
 {
-    NSURL* phoneCallURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
-    if ([[UIApplication sharedApplication] canOpenURL:phoneCallURL]) {
-        [[UIApplication sharedApplication] openURL:phoneCallURL];
+    BOOL success = NO;
+    NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phone.number]];
+    NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
+    if ([[UIApplication sharedApplication] canOpenURL:phoneCallPromptURL]) {
+        success = [[UIApplication sharedApplication] openURL:phoneCallPromptURL];
+    } else if ([[UIApplication sharedApplication] canOpenURL:phoneCallNoPromptURL]){
+        success = [[UIApplication sharedApplication] openURL:phoneCallNoPromptURL];
     }
 
+    if (!success)
+        [self showCallCouldNotBeCompletedAlert];
 }
 
 - (void)messagePhone:(Phone*)phone
@@ -265,7 +296,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)sendMessageToEmail:(Email*)email
 {
-    
+    [self presentMailViewWithEmail:email];
 }
 
 
@@ -303,6 +334,17 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         return CONTACT_PHONE_EMAIL_CELL_HEIGHT + CONTACT_CELL_INSETS;
     } else {
         return CONTACT_PHONE_EMAIL_CELL_HEIGHT;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == CONTACT_PHONES_SECTION) {
+        AAContactPhoneTableViewCell* cell = (AAContactPhoneTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [self callPhone:cell.phone];
+    } else if (indexPath.section == CONTACT_EMAILS_SECTION) {
+        AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [self sendMessageToEmail:cell.email];
     }
 }
 
