@@ -12,7 +12,6 @@
 #import "AAContactNameAndImageTableViewCell.h"
 #import "AAContactPhoneTableViewCell.h"
 #import "AAContactEmailTableViewCell.h"
-#import "AACallButton.h"
 #import "AAContactViewController.h"
 #import "Contact+AAAdditions.h"
 #import <AddressBook/AddressBook.h>
@@ -20,10 +19,12 @@
 #import <MessageUI/MessageUI.h>
 
 
-@interface AAContactViewController () <UIAlertViewDelegate, ABPersonViewControllerDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
+@interface AAContactViewController () <UIAlertViewDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
+
+@property (weak, nonatomic) UIButton* selectedButton;
 
 @end
 
@@ -68,6 +69,8 @@
     } else {
         [self presentPeoplePickerViewController];
     }
+    
+    self.rightToolbarButton.enabled = NO;
 }
 
 - (void)presentNewPersonViewControllerWithPerson:(ABRecordRef)person
@@ -99,7 +102,6 @@
 {
     MFMailComposeViewController* mfcontroller = [[MFMailComposeViewController alloc] init];
     mfcontroller.mailComposeDelegate = self;
-    NSLog(@"%@", email.address);
     [mfcontroller setToRecipients:@[email.address]];
     
     [self presentViewController:mfcontroller animated:YES completion:nil];
@@ -180,15 +182,6 @@
 
 #pragma mark - ABViewController Delegates
 
-#pragma mark ABPersonViewController
-- (BOOL)personViewController:(ABPersonViewController *)personViewController
-shouldPerformDefaultActionForPerson:(ABRecordRef)person
-                    property:(ABPropertyID)property
-                  identifier:(ABMultiValueIdentifier)identifier
-{
-    return YES;
-}
-
 #pragma mark ABNewPersonViewController Delegate
 - (void)newPersonViewController:(ABNewPersonViewController *)newPersonView didCompleteWithNewPerson:(ABRecordRef)person
 {
@@ -202,6 +195,8 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+    
+    self.rightToolbarButton.enabled = YES;
 }
 
 
@@ -222,6 +217,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         }
     }];
     
+    self.rightToolbarButton.enabled = YES;
     return NO;
 }
 
@@ -240,6 +236,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
+    self.rightToolbarButton.enabled = YES;
     return NO;
 }
 
@@ -247,12 +244,16 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.selectedButton.enabled = YES;
+    }];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.selectedButton.enabled = YES;
+    }];
 }
 
 
@@ -260,11 +261,17 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)phoneCell:(AAContactPhoneTableViewCell *)cell buttonWasPressed:(UIButton *)button
 {
-        [self messagePhone:cell.phone];
+    self.selectedButton = button;
+    self.selectedButton.enabled = NO;
+    
+    [self messagePhone:cell.phone];
 }
 
 - (void)emailCell:(AAContactEmailTableViewCell *)cell buttonWasPressed:(UIButton *)button
 {
+    self.selectedButton = button;
+    self.selectedButton.enabled = NO;
+    
     [self sendMessageToEmail:cell.email];
 }
 
@@ -346,6 +353,8 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [self sendMessageToEmail:cell.email];
     }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -412,16 +421,4 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     
     return cell;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

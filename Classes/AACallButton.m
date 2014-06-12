@@ -7,7 +7,11 @@
 //
 
 #import "AACallButton.h"
-#import "UIColor-Expanded.h"
+@interface AACallButton ()
+
+@property (nonatomic) BOOL imageAdded;
+
+@end
 
 @implementation AACallButton
 
@@ -15,13 +19,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView* phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone_btn"]];
+        
+    }
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    if (!_imageAdded) {
+        UIImageView* phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone_btn.png"]];
         CGPoint phoneImageCenter = phoneImageView.center;
         phoneImageCenter.x = self.bounds.origin.x + 22.0f;
         phoneImageCenter.y = self.bounds.origin.y / 2;
         phoneImageView.center = phoneImageCenter;
+        [self addSubview:phoneImageView];
     }
-    return self;
 }
 
 @end
