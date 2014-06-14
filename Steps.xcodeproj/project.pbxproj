@@ -70,6 +70,7 @@
 		E23996C11948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BD1948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png */; };
 		E23996C21948A8BB00DD30C9 /* calendar_btn_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996BE1948A8BB00DD30C9 /* calendar_btn_highlighted.png */; };
 		E23996C5194969E100DD30C9 /* AACallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E23996C3194969E100DD30C9 /* AACallButton.m */; };
+		E23996C81949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */; };
 		E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB21937756200861066 /* NBAsYouTypeFormatter.m */; };
 		E2489FC31937756200861066 /* NBNumberFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB41937756200861066 /* NBNumberFormat.m */; };
 		E2489FC41937756200861066 /* NBPhoneMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB61937756200861066 /* NBPhoneMetaData.m */; };
@@ -197,6 +198,8 @@
 		E23996BE1948A8BB00DD30C9 /* calendar_btn_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_btn_highlighted.png; sourceTree = "<group>"; };
 		E23996C3194969E100DD30C9 /* AACallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACallButton.m; path = ../Classes/AACallButton.m; sourceTree = "<group>"; };
 		E23996C4194969E100DD30C9 /* AACallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACallButton.h; path = ../Classes/AACallButton.h; sourceTree = "<group>"; };
+		E23996C61949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactSobrietyDateTableViewCell.h; path = Classes/AAContactSobrietyDateTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactSobrietyDateTableViewCell.m; path = Classes/AAContactSobrietyDateTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E2489FB11937756200861066 /* NBAsYouTypeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBAsYouTypeFormatter.h; sourceTree = "<group>"; };
 		E2489FB21937756200861066 /* NBAsYouTypeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBAsYouTypeFormatter.m; sourceTree = "<group>"; };
 		E2489FB31937756200861066 /* NBNumberFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNumberFormat.h; sourceTree = "<group>"; };
@@ -553,6 +556,8 @@
 		E27C2DCC1935ED4F00BE2AB6 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				E23996C61949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.h */,
+				E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */,
 				E27C2DCF1935F5B700BE2AB6 /* AAContactPhoneTableViewCell.h */,
 				E27C2DD01935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m */,
 				E23996B219481B6600DD30C9 /* AAContactEmailTableViewCell.h */,
@@ -748,6 +753,7 @@
 				E27C2DCB1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m in Sources */,
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
+				E23996C81949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
 				E23996B419481B6600DD30C9 /* AAContactEmailTableViewCell.m in Sources */,
 				E2489FC71937756200861066 /* NBPhoneNumberDesc.m in Sources */,

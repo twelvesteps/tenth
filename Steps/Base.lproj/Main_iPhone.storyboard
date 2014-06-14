@@ -253,7 +253,7 @@
                                             <outlet property="titleLabel" destination="elo-ad-2o6" id="iIK-VP-xbL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SobrietyDateCell" rowHeight="52" id="mAe-aw-IXa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SobrietyDateCell" rowHeight="52" id="mAe-aw-IXa" customClass="AAContactSobrietyDateTableViewCell">
                                         <rect key="frame" x="0.0" y="292" width="320" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAe-aw-IXa" id="D3O-eu-0we">
@@ -275,7 +275,7 @@
                                                     <rect key="frame" x="44" y="5" width="204" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihr-M2-7m0">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sobriety Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihr-M2-7m0">
                                                             <rect key="frame" x="0.0" y="0.0" width="204" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <constraints>
@@ -311,6 +311,20 @@
                                                 <constraint firstAttribute="centerY" secondItem="X6G-Jy-INC" secondAttribute="centerY" id="cMH-1F-QBR"/>
                                                 <constraint firstAttribute="trailing" secondItem="kZz-OP-Hdy" secondAttribute="trailing" constant="20" symbolic="YES" id="pd5-PW-Frv"/>
                                             </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="calendarButton" destination="kZz-OP-Hdy" id="7eo-5n-zWO"/>
+                                            <outlet property="descriptionLabel" destination="YO4-dg-Sn6" id="adM-eA-cPh"/>
+                                            <outlet property="titleLabel" destination="Ihr-M2-7m0" id="DUc-av-g8w"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AddPropertyCell" rowHeight="44" id="4Ff-q5-n9m">
+                                        <rect key="frame" x="0.0" y="344" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Ff-q5-n9m" id="udh-Vy-V6a">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>

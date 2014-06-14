@@ -6,18 +6,20 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "NBPhoneNumberUtil+AAAdditions.h"
-#import "Phone+AAAdditions.h"
-#import "Email+AAAdditions.h"
-#import "AAContactNameAndImageTableViewCell.h"
-#import "AAContactPhoneTableViewCell.h"
-#import "AAContactEmailTableViewCell.h"
 #import "AAContactViewController.h"
-#import "Contact+AAAdditions.h"
+// Frameworks
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <MessageUI/MessageUI.h>
-
+// CoreData Objects
+#import "Phone+AAAdditions.h"
+#import "Email+AAAdditions.h"
+#import "Contact+AAAdditions.h"
+// Table View Cells
+#import "AAContactNameAndImageTableViewCell.h"
+#import "AAContactPhoneTableViewCell.h"
+#import "AAContactEmailTableViewCell.h"
+#import "AAContactSobrietyDateTableViewCell.h"
 
 @interface AAContactViewController () <UIAlertViewDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
@@ -149,6 +151,11 @@
                                           otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     
     [alert show];
+}
+
+- (void)showSobrietyDatePicker
+{
+    #warning incomplete implementation
 }
 
 - (BOOL)needToLinkContact
@@ -306,20 +313,21 @@
     [self presentMailViewWithEmail:email];
 }
 
-
 #pragma mark - UITableView Delegate and Datasource
 
 #define CONTACT_NAME_CELL_SECTION       0
 #define CONTACT_PHONES_SECTION          1
 #define CONTACT_EMAILS_SECTION          2
+#define CONTACT_SOBRIETY_DATE_SECTION   3
 
 #define CONTACT_NAME_CELL_HEIGHT        102.0f
-#define CONTACT_PHONE_EMAIL_CELL_HEIGHT 52.0f
+#define CONTACT_PROPERTY_CELL_HEIGHT    52.0f
+#define ADD_PROPERTY_CELL_HEIGHT        44.0f
 #define CONTACT_CELL_INSETS             10.0f
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -328,8 +336,12 @@
         return 1;
     } else if (section == CONTACT_PHONES_SECTION){
         return self.contact.phones.count;
-    } else {
+    } else if (section == CONTACT_EMAILS_SECTION){
         return self.contact.emails.count;
+    } else if (section == CONTACT_SOBRIETY_DATE_SECTION) {
+        return 1;
+    } else {
+        return 0;
     }
 }
 
@@ -337,10 +349,21 @@
 {
     if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
         return CONTACT_NAME_CELL_HEIGHT;
-    } else if (indexPath.row == 0) {
-        return CONTACT_PHONE_EMAIL_CELL_HEIGHT + CONTACT_CELL_INSETS;
+    } else if (indexPath.section == CONTACT_PHONES_SECTION || indexPath.section == CONTACT_EMAILS_SECTION) {
+        return CONTACT_PROPERTY_CELL_HEIGHT;
+    } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
+        return [self heightForSobrietyDateCell];
     } else {
-        return CONTACT_PHONE_EMAIL_CELL_HEIGHT;
+        return 0;
+    }
+}
+
+- (CGFloat)heightForSobrietyDateCell
+{
+    if (self.contact.sobrietyDate) {
+        return CONTACT_PROPERTY_CELL_HEIGHT + CONTACT_CELL_INSETS;
+    } else {
+        return ADD_PROPERTY_CELL_HEIGHT;
     }
 }
 
@@ -352,6 +375,9 @@
     } else if (indexPath.section == CONTACT_EMAILS_SECTION) {
         AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [self sendMessageToEmail:cell.email];
+    } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
+
+        [self showSobrietyDatePicker];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -363,10 +389,13 @@
         return [self contactNameCell];
     } else if (indexPath.section == CONTACT_PHONES_SECTION){
         return [self phoneCellForIndexPath:indexPath];
-    } else {
+    } else if (indexPath.section == CONTACT_EMAILS_SECTION){
         return [self emailCellForIndexPath:indexPath];
+    } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
+        return [self sobrietyDateCell];
+    } else {
+        return nil;
     }
-
 }
 
 - (UITableViewCell*)contactNameCell
@@ -420,5 +449,29 @@
     }
     
     return cell;
+}
+
+- (UITableViewCell*)sobrietyDateCell
+{
+    if (self.contact.sobrietyDate) {
+        AAContactSobrietyDateTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SobrietyDateCell"];
+        
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"mm dd yyyy" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
+        cell.descriptionLabel.text = [formatter stringFromDate:self.contact.sobrietyDate];
+        
+        return cell;
+    } else {
+        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"AddPropertyCell"];
+        
+        CGPoint textLabelCenter = cell.center;
+        textLabelCenter.x = cell.bounds.origin.x + 44.0f;
+        cell.center = textLabelCenter;
+        
+        cell.textLabel.text = @"Add Sobriety Date";
+        cell.textLabel.textColor = cell.tintColor;
+        
+        return cell;
+    }
 }
 @end
