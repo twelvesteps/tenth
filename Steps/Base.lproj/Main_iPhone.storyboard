@@ -49,7 +49,11 @@
                                 <action selector="showAddContactPopoverList:" destination="T2K-zy-WU3" id="gLO-EJ-EyK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="phone_btn.png" id="mv7-Kn-K1w"/>
+                        <barButtonItem key="rightBarButtonItem" image="phone_btn.png" id="mv7-Kn-K1w">
+                            <connections>
+                                <action selector="showCallContactPopoverList:" destination="T2K-zy-WU3" id="fvm-jZ-GEt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="EtO-jG-gvw" id="0X5-fm-0Et"/>

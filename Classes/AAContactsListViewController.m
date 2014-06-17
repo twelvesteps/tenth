@@ -13,9 +13,10 @@
 #import "Contact+AAAdditions.h"
 #import "AAPopoverListView.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAPopoverListViewDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, AAPopoverListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) AAPopoverListView* popoverView;
 @property (strong, nonatomic) NSArray* contacts;
 @property (strong, nonatomic) NSIndexPath* deletedContactIndexPath;
 
@@ -56,39 +57,101 @@
 
 #pragma mark - UI Events
 
-//- (IBAction)addContactButtonPressed:(UIBarButtonItem *)sender
-//{
-//    [self showAddContactActionSheet];
-//}
-
-//- (void)showAddContactActionSheet
-//{
-//    UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
-//                                                                 delegate:self
-//                                                        cancelButtonTitle:@"Cancel"
-//                                                   destructiveButtonTitle:nil
-//                                                        otherButtonTitles:@"Create New Contact",
-//                                                                          @"Import Existing Contact", nil];
-//    [addContactSheet showInView:self.view];
-//}
+#define POPOVER_VIEW_HORIZONTAL_INSET   27.0f
+#define POPOVER_VIEW_VERTICAL_INSET     5.0f
+#define POPOVER_VIEW_TRIANGLE_INSET     5.0f
+#define POPOVER_VIEW_WIDTH              200.0f
+#define POPOVER_VIEW_HEIGHT             93.0f
 
 - (IBAction)showAddContactPopoverList:(UIBarButtonItem*)sender
 {
-    CGPoint triangleOrigin = CGPointMake(self.view.bounds.origin.x + 20.0f,
-                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + 5.0f);
-    CGRect popoverFrame = CGRectMake(self.view.bounds.origin.x + 5.0f,
-                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + 5.0f,
-                                     200.0f,
-                                     93.0f);
+    CGPoint triangleOrigin = CGPointMake(self.view.bounds.origin.x + POPOVER_VIEW_HORIZONTAL_INSET,
+                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
+    CGRect popoverFrame = CGRectMake(self.view.bounds.origin.x + POPOVER_VIEW_TRIANGLE_INSET,
+                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
+                                     POPOVER_VIEW_WIDTH,
+                                     POPOVER_VIEW_HEIGHT);
     NSArray* titles = @[NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book"),
                         NSLocalizedString(@"Create New Contact", @"Create New Contact and add to phone's address book")];
     AAPopoverListView* addContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
                                                                      withTriangleOrigin:triangleOrigin
                                                                            buttonTitles:titles];
-    
+
     addContactPopoverView.title = @"addContactPopover";
-    addContactPopoverView.delegate = self;
-    [self.view addSubview:addContactPopoverView];
+    
+    [self showPopoverList:addContactPopoverView];
+}
+
+- (IBAction)showCallContactPopoverList:(UIBarButtonItem*)sender
+{
+    CGPoint triangleOrigin = CGPointMake(CGRectGetMaxX(self.view.bounds) - POPOVER_VIEW_HORIZONTAL_INSET,
+                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
+    CGRect popoverFrame = CGRectMake(CGRectGetMaxX(self.view.bounds) - (POPOVER_VIEW_WIDTH + POPOVER_VIEW_TRIANGLE_INSET),
+                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
+                                     POPOVER_VIEW_WIDTH,
+                                     POPOVER_VIEW_HEIGHT);
+    NSArray* titles = @[NSLocalizedString(@"Call Sponsor", @"Call user's AA sponsor"),
+                        NSLocalizedString(@"Call Random Contact", @"Call a random contact from the list")];
+    AAPopoverListView* callContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
+                                                                     withTriangleOrigin:triangleOrigin
+                                                                           buttonTitles:titles];
+    
+    callContactPopoverView.title = @"callContactPopover";
+    
+    [self showPopoverList:callContactPopoverView];
+}
+
+- (void)showPopoverList:(AAPopoverListView*)popoverView
+{
+    // hide the current popoverView if it exists
+    if (self.popoverView) {
+        NSString* currentPopoverTitle = self.popoverView.title;
+        [self animatePopoverViewFadeOut:self.popoverView];
+        self.popoverView = nil;
+        
+        if ([popoverView.title isEqualToString:currentPopoverTitle]) {
+            return;
+        }
+    }
+    
+    popoverView.delegate = self;
+    popoverView.alpha = 0.0f;
+    self.popoverView = popoverView;
+    [self.view addSubview:popoverView];
+    self.tableView.userInteractionEnabled = NO;
+    
+    [self animatePopoverViewFadeIn:popoverView];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.popoverView) {
+        [self hidePopoverView:nil];
+    }
+}
+
+#define POPOVER_ANIMATION_DURATION  0.2f
+- (void)animatePopoverViewFadeIn:(AAPopoverListView*)popoverView
+{
+    [UIView animateWithDuration:POPOVER_ANIMATION_DURATION animations:^{
+        popoverView.alpha = 1.0f;
+    }];
+}
+
+- (void)animatePopoverViewFadeOut:(AAPopoverListView*)popoverView
+{
+    [UIView animateWithDuration:POPOVER_ANIMATION_DURATION animations:^{
+        popoverView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [popoverView removeFromSuperview];
+    }];
+}
+
+- (void)hidePopoverView:(UIGestureRecognizer*)recognizer
+{
+    [self animatePopoverViewFadeOut:self.popoverView];
+    self.popoverView = nil;
+    self.tableView.userInteractionEnabled = YES;
 }
 
 - (void)showPeoplePickerViewController
@@ -99,21 +162,13 @@
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+#pragma mark - GestureRecognizer Delegate
 
-#pragma mark - UIActionSheet Delegate
-//- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//    if ([actionSheet.title isEqualToString:@"Add Contact"]) {
-//        [self addContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
-//    }
-//    
-//    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-//}
-
-//- (void)addContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//
-//}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    [self hidePopoverView:gestureRecognizer];
+    return NO;
+}
 
 
 #pragma mark - Peoplepicker Delegate
@@ -163,6 +218,8 @@
     if ([pv.title isEqualToString:@"addContactPopover"]) {
         [self addContactPopoverView:pv buttonTappedAtIndex:index];
     }
+    
+    [pv removeFromSuperview];
 }
 
 - (void)addContactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
@@ -174,8 +231,12 @@
     }
 }
 
-#pragma mark - Tableview Delegate and Datasource
+- (void)callConactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
+{
+    
+}
 
+#pragma mark - Tableview Delegate and Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

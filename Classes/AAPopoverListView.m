@@ -71,7 +71,6 @@
     }
     
     [self.delegate popoverView:self buttonTappedAtIndex:buttonIndex];
-    [self removeFromSuperview];
 }
 
 - (NSString*)buttonTitleAtIndex:(NSUInteger)index
