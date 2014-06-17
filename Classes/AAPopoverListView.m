@@ -10,8 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define TRIANGLE_HEIGHT             5.0f
-#define ROUNDED_RECT_CORNER_RADII   2.0f
-#define SEPARATOR_WIDTH             2.0f
+#define ROUNDED_RECT_CORNER_RADII   3.0f
+#define SEPARATOR_WIDTH             1.0f
 #define DEFAULT_BUTTON_HEIGHT       44.0f
 
 @interface AAPopoverListView ()
