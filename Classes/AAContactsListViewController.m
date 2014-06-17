@@ -103,24 +103,25 @@
 
 - (void)showPopoverList:(AAPopoverListView*)popoverView
 {
-    // hide the current popoverView if it exists
+    // grab the title of the presented popover if it exists
+    // and dismiss the popover
+    NSString* currentPopoverTitle = self.popoverView.title;
     if (self.popoverView) {
-        NSString* currentPopoverTitle = self.popoverView.title;
+
         [self animatePopoverViewFadeOut:self.popoverView];
         self.popoverView = nil;
-        
-        if ([popoverView.title isEqualToString:currentPopoverTitle]) {
-            return;
-        }
     }
     
-    popoverView.delegate = self;
-    popoverView.alpha = 0.0f;
-    self.popoverView = popoverView;
-    [self.view addSubview:popoverView];
-    self.tableView.userInteractionEnabled = NO;
-    
-    [self animatePopoverViewFadeIn:popoverView];
+    // user tapped bar button twice, dismiss popover
+    if (![popoverView.title isEqualToString:currentPopoverTitle]) {
+        popoverView.delegate = self;
+        popoverView.alpha = 0.0f;
+        self.popoverView = popoverView;
+        [self.view addSubview:popoverView];
+        self.tableView.userInteractionEnabled = NO;
+        
+        [self animatePopoverViewFadeIn:popoverView];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
