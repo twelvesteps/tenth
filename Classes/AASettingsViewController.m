@@ -8,6 +8,7 @@
 
 #import "AASettingsViewController.h"
 #import "AASettingTableViewCell.h"
+#import "AAPopoverListView.h"
 
 @interface AASettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -19,11 +20,6 @@
 @implementation AASettingsViewController
 
 #pragma mark - Lifecycle
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
 
 
 #pragma mark - Tableview Delegate and Datasource

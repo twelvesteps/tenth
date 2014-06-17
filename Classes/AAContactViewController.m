@@ -20,6 +20,7 @@
 #import "AAContactPhoneTableViewCell.h"
 #import "AAContactEmailTableViewCell.h"
 #import "AAContactSobrietyDateTableViewCell.h"
+#import "AAContactSelectSobrietyDateTableViewCell.h"
 
 @interface AAContactViewController () <UIAlertViewDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
@@ -27,12 +28,22 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
 
 @property (weak, nonatomic) UIButton* selectedButton;
+@property (weak, nonatomic) UIDatePicker* sobrietyDatePicker;
+
+@property (nonatomic) BOOL selectDateMode;
 
 @end
 
 @implementation AAContactViewController
 
 #pragma mark - ViewController Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.selectDateMode = NO;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -73,6 +84,16 @@
     }
     
     self.rightToolbarButton.enabled = NO;
+}
+
+- (void)sobrietyDateDoneButtonTapped:(UIButton*)sender
+{
+    self.contact.sobrietyDate = self.sobrietyDatePicker.date;
+    [self.sobrietyDatePicker removeFromSuperview];
+    self.sobrietyDatePicker = nil;
+    self.selectDateMode = NO;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)presentNewPersonViewControllerWithPerson:(ABRecordRef)person
@@ -151,11 +172,6 @@
                                           otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     
     [alert show];
-}
-
-- (void)showSobrietyDatePicker
-{
-    #warning incomplete implementation
 }
 
 - (BOOL)needToLinkContact
@@ -323,7 +339,7 @@
 #define CONTACT_NAME_CELL_HEIGHT        102.0f
 #define CONTACT_PROPERTY_CELL_HEIGHT    52.0f
 #define ADD_PROPERTY_CELL_HEIGHT        44.0f
-#define CONTACT_CELL_INSETS             10.0f
+#define DATE_PICKER_HEIGHT              216.0f
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -360,10 +376,12 @@
 
 - (CGFloat)heightForSobrietyDateCell
 {
-    if (self.contact.sobrietyDate) {
-        return CONTACT_PROPERTY_CELL_HEIGHT + CONTACT_CELL_INSETS;
-    } else {
+    if (self.selectDateMode) {
+        return ADD_PROPERTY_CELL_HEIGHT + DATE_PICKER_HEIGHT;
+    } else if (!self.contact.sobrietyDate) {
         return ADD_PROPERTY_CELL_HEIGHT;
+    } else {
+        return CONTACT_PROPERTY_CELL_HEIGHT;
     }
 }
 
@@ -376,8 +394,12 @@
         AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [self sendMessageToEmail:cell.email];
     } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
-
-        [self showSobrietyDatePicker];
+        if (self.selectDateMode) {
+            [self sobrietyDateDoneButtonTapped:nil];
+        } else {
+            self.selectDateMode = YES;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -453,25 +475,68 @@
 
 - (UITableViewCell*)sobrietyDateCell
 {
-    if (self.contact.sobrietyDate) {
-        AAContactSobrietyDateTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SobrietyDateCell"];
-        
-        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"mm dd yyyy" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
-        cell.descriptionLabel.text = [formatter stringFromDate:self.contact.sobrietyDate];
-        
-        return cell;
+    if (self.selectDateMode) {
+        return [self selectSobrietyDateCell];
     } else {
-        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"AddPropertyCell"];
-        
-        CGPoint textLabelCenter = cell.center;
-        textLabelCenter.x = cell.bounds.origin.x + 44.0f;
-        cell.center = textLabelCenter;
-        
-        cell.textLabel.text = @"Add Sobriety Date";
-        cell.textLabel.textColor = cell.tintColor;
-        
-        return cell;
+        if (self.contact.sobrietyDate) {
+            AAContactSobrietyDateTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SobrietyDateCell"];
+            
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"MMM dd yyyy" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
+            cell.descriptionLabel.text = [formatter stringFromDate:self.contact.sobrietyDate];
+            
+            return cell;
+        } else {
+            return [self selectSobrietyDateCell];
+        }
     }
+}
+
+- (AAContactSelectSobrietyDateTableViewCell*)selectSobrietyDateCell
+{
+    AAContactSelectSobrietyDateTableViewCell* cell = (AAContactSelectSobrietyDateTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"SelectSobrietyDateCell"];
+    
+    if (!self.selectDateMode) {
+        cell.editButton.hidden = YES;
+        cell.titleLabel.text = NSLocalizedString(@"Add Sobriety Date", @"Add the sobriety date for the current contact");
+        cell.titleLabel.textColor = [self.view tintColor];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    } else {
+        cell.editButton.hidden = NO;
+        cell.titleLabel.text = NSLocalizedString(@"Select Sobriety Date", @"Select the sobriety date for the current contact");
+        cell.titleLabel.textColor = [UIColor darkTextColor];
+        [cell.editButton addTarget:self action:@selector(sobrietyDateDoneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (!self.sobrietyDatePicker) {
+            UIDatePicker* sobrietyDatePicker = [self datePickerForSobrietyDateCell:cell];
+            self.sobrietyDatePicker = sobrietyDatePicker;
+            [cell addSubview:sobrietyDatePicker];
+        }
+    }
+    
+    return cell;
+}
+
+- (UIDatePicker*)datePickerForSobrietyDateCell:(AAContactSelectSobrietyDateTableViewCell*)cell
+{
+    CGRect datePickerFrame = CGRectMake(cell.bounds.origin.x,
+                                        CGRectGetMaxY(cell.titleLabel.frame),
+                                        cell.bounds.size.width,
+                                        DATE_PICKER_HEIGHT);
+    
+    UIDatePicker* datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.maximumDate = [NSDate date];
+    
+    if (self.contact.sobrietyDate) {
+        datePicker.date = self.contact.sobrietyDate;
+    } else {
+        datePicker.date = [NSDate date];
+    }
+
+    return datePicker;
 }
 @end

@@ -11,8 +11,9 @@
 #import "AAContactViewController.h"
 #import "AAUserDataManager.h"
 #import "Contact+AAAdditions.h"
+#import "AAPopoverListView.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAPopoverListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* contacts;
@@ -55,20 +56,39 @@
 
 #pragma mark - UI Events
 
-- (IBAction)addContactButtonPressed:(UIBarButtonItem *)sender
-{
-    [self showAddContactActionSheet];
-}
+//- (IBAction)addContactButtonPressed:(UIBarButtonItem *)sender
+//{
+//    [self showAddContactActionSheet];
+//}
 
-- (void)showAddContactActionSheet
+//- (void)showAddContactActionSheet
+//{
+//    UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
+//                                                                 delegate:self
+//                                                        cancelButtonTitle:@"Cancel"
+//                                                   destructiveButtonTitle:nil
+//                                                        otherButtonTitles:@"Create New Contact",
+//                                                                          @"Import Existing Contact", nil];
+//    [addContactSheet showInView:self.view];
+//}
+
+- (IBAction)showAddContactPopoverList:(UIBarButtonItem*)sender
 {
-    UIActionSheet* addContactSheet = [[UIActionSheet alloc] initWithTitle:@"Add Contact"
-                                                                 delegate:self
-                                                        cancelButtonTitle:@"Cancel"
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"Create New Contact",
-                                                                          @"Import Existing Contact", nil];
-    [addContactSheet showInView:self.view];
+    CGPoint triangleOrigin = CGPointMake(self.view.bounds.origin.x + 20.0f,
+                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + 5.0f);
+    CGRect popoverFrame = CGRectMake(self.view.bounds.origin.x + 5.0f,
+                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + 5.0f,
+                                     200.0f,
+                                     93.0f);
+    NSArray* titles = @[NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book"),
+                        NSLocalizedString(@"Create New Contact", @"Create New Contact and add to phone's address book")];
+    AAPopoverListView* addContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
+                                                                     withTriangleOrigin:triangleOrigin
+                                                                           buttonTitles:titles];
+    
+    addContactPopoverView.title = @"addContactPopover";
+    addContactPopoverView.delegate = self;
+    [self.view addSubview:addContactPopoverView];
 }
 
 - (void)showPeoplePickerViewController
@@ -81,23 +101,19 @@
 
 
 #pragma mark - UIActionSheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if ([actionSheet.title isEqualToString:@"Add Contact"]) {
-        [self addContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
-    }
-    
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-}
+//- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    if ([actionSheet.title isEqualToString:@"Add Contact"]) {
+//        [self addContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+//    }
+//    
+//    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+//}
 
-- (void)addContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Create New Contact"]) {
-        [self performSegueWithIdentifier:@"newContact" sender:nil];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Import Existing Contact"]) {
-        [self showPeoplePickerViewController];
-    }
-}
+//- (void)addContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//
+//}
 
 
 #pragma mark - Peoplepicker Delegate
@@ -138,6 +154,24 @@
 {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     return YES;
+}
+
+#pragma mark - AAPopoverListView Delegate
+
+- (void)popoverView:(AAPopoverListView *)pv buttonTappedAtIndex:(NSInteger)index
+{
+    if ([pv.title isEqualToString:@"addContactPopover"]) {
+        [self addContactPopoverView:pv buttonTappedAtIndex:index];
+    }
+}
+
+- (void)addContactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
+{
+    if ([[pv buttonTitleAtIndex:index] isEqualToString:NSLocalizedString(@"Create New Contact", @"Import Existing Contact from phone's address book")]) {
+        [self performSegueWithIdentifier:@"newContact" sender:nil];
+    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:NSLocalizedString(@"Import Existing Contact", @"Create New Contact and add to phone's address book")]) {
+        [self showPeoplePickerViewController];
+    }
 }
 
 #pragma mark - Tableview Delegate and Datasource
