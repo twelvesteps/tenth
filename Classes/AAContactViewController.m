@@ -154,7 +154,7 @@
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
                                                     message:alertMessage
                                                    delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                          cancelButtonTitle:nil
                                           otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     
     [alert show];
@@ -168,10 +168,41 @@
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
                                                     message:alertMessage
                                                    delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                          cancelButtonTitle:nil
                                           otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     
     [alert show];
+}
+
+#define PHONE_CAPABILITY_KEY    @"phone"
+#define SMS_CAPABILITY_KEY      @"sms"
+#define EMAIL_CAPABILITY_KEY    @"email"
+
+- (void)showDeviceDoesNotHaveCapabilityAlert:(NSString*)capabilityName
+{
+    NSString* alertTitle = nil;
+    NSString* alertMessage = nil;
+    if ([capabilityName isEqualToString:PHONE_CAPABILITY_KEY]) {
+        alertTitle = NSLocalizedString(@"Failed to Complete Call", @"The call could not be completed");
+        alertMessage = NSLocalizedString(@"Your device can not make phone calls", @"");
+    } else if ([capabilityName isEqualToString:SMS_CAPABILITY_KEY]) {
+        alertTitle = NSLocalizedString(@"Failed To Send Message", @"The application could not send the sms message");
+        alertMessage = NSLocalizedString(@"Your device can not send SMS messages", @"");
+    } else if ([capabilityName isEqualToString:EMAIL_CAPABILITY_KEY]) {
+        alertTitle = NSLocalizedString(@"Failed To Send Message", @"The application could not send the email");
+        alertMessage = NSLocalizedString(@"Your device can not send Email", @"");
+    } else {
+        alertTitle = NSLocalizedString(@"Could Not Complete Request", @"The user's recent request is unkown, but could not be completed");
+        alertMessage = NSLocalizedString(@"You are using an unsupported device for the given operation",
+                                         @"The failed operation is unknown, but the device can not complete it.");
+    }
+    
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                        message:alertMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
+    [alertView show];
 }
 
 - (BOOL)needToLinkContact
@@ -300,23 +331,31 @@
 
 - (void)callPhone:(Phone*)phone
 {
-    BOOL success = NO;
-    NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phone.number]];
-    NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
-    if ([[UIApplication sharedApplication] canOpenURL:phoneCallPromptURL]) {
-        success = [[UIApplication sharedApplication] openURL:phoneCallPromptURL];
-    } else if ([[UIApplication sharedApplication] canOpenURL:phoneCallNoPromptURL]){
-        success = [[UIApplication sharedApplication] openURL:phoneCallNoPromptURL];
-    }
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
+        BOOL success = NO;
+        NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phone.number]];
+        NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
+        if ([[UIApplication sharedApplication] canOpenURL:phoneCallPromptURL]) {
+            success = [[UIApplication sharedApplication] openURL:phoneCallPromptURL];
+        } else if ([[UIApplication sharedApplication] canOpenURL:phoneCallNoPromptURL]){
+            success = [[UIApplication sharedApplication] openURL:phoneCallNoPromptURL];
+        }
 
-    if (!success)
-        [self showCallCouldNotBeCompletedAlert];
+        if (!success)
+            [self showCallCouldNotBeCompletedAlert];
+    } else {
+        [self showDeviceDoesNotHaveCapabilityAlert:PHONE_CAPABILITY_KEY];
+    }
 }
 
 - (void)messagePhone:(Phone*)phone
 {
-    [self presentMessageViewWithPhone:phone];
-//    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]]) {
+        [self presentMessageViewWithPhone:phone];
+    } else {
+        [self showDeviceDoesNotHaveCapabilityAlert:SMS_CAPABILITY_KEY];
+    }
+//
 //    NSURL* smsMessageURL = [NSURL URLWithString:[NSString stringWithFormat:@"sms://%@", phone.number]];
 //    if ([[UIApplication sharedApplication] canOpenURL:smsMessageURL]) {
 //        [[UIApplication sharedApplication] openURL:smsMessageURL];
@@ -326,7 +365,11 @@
 
 - (void)sendMessageToEmail:(Email*)email
 {
-    [self presentMailViewWithEmail:email];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mailto://"]]) {
+        [self presentMailViewWithEmail:email];
+    } else {
+        [self showDeviceDoesNotHaveCapabilityAlert:EMAIL_CAPABILITY_KEY];
+    }
 }
 
 #pragma mark - UITableView Delegate and Datasource

@@ -85,6 +85,11 @@
 - (ABRecordRef)fetchPersonRecordForContact:(Contact*)contact;
 - (void)syncContact:(Contact*)contact withPersonRecord:(ABRecordRef)person;
 
+// info:    Fetches the address book record for the contact and syncs their properties.
+// returns: YES if the contact was synced and no if the person record could not be found
+// use:     BOOL contactSynced = [manager syncContactWithAssociatedPersonRecord:contact];
+- (BOOL)syncContactWithAssociatedPersonRecord:(Contact*)contact;
+
 
 // *** MAINTAINING PERSISTENCE ***
 

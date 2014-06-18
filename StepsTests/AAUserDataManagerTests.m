@@ -415,6 +415,9 @@
     [self.manager removeAAContact:bill1];
     [self.manager removeAAContact:bill2];
     
+    [self removePersonRecordFromAddressBook:abBill1];
+    [self removePersonRecordFromAddressBook:abBill2];
+    
     CFRelease(abBill1);
     CFRelease(abBill2);
 }
@@ -430,6 +433,8 @@
     bob = [self.manager fetchContactForPersonRecord:abBob];
     [self assertContact:bob matchesPersonRecord:abBob];
 
+    [self removePersonRecordFromAddressBook:abBob];
+    
     [self.manager removeAAContact:bob];
     CFRelease(abBob);
 }
@@ -451,6 +456,7 @@
     [self assertContact:bob matchesPersonRecord:abBob];
     
     [self.manager removeAAContact:bob];
+    [self removePersonRecordFromAddressBook:abBob];
     CFRelease(abBob);
 }
 
@@ -467,7 +473,30 @@
     XCTAssertNil(nilBob);
     
     [self.manager removeAAContact:bob];
+    [self removePersonRecordFromAddressBook:abBob];
     CFRelease(abBob);
+}
+
+- (void)testSimilarRecordsDoNotMatch
+{
+    ABRecordRef abBill = [self createAndInsertPersonRecordWithFirstName:BILL_FIRST_NAME lastName:BILL_LAST_NAME phoneCount:1 emailCount:0];
+    ABRecordRef abLois = [self createAndInsertPersonRecordWithFirstName:LOIS_FIRST_NAME lastName:LOIS_LAST_NAME phoneCount:1 emailCount:0];
+    
+    Contact* lois = [self.manager createContactWithPersonRecord:abLois];
+    
+    // remove record from address book and clear data manager
+    [self removePersonRecordFromAddressBook:abLois];
+    
+    ABRecordRef abLoisCopy = [self.manager fetchPersonRecordForContact:lois];
+    
+    XCTAssert(!abLoisCopy, @"Lois was removed from address book");
+    
+    [self.manager removeAAContact:lois];
+    [self removePersonRecordFromAddressBook:abBill];
+
+    CFRelease(abBill);
+    CFRelease(abLois);
+
 }
 
 @end

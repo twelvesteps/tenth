@@ -38,6 +38,8 @@
     dispatch_once(&once, ^{
         sharedManager = [[AAUserDataManager alloc] init];
         sharedManager.hasUserAddressBookAccess = NO;
+        
+        
     });
     
     return sharedManager;
@@ -306,11 +308,24 @@
 
 #pragma mark - Address Book Management
 #pragma mark User Address Book Access
+
+void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
+                                           CFDictionaryRef userInfo,
+                                           void *context)
+{
+    ABAddressBookRevert(addressBook);
+}
 - (ABAddressBookRef)addressBook
 {
-    if (!_addressBook) _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    if (!_addressBook)
+    {
+        _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+        ABAddressBookRegisterExternalChangeCallback(_addressBook, addressBookExternalChangeCallback, (__bridge void *)(self));
+    }
     return _addressBook;
 }
+
+
 
 - (BOOL)hasUserAddressBookAccess
 {
@@ -441,23 +456,21 @@
         ABMultiValueRef personPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
 
         CFIndex personPhonesCount = ABMultiValueGetCount(personPhones);
-        if (personPhonesCount == 0 && contact.phones.count) {
-            result = YES;
-        } else {
-            // check all phones for one match
-            for (CFIndex i = 0; i < personPhonesCount; i++) {
-                NSString* phoneTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personPhones, i);
-                NSString* phoneNumber = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personPhones, i);
-                
-                NSSet* phonesWithTitleAndNumber = [contact.phones objectsPassingTest:^BOOL(id obj, BOOL* stop) {
-                    Phone* phone = (Phone*)obj;
-                    return [phone.title isEqualToString:phoneTitle] && [phone.number isEqualToString:phoneNumber];
-                }];
-                
-                if (phonesWithTitleAndNumber.count > 0) {
-                    result = YES;
-                    break;
-                }
+
+
+        // check all phones for one match
+        for (CFIndex i = 0; i < personPhonesCount; i++) {
+            NSString* phoneTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personPhones, i);
+            NSString* phoneNumber = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personPhones, i);
+            
+            NSSet* phonesWithTitleAndNumber = [contact.phones objectsPassingTest:^BOOL(id obj, BOOL* stop) {
+                Phone* phone = (Phone*)obj;
+                return [phone.title isEqualToString:phoneTitle] && [phone.number isEqualToString:phoneNumber];
+            }];
+            
+            if (phonesWithTitleAndNumber.count > 0) {
+                result = YES;
+                break;
             }
         }
         
@@ -477,23 +490,20 @@
         ABMultiValueRef personEmails = ABRecordCopyValue(person, kABPersonEmailProperty);
         
         CFIndex personEmailsCount = ABMultiValueGetCount(personEmails);
-        if (personEmailsCount == 0 && contact.emails.count == 0) {
-            result = YES;
-        } else {
-            // check all emails for one match
-            for (CFIndex i = 0; i < personEmailsCount; i++) {
-                NSString* emailTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personEmails, i);
-                NSString* emailAddress = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personEmails, i);
-                
-                NSSet* emailsWithTitleAndAddress = [contact.emails objectsPassingTest:^BOOL(id obj, BOOL* stop) {
-                    Email* email = (Email*)obj;
-                    return [email.title isEqualToString:emailTitle] && [email.address isEqualToString:emailAddress];
-                }];
-                
-                if (emailsWithTitleAndAddress.count > 0) {
-                    result = YES;
-                    break;
-                }
+        
+        // check all emails for one match
+        for (CFIndex i = 0; i < personEmailsCount; i++) {
+            NSString* emailTitle = (__bridge_transfer NSString*)ABMultiValueCopyLabelAtIndex(personEmails, i);
+            NSString* emailAddress = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(personEmails, i);
+            
+            NSSet* emailsWithTitleAndAddress = [contact.emails objectsPassingTest:^BOOL(id obj, BOOL* stop) {
+                Email* email = (Email*)obj;
+                return [email.title isEqualToString:emailTitle] && [email.address isEqualToString:emailAddress];
+            }];
+            
+            if (emailsWithTitleAndAddress.count > 0) {
+                result = YES;
+                break;
             }
         }
         
@@ -517,6 +527,18 @@
         [self syncContactEmails:contact withPersonEmails:person];
         
         contact.needsABLink = [NSNumber numberWithBool:NO];
+    }
+}
+
+- (BOOL)syncContactWithAssociatedPersonRecord:(Contact *)contact
+{
+    // fetchPersonRecordForContact automatically syncs
+    ABRecordRef person = [self fetchPersonRecordForContact:contact];
+    
+    if (!person) {
+        return NO;
+    } else {
+        return YES;
     }
 }
 

@@ -13,7 +13,7 @@
 #import "Contact+AAAdditions.h"
 #import "AAPopoverListView.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, AAPopoverListViewDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate,  AAPopoverListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
@@ -127,7 +127,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.popoverView) {
-        [self hidePopoverView:nil];
+        [self hidePopoverView];
     }
 }
 
@@ -148,7 +148,7 @@
     }];
 }
 
-- (void)hidePopoverView:(UIGestureRecognizer*)recognizer
+- (void)hidePopoverView
 {
     [self animatePopoverViewFadeOut:self.popoverView];
     self.popoverView = nil;
@@ -162,15 +162,6 @@
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
-
-#pragma mark - GestureRecognizer Delegate
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    [self hidePopoverView:gestureRecognizer];
-    return NO;
-}
-
 
 #pragma mark - Peoplepicker Delegate
 
@@ -218,9 +209,11 @@
 {
     if ([pv.title isEqualToString:@"addContactPopover"]) {
         [self addContactPopoverView:pv buttonTappedAtIndex:index];
+    } else if ([pv.title isEqualToString:@"callContactPopover"]) {
+        [self callConactPopoverView:pv buttonTappedAtIndex:index];
     }
     
-    [pv removeFromSuperview];
+    [self hidePopoverView];
 }
 
 - (void)addContactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
@@ -234,7 +227,7 @@
 
 - (void)callConactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
 {
-    
+
 }
 
 #pragma mark - Tableview Delegate and Datasource
