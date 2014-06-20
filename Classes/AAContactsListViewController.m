@@ -62,46 +62,62 @@
 #define POPOVER_VIEW_TRIANGLE_INSET     5.0f
 #define POPOVER_VIEW_WIDTH              200.0f
 #define POPOVER_VIEW_HEIGHT             93.0f
+#define POPOVER_BUTTON_INSET            8.0f
+
+#define CREATE_NEW_CONTACT_TITLE        NSLocalizedString(@"Create New Contact", @"Create New Contact and add to phone's address book")
+#define IMPORT_CONTACT_TITLE            NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book")
+#define CALL_SPONSOR_TITLE              NSLocalizedString(@"Call Sponsor", @"Call user's AA sponsor")
+#define CALL_RANDOM_TITLE               NSLocalizedString(@"Call Random Contact", @"Call a random contact from the list")
 
 - (IBAction)showAddContactPopoverList:(UIBarButtonItem*)sender
 {
+    UIFont* popoverFont = [UIFont systemFontOfSize:17.0f];
+    NSArray* titles = @[CREATE_NEW_CONTACT_TITLE,
+                        IMPORT_CONTACT_TITLE];
+    CGFloat popoverWidth = [self popoverViewWidthForTitles:titles withFont:popoverFont];
+    
     CGPoint triangleOrigin = CGPointMake(self.view.bounds.origin.x + POPOVER_VIEW_HORIZONTAL_INSET,
                                          CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
     CGRect popoverFrame = CGRectMake(self.view.bounds.origin.x + POPOVER_VIEW_TRIANGLE_INSET,
                                      CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
-                                     POPOVER_VIEW_WIDTH,
+                                     popoverWidth,
                                      POPOVER_VIEW_HEIGHT);
-    NSArray* titles = @[NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book"),
-                        NSLocalizedString(@"Create New Contact", @"Create New Contact and add to phone's address book")];
-    AAPopoverListView* addContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
-                                                                     withTriangleOrigin:triangleOrigin
-                                                                           buttonTitles:titles];
-
-    addContactPopoverView.title = @"addContactPopover";
     
-    [self showPopoverList:addContactPopoverView];
+    AAPopoverListView* addContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
+                                                                  withTriangleOrigin:triangleOrigin
+                                                                        buttonTitles:titles];
+    
+    addContactPopoverView.title = @"addContactPopover";
+    addContactPopoverView.buttonFont = popoverFont;
+    
+    [self showPopoverView:addContactPopoverView];
 }
 
 - (IBAction)showCallContactPopoverList:(UIBarButtonItem*)sender
 {
+    UIFont* popoverFont = [UIFont systemFontOfSize:17.0f];
+    NSArray* titles = @[CALL_SPONSOR_TITLE,
+                        CALL_RANDOM_TITLE];
+    CGFloat popoverWidth = [self popoverViewWidthForTitles:titles withFont:popoverFont];
+    
     CGPoint triangleOrigin = CGPointMake(CGRectGetMaxX(self.view.bounds) - POPOVER_VIEW_HORIZONTAL_INSET,
                                          CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
-    CGRect popoverFrame = CGRectMake(CGRectGetMaxX(self.view.bounds) - (POPOVER_VIEW_WIDTH + POPOVER_VIEW_TRIANGLE_INSET),
+    CGRect popoverFrame = CGRectMake(CGRectGetMaxX(self.view.bounds) - (popoverWidth + POPOVER_VIEW_TRIANGLE_INSET),
                                      CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
-                                     POPOVER_VIEW_WIDTH,
+                                     popoverWidth,
                                      POPOVER_VIEW_HEIGHT);
-    NSArray* titles = @[NSLocalizedString(@"Call Sponsor", @"Call user's AA sponsor"),
-                        NSLocalizedString(@"Call Random Contact", @"Call a random contact from the list")];
+    
     AAPopoverListView* callContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
-                                                                     withTriangleOrigin:triangleOrigin
-                                                                           buttonTitles:titles];
+                                                                  withTriangleOrigin:triangleOrigin
+                                                                        buttonTitles:titles];
     
     callContactPopoverView.title = @"callContactPopover";
+    callContactPopoverView.buttonFont = popoverFont;
     
-    [self showPopoverList:callContactPopoverView];
+    [self showPopoverView:callContactPopoverView];
 }
 
-- (void)showPopoverList:(AAPopoverListView*)popoverView
+- (void)showPopoverView:(AAPopoverListView*)popoverView
 {
     // grab the title of the presented popover if it exists
     // and dismiss the popover
@@ -121,7 +137,23 @@
         self.tableView.userInteractionEnabled = NO;
         
         [self animatePopoverViewFadeIn:popoverView];
+    } else {
+        self.tableView.userInteractionEnabled = YES;
     }
+}
+
+- (CGFloat)popoverViewWidthForTitles:(NSArray*)titles withFont:(UIFont*)font
+{
+    CGFloat width = 0.0f;
+    
+    for (NSString* title in titles) {
+        CGSize titleSize = [title sizeWithAttributes:@{NSFontAttributeName: font}];
+        if (titleSize.width > width) {
+            width = ceilf(titleSize.width);
+        }
+    }
+    
+    return width + 2 * POPOVER_BUTTON_INSET;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -218,9 +250,9 @@
 
 - (void)addContactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
 {
-    if ([[pv buttonTitleAtIndex:index] isEqualToString:NSLocalizedString(@"Create New Contact", @"Import Existing Contact from phone's address book")]) {
+    if ([[pv buttonTitleAtIndex:index] isEqualToString:CREATE_NEW_CONTACT_TITLE]) {
         [self performSegueWithIdentifier:@"newContact" sender:nil];
-    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:NSLocalizedString(@"Import Existing Contact", @"Create New Contact and add to phone's address book")]) {
+    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:IMPORT_CONTACT_TITLE]) {
         [self showPeoplePickerViewController];
     }
 }
@@ -283,16 +315,35 @@
                 // user selected contact from tableview
                 UITableViewCell* cell = (UITableViewCell*)sender;
                 NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
-                aacvc.contact = self.contacts[indexPath.row];
+                
+                Contact* contact = self.contacts[indexPath.row];
+                
+                aacvc.contact = contact;
                 aacvc.newContact = NO;
+                aacvc.shouldShowContactNotLinkedWarning = [self contactViewControllerShouldShowNotLinkedWarningForContact:contact];
             } else if ([sender isKindOfClass:[Contact class]]) {
                 // user selected contact from people picker
-                aacvc.contact = (Contact*)sender;
+                Contact* contact = (Contact*)sender;
+                
+                aacvc.contact = contact;
                 aacvc.newContact = NO;
+                aacvc.shouldShowContactNotLinkedWarning = [self contactViewControllerShouldShowNotLinkedWarningForContact:contact];
             }
         } else if ([segue.identifier isEqualToString:@"newContact"]) {
+            aacvc.shouldShowContactNotLinkedWarning = NO;
             aacvc.newContact = YES;
         }
+    }
+}
+
+- (BOOL)contactViewControllerShouldShowNotLinkedWarningForContact:(Contact*)contact
+{
+    BOOL contactNeedsLink = [contact.needsABLink boolValue];
+    BOOL contactWasSynced = [[AAUserDataManager sharedManager] syncContactWithAssociatedPersonRecord:contact];
+    if (!contactNeedsLink && !contactWasSynced) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 

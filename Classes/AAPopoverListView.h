@@ -20,7 +20,7 @@
 @property (nonatomic) CGPoint triangleOrigin;
 // An array of UIButton objecs or descendents
 @property (strong, nonatomic) NSArray* buttons;
-
+@property (strong, nonatomic) UIFont* buttonFont;
 @property (strong, nonatomic) NSString* title;
 
 @property (weak, nonatomic) id<AAPopoverListViewDelegate> delegate;

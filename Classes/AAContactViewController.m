@@ -65,8 +65,9 @@
     if (!self.contact) {
         // should create a new AB contact first
         [self presentNewPersonViewControllerWithPerson:NULL];
-    } else if ([self shouldShowPersonRecordNotFoundAlert]){
+    } else if ([self shouldShowContactNotLinkedWarning]){
         [self showPersonRecordNotFoundAlert];
+        self.shouldShowContactNotLinkedWarning = NO;
     }
 }
 
@@ -203,6 +204,7 @@
                                               cancelButtonTitle:nil
                                               otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
     [alertView show];
+    self.selectedButton.enabled = YES;
 }
 
 - (BOOL)needToLinkContact
@@ -214,11 +216,6 @@
     } else {
         return [self.contact.needsABLink boolValue];
     }
-}
-
-- (BOOL)shouldShowPersonRecordNotFoundAlert
-{
-    return ([self needToLinkContact] && ![[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact]);
 }
 
 #pragma mark - UIAlertView Delegate
@@ -237,7 +234,8 @@
 #pragma mark - ABViewController Delegates
 
 #pragma mark ABNewPersonViewController Delegate
-- (void)newPersonViewController:(ABNewPersonViewController *)newPersonView didCompleteWithNewPerson:(ABRecordRef)person
+- (void)newPersonViewController:(ABNewPersonViewController *)newPersonView
+       didCompleteWithNewPerson:(ABRecordRef)person
 {
     if (person) { // user saved contact
         [self updateContactDataWithPerson:person];
@@ -258,9 +256,11 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.rightToolbarButton.enabled = YES;
 }
 
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
     [self updateContactDataWithPerson:person];
 
@@ -288,7 +288,10 @@
     }
 }
 
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
 {
     self.rightToolbarButton.enabled = YES;
     return NO;
@@ -296,14 +299,16 @@
 
 #pragma mark - MFMessageComposeView MFMailComposeView Delegate
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result
 {
     [self dismissViewControllerAnimated:YES completion:^{
         self.selectedButton.enabled = YES;
     }];
 }
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [self dismissViewControllerAnimated:YES completion:^{
         self.selectedButton.enabled = YES;
@@ -441,7 +446,8 @@
             [self sobrietyDateDoneButtonTapped:nil];
         } else {
             self.selectDateMode = YES;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     

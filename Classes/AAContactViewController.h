@@ -13,6 +13,7 @@
 @interface AAContactViewController : AATableViewController
 
 @property (nonatomic) BOOL newContact;
+@property (nonatomic) BOOL shouldShowContactNotLinkedWarning;
 @property (strong, nonatomic) Contact* contact;
 
 @end

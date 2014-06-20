@@ -29,6 +29,7 @@
         self.triangleOrigin = triangleOrigin;
         self.backgroundColor = [UIColor clearColor];
         self.titles = titles;
+        self.buttonFont = [UIFont systemFontOfSize:17.0f];
     }
     
     return self;
@@ -49,7 +50,7 @@
         UIButton* button = [[UIButton alloc] initWithFrame:buttonFrame];
         
         [button setTitle:title forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:17.0f];
+        button.titleLabel.font = self.buttonFont;
         button.titleLabel.textColor = [UIColor whiteColor];
         
         [button addTarget:self action:@selector(listButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -142,8 +143,6 @@
         [path stroke];
     }
 }
-
-
 
 - (void)drawRect:(CGRect)rect
 {

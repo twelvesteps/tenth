@@ -330,8 +330,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOJ-kF-Ox1">
-                                                    <rect key="frame" x="44" y="11" width="42" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sobriety Date Picker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOJ-kF-Ox1">
+                                                    <rect key="frame" x="44" y="11" width="158" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -433,9 +433,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Daily Inventory" id="Dyq-Ct-fbo">
-                        <barButtonItem key="rightBarButtonItem" title="Today" id="T7O-9v-ZpK">
+                        <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="T7O-9v-ZpK">
                             <connections>
-                                <action selector="editInventory:" destination="BUA-3q-KLa" id="HHz-eq-Sx5"/>
+                                <action selector="showAddItemPopoverView:" destination="BUA-3q-KLa" id="FcN-js-QcL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -636,11 +636,11 @@
             </objects>
             <point key="canvasLocation" x="1488" y="205"/>
         </scene>
-        <!--Navigation Controller - Steps-->
+        <!--Navigation Controller - Inventory-->
         <scene sceneID="Gbn-eo-5m3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E7V-5V-Mso" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Steps" image="stepwork_icon.png" id="lbu-u1-vUQ"/>
+                    <tabBarItem key="tabBarItem" title="Inventory" image="stepwork_icon.png" id="lbu-u1-vUQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHI-Vq-rFC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
