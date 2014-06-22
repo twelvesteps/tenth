@@ -90,6 +90,8 @@
 		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980147193350D2007A0F49 /* Contact+AAAdditions.m */; };
 		E299567F193A0AC60053759F /* AATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E299567E193A0AC60053759F /* AATableViewController.m */; };
+		E2A7E7121954385300510959 /* UIColor+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A7E7111954385300510959 /* UIColor+AAAdditions.m */; };
+		E2A7E7151956B14A00510959 /* AAInterceptTouchesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A7E7141956B14A00510959 /* AAInterceptTouchesView.m */; };
 		E2DA1B3F194EBDA9001A178B /* AAPopoverListView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DA1B3E194EBDA9001A178B /* AAPopoverListView.m */; };
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
 		E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */; };
@@ -237,6 +239,10 @@
 		E2980147193350D2007A0F49 /* Contact+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Contact+AAAdditions.m"; path = "Classes/Contact+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		E299567D193A0AC60053759F /* AATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATableViewController.h; path = Classes/AATableViewController.h; sourceTree = "<group>"; };
 		E299567E193A0AC60053759F /* AATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATableViewController.m; path = Classes/AATableViewController.m; sourceTree = "<group>"; };
+		E2A7E7101954385300510959 /* UIColor+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AAAdditions.h"; sourceTree = "<group>"; };
+		E2A7E7111954385300510959 /* UIColor+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AAAdditions.m"; sourceTree = "<group>"; };
+		E2A7E7131956B14A00510959 /* AAInterceptTouchesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAInterceptTouchesView.h; path = Classes/AAInterceptTouchesView.h; sourceTree = SOURCE_ROOT; };
+		E2A7E7141956B14A00510959 /* AAInterceptTouchesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAInterceptTouchesView.m; path = Classes/AAInterceptTouchesView.m; sourceTree = SOURCE_ROOT; };
 		E2DA1B3D194EBDA9001A178B /* AAPopoverListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPopoverListView.h; path = Classes/AAPopoverListView.h; sourceTree = SOURCE_ROOT; };
 		E2DA1B3E194EBDA9001A178B /* AAPopoverListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAPopoverListView.m; path = Classes/AAPopoverListView.m; sourceTree = SOURCE_ROOT; };
 		E2DADF851932E2F400E934E5 /* AASettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AASettingsViewController.h; path = Classes/AASettingsViewController.h; sourceTree = "<group>"; };
@@ -306,8 +312,9 @@
 				E23996C3194969E100DD30C9 /* AACallButton.m */,
 				E2DA1B3D194EBDA9001A178B /* AAPopoverListView.h */,
 				E2DA1B3E194EBDA9001A178B /* AAPopoverListView.m */,
-				E2DADF8C1932E8F800E934E5 /* AASettingTableViewCell.h */,
-				E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */,
+				E2A7E7131956B14A00510959 /* AAInterceptTouchesView.h */,
+				E2A7E7141956B14A00510959 /* AAInterceptTouchesView.m */,
+				E2A7E7161956CF6400510959 /* Profile */,
 				E27C2DCC1935ED4F00BE2AB6 /* Contacts */,
 				E2006255192A117C00142609 /* Daily Inventory */,
 			);
@@ -422,6 +429,8 @@
 				84EBC33D1915CD250063F4EA /* InfoPlist.strings */,
 				84EBC3401915CD250063F4EA /* main.m */,
 				84EBC3421915CD250063F4EA /* Steps-Prefix.pch */,
+				E2A7E7101954385300510959 /* UIColor+AAAdditions.h */,
+				E2A7E7111954385300510959 /* UIColor+AAAdditions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -576,6 +585,15 @@
 				E23996CD194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m */,
 			);
 			name = Contacts;
+			sourceTree = "<group>";
+		};
+		E2A7E7161956CF6400510959 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E2DADF8C1932E8F800E934E5 /* AASettingTableViewCell.h */,
+				E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		E2DADF881932E2FF00E934E5 /* Settings */ = {
@@ -747,6 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E239968A194617B700DD30C9 /* Email+AAAdditions.m in Sources */,
+				E2A7E7151956B14A00510959 /* AAInterceptTouchesView.m in Sources */,
 				E2EEF088192E547300CDEF0D /* Email.m in Sources */,
 				842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */,
 				E27DCC4319457CAB00A0861D /* Contact.m in Sources */,
@@ -789,6 +808,7 @@
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 				E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */,
 				842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */,
+				E2A7E7121954385300510959 /* UIColor+AAAdditions.m in Sources */,
 				E2489FC81937756200861066 /* NBPhoneNumberUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,13 +57,6 @@
 
 #pragma mark - UI Events
 
-#define POPOVER_VIEW_HORIZONTAL_INSET   27.0f
-#define POPOVER_VIEW_VERTICAL_INSET     5.0f
-#define POPOVER_VIEW_TRIANGLE_INSET     5.0f
-#define POPOVER_VIEW_WIDTH              200.0f
-#define POPOVER_VIEW_HEIGHT             93.0f
-#define POPOVER_BUTTON_INSET            8.0f
-
 #define CREATE_NEW_CONTACT_TITLE        NSLocalizedString(@"Create New Contact", @"Create New Contact and add to phone's address book")
 #define IMPORT_CONTACT_TITLE            NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book")
 #define CALL_SPONSOR_TITLE              NSLocalizedString(@"Call Sponsor", @"Call user's AA sponsor")
@@ -71,48 +64,25 @@
 
 - (IBAction)showAddContactPopoverList:(UIBarButtonItem*)sender
 {
-    UIFont* popoverFont = [UIFont systemFontOfSize:17.0f];
     NSArray* titles = @[CREATE_NEW_CONTACT_TITLE,
                         IMPORT_CONTACT_TITLE];
-    CGFloat popoverWidth = [self popoverViewWidthForTitles:titles withFont:popoverFont];
-    
-    CGPoint triangleOrigin = CGPointMake(self.view.bounds.origin.x + POPOVER_VIEW_HORIZONTAL_INSET,
-                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
-    CGRect popoverFrame = CGRectMake(self.view.bounds.origin.x + POPOVER_VIEW_TRIANGLE_INSET,
-                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
-                                     popoverWidth,
-                                     POPOVER_VIEW_HEIGHT);
-    
-    AAPopoverListView* addContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
-                                                                  withTriangleOrigin:triangleOrigin
-                                                                        buttonTitles:titles];
-    
+    AAPopoverListView* addContactPopoverView = [AAPopoverListView popoverViewPointToNavigationItem:sender
+                                                                                     navigationBar:self.navigationController.navigationBar
+                                                                                  withButtonTitles:titles];
     addContactPopoverView.title = @"addContactPopover";
-    addContactPopoverView.buttonFont = popoverFont;
     
     [self showPopoverView:addContactPopoverView];
 }
 
 - (IBAction)showCallContactPopoverList:(UIBarButtonItem*)sender
 {
-    UIFont* popoverFont = [UIFont systemFontOfSize:17.0f];
     NSArray* titles = @[CALL_SPONSOR_TITLE,
                         CALL_RANDOM_TITLE];
-    CGFloat popoverWidth = [self popoverViewWidthForTitles:titles withFont:popoverFont];
-    
-    CGPoint triangleOrigin = CGPointMake(CGRectGetMaxX(self.view.bounds) - POPOVER_VIEW_HORIZONTAL_INSET,
-                                         CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET);
-    CGRect popoverFrame = CGRectMake(CGRectGetMaxX(self.view.bounds) - (popoverWidth + POPOVER_VIEW_TRIANGLE_INSET),
-                                     CGRectGetMaxY(self.navigationController.navigationBar.frame) + POPOVER_VIEW_VERTICAL_INSET,
-                                     popoverWidth,
-                                     POPOVER_VIEW_HEIGHT);
-    
-    AAPopoverListView* callContactPopoverView = [[AAPopoverListView alloc] initWithFrame:popoverFrame
-                                                                  withTriangleOrigin:triangleOrigin
-                                                                        buttonTitles:titles];
-    
+
+    AAPopoverListView* callContactPopoverView = [AAPopoverListView popoverViewPointToNavigationItem:sender
+                                                                                      navigationBar:self.navigationController.navigationBar
+                                                                                   withButtonTitles:titles];
     callContactPopoverView.title = @"callContactPopover";
-    callContactPopoverView.buttonFont = popoverFont;
     
     [self showPopoverView:callContactPopoverView];
 }
@@ -123,8 +93,7 @@
     // and dismiss the popover
     NSString* currentPopoverTitle = self.popoverView.title;
     if (self.popoverView) {
-
-        [self animatePopoverViewFadeOut:self.popoverView];
+        [self.popoverView hide:YES];
         self.popoverView = nil;
     }
     
@@ -133,58 +102,15 @@
         popoverView.delegate = self;
         popoverView.alpha = 0.0f;
         self.popoverView = popoverView;
-        [self.view addSubview:popoverView];
-        self.tableView.userInteractionEnabled = NO;
         
-        [self animatePopoverViewFadeIn:popoverView];
-    } else {
-        self.tableView.userInteractionEnabled = YES;
+        [popoverView showInView:self.view animated:YES];
     }
-}
-
-- (CGFloat)popoverViewWidthForTitles:(NSArray*)titles withFont:(UIFont*)font
-{
-    CGFloat width = 0.0f;
-    
-    for (NSString* title in titles) {
-        CGSize titleSize = [title sizeWithAttributes:@{NSFontAttributeName: font}];
-        if (titleSize.width > width) {
-            width = ceilf(titleSize.width);
-        }
-    }
-    
-    return width + 2 * POPOVER_BUTTON_INSET;
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (self.popoverView) {
-        [self hidePopoverView];
-    }
-}
-
-#define POPOVER_ANIMATION_DURATION  0.2f
-- (void)animatePopoverViewFadeIn:(AAPopoverListView*)popoverView
-{
-    [UIView animateWithDuration:POPOVER_ANIMATION_DURATION animations:^{
-        popoverView.alpha = 1.0f;
-    }];
-}
-
-- (void)animatePopoverViewFadeOut:(AAPopoverListView*)popoverView
-{
-    [UIView animateWithDuration:POPOVER_ANIMATION_DURATION animations:^{
-        popoverView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [popoverView removeFromSuperview];
-    }];
 }
 
 - (void)hidePopoverView
 {
-    [self animatePopoverViewFadeOut:self.popoverView];
+    [self.popoverView hide:YES];
     self.popoverView = nil;
-    self.tableView.userInteractionEnabled = YES;
 }
 
 - (void)showPeoplePickerViewController
@@ -236,6 +162,11 @@
 }
 
 #pragma mark - AAPopoverListView Delegate
+
+- (void)popoverViewWasDismissed:(AAPopoverListView *)pv
+{
+    [self hidePopoverView];
+}
 
 - (void)popoverView:(AAPopoverListView *)pv buttonTappedAtIndex:(NSInteger)index
 {

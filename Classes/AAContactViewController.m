@@ -89,12 +89,18 @@
 
 - (void)sobrietyDateDoneButtonTapped:(UIButton*)sender
 {
+
     self.contact.sobrietyDate = self.sobrietyDatePicker.date;
-    [self.sobrietyDatePicker removeFromSuperview];
-    self.sobrietyDatePicker = nil;
     self.selectDateMode = NO;
+    [self removeSobrietyDatePickerFromView];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3]
                   withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)removeSobrietyDatePickerFromView
+{
+    [self.sobrietyDatePicker removeFromSuperview];
+    self.sobrietyDatePicker = nil;
 }
 
 - (void)presentNewPersonViewControllerWithPerson:(ABRecordRef)person
@@ -435,6 +441,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (indexPath.section != CONTACT_SOBRIETY_DATE_SECTION) {
+        self.selectDateMode = NO;
+    }
+    
     if (indexPath.section == CONTACT_PHONES_SECTION) {
         AAContactPhoneTableViewCell* cell = (AAContactPhoneTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [self callPhone:cell.phone];
@@ -443,14 +454,15 @@
         [self sendMessageToEmail:cell.email];
     } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
         if (self.selectDateMode) {
-            [self sobrietyDateDoneButtonTapped:nil];
+            [self removeSobrietyDatePickerFromView];
+            self.selectDateMode = NO;
         } else {
             self.selectDateMode = YES;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
