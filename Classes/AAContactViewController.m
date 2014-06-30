@@ -442,7 +442,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.selectDateMode) {
-        [self addSelectionHighlighting];
         [self removeSobrietyDatePickerFromView];
         self.selectDateMode = NO;
     } else {
@@ -453,29 +452,12 @@
             AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
             [self sendMessageToEmail:cell.email];
         } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
-            [self removeSelectionHighlighting];
             self.selectDateMode = YES;
         }
-        
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:CONTACT_SOBRIETY_DATE_SECTION]
                   withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)removeSelectionHighlighting
-{
-    for (UITableViewCell* cell in [self.tableView visibleCells]) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-}
-
-- (void)addSelectionHighlighting
-{
-    for (UITableViewCell* cell in [self.tableView visibleCells]) {
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

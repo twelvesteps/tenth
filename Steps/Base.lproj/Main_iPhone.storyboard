@@ -81,7 +81,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="102" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="102" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CL5-fb-jhH" id="Y81-QC-BiN">
@@ -118,7 +118,7 @@
                                             <outlet property="contactNameLabel" destination="GGf-BG-lZ6" id="owh-TE-fH9"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="PhoneCell" rowHeight="52" id="o6N-zy-YTb" customClass="AAContactPhoneTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PhoneCell" rowHeight="52" id="o6N-zy-YTb" customClass="AAContactPhoneTableViewCell">
                                         <rect key="frame" x="0.0" y="188" width="320" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o6N-zy-YTb" id="7Jf-no-VvQ">
@@ -187,7 +187,7 @@
                                             <outlet property="titleLabel" destination="hFd-LC-vJZ" id="W8N-QY-ul0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="EmailCell" rowHeight="52" id="Uzf-NL-z0k" customClass="AAContactEmailTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmailCell" rowHeight="52" id="Uzf-NL-z0k" customClass="AAContactEmailTableViewCell">
                                         <rect key="frame" x="0.0" y="240" width="320" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uzf-NL-z0k" id="3Zo-kz-nN4">
@@ -257,7 +257,7 @@
                                             <outlet property="titleLabel" destination="elo-ad-2o6" id="iIK-VP-xbL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SobrietyDateCell" rowHeight="52" id="mAe-aw-IXa" customClass="AAContactSobrietyDateTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SobrietyDateCell" rowHeight="52" id="mAe-aw-IXa" customClass="AAContactSobrietyDateTableViewCell">
                                         <rect key="frame" x="0.0" y="292" width="320" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAe-aw-IXa" id="D3O-eu-0we">
@@ -323,7 +323,7 @@
                                             <outlet property="titleLabel" destination="Ihr-M2-7m0" id="DUc-av-g8w"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectSobrietyDateCell" rowHeight="44" id="4Ff-q5-n9m" customClass="AAContactSelectSobrietyDateTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SelectSobrietyDateCell" rowHeight="44" id="4Ff-q5-n9m" customClass="AAContactSelectSobrietyDateTableViewCell">
                                         <rect key="frame" x="0.0" y="344" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Ff-q5-n9m" id="udh-Vy-V6a">

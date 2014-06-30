@@ -11,9 +11,10 @@
 #import "AAContactViewController.h"
 #import "AAUserDataManager.h"
 #import "Contact+AAAdditions.h"
+#import "Phone+AAAdditions.h"
 #import "AAPopoverListView.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate,  AAPopoverListViewDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAPopoverListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
@@ -36,7 +37,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,6 +61,8 @@
 #define IMPORT_CONTACT_TITLE            NSLocalizedString(@"Import Existing Contact", @"Import Existing Contact from phone's address book")
 #define CALL_SPONSOR_TITLE              NSLocalizedString(@"Call Sponsor", @"Call user's AA sponsor")
 #define CALL_RANDOM_TITLE               NSLocalizedString(@"Call Random Contact", @"Call a random contact from the list")
+#define CANCEL_BUTTON_TITLE             NSLocalizedString(@"Cancel", @"Cancel")
+#define OK_BUTTON_TITLE                 NSLocalizedString(@"Ok", @"Ok")
 
 - (IBAction)showAddContactPopoverList:(UIBarButtonItem*)sender
 {
@@ -113,6 +115,39 @@
     self.popoverView = nil;
 }
 
+- (void)showCallActionSheetWithContact:(Contact*)contact
+{
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:contact.fullName
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    
+    for (Phone* phone in contact.phones) {
+        NSString* phoneTitle = [phone.formattedTitle stringByAppendingFormat:@": %@", phone.number];
+        [actionSheet addButtonWithTitle:phoneTitle];
+    }
+    
+    [actionSheet addButtonWithTitle:CANCEL_BUTTON_TITLE];
+    actionSheet.cancelButtonIndex = contact.phones.count;
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)showSponsorNotSetAlert
+{
+    NSString* alertTitle = NSLocalizedString(@"Sponsor has not been set", @"The user has not designated a contact as his or her sponsor");
+    NSString* alertMessage = NSLocalizedString(@"To set your sponsor choose a contact and press the \"Set as sponsor\" button", @"Direct the user to choose one\
+                                               of his or her contacts and then click the button to set him or her as the sponsor");
+    
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                        message:alertMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:OK_BUTTON_TITLE, nil];
+    [alertView show];
+}
+
 - (void)showPeoplePickerViewController
 {
     ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
@@ -152,7 +187,6 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-
 #pragma mark - Personview Delegate
 
 - (BOOL)personViewController:(ABPersonViewController *)personViewController shouldPerformDefaultActionForPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
@@ -160,6 +194,19 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     return YES;
 }
+
+#pragma mark - ActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    
+}
+
 
 #pragma mark - AAPopoverListView Delegate
 
@@ -190,7 +237,18 @@
 
 - (void)callConactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
 {
-
+    if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_SPONSOR_TITLE]) {
+        Contact* sponsor = [[AAUserDataManager sharedManager] fetchSponsor];
+        if (sponsor) {
+            [self showCallActionSheetWithContact:sponsor];
+        } else {
+            [self showSponsorNotSetAlert];
+        }
+    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_RANDOM_TITLE]) {
+        NSUInteger randomNumber = arc4random() % self.contacts.count;
+        Contact* contact = self.contacts[randomNumber];
+        [self showCallActionSheetWithContact:contact];
+    }
 }
 
 #pragma mark - Tableview Delegate and Datasource

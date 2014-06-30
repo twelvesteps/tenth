@@ -37,9 +37,6 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         sharedManager = [[AAUserDataManager alloc] init];
-        sharedManager.hasUserAddressBookAccess = NO;
-        
-        
     });
     
     return sharedManager;
@@ -58,25 +55,31 @@
 - (NSArray*)fetchUserAmends
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
-    return [self fetchItemsForEntityName:AA_AMEND_ITEM_NAME
-                     withSortDescriptors:@[sortByDate]
-                           withPredicate:nil];
+    NSArray* amends = [self fetchItemsForEntityName:AA_AMEND_ITEM_NAME
+                                withSortDescriptors:@[sortByDate]
+                                      withPredicate:nil];
+    DLog(@"Fetched %d amends", (int)amends.count);
+    return amends;
 }
 
 - (NSArray*)fetchUserDailyInventories
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-    return [self fetchItemsForEntityName:AA_DAILY_INVENTORY_ITEM_NAME
-                     withSortDescriptors:@[sortByDate]
-                           withPredicate:nil];
+    NSArray* dailyInventories = [self fetchItemsForEntityName:AA_DAILY_INVENTORY_ITEM_NAME
+                                         withSortDescriptors:@[sortByDate]
+                                               withPredicate:nil];
+    DLog(@"Fetched %d daily inventories", (int)dailyInventories.count);
+    return dailyInventories;
 }
 
 - (NSArray*)fetchUserResentments
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO];
-    return [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME
-                     withSortDescriptors:@[sortByDate]
-                           withPredicate:nil];
+    NSArray* resentments = [self fetchItemsForEntityName:AA_RESENTMENT_ITEM_NAME
+                                     withSortDescriptors:@[sortByDate]
+                                           withPredicate:nil];
+    DLog(@"Fetched %d resentments", (int)resentments.count);
+    return resentments;
 }
 
 - (NSArray*)fetchUserAAContacts
@@ -87,7 +90,7 @@
     NSArray* contactItems = [self fetchItemsForEntityName:AA_CONTACT_ITEM_NAME
                                       withSortDescriptors:@[sortByLastName, sortByFirstName, sortByContactID]
                                             withPredicate:nil];
-
+    DLog(@"Fetched %d contacts", (int)contactItems.count);
     return contactItems;
 }
 
@@ -142,6 +145,7 @@
 - (void)setContactAsSponsor:(Contact *)contact
 {
     Contact* currentSponsor = [self fetchSponsor];
+    // only one sponsor allowed
     currentSponsor.isSponsor = [NSNumber numberWithBool:NO];
     contact.isSponsor = [NSNumber numberWithBool:YES];
 }
@@ -172,11 +176,14 @@
     NSArray* contacts = [self.managedObjectContext executeFetchRequest:request error:&err];
     
     if (contacts.count == 0) {
+        // doesn't exist
         return nil;
     } else if (contacts.count == 1) {
+        // found it
         return [contacts lastObject];
     } else {
-        ALog(@"<ERROR> Database state violates invarient \"Only one contact with same name and id\"\n %@, %@", err, err.userInfo);
+        // multiple contacts sharing unique identifiers
+        DLog(@"<ERROR> Database state violates invarient \"Only one contact with same name and id\"\n %@, %@", err, err.userInfo);
         return nil;
     }
 }
@@ -190,7 +197,7 @@
     
     NSError* err;
     NSArray* contactsMatchingID = [self.managedObjectContext executeFetchRequest:request error:&err];
-    
+    // multiple matches are okay at this point
     return contactsMatchingID;
 }
 
@@ -201,15 +208,8 @@
     NSError* err;
     NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:name];
     
-    // if no descriptors were passed then sort by the date
-    // this may change as the project develops
-    if (!descriptors) {
-        descriptors = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-    }
-    
     request.sortDescriptors = descriptors;
     request.predicate = predicate;
-    
     
     NSArray* fetchResult = [self.managedObjectContext executeFetchRequest:request error:&err];
     if (!fetchResult) {
@@ -264,12 +264,14 @@
     NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
     
     if (results.count == 0) {
+        // daily inventory not created yet, add it
         return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME
                                              inManagedObjectContext:self.managedObjectContext];
     } else if (results.count == 1) {
+        // return daily inventory
         return [results lastObject];
     } else {
-        ALog(@"<ERROR> Database state violates invariant \"Only one inventory per day\"\n %@, %@", err, err.userInfo);
+        DLog(@"<ERROR> Database state violates invariant \"Only one inventory per day\"\n %@, %@", err, err.userInfo);
         return nil;
     }
 }
@@ -294,6 +296,8 @@
 
 - (void)removeAAContact:(Contact*)contact
 {
+    // clean up contact's objects
+    // this can probably be done automatically using visual editor
     for (Email* email in contact.emails) {
         [self.managedObjectContext deleteObject:email];
     }
@@ -313,6 +317,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
                                            CFDictionaryRef userInfo,
                                            void *context)
 {
+    // external changes are considered truth, reset local address book
     ABAddressBookRevert(addressBook);
 }
 - (ABAddressBookRef)addressBook
@@ -340,6 +345,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
     if (status == kABAuthorizationStatusNotDetermined) {
         ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error){
             if (granted && !error) {
+                // update address book
                 ABAddressBookRevert(self.addressBook);
                 accessGranted = YES;
             } else {
@@ -347,6 +353,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
             }
         });
     } else {
+        // return user's previous decision
         accessGranted = (status == kABAuthorizationStatusAuthorized) ? YES : NO;
     }
     
@@ -372,6 +379,10 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
         
         // make sure the id is correct
         if (![self personRecord:person matchesContact:contact]) {
+            // names don't match, clean person record
+            if (person) {
+                CFRelease(person);
+            }
             person = NULL;
         }
     }
