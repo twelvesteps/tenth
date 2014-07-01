@@ -87,6 +87,7 @@
 		E27C2DCE1935F19A00BE2AB6 /* AA_Blue_Circle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */; };
 		E27C2DD11935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E27C2DD01935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m */; };
 		E27DCC4319457CAB00A0861D /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = E27DCC4219457CAB00A0861D /* Contact.m */; };
+		E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2851C571961770B00567F1A /* AAContactSetSponsorTableViewCell.m */; };
 		E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980144193339AD007A0F49 /* AAContactViewController.m */; };
 		E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2980147193350D2007A0F49 /* Contact+AAAdditions.m */; };
 		E299567F193A0AC60053759F /* AATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E299567E193A0AC60053759F /* AATableViewController.m */; };
@@ -233,6 +234,8 @@
 		E27C2DD01935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactPhoneTableViewCell.m; path = Classes/AAContactPhoneTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E27DCC4119457CAB00A0861D /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
 		E27DCC4219457CAB00A0861D /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = Classes/Contact.m; sourceTree = SOURCE_ROOT; };
+		E2851C561961770B00567F1A /* AAContactSetSponsorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactSetSponsorTableViewCell.h; path = Classes/AAContactSetSponsorTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		E2851C571961770B00567F1A /* AAContactSetSponsorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactSetSponsorTableViewCell.m; path = Classes/AAContactSetSponsorTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E2980143193339AD007A0F49 /* AAContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactViewController.h; path = Classes/AAContactViewController.h; sourceTree = "<group>"; };
 		E2980144193339AD007A0F49 /* AAContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactViewController.m; path = Classes/AAContactViewController.m; sourceTree = "<group>"; };
 		E2980146193350D2007A0F49 /* Contact+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Contact+AAAdditions.h"; path = "Classes/Contact+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
@@ -583,6 +586,8 @@
 				E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */,
 				E23996CC194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.h */,
 				E23996CD194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m */,
+				E2851C561961770B00567F1A /* AAContactSetSponsorTableViewCell.h */,
+				E2851C571961770B00567F1A /* AAContactSetSponsorTableViewCell.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -790,6 +795,7 @@
 				E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */,
 				E27C2DD11935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m in Sources */,
 				E2249460193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m in Sources */,
+				E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */,
 				E2399690194619D900DD30C9 /* Phone+AAAdditions.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,

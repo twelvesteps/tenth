@@ -21,6 +21,7 @@
 #import "AAContactEmailTableViewCell.h"
 #import "AAContactSobrietyDateTableViewCell.h"
 #import "AAContactSelectSobrietyDateTableViewCell.h"
+#import "AAContactSetSponsorTableViewCell.h"
 
 @interface AAContactViewController () <UIAlertViewDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
 
@@ -389,6 +390,7 @@
 #define CONTACT_PHONES_SECTION          1
 #define CONTACT_EMAILS_SECTION          2
 #define CONTACT_SOBRIETY_DATE_SECTION   3
+#define CONTACT_SET_SPONSOR_SECTION     4
 
 #define CONTACT_NAME_CELL_HEIGHT        102.0f
 #define CONTACT_PROPERTY_CELL_HEIGHT    52.0f
@@ -397,34 +399,53 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == CONTACT_NAME_CELL_SECTION) {
-        return 1;
-    } else if (section == CONTACT_PHONES_SECTION){
-        return self.contact.phones.count;
-    } else if (section == CONTACT_EMAILS_SECTION){
-        return self.contact.emails.count;
-    } else if (section == CONTACT_SOBRIETY_DATE_SECTION) {
-        return 1;
-    } else {
-        return 0;
+    switch (section) {
+        case CONTACT_NAME_CELL_SECTION:
+            return 1;
+        
+        case CONTACT_PHONES_SECTION:
+            return self.contact.phones.count;
+            
+        case CONTACT_EMAILS_SECTION:
+            return self.contact.emails.count;
+        
+        case CONTACT_SOBRIETY_DATE_SECTION:
+            return 1;
+        
+        case CONTACT_SET_SPONSOR_SECTION:
+            return 1;
+            
+        default:
+            return 0;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
-        return CONTACT_NAME_CELL_HEIGHT;
-    } else if (indexPath.section == CONTACT_PHONES_SECTION || indexPath.section == CONTACT_EMAILS_SECTION) {
-        return CONTACT_PROPERTY_CELL_HEIGHT;
-    } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
-        return [self heightForSobrietyDateCell];
-    } else {
-        return 0;
+    switch (indexPath.section) {
+        case CONTACT_NAME_CELL_SECTION:
+            return CONTACT_NAME_CELL_HEIGHT;
+        
+        case CONTACT_PHONES_SECTION:
+            return CONTACT_PROPERTY_CELL_HEIGHT;
+            
+        case CONTACT_EMAILS_SECTION:
+            return CONTACT_PROPERTY_CELL_HEIGHT;
+            
+        case CONTACT_SOBRIETY_DATE_SECTION:
+            return [self heightForSobrietyDateCell];
+            
+        case CONTACT_SET_SPONSOR_SECTION:
+            return ADD_PROPERTY_CELL_HEIGHT;
+            
+        default:
+            return 0.0f;
+            break;
     }
 }
 
@@ -445,14 +466,37 @@
         [self removeSobrietyDatePickerFromView];
         self.selectDateMode = NO;
     } else {
-        if (indexPath.section == CONTACT_PHONES_SECTION) {
-            AAContactPhoneTableViewCell* cell = (AAContactPhoneTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-            [self callPhone:cell.phone];
-        } else if (indexPath.section == CONTACT_EMAILS_SECTION) {
-            AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-            [self sendMessageToEmail:cell.email];
-        } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
-            self.selectDateMode = YES;
+        switch (indexPath.section) {
+            case CONTACT_PHONES_SECTION: {
+                AAContactPhoneTableViewCell* cell = (AAContactPhoneTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+                [self callPhone:cell.phone];
+                break;
+            }
+                
+            case CONTACT_EMAILS_SECTION: {
+                AAContactEmailTableViewCell* cell = (AAContactEmailTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+                [self sendMessageToEmail:cell.email];
+                break;
+            }
+                
+            case CONTACT_SOBRIETY_DATE_SECTION:
+                self.selectDateMode = YES;
+                break;
+                
+            case CONTACT_SET_SPONSOR_SECTION: {
+                if ([self.contact.isSponsor boolValue]) {
+                    self.contact.isSponsor = [NSNumber numberWithBool:NO];
+                } else {
+                    [[AAUserDataManager sharedManager] setContactAsSponsor:self.contact];
+                }
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:CONTACT_NAME_CELL_SECTION],
+                                                         [NSIndexPath indexPathForRow:0 inSection:CONTACT_SET_SPONSOR_SECTION]]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+                break;
+            }
+                
+            default:
+                break;
         }
     }
     
@@ -462,16 +506,24 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == CONTACT_NAME_CELL_SECTION) {
-        return [self contactNameCell];
-    } else if (indexPath.section == CONTACT_PHONES_SECTION){
-        return [self phoneCellForIndexPath:indexPath];
-    } else if (indexPath.section == CONTACT_EMAILS_SECTION){
-        return [self emailCellForIndexPath:indexPath];
-    } else if (indexPath.section == CONTACT_SOBRIETY_DATE_SECTION) {
-        return [self sobrietyDateCell];
-    } else {
-        return nil;
+    switch (indexPath.section) {
+        case CONTACT_NAME_CELL_SECTION:
+            return [self contactNameCell];
+
+        case CONTACT_PHONES_SECTION:
+            return [self phoneCellForIndexPath:indexPath];
+            
+        case CONTACT_EMAILS_SECTION:
+            return [self emailCellForIndexPath:indexPath];
+            
+        case CONTACT_SOBRIETY_DATE_SECTION:
+            return [self sobrietyDateCell];
+            
+        case CONTACT_SET_SPONSOR_SECTION:
+            return [self setSponsorCell];
+            
+        default:
+            return nil;
     }
 }
 
@@ -480,6 +532,7 @@
     AAContactNameAndImageTableViewCell* cell = (AAContactNameAndImageTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"NameCell"];
     
     cell.contactNameLabel.text = self.contact.fullName;
+    cell.sponsorLabel.hidden = ![self.contact.isSponsor boolValue];
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
     
     return cell;
@@ -523,6 +576,21 @@
     
     if (indexPath.row != self.contact.emails.count - 1) {
         cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
+    }
+    
+    return cell;
+}
+
+- (UITableViewCell*)setSponsorCell
+{
+    AAContactSetSponsorTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SetSponsorCell"];
+    
+    if ([self.contact.isSponsor boolValue]) {
+        cell.changeSponsorLabel.text = NSLocalizedString(@"Remove as Sponsor",
+                                                         @"Change the selected contact so that he or she is no longer listed as the user's sponsor");
+    } else {
+        cell.changeSponsorLabel.text = NSLocalizedString(@"Set as Sponsor",
+                                                         @"Change the selected contact so that he or she is now listed as the user's sponsor");
     }
     
     return cell;

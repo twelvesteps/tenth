@@ -379,7 +379,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
         
         // make sure the id is correct
         if (![self personRecord:person matchesContact:contact]) {
-            // names don't match, clean person record
+            // names don't match, clean person record3
             if (person) {
                 CFRelease(person);
             }
