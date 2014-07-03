@@ -10,9 +10,15 @@
 #import "AAUserDataManager.h"
 #import "AATableViewController.h"
 
+typedef NS_ENUM(NSInteger, AAContactViewConrollerMode) {
+    AAContactViewConrollerNewContactMode,
+    AAContactViewConrollerExistingContactMode,
+    AAContactViewConrollerCallContactMode,
+};
+
 @interface AAContactViewController : AATableViewController
 
-@property (nonatomic) BOOL newContact;
+@property (nonatomic) AAContactViewConrollerMode mode;
 @property (nonatomic) BOOL shouldShowContactNotLinkedWarning;
 @property (strong, nonatomic) Contact* contact;
 

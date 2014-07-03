@@ -37,6 +37,11 @@
 
 @implementation AAContactViewController
 
+#define CANCEL_BUTTON_TITLE             NSLocalizedString(@"Cancel", @"Cancel")
+#define LINK_CONTACT_BUTTON_TITLE       NSLocalizedString(@"Link Contact", @"link contact with phone contacts")
+#define CREATE_CONTACT_BUTTON_TITLE     NSLocalizedString(@"Create Contact", @"create new contact")
+#define EDIT_BUTTON_TITLE               NSLocalizedString(@"Edit", @"edit")
+
 #pragma mark - ViewController Lifecycle
 
 - (void)viewDidLoad
@@ -51,11 +56,11 @@
     [super viewWillAppear:animated];
     
     if ([self needToLinkContact]) {
-        self.rightToolbarButton.title = NSLocalizedString(@"Link Contact", @"link contact with phone contacts");
+        self.rightToolbarButton.title = LINK_CONTACT_BUTTON_TITLE;
     } else if (!self.contact) {
-        self.rightToolbarButton.title = NSLocalizedString(@"Create Contact", @"create new contact");
+        self.rightToolbarButton.title = CREATE_CONTACT_BUTTON_TITLE;
     } else {
-        self.rightToolbarButton.title = NSLocalizedString(@"Edit", @"edit");
+        self.rightToolbarButton.title = EDIT_BUTTON_TITLE;
     }
 }
 
@@ -69,6 +74,8 @@
     } else if ([self shouldShowContactNotLinkedWarning]){
         [self showPersonRecordNotFoundAlert];
         self.shouldShowContactNotLinkedWarning = NO;
+    } else if (self.mode == AAContactViewConrollerCallContactMode) {
+        
     }
 }
 
@@ -182,6 +189,25 @@
     [alert show];
 }
 
+- (void)showCallActionSheetWithContact:(Contact*)contact
+{
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:contact.fullName
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    
+    for (Phone* phone in contact.phones) {
+        NSString* phoneTitle = [phone.formattedTitle stringByAppendingFormat:@": %@", phone.number];
+        [actionSheet addButtonWithTitle:phoneTitle];
+    }
+    
+    [actionSheet addButtonWithTitle:CANCEL_BUTTON_TITLE];
+    actionSheet.cancelButtonIndex = contact.phones.count;
+    
+    [actionSheet showInView:self.view];
+}
+
 #define PHONE_CAPABILITY_KEY    @"phone"
 #define SMS_CAPABILITY_KEY      @"sms"
 #define EMAIL_CAPABILITY_KEY    @"email"
@@ -218,7 +244,7 @@
 {
     if (!self.contact) {
         return NO;
-    } else if (self.newContact) {
+    } else if (self.mode == AAContactViewConrollerNewContactMode) {
         return NO;
     } else {
         return [self.contact.needsABLink boolValue];
@@ -248,7 +274,7 @@
         [self updateContactDataWithPerson:person];
         [self.navigationController popViewControllerAnimated:YES];
     } else { // user cancelled
-        if (self.newContact) { // user didn't create contact
+        if (self.mode == AAContactViewConrollerNewContactMode) { // user didn't create contact
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else { // user didn't edit contact
             [self.navigationController popViewControllerAnimated:YES];
@@ -272,8 +298,8 @@
     [self updateContactDataWithPerson:person];
 
     [self dismissViewControllerAnimated:YES completion:^{
-        if (self.newContact) {
-            self.newContact = NO;
+        if (self.mode == AAContactViewConrollerNewContactMode) {
+            self.mode = AAContactViewConrollerExistingContactMode;
             [self presentNewPersonViewControllerWithPerson:person];
         }
     }];
@@ -288,7 +314,7 @@
         if (self.contact) {
             [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
             [self.tableView reloadData];
-        } else if (self.newContact && person) {
+        } else if (self.mode == AAContactViewConrollerNewContactMode && person) {
             self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
             [self.tableView reloadData];
         }

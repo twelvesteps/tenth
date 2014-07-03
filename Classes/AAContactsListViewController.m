@@ -14,7 +14,7 @@
 #import "Phone+AAAdditions.h"
 #import "AAPopoverListView.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AAPopoverListViewDelegate>
+@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, AAPopoverListViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
@@ -115,25 +115,6 @@
     self.popoverView = nil;
 }
 
-- (void)showCallActionSheetWithContact:(Contact*)contact
-{
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:contact.fullName
-                                                             delegate:self
-                                                    cancelButtonTitle:nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:nil];
-    
-    for (Phone* phone in contact.phones) {
-        NSString* phoneTitle = [phone.formattedTitle stringByAppendingFormat:@": %@", phone.number];
-        [actionSheet addButtonWithTitle:phoneTitle];
-    }
-    
-    [actionSheet addButtonWithTitle:CANCEL_BUTTON_TITLE];
-    actionSheet.cancelButtonIndex = contact.phones.count;
-    
-    [actionSheet showInView:self.view];
-}
-
 - (void)showSponsorNotSetAlert
 {
     NSString* alertTitle = NSLocalizedString(@"Sponsor has not been set", @"The user has not designated a contact as his or her sponsor");
@@ -195,19 +176,6 @@
     return YES;
 }
 
-#pragma mark - ActionSheet Delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    
-}
-
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-    
-}
-
-
 #pragma mark - AAPopoverListView Delegate
 
 - (void)popoverViewWasDismissed:(AAPopoverListView *)pv
@@ -240,14 +208,14 @@
     if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_SPONSOR_TITLE]) {
         Contact* sponsor = [[AAUserDataManager sharedManager] fetchSponsor];
         if (sponsor) {
-            [self showCallActionSheetWithContact:sponsor];
+            [self performSegueWithIdentifier:@"callContact" sender:sponsor];
         } else {
             [self showSponsorNotSetAlert];
         }
     } else if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_RANDOM_TITLE]) {
         NSUInteger randomNumber = arc4random() % self.contacts.count;
         Contact* contact = self.contacts[randomNumber];
-        [self showCallActionSheetWithContact:contact];
+        [self performSegueWithIdentifier:@"callContact" sender:contact];
     }
 }
 
@@ -308,19 +276,28 @@
                 Contact* contact = self.contacts[indexPath.row];
                 
                 aacvc.contact = contact;
-                aacvc.newContact = NO;
+                aacvc.mode = AAContactViewConrollerExistingContactMode;
                 aacvc.shouldShowContactNotLinkedWarning = [self contactViewControllerShouldShowNotLinkedWarningForContact:contact];
             } else if ([sender isKindOfClass:[Contact class]]) {
                 // user selected contact from people picker
                 Contact* contact = (Contact*)sender;
                 
                 aacvc.contact = contact;
-                aacvc.newContact = NO;
+                aacvc.mode = AAContactViewConrollerExistingContactMode;
                 aacvc.shouldShowContactNotLinkedWarning = [self contactViewControllerShouldShowNotLinkedWarningForContact:contact];
             }
         } else if ([segue.identifier isEqualToString:@"newContact"]) {
             aacvc.shouldShowContactNotLinkedWarning = NO;
-            aacvc.newContact = YES;
+            aacvc.mode = AAContactViewConrollerNewContactMode;
+        } else if ([segue.identifier isEqualToString:@"callContact"]) {
+            if ([sender isKindOfClass:[Contact class]]) {
+                Contact* contact = (Contact*)sender;
+                aacvc.shouldShowContactNotLinkedWarning = NO;
+                aacvc.mode = AAContactViewConrollerCallContactMode;
+                aacvc.contact = contact;
+            } else {
+                ALog(@"<ERROR> Object sent to prepareForSegue was not a contact");
+            }
         }
     }
 }
