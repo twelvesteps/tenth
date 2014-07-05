@@ -43,4 +43,9 @@
     return phoneTitleLabels;
 }
 
+- (NSComparisonResult)comparePhoneNumbers:(Phone*)otherPhone
+{
+    return [self.number compare:otherPhone.number];
+}
+
 @end

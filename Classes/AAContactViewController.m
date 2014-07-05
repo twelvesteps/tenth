@@ -7,6 +7,7 @@
 //
 
 #import "AAContactViewController.h"
+#import "AATelPromptDelegate.h"
 // Frameworks
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -23,7 +24,7 @@
 #import "AAContactSelectSobrietyDateTableViewCell.h"
 #import "AAContactSetSponsorTableViewCell.h"
 
-@interface AAContactViewController () <UIAlertViewDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate>
+@interface AAContactViewController () <UIAlertViewDelegate, UIActionSheetDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate, AATelPromptDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
@@ -75,7 +76,11 @@
         [self showPersonRecordNotFoundAlert];
         self.shouldShowContactNotLinkedWarning = NO;
     } else if (self.mode == AAContactViewConrollerCallContactMode) {
-        
+        if (self.contact.phones.count == 1) {
+            [self callPhone:[[self.contact phones] anyObject]];
+        } else {
+            [self showCallActionSheetWithContact:self.contact];
+        }
     }
 }
 
@@ -145,10 +150,13 @@
     [self presentViewController:mfcontroller animated:YES completion:nil];
 }
 
+#define PERSON_NOT_FOUND_TITLE      NSLocalizedString(@"Person Not Found",@"Selected contact could not be found in phone")
+#define ACCESS_DENIED_TITLE         NSLocalizedString(@"Access Denied", @"access to contacts denied by user")
+#define CALL_NOT_COMPLETED_TITLE    NSLocalizedString(@"Could not complete call", @"Couldn't call the phone number the user tapped")
+
 - (void)showPersonRecordNotFoundAlert
 {
-    NSString* alertTitle = NSLocalizedString(@"Person Not Found",
-                                             @"Selected contact could not be found in phone");
+    NSString* alertTitle = PERSON_NOT_FOUND_TITLE;
     NSString* alertMessage = NSLocalizedString(@"Please select the person associated with this contact",
                                                @"Select the phone contact that should be linked");
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
@@ -162,7 +170,7 @@
 
 - (void)showAddressBookAccessDeniedAlert
 {
-    NSString* alertTitle = NSLocalizedString(@"Access Denied", @"access to contacts denied by user");
+    NSString* alertTitle = ACCESS_DENIED_TITLE;
     NSString* alertMessage = NSLocalizedString(@"Change your privacy settings to allow Steps to access your phonebook",
                                                @"Instructions for allowing user phone book access");
     
@@ -177,7 +185,7 @@
 
 - (void)showCallCouldNotBeCompletedAlert
 {
-    NSString* alertTitle = NSLocalizedString(@"Could not complete call", @"Couldn't call the phone number the user tapped");
+    NSString* alertTitle = CALL_NOT_COMPLETED_TITLE;
     NSString* alertMessage = NSLocalizedString(@"Please check the number to make sure it is correct", @"The user needs to review the phone number they have entered into the phone to make sure it is a valid number");
     
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:alertTitle
@@ -197,7 +205,9 @@
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
     
-    for (Phone* phone in contact.phones) {
+    NSArray* sortedPhones = [[self.contact.phones allObjects] sortedArrayUsingSelector:@selector(comparePhoneNumbers:)];
+    
+    for (Phone* phone in sortedPhones) {
         NSString* phoneTitle = [phone.formattedTitle stringByAppendingFormat:@": %@", phone.number];
         [actionSheet addButtonWithTitle:phoneTitle];
     }
@@ -254,14 +264,33 @@
 #pragma mark - UIAlertView Delegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if ([alertView.title isEqualToString:NSLocalizedString(@"Person Not Found",
-                                                           @"Selected contact could not be found in phone")]) {
+    if ([alertView.title isEqualToString:PERSON_NOT_FOUND_TITLE]) {
         if (buttonIndex == alertView.firstOtherButtonIndex) {
             [self presentPeoplePickerViewController];
         }
-    } else if ([alertView.title isEqualToString:NSLocalizedString(@"Access Denied", @"access to contacts denied by user")]) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        if (self.mode == AAContactViewConrollerCallContactMode) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
     }
+}
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        NSArray* sortedPhones = [[self.contact.phones allObjects] sortedArrayUsingSelector:@selector(comparePhoneNumbers:)];
+        Phone* phone = sortedPhones[buttonIndex];
+        [self callPhone:phone];
+    }
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - ABViewController Delegates
@@ -374,6 +403,7 @@
         NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phone.number]];
         NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
         if ([[UIApplication sharedApplication] canOpenURL:phoneCallPromptURL]) {
+            [AATelPromptDelegate sharedDelegate].telPromptDelegate = self;
             success = [[UIApplication sharedApplication] openURL:phoneCallPromptURL];
         } else if ([[UIApplication sharedApplication] canOpenURL:phoneCallNoPromptURL]){
             success = [[UIApplication sharedApplication] openURL:phoneCallNoPromptURL];
@@ -408,6 +438,19 @@
     } else {
         [self showDeviceDoesNotHaveCapabilityAlert:EMAIL_CAPABILITY_KEY];
     }
+}
+
+#pragma mark - AATelPromptDelegate
+
+- (void)telPromptDidCancel
+{
+    [AATelPromptDelegate sharedDelegate].telPromptDelegate = nil;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)telPromptDidCall
+{
+    [AATelPromptDelegate sharedDelegate].telPromptDelegate = nil;
 }
 
 #pragma mark - UITableView Delegate and Datasource

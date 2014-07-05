@@ -12,4 +12,6 @@
 
 - (NSString*)formattedTitle;
 
+- (NSComparisonResult)comparePhoneNumbers:(Phone*)otherPhone;
+
 @end

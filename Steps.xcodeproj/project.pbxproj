@@ -96,6 +96,7 @@
 		E2DA1B3F194EBDA9001A178B /* AAPopoverListView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DA1B3E194EBDA9001A178B /* AAPopoverListView.m */; };
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
 		E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */; };
+		E2E2263F196837CD0065D35C /* AATelPromptDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */; };
 		E2EEF07F192E547200CDEF0D /* InventoryQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */; };
 		E2EEF082192E547300CDEF0D /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF081192E547300CDEF0D /* Phone.m */; };
 		E2EEF085192E547300CDEF0D /* Resentment.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF084192E547300CDEF0D /* Resentment.m */; };
@@ -252,6 +253,8 @@
 		E2DADF861932E2F400E934E5 /* AASettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AASettingsViewController.m; path = Classes/AASettingsViewController.m; sourceTree = "<group>"; };
 		E2DADF8C1932E8F800E934E5 /* AASettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AASettingTableViewCell.h; path = Classes/AASettingTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AASettingTableViewCell.m; path = Classes/AASettingTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		E2E2263D196837CD0065D35C /* AATelPromptDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATelPromptDelegate.h; path = Classes/AATelPromptDelegate.h; sourceTree = SOURCE_ROOT; };
+		E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATelPromptDelegate.m; path = Classes/AATelPromptDelegate.m; sourceTree = SOURCE_ROOT; };
 		E2EEF07D192E547200CDEF0D /* InventoryQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InventoryQuestion.h; path = Classes/InventoryQuestion.h; sourceTree = SOURCE_ROOT; };
 		E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InventoryQuestion.m; path = Classes/InventoryQuestion.m; sourceTree = SOURCE_ROOT; };
 		E2EEF080192E547300CDEF0D /* Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Phone.h; path = Classes/Phone.h; sourceTree = SOURCE_ROOT; };
@@ -421,6 +424,8 @@
 		84EBC33B1915CD250063F4EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E2E2263D196837CD0065D35C /* AATelPromptDelegate.h */,
+				E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */,
 				E2489F97193774B300861066 /* NBPhoneNumber */,
 				84EBC3431915CD250063F4EA /* AAAppDelegate.h */,
 				84EBC3441915CD250063F4EA /* AAAppDelegate.m */,
@@ -789,6 +794,7 @@
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E23996C81949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m in Sources */,
+				E2E2263F196837CD0065D35C /* AATelPromptDelegate.m in Sources */,
 				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
 				E23996B419481B6600DD30C9 /* AAContactEmailTableViewCell.m in Sources */,
 				E2489FC71937756200861066 /* NBPhoneNumberDesc.m in Sources */,
