@@ -147,7 +147,14 @@
     
     ABRecordRef person = (__bridge ABRecordRef)(self.people[indexPath.row]);
     
-    NSString* name = [(__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty) stringByAppendingFormat:@" %@", (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty)];
+#warning not localizable
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSString* name = firstName;
+    
+    if (lastName) {
+        name = [name stringByAppendingFormat:@" %@", lastName];
+    }
     
     cell.textLabel.text = name;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

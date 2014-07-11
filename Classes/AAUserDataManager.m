@@ -364,7 +364,43 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
 {
     NSArray* records = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.addressBook);
     
-    return records;
+    // filter out no name contacts
+    NSPredicate* hasNamePredicate = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary* bindings){
+        ABRecordRef person = (__bridge ABRecordRef)obj;
+        
+        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+        
+        return firstName != nil;
+    }];
+    
+    NSArray* filteredRecords = [records filteredArrayUsingPredicate:hasNamePredicate];
+    
+    // sort records alphabetically
+    NSArray* sortedRecords = [filteredRecords sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSComparisonResult result = NSOrderedSame;
+        
+        ABRecordRef person1 = (__bridge ABRecordRef)obj1;
+        ABRecordRef person2 = (__bridge ABRecordRef)obj2;
+        
+        NSString* person1LastName = (__bridge_transfer NSString*)ABRecordCopyValue(person1, kABPersonLastNameProperty);
+        NSString* person2LastName = (__bridge_transfer NSString*)ABRecordCopyValue(person2, kABPersonLastNameProperty);
+        
+        if (person2LastName) {
+            result = [person1LastName compare:person2LastName];
+        }
+        
+        if (result == NSOrderedSame) {
+            NSString* person1FirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person1, kABPersonFirstNameProperty);
+            NSString* person2FirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person2, kABPersonFirstNameProperty);
+            
+            // contacts without first names have been filtered
+            result = [person1FirstName compare:person2FirstName];
+        }
+        
+        return result;
+    }];
+    
+    return sortedRecords;
 }
 
 #pragma mark Matching Contacts and Address Book Records
