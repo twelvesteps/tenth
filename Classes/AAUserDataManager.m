@@ -360,6 +360,13 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
     return accessGranted;
 }
 
+- (NSArray*)fetchPersonRecords
+{
+    NSArray* records = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.addressBook);
+    
+    return records;
+}
+
 #pragma mark Matching Contacts and Address Book Records
 
 - (ABRecordRef)fetchPersonRecordForContact:(Contact *)contact

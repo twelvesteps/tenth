@@ -83,6 +83,7 @@
 // returns: The requested person record or contact, NULL or nil on error or person not found
 // use:     ABRecrdRef contactFromPhone = [manager personRecordFromAddressBookForContact:managedContact];
 - (ABRecordRef)fetchPersonRecordForContact:(Contact*)contact;
+- (NSArray*)fetchPersonRecords;
 - (void)syncContact:(Contact*)contact withPersonRecord:(ABRecordRef)person;
 
 // info:    Fetches the address book record for the contact and syncs their properties.

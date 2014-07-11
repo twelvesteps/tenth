@@ -72,6 +72,7 @@
 		E23996C5194969E100DD30C9 /* AACallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E23996C3194969E100DD30C9 /* AACallButton.m */; };
 		E23996C81949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */; };
 		E23996CE194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23996CD194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m */; };
+		E2406CAE196EA4630026C0C0 /* AAPeoplePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */; };
 		E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB21937756200861066 /* NBAsYouTypeFormatter.m */; };
 		E2489FC31937756200861066 /* NBNumberFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB41937756200861066 /* NBNumberFormat.m */; };
 		E2489FC41937756200861066 /* NBPhoneMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = E2489FB61937756200861066 /* NBPhoneMetaData.m */; };
@@ -208,6 +209,8 @@
 		E23996C71949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactSobrietyDateTableViewCell.m; path = Classes/AAContactSobrietyDateTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E23996CC194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactSelectSobrietyDateTableViewCell.h; path = Classes/AAContactSelectSobrietyDateTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		E23996CD194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactSelectSobrietyDateTableViewCell.m; path = Classes/AAContactSelectSobrietyDateTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		E2406CAC196EA4630026C0C0 /* AAPeoplePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPeoplePickerViewController.h; path = Classes/AAPeoplePickerViewController.h; sourceTree = "<group>"; };
+		E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAPeoplePickerViewController.m; path = Classes/AAPeoplePickerViewController.m; sourceTree = "<group>"; };
 		E2489FB11937756200861066 /* NBAsYouTypeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBAsYouTypeFormatter.h; sourceTree = "<group>"; };
 		E2489FB21937756200861066 /* NBAsYouTypeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBAsYouTypeFormatter.m; sourceTree = "<group>"; };
 		E2489FB31937756200861066 /* NBNumberFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNumberFormat.h; sourceTree = "<group>"; };
@@ -499,6 +502,8 @@
 		E2006254192A117000142609 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				E2406CAC196EA4630026C0C0 /* AAPeoplePickerViewController.h */,
+				E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */,
 				E2980143193339AD007A0F49 /* AAContactViewController.h */,
 				E2980144193339AD007A0F49 /* AAContactViewController.m */,
 				E2006256192A11A900142609 /* AAContactsListViewController.h */,
@@ -820,6 +825,7 @@
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 				E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */,
 				842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */,
+				E2406CAE196EA4630026C0C0 /* AAPeoplePickerViewController.m in Sources */,
 				E2A7E7121954385300510959 /* UIColor+AAAdditions.m in Sources */,
 				E2489FC81937756200861066 /* NBPhoneNumberUtil.m in Sources */,
 			);
