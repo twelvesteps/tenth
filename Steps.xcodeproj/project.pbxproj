@@ -502,12 +502,12 @@
 		E2006254192A117000142609 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				E2406CAC196EA4630026C0C0 /* AAPeoplePickerViewController.h */,
-				E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */,
 				E2980143193339AD007A0F49 /* AAContactViewController.h */,
 				E2980144193339AD007A0F49 /* AAContactViewController.m */,
 				E2006256192A11A900142609 /* AAContactsListViewController.h */,
 				E2006257192A11A900142609 /* AAContactsListViewController.m */,
+				E2406CAC196EA4630026C0C0 /* AAPeoplePickerViewController.h */,
+				E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";

@@ -135,7 +135,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUD-ed-cG4">
-                                                    <rect key="frame" x="256" y="4" width="44" height="44"/>
+                                                    <rect key="frame" x="256" y="7" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="bdV-mG-Xd3"/>
@@ -182,9 +182,9 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qUD-ed-cG4" secondAttribute="bottom" id="6Fz-Jw-Dnn"/>
                                                 <constraint firstItem="PRQ-lJ-ULi" firstAttribute="leading" secondItem="7Jf-no-VvQ" secondAttribute="leading" constant="44" id="Ss5-Je-Ae0"/>
                                                 <constraint firstAttribute="centerY" secondItem="PRQ-lJ-ULi" secondAttribute="centerY" id="awh-1K-dQx"/>
-                                                <constraint firstAttribute="centerY" secondItem="qUD-ed-cG4" secondAttribute="centerY" id="mCc-1Y-ZUw"/>
                                                 <constraint firstItem="qUD-ed-cG4" firstAttribute="leading" secondItem="PRQ-lJ-ULi" secondAttribute="trailing" constant="8" symbolic="YES" id="uf8-dg-DZ7"/>
                                                 <constraint firstAttribute="trailing" secondItem="qUD-ed-cG4" secondAttribute="trailing" constant="20" symbolic="YES" id="uy3-b1-kEb"/>
                                             </constraints>
@@ -204,7 +204,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q26-Pt-5Jn">
-                                                    <rect key="frame" x="256" y="4" width="44" height="44"/>
+                                                    <rect key="frame" x="256" y="7" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="HeA-Ik-o3U"/>
@@ -252,11 +252,11 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="q26-Pt-5Jn" secondAttribute="bottom" id="APs-T7-85u"/>
                                                 <constraint firstItem="q26-Pt-5Jn" firstAttribute="leading" secondItem="nYH-Mh-xrU" secondAttribute="trailing" constant="8" symbolic="YES" id="Oap-Dw-c0N"/>
                                                 <constraint firstAttribute="trailing" secondItem="q26-Pt-5Jn" secondAttribute="trailing" constant="20" symbolic="YES" id="On4-OT-2jA"/>
                                                 <constraint firstItem="nYH-Mh-xrU" firstAttribute="leading" secondItem="3Zo-kz-nN4" secondAttribute="leading" constant="44" id="S6M-r3-VUd"/>
                                                 <constraint firstAttribute="centerY" secondItem="nYH-Mh-xrU" secondAttribute="centerY" id="TXX-7c-rwb"/>
-                                                <constraint firstAttribute="centerY" secondItem="q26-Pt-5Jn" secondAttribute="centerY" id="X8i-RW-Aal"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -274,7 +274,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZz-OP-Hdy">
-                                                    <rect key="frame" x="256" y="4" width="44" height="44"/>
+                                                    <rect key="frame" x="256" y="7" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="9ga-fP-Cck"/>
@@ -319,10 +319,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="X6G-Jy-INC" firstAttribute="leading" secondItem="D3O-eu-0we" secondAttribute="leading" constant="44" id="9OQ-uC-MUe"/>
-                                                <constraint firstAttribute="centerY" secondItem="kZz-OP-Hdy" secondAttribute="centerY" id="GmR-zq-JTd"/>
                                                 <constraint firstItem="kZz-OP-Hdy" firstAttribute="leading" secondItem="X6G-Jy-INC" secondAttribute="trailing" constant="8" symbolic="YES" id="RTM-ly-yfb"/>
                                                 <constraint firstAttribute="centerY" secondItem="X6G-Jy-INC" secondAttribute="centerY" id="cMH-1F-QBR"/>
                                                 <constraint firstAttribute="trailing" secondItem="kZz-OP-Hdy" secondAttribute="trailing" constant="20" symbolic="YES" id="pd5-PW-Frv"/>
+                                                <constraint firstAttribute="bottom" secondItem="kZz-OP-Hdy" secondAttribute="bottom" id="w0r-QF-rGT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -392,6 +392,7 @@
                                                 <constraint firstItem="NVa-Fv-iEs" firstAttribute="centerY" secondItem="J0j-wk-gHy" secondAttribute="centerY" id="JNo-n1-d1c"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="44" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="changeSponsorLabel" destination="NVa-Fv-iEs" id="vgW-En-5Qq"/>
                                         </connections>
