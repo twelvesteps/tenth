@@ -12,6 +12,7 @@
 
 @interface AAPeoplePickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic) ABAddressBookRef addressBook;
 @property (weak, nonatomic) UINavigationBar* navBar;
 @property (weak, nonatomic) UITableView* tableView;
 @property (strong, nonatomic) NSArray* people;
@@ -30,6 +31,14 @@
     
     [self setupNavigationBar];
     [self setupTableView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.addressBook) {
+        CFRelease(self.addressBook);
+    }
 }
 
 #define NAV_BAR_HEIGHT      44.0f
@@ -80,7 +89,10 @@
 
 - (NSArray*)people
 {
-    if (!_people) _people = [[AAUserDataManager sharedManager] fetchPersonRecords];
+    if (!_people) {
+        _people = [self partitionPersonRecords:(__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.addressBook)];
+        
+    }
     return _people;
 }
 
@@ -90,10 +102,87 @@
     return _selectedPeople;
 }
 
+
+#pragma mark - Partition And Organize Contacts
+
+- (NSArray*)partitionPersonRecords:(NSArray*)records
+{
+    UILocalizedIndexedCollation* collation = [UILocalizedIndexedCollation currentCollation];
+    NSMutableArray* partitionedRecords = [self emptyPartitioningArrayForCollation:collation];
+    
+    // partition records
+    for (id obj in records) {
+        ABRecordRef person = (__bridge ABRecordRef)obj;
+        NSString* indexingString = [self indexingStringForPersonRecord:person];
+        
+        NSInteger section = [collation sectionForObject:indexingString collationStringSelector:@selector(self)];
+        NSMutableArray* sectionArray = partitionedRecords[section];
+        [sectionArray addObject:(__bridge_transfer id)person];
+    }
+    
+    for (NSUInteger i = 0; i < partitionedRecords.count; i++) {
+        NSArray* sortedArray = [partitionedRecords[i] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            ABRecordRef person1 = (__bridge ABRecordRef)obj1;
+            ABRecordRef person2 = (__bridge ABRecordRef)obj2;
+            return [self comparePerson:person1 withPersonInSameSection:person2];
+        }];
+        
+        [partitionedRecords setObject:sortedArray atIndexedSubscript:i];
+    }
+    
+    return [partitionedRecords copy];
+}
+
+- (NSString*)indexingStringForPersonRecord:(ABRecordRef)person
+{
+    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString* organizationName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonOrganizationProperty);
+    
+    
+    if (ABRecordCopyValue(person, kABPersonKindProperty) == kABPersonKindPerson) {
+        if (ABPersonGetSortOrdering() == kABPersonSortByLastName) {
+            if (lastName) return lastName;
+            if (firstName) return firstName;
+        } else {
+            if (firstName) return firstName;
+            if (lastName) return lastName;
+        }
+    } else {
+        if (organizationName) return organizationName;
+    }
+    
+    ALog(@"<DEBUG> Unable to determine name for contact");
+    return nil;
+}
+
+- (NSComparisonResult)comparePerson:(ABRecordRef)person withPersonInSameSection:(ABRecordRef)otherPerson
+{
+    CFComparisonResult result = ABPersonComparePeopleByName(person, otherPerson, ABPersonGetSortOrdering());
+    if (result == kCFCompareLessThan) return NSOrderedAscending;
+    else if (result == kCFCompareGreaterThan) return NSOrderedDescending;
+    else return NSOrderedSame;
+}
+
+- (NSMutableArray*)emptyPartitioningArrayForCollation:(UILocalizedIndexedCollation*)collation
+{
+    NSMutableArray* emptyArray = [[NSMutableArray alloc] initWithCapacity:[collation sectionIndexTitles].count];
+    for (NSInteger i = 0; i < [collation sectionIndexTitles].count; i++) {
+        [emptyArray addObject:[NSMutableArray array]];
+    }
+    
+    return emptyArray;
+}
+
 #pragma mark - UIEvents
 
 - (void)cancelButtonTapped:(UIBarButtonItem*)sender
 {
+    // objects have been stored in core data
+    for (Contact* contact in self.selectedPeople) {
+        [[AAUserDataManager sharedManager] removeAAContact:contact];
+    }
+    
     [self.peoplePickerDelegate peoplePickerNavigationControllerDidCancel:self];
 }
 
@@ -106,7 +195,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
+}
+
+- (NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    UILocalizedIndexedCollation* collation = [UILocalizedIndexedCollation currentCollation];
+    return [collation sectionForSectionIndexTitleAtIndex:index];
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[UILocalizedIndexedCollation currentCollation] sectionTitles][section];
+}
+
+- (ABRecordRef)personAtIndexPath:(NSIndexPath*)indexPath
+{
+    NSArray* peopleInSelectedSection = self.people[indexPath.section];
+    ABRecordRef person = (__bridge ABRecordRef)peopleInSelectedSection[indexPath.row];
+    
+    return person;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +227,7 @@
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    ABRecordRef selectedPerson = (__bridge ABRecordRef)self.people[indexPath.row];
+    ABRecordRef selectedPerson = [self personAtIndexPath:indexPath];
     Contact* selectedContact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:selectedPerson];
     
     [self.selectedPeople addObject:selectedContact];
@@ -125,16 +238,18 @@
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    ABRecordRef selectedPerson = (__bridge ABRecordRef)self.people[indexPath.row];
+    ABRecordRef selectedPerson = [self personAtIndexPath:indexPath];
     Contact* selectedContact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:selectedPerson];
     
     [self.selectedPeople removeObject:selectedContact];
     [[AAUserDataManager sharedManager] removeAAContact:selectedContact];
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.people.count;
+    NSArray* peopleInSection = self.people[section];
+    return peopleInSection.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,16 +260,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PersonCell"];
     }
     
-    ABRecordRef person = (__bridge ABRecordRef)(self.people[indexPath.row]);
-    
-#warning not localizable
-    NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-    NSString* name = firstName;
-    
-    if (lastName) {
-        name = [name stringByAppendingFormat:@" %@", lastName];
-    }
+    ABRecordRef person = [self personAtIndexPath:indexPath];
+    NSString* name = (__bridge_transfer NSString*)ABRecordCopyCompositeName(person);
     
     cell.textLabel.text = name;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
