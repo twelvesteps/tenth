@@ -8,11 +8,11 @@
 
 #import "AAPeoplePickerViewController.h"
 #import "AAUserDataManager.h"
+#import "Contact+AAAdditions.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface AAPeoplePickerViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) ABAddressBookRef addressBook;
 @property (weak, nonatomic) UINavigationBar* navBar;
 @property (weak, nonatomic) UITableView* tableView;
 @property (strong, nonatomic) NSArray* people;
@@ -33,13 +33,6 @@
     [self setupTableView];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (self.addressBook) {
-        CFRelease(self.addressBook);
-    }
-}
 
 #define NAV_BAR_HEIGHT      44.0f
 
@@ -90,7 +83,7 @@
 - (NSArray*)people
 {
     if (!_people) {
-        _people = [self partitionPersonRecords:(__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.addressBook)];
+        _people = [self partitionPersonRecords:[[AAUserDataManager sharedManager] fetchPersonRecords]];
         
     }
     return _people;
@@ -117,7 +110,7 @@
         
         NSInteger section = [collation sectionForObject:indexingString collationStringSelector:@selector(self)];
         NSMutableArray* sectionArray = partitionedRecords[section];
-        [sectionArray addObject:(__bridge_transfer id)person];
+        [sectionArray addObject:(__bridge id)person];
     }
     
     for (NSUInteger i = 0; i < partitionedRecords.count; i++) {
@@ -266,6 +259,11 @@
     cell.textLabel.text = name;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    if (![self recordShouldBeSelectable:person]) {
+        cell.userInteractionEnabled = NO;
+        cell.textLabel.enabled = NO;
+    }
+    
     if (cell.selected) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
@@ -273,6 +271,20 @@
     }
     
     return cell;
+}
+
+- (BOOL)recordShouldBeSelectable:(ABRecordRef)person
+{
+    Contact* contact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:person];
+
+    // contact has not been added to database
+    if (!contact) {
+        return YES;
+    } else {
+        DLog(@"<DEBUG> Contact's Name: %@", [contact fullName]);
+    // contact has recently been added by user, should be deselectable
+        return [self.selectedPeople containsObject:contact];
+    }
 }
 
 @end

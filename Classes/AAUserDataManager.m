@@ -107,8 +107,10 @@
             // no matches
             contact = nil;
         } else if (contacts.count == 1) {
-            // found it!
             contact = [contacts lastObject];
+            // false match, return nil
+            if (![self personRecord:person matchesContact:contact])
+                contact = nil;
         } else {
             // multiple matches, check property fields
             for (Contact* cur in contacts) {
@@ -362,8 +364,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
 
 - (NSArray*)fetchPersonRecords
 {
-    ABAddressBookRevert(self.addressBook);
-    NSArray* records = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.addressBook);
+    NSArray* records = (NSArray*)CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(self.addressBook));
 //    // filter out no name contacts
 //    NSPredicate* hasNamePredicate = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary* bindings){
 //        ABRecordRef person = (__bridge ABRecordRef)obj;
@@ -485,7 +486,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
     BOOL personPhoneMatchesContactPhone = [self personPhones:person matchContactPhones:contact];
     BOOL personEmailMatchesContactEmail = [self personEmails:person matchContactEmails:contact];
     
-    return personNameMatchesContactName || personPhoneMatchesContactPhone || personEmailMatchesContactEmail;
+    return personNameMatchesContactName && (personPhoneMatchesContactPhone || personEmailMatchesContactEmail);
 }
 
 - (BOOL)personName:(ABRecordRef)person matchesContactName:(Contact*)contact
