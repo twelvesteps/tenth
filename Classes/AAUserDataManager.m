@@ -365,41 +365,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
 - (NSArray*)fetchPersonRecords
 {
     NSArray* records = (NSArray*)CFBridgingRelease(ABAddressBookCopyArrayOfAllPeople(self.addressBook));
-//    // filter out no name contacts
-//    NSPredicate* hasNamePredicate = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary* bindings){
-//        ABRecordRef person = (__bridge ABRecordRef)obj;
-//        
-//        NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-//        
-//        return firstName != nil;
-//    }];
-//    
-//    NSArray* filteredRecords = [records filteredArrayUsingPredicate:hasNamePredicate];
-//    
-//    // sort records alphabetically
-//    NSArray* sortedRecords = [filteredRecords sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//        NSComparisonResult result = NSOrderedSame;
-//        
-//        ABRecordRef person1 = (__bridge ABRecordRef)obj1;
-//        ABRecordRef person2 = (__bridge ABRecordRef)obj2;
-//        
-//        NSString* person1LastName = (__bridge_transfer NSString*)ABRecordCopyValue(person1, kABPersonLastNameProperty);
-//        NSString* person2LastName = (__bridge_transfer NSString*)ABRecordCopyValue(person2, kABPersonLastNameProperty);
-//        
-//        if (person2LastName) {
-//            result = [person1LastName compare:person2LastName];
-//        }
-//        
-//        if (result == NSOrderedSame) {
-//            NSString* person1FirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person1, kABPersonFirstNameProperty);
-//            NSString* person2FirstName = (__bridge_transfer NSString*)ABRecordCopyValue(person2, kABPersonFirstNameProperty);
-//            
-//            // contacts without first names have been filtered
-//            result = [person1FirstName compare:person2FirstName];
-//        }
-//        
-//        return result;
-//    }];
+
     return records;
 }
 
@@ -491,15 +457,27 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
 
 - (BOOL)personName:(ABRecordRef)person matchesContactName:(Contact*)contact
 {
+#warning This method will fail for company type records
     BOOL result = NO;
     
     if (person) {
         NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
         NSString* lastName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-        result = [contact.abFirstName isEqualToString:firstName] && [contact.abLastName isEqualToString:lastName];
+        
+        result = [self name:firstName matchesName:contact.abFirstName] && [self name:lastName matchesName:contact.abLastName];
     }
     
     return result;
+}
+
+- (BOOL)name:(NSString*)name matchesName:(NSString*)otherName
+{
+    // nonexistent names count as match (E.G. Dad (null) matches Dad (null)
+    if (!name && !otherName) {
+        return YES;
+    } else {
+        return [name isEqualToString:otherName];
+    }
 }
 
 - (BOOL)personPhones:(ABRecordRef)person matchContactPhones:(Contact*)contact
@@ -580,7 +558,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
         [self syncContactPhones:contact withPersonPhones:person];
         [self syncContactEmails:contact withPersonEmails:person];
         
-        contact.needsABLink = [NSNumber numberWithBool:NO];
+        contact.needsABLink = @NO;
     }
 }
 

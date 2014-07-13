@@ -72,7 +72,7 @@
     if (!self.contact) {
         // should create a new AB contact first
         [self presentNewPersonViewControllerWithPerson:NULL];
-    } else if ([self shouldShowContactNotLinkedWarning]){
+    } else if (self.shouldShowContactNotLinkedWarning){
         [self showPersonRecordNotFoundAlert];
         self.shouldShowContactNotLinkedWarning = NO;
     } else if (self.mode == AAContactViewConrollerCallContactMode) {
@@ -317,8 +317,18 @@
 #pragma mark - ABPeoplePickerNavigationController Delegate
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.rightToolbarButton.enabled = YES;
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.mode != AAContactViewConrollerExistingContactMode) {
+            dispatch_async(dispatch_get_main_queue(), ^ {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+               self.rightToolbarButton.enabled = YES;
+            });
+        }
+    }];
+
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
@@ -400,8 +410,9 @@
 {
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
         BOOL success = NO;
-        NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", phone.number]];
-        NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone.number]];
+        NSString* cleanedNumber = [phone.number stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSURL* phoneCallPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@", cleanedNumber]];
+        NSURL* phoneCallNoPromptURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", cleanedNumber]];
         if ([[UIApplication sharedApplication] canOpenURL:phoneCallPromptURL]) {
             [AATelPromptDelegate sharedDelegate].telPromptDelegate = self;
             success = [[UIApplication sharedApplication] openURL:phoneCallPromptURL];
