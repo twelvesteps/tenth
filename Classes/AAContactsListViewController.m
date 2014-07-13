@@ -15,7 +15,7 @@
 #import "AAPopoverListView.h"
 #import "AAPeoplePickerViewController.h"
 
-@interface AAContactsListViewController () < ABPeoplePickerNavigationControllerDelegate, ABPersonViewControllerDelegate, UINavigationControllerDelegate, AAPopoverListViewDelegate, AAPeoplePickerDelegate>
+@interface AAContactsListViewController () <ABPersonViewControllerDelegate, UINavigationControllerDelegate, AAPopoverListViewDelegate, AAPeoplePickerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
@@ -135,37 +135,6 @@
     AAPeoplePickerViewController* picker = [[AAPeoplePickerViewController alloc] init];
     picker.peoplePickerDelegate = self;
     [self presentViewController:picker animated:YES completion:NULL];
-//    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
-//    picker.peoplePickerDelegate = self;
-//    
-//    [self presentViewController:picker animated:YES completion:NULL];
-}
-
-#pragma mark - Peoplepicker Delegate
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
-{
-    
-    Contact* contact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:person];
-    
-    if (!contact) { // person record not stored
-        contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    [self performSegueWithIdentifier:@"setContact" sender:contact];
-    
-    [self.tableView reloadData];
-    
-    return NO;
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
-      shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property
-                              identifier:(ABMultiValueIdentifier)identifier
-{
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-    return NO;
 }
 
 
