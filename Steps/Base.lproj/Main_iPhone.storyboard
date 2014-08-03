@@ -44,14 +44,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All Contacts" id="4lq-ag-frO">
-                        <barButtonItem key="leftBarButtonItem" image="add_btn.png" id="2Ef-0b-pFH">
+                        <barButtonItem key="leftBarButtonItem" image="phone_btn.png" id="Hal-Kl-kOj">
                             <connections>
-                                <action selector="showAddContactPopoverList:" destination="T2K-zy-WU3" id="gLO-EJ-EyK"/>
+                                <action selector="showCallContactPopoverList:" destination="T2K-zy-WU3" id="0IN-4o-gmH"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="phone_btn.png" id="mv7-Kn-K1w">
+                        <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="2Ef-0b-pFH">
                             <connections>
-                                <action selector="showCallContactPopoverList:" destination="T2K-zy-WU3" id="fvm-jZ-GEt"/>
+                                <action selector="showAddContactPopoverList:" destination="T2K-zy-WU3" id="gLO-EJ-EyK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

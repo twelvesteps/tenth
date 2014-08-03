@@ -141,7 +141,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
             endingLineNumber = "233"
-            landmarkName = "-callConactPopoverView:buttonTappedAtIndex:"
+            landmarkName = "-titleForCellAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -205,7 +205,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "299"
             endingLineNumber = "299"
-            landmarkName = "-prepareForSegue:sender:"
+            landmarkName = "-contactViewControllerShouldShowNotLinkedWarningForContact:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -220,9 +220,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "5">
+            endingLineNumber = "306">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
