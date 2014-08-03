@@ -427,7 +427,7 @@
             </objects>
             <point key="canvasLocation" x="2979" y="-473"/>
         </scene>
-        <!--Daily Inventory View Controller - Daily Inventory-->
+        <!--Daily Inventory View Controller-->
         <scene sceneID="bko-cP-d5E">
             <objects>
                 <viewController id="BUA-3q-KLa" customClass="AADailyInventoryViewController" sceneMemberID="viewController">
@@ -466,12 +466,17 @@
                             <constraint firstAttribute="bottom" secondItem="9dG-3i-1kM" secondAttribute="bottom" id="wjS-gI-gac"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Daily Inventory" id="Dyq-Ct-fbo">
-                        <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="T7O-9v-ZpK">
-                            <connections>
-                                <action selector="showAddItemPopoverView:" destination="BUA-3q-KLa" id="FcN-js-QcL"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" id="Dyq-Ct-fbo">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="d5v-ih-fya">
+                            <rect key="frame" x="20" y="7" width="281" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Inventories"/>
+                                <segment title="Amends"/>
+                                <segment title="Resentments"/>
+                            </segments>
+                        </segmentedControl>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="9dG-3i-1kM" id="c1R-1Q-eRI"/>
