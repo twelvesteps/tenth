@@ -466,10 +466,12 @@
                             <constraint firstAttribute="bottom" secondItem="9dG-3i-1kM" secondAttribute="bottom" id="wjS-gI-gac"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="Dyq-Ct-fbo">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="d5v-ih-fya">
-                            <rect key="frame" x="20" y="7" width="281" height="30"/>
+                        <barButtonItem key="leftBarButtonItem" image="search_btn.png" id="aTn-Rb-r1c"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="bar" selectedSegmentIndex="0" id="d5v-ih-fya">
+                            <rect key="frame" x="56" y="7" width="208" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Inventories"/>
@@ -477,7 +479,13 @@
                                 <segment title="Resentments"/>
                             </segments>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="Omk-Hq-Wye">
+                            <connections>
+                                <action selector="showAddItemPopoverView:" destination="BUA-3q-KLa" id="1AG-XI-aQe"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="9dG-3i-1kM" id="c1R-1Q-eRI"/>
                     </connections>
@@ -675,11 +683,11 @@
             </objects>
             <point key="canvasLocation" x="1488" y="205"/>
         </scene>
-        <!--Navigation Controller - Inventory-->
+        <!--Navigation Controller - Steps-->
         <scene sceneID="Gbn-eo-5m3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E7V-5V-Mso" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Inventory" image="stepwork_icon.png" id="lbu-u1-vUQ"/>
+                    <tabBarItem key="tabBarItem" title="Steps" image="stepwork_icon.png" id="lbu-u1-vUQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHI-Vq-rFC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -802,6 +810,7 @@
         <image name="email_btn_highlighted.png" width="23" height="19"/>
         <image name="phone_btn.png" width="23" height="22"/>
         <image name="profile_icon.png" width="22" height="22"/>
+        <image name="search_btn.png" width="23" height="23"/>
         <image name="sms_btn.png" width="22" height="21"/>
         <image name="sms_btn_highlighted.png" width="22" height="21"/>
         <image name="stepwork_icon.png" width="23" height="22"/>

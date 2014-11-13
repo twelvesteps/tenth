@@ -39,6 +39,8 @@
 		84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */; };
 		E2006252192A103C00142609 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2006251192A103C00142609 /* AddressBook.framework */; };
 		E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2006257192A11A900142609 /* AAContactsListViewController.m */; };
+		E20149A9198E032500A6B640 /* search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E20149A7198E032500A6B640 /* search_btn@2x.png */; };
+		E20149AA198E032500A6B640 /* search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = E20149A8198E032500A6B640 /* search_btn.png */; };
 		E2249460193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E224945F193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m */; };
 		E239967F19460E2000DD30C9 /* contacts_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E239967E19460E2000DD30C9 /* contacts_btn@2x.png */; };
 		E23996811946114000DD30C9 /* phone_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23996801946114000DD30C9 /* phone_btn@2x.png */; };
@@ -169,6 +171,8 @@
 		E2006251192A103C00142609 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E2006256192A11A900142609 /* AAContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactsListViewController.h; path = Classes/AAContactsListViewController.h; sourceTree = "<group>"; };
 		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
+		E20149A7198E032500A6B640 /* search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_btn@2x.png"; sourceTree = "<group>"; };
+		E20149A8198E032500A6B640 /* search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn.png; sourceTree = "<group>"; };
 		E224945E193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NBPhoneNumberUtil+AAAdditions.h"; path = "Classes/NBPhoneNumberUtil+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		E224945F193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NBPhoneNumberUtil+AAAdditions.m"; path = "Classes/NBPhoneNumberUtil+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		E239967E19460E2000DD30C9 /* contacts_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contacts_btn@2x.png"; sourceTree = "<group>"; };
@@ -528,6 +532,8 @@
 		E239969B1946BCD500DD30C9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E20149A7198E032500A6B640 /* search_btn@2x.png */,
+				E20149A8198E032500A6B640 /* search_btn.png */,
 				E23996BB1948A8BB00DD30C9 /* calendar_btn@2x.png */,
 				E23996BC1948A8BB00DD30C9 /* calendar_btn.png */,
 				E23996BD1948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png */,
@@ -743,10 +749,12 @@
 				E239969D1946BD4F00DD30C9 /* phone_btn.png in Resources */,
 				E23996AF1947E78600DD30C9 /* email_btn.png in Resources */,
 				84EBC3501915CD250063F4EA /* Images.xcassets in Resources */,
+				E20149A9198E032500A6B640 /* search_btn@2x.png in Resources */,
 				84EBC33F1915CD250063F4EA /* InfoPlist.strings in Resources */,
 				E27C2DCE1935F19A00BE2AB6 /* AA_Blue_Circle.jpg in Resources */,
 				E23996831946123400DD30C9 /* profile_icon@2x.png in Resources */,
 				E23996991946BCCE00DD30C9 /* profile_icon.png in Resources */,
+				E20149AA198E032500A6B640 /* search_btn.png in Resources */,
 				E2489FCD19377C8700861066 /* NBPhoneNumberMetadataForTesting.plist in Resources */,
 				E23996A51946F35000DD30C9 /* sms_btn.png in Resources */,
 				E2489FCC19377C8700861066 /* NBPhoneNumberMetadata.plist in Resources */,
