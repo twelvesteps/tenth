@@ -8,21 +8,25 @@
 
 #import "AAMeetingsViewController.h"
 
-@interface AAMeetingsViewController ()
+@interface AAMeetingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation AAMeetingsViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+#pragma mark - UITableView Delegate and Datasource
+
+
+
+
 
 /*
 #pragma mark - Navigation

@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import "Amend.h"
 #import "Contact.h"
+#import "Meeting.h"
 #import "Resentment.h"
 #import "DailyInventory.h"
 
@@ -42,6 +43,7 @@
 - (Amend*)createAmend;
 - (Resentment*)createResentment;
 - (Contact*)createContact;
+- (Meeting*)createMeeting;
 
 // info:    Creates a managed contact object with the properties of the address book contact already set
 // returns: A newly created managed contact or nil on error
@@ -57,6 +59,7 @@
 - (void)removeResentment:(Resentment*)resentment;
 - (void)removeDailyInventory:(DailyInventory*)dailyInventory;
 - (void)removeAAContact:(Contact*)contact;
+- (void)removeMeeting:(Meeting*)meeting;
 
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
@@ -67,12 +70,21 @@
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts;
+- (NSArray*)fetchMeetings;
 
-// info:
-// returns:
-// use:
+// info: Returns the managed contact object associated with the given person record
+// returns: A managed contact or nil if the record cannot be located
+// use: Contact* contact = [manager fetchContactForPersonRecord:person];
 - (Contact*)fetchContactForPersonRecord:(ABRecordRef)person;
+
+// info: Returns the managed contact object currently set as the user's sponsor
+// returns: The user's sponsor or nil if no sponsor has been set
+// use: Contact* sponsor = [manager fetchSponsor];
 - (Contact*)fetchSponsor;
+
+// info: Sets the given contact as the user's sponsor. Only one contact is allowed as a sponsor at a time.
+//       The user's current sponsor (if any) will have this designation removed.
+// use: [manager setContactAsSponsor:newSponsor];
 - (void)setContactAsSponsor:(Contact*)contact;
 
 
@@ -88,6 +100,10 @@
 // returns: YES if the contact was synced and no if the person record could not be found
 // use:     BOOL contactSynced = [manager syncContactWithAssociatedPersonRecord:contact];
 - (BOOL)syncContactWithAssociatedPersonRecord:(Contact*)contact;
+
+// *** USER MEETING CALENDAR ***
+//
+
 
 
 // *** MAINTAINING PERSISTENCE ***

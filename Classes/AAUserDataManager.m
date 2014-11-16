@@ -17,6 +17,7 @@
 #define AA_DAILY_INVENTORY_ITEM_NAME    @"DailyInventory"
 #define AA_RESENTMENT_ITEM_NAME         @"Resentment"
 #define AA_CONTACT_ITEM_NAME            @"Contact"
+#define AA_MEETING_ITEM_NAME            @"Meeting"
 
 @interface AAUserDataManager ()
 
@@ -92,6 +93,15 @@
                                             withPredicate:nil];
     DLog(@"Fetched %d contacts", (int)contactItems.count);
     return contactItems;
+}
+
+- (NSArray*)fetchMeetings
+{
+    NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES];
+    NSArray* meetings = [self fetchItemsForEntityName:AA_MEETING_ITEM_NAME
+                                  withSortDescriptors:@[sortByDate]
+                                        withPredicate:nil];
+    return meetings;
 }
 
 - (Contact*)fetchContactForPersonRecord:(ABRecordRef)person
@@ -254,6 +264,12 @@
     }
 }
 
+- (Meeting*)createMeeting
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
+                                         inManagedObjectContext:self.managedObjectContext];
+}
+
 - (DailyInventory*)todaysDailyInventory
 {
     NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_DAILY_INVENTORY_ITEM_NAME];
@@ -293,7 +309,6 @@
 - (void)removeResentment:(Resentment *)resentment
 {
     [self.managedObjectContext deleteObject:resentment];
-
 }
 
 - (void)removeAAContact:(Contact*)contact
@@ -309,6 +324,11 @@
     }
     
     [self.managedObjectContext deleteObject:contact];
+}
+
+- (void)removeMeeting:(Meeting *)meeting
+{
+    [self.managedObjectContext deleteObject:meeting];
 }
 
 
