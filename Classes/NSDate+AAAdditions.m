@@ -28,7 +28,7 @@
 + (NSDate*)dateForTodayWithHour:(NSUInteger)hour Minute:(NSUInteger)minute Second:(NSUInteger)second
 {
     NSCalendar* calender = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents* dateComponents = [calender components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+    NSDateComponents* dateComponents = [calender components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
 
     dateComponents.hour = hour;
     dateComponents.minute = minute;

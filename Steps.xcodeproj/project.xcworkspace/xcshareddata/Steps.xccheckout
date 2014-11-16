@@ -10,29 +10,29 @@
 	<string>Steps</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E218DC0C-5FEE-40AB-BAC8-D21D7B755984</key>
-		<string>ssh://github.com/twelvesteps/tenth.git</string>
+		<key>53B9ED29B1CF4F26138CC2622BEFE123279B9FE7</key>
+		<string>github.com:twelvesteps/tenth.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Steps.xcodeproj/project.xcworkspace</string>
+	<string>Steps.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E218DC0C-5FEE-40AB-BAC8-D21D7B755984</key>
+		<key>53B9ED29B1CF4F26138CC2622BEFE123279B9FE7</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/twelvesteps/tenth.git</string>
+	<string>github.com:twelvesteps/tenth.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E218DC0C-5FEE-40AB-BAC8-D21D7B755984</string>
+	<string>53B9ED29B1CF4F26138CC2622BEFE123279B9FE7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E218DC0C-5FEE-40AB-BAC8-D21D7B755984</string>
+			<string>53B9ED29B1CF4F26138CC2622BEFE123279B9FE7</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Steps</string>
 		</dict>

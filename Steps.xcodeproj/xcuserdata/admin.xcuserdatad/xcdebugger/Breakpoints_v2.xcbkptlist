@@ -349,7 +349,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
             endingLineNumber = "256"
-            landmarkName = "-addContactForPersonRecord:"
+            landmarkName = "-todaysDailyInventory"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
