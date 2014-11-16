@@ -30,7 +30,6 @@
 
 
 // *** CREATING OBJECTS ***
-
 // info:    creates a singleton instance that should be shared by all objects. No controller should retain a unique copy
 //          of an AAUserDataManager object
 // returns: AAUserDataManager object on success, nil on failure
@@ -61,7 +60,6 @@
 
 
 // *** ACCESSING PERSISTENT DATA OBJECTS ***
-
 // info:    Convenience methods for fetching all entities of the given type,
 // returns: An array containing the requested entity type sorted by creation date, or nil on error
 // use:     NSArray* userAmends = [manager userAmends];
@@ -93,7 +91,6 @@
 
 
 // *** MAINTAINING PERSISTENCE ***
-
 // info:    Saves the data changes to disk
 // returns: void
 // use:     [manager synchronize];

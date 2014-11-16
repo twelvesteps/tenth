@@ -12,6 +12,7 @@
 		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
 		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
+		84B9FF421A18A33D008B197D /* AAMeetingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B9FF411A18A33D008B197D /* AAMeetingsViewController.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -136,6 +137,8 @@
 		844A7B741920C62B004AD4A8 /* NSDate+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+AAAdditions.h"; path = "Classes/NSDate+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+AAAdditions.m"; path = "Classes/NSDate+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		846ABC27192BB15A00558785 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		84B9FF401A18A33D008B197D /* AAMeetingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingsViewController.h; path = Classes/AAMeetingsViewController.h; sourceTree = "<group>"; };
+		84B9FF411A18A33D008B197D /* AAMeetingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingsViewController.m; path = Classes/AAMeetingsViewController.m; sourceTree = "<group>"; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -379,6 +382,15 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
+		84B9FF3F1A18A2F8008B197D /* Meetings */ = {
+			isa = PBXGroup;
+			children = (
+				84B9FF401A18A33D008B197D /* AAMeetingsViewController.h */,
+				84B9FF411A18A33D008B197D /* AAMeetingsViewController.m */,
+			);
+			name = Meetings;
+			sourceTree = "<group>";
+		};
 		84EBC3281915CD250063F4EA = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +485,7 @@
 			children = (
 				E299567D193A0AC60053759F /* AATableViewController.h */,
 				E299567E193A0AC60053759F /* AATableViewController.m */,
+				84B9FF3F1A18A2F8008B197D /* Meetings */,
 				E2DADF881932E2FF00E934E5 /* Settings */,
 				E2006254192A117000142609 /* Contacts */,
 				E2006253192A116600142609 /* Inventory */,
@@ -831,6 +844,7 @@
 				E2EEF085192E547300CDEF0D /* Resentment.m in Sources */,
 				E2489FC41937756200861066 /* NBPhoneMetaData.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
+				84B9FF421A18A33D008B197D /* AAMeetingsViewController.m in Sources */,
 				E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */,
 				842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */,
 				E2406CAE196EA4630026C0C0 /* AAPeoplePickerViewController.m in Sources */,
