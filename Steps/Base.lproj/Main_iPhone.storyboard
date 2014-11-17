@@ -486,6 +486,7 @@
                                             <outlet property="addressLabel" destination="iz3-2k-4Ey" id="X54-zT-OSv"/>
                                             <outlet property="notesLabel" destination="aSb-ng-850" id="oFG-N1-z4V"/>
                                             <outlet property="titleLabel" destination="rjd-xl-ndw" id="3aE-U6-ONt"/>
+                                            <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting:" id="95i-zP-kvr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -507,7 +508,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="fuL-Y8-Ua8"/>
                         <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="Omk-Hq-Wye">
                             <connections>
-                                <action selector="rightToolbarItemTapped:" destination="BUA-3q-KLa" id="Nyy-il-jNT"/>
+                                <segue destination="TLg-bw-LMZ" kind="push" identifier="addMeeting" id="Mj5-VV-p2U"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -519,6 +520,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rci-gH-jY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2503" y="205"/>
+        </scene>
+        <!--Meeting View Controller-->
+        <scene sceneID="9ih-G8-O1Z">
+            <objects>
+                <viewController id="TLg-bw-LMZ" customClass="AAMeetingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YiQ-Bo-FZz"/>
+                        <viewControllerLayoutGuide type="bottom" id="0hW-hJ-KHD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="n23-H3-B6Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Lnx-dh-qfA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O0u-Hp-bWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2979" y="205"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">
@@ -674,5 +694,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="w7c-Lc-0rq"/>
+        <segue reference="Mj5-VV-p2U"/>
     </inferredMetricsTieBreakers>
 </document>

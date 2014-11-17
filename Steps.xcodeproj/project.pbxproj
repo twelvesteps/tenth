@@ -15,13 +15,13 @@
 		84B9FF421A18A33D008B197D /* AAMeetingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B9FF411A18A33D008B197D /* AAMeetingsViewController.m */; };
 		84B9FF451A18A749008B197D /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B9FF441A18A749008B197D /* Meeting.m */; };
 		84B9FF491A18AAC5008B197D /* AAMeetingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B9FF481A18AAC5008B197D /* AAMeetingTableViewCell.m */; };
+		84C59D561A19FC9500E6B64B /* AAMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C59D551A19FC9500E6B64B /* AAMeetingViewController.m */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
 		84EBC33F1915CD250063F4EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC33D1915CD250063F4EA /* InfoPlist.strings */; };
 		84EBC3411915CD250063F4EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3401915CD250063F4EA /* main.m */; };
 		84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EBC3441915CD250063F4EA /* AAAppDelegate.m */; };
-		84EBC34B1915CD250063F4EA /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC3491915CD250063F4EA /* Main_iPad.storyboard */; };
 		84EBC3501915CD250063F4EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84EBC34F1915CD250063F4EA /* Images.xcassets */; };
 		84EBC3571915CD250063F4EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
 		84EBC3581915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
@@ -145,6 +145,8 @@
 		84B9FF441A18A749008B197D /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meeting.m; sourceTree = "<group>"; };
 		84B9FF471A18AAC5008B197D /* AAMeetingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingTableViewCell.h; path = Classes/AAMeetingTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		84B9FF481A18AAC5008B197D /* AAMeetingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingTableViewCell.m; path = Classes/AAMeetingTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		84C59D541A19FC9500E6B64B /* AAMeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingViewController.h; path = Classes/AAMeetingViewController.h; sourceTree = SOURCE_ROOT; };
+		84C59D551A19FC9500E6B64B /* AAMeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingViewController.m; path = Classes/AAMeetingViewController.m; sourceTree = SOURCE_ROOT; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,7 +157,6 @@
 		84EBC3421915CD250063F4EA /* Steps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Steps-Prefix.pch"; sourceTree = "<group>"; };
 		84EBC3431915CD250063F4EA /* AAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAAppDelegate.h; sourceTree = "<group>"; };
 		84EBC3441915CD250063F4EA /* AAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAAppDelegate.m; sourceTree = "<group>"; };
-		84EBC34A1915CD250063F4EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		84EBC34F1915CD250063F4EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84EBC3551915CD250063F4EA /* StepsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StepsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3561915CD250063F4EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -385,7 +386,6 @@
 				E239969B1946BCD500DD30C9 /* Icons */,
 				E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */,
 				84FEDF1D191BD46200767CB0 /* Main_iPhone.storyboard */,
-				84EBC3491915CD250063F4EA /* Main_iPad.storyboard */,
 				84EBC34F1915CD250063F4EA /* Images.xcassets */,
 			);
 			name = Assets;
@@ -405,6 +405,8 @@
 			children = (
 				84B9FF471A18AAC5008B197D /* AAMeetingTableViewCell.h */,
 				84B9FF481A18AAC5008B197D /* AAMeetingTableViewCell.m */,
+				84C59D541A19FC9500E6B64B /* AAMeetingViewController.h */,
+				84C59D551A19FC9500E6B64B /* AAMeetingViewController.m */,
 			);
 			name = Meetings;
 			sourceTree = "<group>";
@@ -768,7 +770,6 @@
 				E23996811946114000DD30C9 /* phone_btn@2x.png in Resources */,
 				E23996C11948A8BB00DD30C9 /* calendar_btn_highlighted@2x.png in Resources */,
 				E23996A91946F77500DD30C9 /* sms_btn_highlighted.png in Resources */,
-				84EBC34B1915CD250063F4EA /* Main_iPad.storyboard in Resources */,
 				E23996B71948333700DD30C9 /* phone_btn_highlighted@2x.png in Resources */,
 				E23996B01947E78600DD30C9 /* email_btn_highlighted@2x.png in Resources */,
 				E23996C21948A8BB00DD30C9 /* calendar_btn_highlighted.png in Resources */,
@@ -849,6 +850,7 @@
 				E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */,
 				E2399690194619D900DD30C9 /* Phone+AAAdditions.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
+				84C59D561A19FC9500E6B64B /* AAMeetingViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				E299567F193A0AC60053759F /* AATableViewController.m in Sources */,
 				E23996C5194969E100DD30C9 /* AACallButton.m in Sources */,
@@ -910,14 +912,6 @@
 				84EBC33E1915CD250063F4EA /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		84EBC3491915CD250063F4EA /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				84EBC34A1915CD250063F4EA /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		84EBC35F1915CD250063F4EA /* InfoPlist.strings */ = {
