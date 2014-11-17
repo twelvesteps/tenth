@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
-@property (strong, nonatomic) NSArray* contacts;
+@property (strong, nonatomic, readonly) NSArray* contacts;
 @property (strong, nonatomic) NSIndexPath* deletedContactIndexPath;
 
 @end

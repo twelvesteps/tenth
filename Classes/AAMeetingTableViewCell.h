@@ -12,6 +12,10 @@
 @interface AAMeetingTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) Meeting* meeting;
-@property (weak, nonatomic) UILabel* notesLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notesLabel;
+
 
 @end

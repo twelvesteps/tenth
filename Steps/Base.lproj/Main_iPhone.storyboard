@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--All Contacts-->
@@ -408,7 +409,7 @@
             </objects>
             <point key="canvasLocation" x="2979" y="-473"/>
         </scene>
-        <!--Meetings View Controller-->
+        <!--Meetings-->
         <scene sceneID="bko-cP-d5E">
             <objects>
                 <viewController id="BUA-3q-KLa" customClass="AAMeetingsViewController" sceneMemberID="viewController">
@@ -420,8 +421,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-3i-1kM">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QZi-0F-1wF">
+                                <rect key="frame" x="16" y="72" width="288" height="29"/>
+                                <segments>
+                                    <segment title="SUN"/>
+                                    <segment title="MON"/>
+                                    <segment title="TUE"/>
+                                    <segment title="WED"/>
+                                    <segment title="THU"/>
+                                    <segment title="FRI"/>
+                                    <segment title="SAT"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-3i-1kM">
+                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingCell" id="Gsa-Na-0wc" customClass="AAMeetingTableViewCell">
@@ -431,44 +444,70 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSb-ng-850">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSb-ng-850">
                                                     <rect key="frame" x="237" y="11" width="46" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="Ijc-T5-VXf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-2k-4Ey">
-                                                    <rect key="frame" x="8" y="22" width="67" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-xl-ndw">
-                                                    <rect key="frame" x="8" y="0.0" width="221" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-xl-ndw">
+                                                    <rect key="frame" x="15" y="0.0" width="221" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-2k-4Ey">
+                                                    <rect key="frame" x="15" y="22" width="214" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="Rku-s4-BPz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="leading" secondItem="rjd-xl-ndw" secondAttribute="leading" id="1bA-zm-6xF"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" constant="7" id="27W-7z-B5A"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="trailing" constant="8" symbolic="YES" id="5mH-fc-h9z"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="top" id="7VX-zr-W3M"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="centerY" secondItem="By1-eJ-iU4" secondAttribute="centerY" id="9Q0-gw-3CC"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="3" id="EY2-hK-MAI"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="iz3-2k-4Ey" secondAttribute="bottom" constant="-7.5" id="Y5v-63-oQc"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="top" secondItem="rjd-xl-ndw" secondAttribute="bottom" constant="1" id="bIC-V4-a6O"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="leading" secondItem="rjd-xl-ndw" secondAttribute="trailing" constant="1" id="fPX-45-PaL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aSb-ng-850" secondAttribute="trailing" constant="-4" id="xMc-eg-q15"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="iz3-2k-4Ey" id="X54-zT-OSv"/>
+                                            <outlet property="notesLabel" destination="aSb-ng-850" id="oFG-N1-z4V"/>
+                                            <outlet property="titleLabel" destination="rjd-xl-ndw" id="3aE-U6-ONt"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9dG-3i-1kM" firstAttribute="top" secondItem="uGn-Dc-eK1" secondAttribute="top" id="48J-VE-Dn7"/>
-                            <constraint firstItem="9dG-3i-1kM" firstAttribute="leading" secondItem="uGn-Dc-eK1" secondAttribute="leading" id="8f1-oY-4Cf"/>
-                            <constraint firstAttribute="trailing" secondItem="9dG-3i-1kM" secondAttribute="trailing" id="tT1-Dp-GEf"/>
-                            <constraint firstAttribute="bottom" secondItem="9dG-3i-1kM" secondAttribute="bottom" id="wjS-gI-gac"/>
+                            <constraint firstAttribute="bottom" secondItem="9dG-3i-1kM" secondAttribute="bottom" id="40s-gf-DpB"/>
+                            <constraint firstItem="9dG-3i-1kM" firstAttribute="centerX" secondItem="QZi-0F-1wF" secondAttribute="centerX" id="Gbx-fi-1Di"/>
+                            <constraint firstAttribute="trailing" secondItem="9dG-3i-1kM" secondAttribute="trailing" id="VkY-JS-Y9y"/>
+                            <constraint firstItem="QZi-0F-1wF" firstAttribute="top" secondItem="31h-UH-yh9" secondAttribute="bottom" constant="8" symbolic="YES" id="aDs-Pv-CwQ"/>
+                            <constraint firstItem="QZi-0F-1wF" firstAttribute="leading" secondItem="uGn-Dc-eK1" secondAttribute="leadingMargin" id="hVg-S6-pE4"/>
+                            <constraint firstItem="9dG-3i-1kM" firstAttribute="leading" secondItem="uGn-Dc-eK1" secondAttribute="leading" id="pEF-Y7-2BK"/>
+                            <constraint firstItem="9dG-3i-1kM" firstAttribute="top" secondItem="QZi-0F-1wF" secondAttribute="bottom" constant="8" symbolic="YES" id="tbV-Bt-siR"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Dyq-Ct-fbo">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" title="Meetings" id="Dyq-Ct-fbo">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="fuL-Y8-Ua8"/>
                         <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="Omk-Hq-Wye">
                             <connections>
-                                <action selector="showAddItemPopoverView:" destination="BUA-3q-KLa" id="1AG-XI-aQe"/>
+                                <action selector="rightToolbarItemTapped:" destination="BUA-3q-KLa" id="Nyy-il-jNT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -69,8 +69,8 @@
 - (NSArray*)fetchUserAmends;
 - (NSArray*)fetchUserResentments;
 - (NSArray*)fetchUserDailyInventories;
-- (NSArray*)fetchUserAAContacts;
-- (NSArray*)fetchMeetings;
+- (NSArray*)fetchUserAAContacts; // sorted by last name, first name, contact ID
+- (NSArray*)fetchMeetings; // sorted by startDate
 
 // info: Returns the managed contact object associated with the given person record
 // returns: A managed contact or nil if the record cannot be located

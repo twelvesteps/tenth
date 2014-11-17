@@ -61,7 +61,7 @@
     // NOTE: Undocumented API for UIBarButtonItem
     UIView* itemView = (UIView*)[item valueForKey:@"view"];
     
-    CGPoint triangleOrigin = CGPointMake(itemView.center.x, CGRectGetMaxY(navigationBar.frame) + TRIANGLE_HEIGHT);
+    CGPoint triangleOrigin = CGPointMake(itemView.center.x, TRIANGLE_HEIGHT);
     CGFloat popoverWidth = [AAPopoverListView popoverViewWidthForTitles:titles withFont:[UIFont systemFontOfSize:DEFAULT_FONT_SIZE]];
     CGFloat popoverHeight = [AAPopoverListView popoverViewHeightForTitles:titles];
     CGFloat popoverOriginX = [AAPopoverListView popoverViewOriginXForNavigationItem:item navigationBar:navigationBar withWidth:popoverWidth];
