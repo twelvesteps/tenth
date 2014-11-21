@@ -613,6 +613,7 @@
     
     cell.contactNameLabel.text = self.contact.fullName;
     cell.sponsorLabel.hidden = ![self.contact.isSponsor boolValue];
+    
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
     
     return cell;

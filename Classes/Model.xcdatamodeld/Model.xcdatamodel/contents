@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Amend" representedClassName="Amend" syncable="YES">
         <attribute name="amends" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -17,6 +17,7 @@
         <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="isSponsor" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="needsABLink" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -69,12 +70,12 @@
     </entity>
     <elements>
         <element name="Amend" positionX="-63" positionY="-18" width="128" height="193"/>
-        <element name="Contact" positionX="88" positionY="191" width="128" height="223"/>
+        <element name="Contact" positionX="88" positionY="191" width="128" height="240"/>
         <element name="DailyInventory" positionX="52" positionY="-189" width="128" height="103"/>
         <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
         <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>
+        <element name="Meeting" positionX="63" positionY="-90" width="128" height="135"/>
         <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
         <element name="Resentment" positionX="241" positionY="0" width="128" height="163"/>
-        <element name="Meeting" positionX="63" positionY="-90" width="128" height="135"/>
     </elements>
 </model>

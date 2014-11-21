@@ -29,6 +29,15 @@
     }
 }
 
+- (UIImage*)thumbnailImage
+{
+    if (self.image) {
+        return [UIImage imageWithData:self.image];
+    } else {
+        return nil;
+    }
+}
+
 - (void)addPhoneWithTitle:(NSString *)title number:(NSString *)number
 {
     // check if phone already exists

@@ -12,6 +12,8 @@
 
 - (NSString*)fullName;
 
+- (UIImage*)thumbnailImage;
+
 - (void)addPhoneWithTitle:(NSString*)title number:(NSString*)number;
 - (void)addEmailWithTitle:(NSString*)title address:(NSString*)address;
 

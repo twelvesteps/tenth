@@ -577,6 +577,7 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
         [self syncContactID:contact withPersonID:person];
         [self syncContactPhones:contact withPersonPhones:person];
         [self syncContactEmails:contact withPersonEmails:person];
+        [self syncContactImage:contact withPersonImage:person];
         
         contact.needsABLink = @NO;
     }
@@ -660,6 +661,15 @@ void addressBookExternalChangeCallback (ABAddressBookRef addressBook,
         if (emails) {
             CFRelease(emails);
         }
+    }
+}
+
+- (void)syncContactImage:(Contact*)contact withPersonImage:(ABRecordRef)person
+{
+    if (person && contact) {
+        NSData* imageData = (__bridge_transfer NSData*)ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail);
+        
+        contact.image = imageData;
     }
 }
 
