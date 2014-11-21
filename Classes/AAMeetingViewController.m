@@ -10,28 +10,48 @@
 
 @interface AAMeetingViewController ()
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editDoneButton; // edit/done button
+
 @end
 
 @implementation AAMeetingViewController
+
+#pragma mark - Lifecycle and Properties
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UI Events
+
+
+#pragma mark - UITableview Delegate and Datasource
+
+#define NAME_CELL_SECTION       0
+#define LOCATION_CELL_SECTION   1
+#define DAY_OF_WEEK_SECTION     2
+#define TIME_OF_DAY_SECTION     3
+
+#define NAME_REUSE_ID       @"MeetingNameCell"
+#define LOCATION_REUSE_ID   @"MeetingLocationCell"
+#define WEEKDAY_REUSE_ID    @"MeetingDayOfWeekCell"
+#define TIME_REUSE_ID       @"MeetingTimeOfDayCell"
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
 }
-*/
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 
 @end

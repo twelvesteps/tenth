@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSArray* meetings; // an array of arrays, sorted by start date
 
+
 @end
 
 @implementation AAMeetingsViewController
