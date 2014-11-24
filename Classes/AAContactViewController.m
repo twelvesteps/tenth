@@ -472,8 +472,8 @@
 #define CONTACT_SOBRIETY_DATE_SECTION   3
 #define CONTACT_SET_SPONSOR_SECTION     4
 
-#define CONTACT_NAME_CELL_HEIGHT        102.0f
-#define CONTACT_PROPERTY_CELL_HEIGHT    52.0f
+#define CONTACT_NAME_CELL_HEIGHT        72.0f
+#define CONTACT_PROPERTY_CELL_HEIGHT    44.0f
 #define ADD_PROPERTY_CELL_HEIGHT        44.0f
 #define DATE_PICKER_HEIGHT              216.0f
 
@@ -613,9 +613,7 @@
     
     cell.contactNameLabel.text = self.contact.fullName;
     cell.sponsorLabel.hidden = ![self.contact.isSponsor boolValue];
-    
-    cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
-    
+        
     return cell;
 }
 
@@ -679,20 +677,16 @@
 
 - (UITableViewCell*)sobrietyDateCell
 {
-    if (self.selectDateMode) {
+    if (self.selectDateMode || !self.contact.sobrietyDate) {
         return [self selectSobrietyDateCell];
     } else {
-        if (self.contact.sobrietyDate) {
-            AAContactSobrietyDateTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SobrietyDateCell"];
-            
-            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"MMM dd yyyy" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
-            cell.descriptionLabel.text = [formatter stringFromDate:self.contact.sobrietyDate];
-            
-            return cell;
-        } else {
-            return [self selectSobrietyDateCell];
-        }
+        AAContactSobrietyDateTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SobrietyDateCell"];
+        
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"MMM dd yyyy" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
+        cell.descriptionLabel.text = [formatter stringFromDate:self.contact.sobrietyDate];
+        
+        return cell;
     }
 }
 
