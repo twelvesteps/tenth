@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAContactsListViewController.m"
-            timestampString = "422324997.57368"
+            timestampString = "438518730.427797"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "-showPopoverView:"
             landmarkType = "5">
          </BreakpointContent>

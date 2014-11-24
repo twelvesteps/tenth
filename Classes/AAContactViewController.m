@@ -613,6 +613,8 @@
     
     cell.contactNameLabel.text = self.contact.fullName;
     cell.sponsorLabel.hidden = ![self.contact.isSponsor boolValue];
+    
+    cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.bounds.size.width, 0.0f, 0.0f);
         
     return cell;
 }
@@ -633,7 +635,7 @@
 
     // last item in phones should have a separator
     if (indexPath.row != self.contact.phones.count - 1) {
-        cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
+        cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.bounds.size.width, 0.0f, 0.0f);
     }
     
     return cell;

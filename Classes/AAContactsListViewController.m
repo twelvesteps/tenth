@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) AAPopoverListView* popoverView;
-@property (strong, nonatomic, readonly) NSArray* contacts;
+@property (strong, nonatomic) NSArray* contacts;
 @property (strong, nonatomic) NSIndexPath* deletedContactIndexPath;
 
 @end
@@ -38,6 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self reloadContacts];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -52,7 +53,16 @@
 
 - (NSArray*)contacts
 {
-    return [[AAUserDataManager sharedManager] fetchUserAAContacts];
+    if (!_contacts) {
+        [self reloadContacts];
+    }
+    
+    return _contacts;
+}
+
+- (void)reloadContacts
+{
+    _contacts = [[AAUserDataManager sharedManager] fetchUserAAContacts];
 }
 
 
@@ -243,6 +253,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.deletedContactIndexPath = indexPath;
         [[AAUserDataManager sharedManager] removeAAContact:self.contacts[indexPath.row]];
+        [self reloadContacts];
         [self.tableView reloadData];
     }
 }
