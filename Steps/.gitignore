@@ -1,6 +1,2 @@
-# ignore pngs
-*.png
-# ignore jpgs
-*.jpg
-# ignore vector files
-*.eps
+#ignore .DS_STORE
+*.DS_Store
