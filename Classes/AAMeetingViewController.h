@@ -7,7 +7,10 @@
 //
 
 #import "AATableViewController.h"
+#import "Meeting.h"
 
 @interface AAMeetingViewController : AATableViewController
+
+@property (nonatomic, strong) Meeting* meeting;
 
 @end

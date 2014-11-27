@@ -462,7 +462,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Edit" id="fuL-Y8-Ua8"/>
                         <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="Omk-Hq-Wye">
                             <connections>
-                                <segue destination="TLg-bw-LMZ" kind="push" identifier="addMeeting" id="Mj5-VV-p2U"/>
+                                <segue destination="TLg-bw-LMZ" kind="push" identifier="newMeeting" id="Mj5-VV-p2U"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

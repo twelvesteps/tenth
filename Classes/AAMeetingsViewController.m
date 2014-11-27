@@ -7,6 +7,7 @@
 //
 
 #import "AAMeetingsViewController.h"
+#import "AAMeetingViewController.h"
 #import "AAUserDataManager.h"
 #import "AAMeetingTableViewCell.h"
 
@@ -68,15 +69,6 @@
 
 #pragma mark - UI Events
 
-- (IBAction)rightToolbarItemTapped:(UIBarButtonItem *)sender
-{
-    Meeting* meeting = [[AAUserDataManager sharedManager] createMeeting];
-    meeting.title = @"New Meeting";
-    meeting.startDate = [NSDate date];
-    meeting.address = @"Here";
-    
-    [self.tableView reloadData];
-}
 
 
 #pragma mark - UITableView Delegate and Datasource
@@ -110,14 +102,27 @@
     return sectionMeetings[indexPath.row];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#define NEW_MEETING_SEGUE_IDENTIFIER    @"newMeeting"
+#define MEETING_DETAIL_SEGUE_IDENTIFIER @"setMeeting:"
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    if ([segue.identifier isEqualToString:NEW_MEETING_SEGUE_IDENTIFIER]) {
+    // The "+" button was tapped, create a new meeting
+    } else if ([segue.identifier isEqualToString:MEETING_DETAIL_SEGUE_IDENTIFIER]) {
+    // A meeting cell was tapped, display the meeting
+        if ([segue.destinationViewController isKindOfClass:[AAMeetingViewController class]]) {
+            AAMeetingViewController* aamvc = (AAMeetingViewController*)segue.destinationViewController;
+            if ([sender isKindOfClass:[AAMeetingTableViewCell class]]) {
+                AAMeetingTableViewCell* cell = (AAMeetingTableViewCell*)sender;
+                aamvc.meeting = cell.meeting;
+            }
+        }
+    }
 }
-*/
+
 
 @end
