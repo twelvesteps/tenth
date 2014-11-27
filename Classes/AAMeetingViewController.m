@@ -58,6 +58,16 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.editing) {
+        return [self editingCellForRowAtIndexPath:indexPath];
+    } else {
+        return [self standardCellForRowAtIndexPath:indexPath];
+    }
+}
+
+#pragma mark Standard Cells
+- (UITableViewCell*)standardCellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
     switch (indexPath.section) {
         case NAME_CELL_SECTION:
             return [self meetingNameCell];
@@ -100,6 +110,14 @@
 }
 
 - (AAMeetingDurationTableViewCell*)meetingDurationCell
+{
+    return nil;
+}
+
+
+#pragma mark Editing Cells
+
+- (UITableViewCell*)editingCellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     return nil;
 }
