@@ -2,20 +2,21 @@
 //  Meeting.m
 //  Steps
 //
-//  Created by Tom on 11/16/14.
+//  Created by Tom on 11/28/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
 #import "Meeting.h"
+#import "MeetingType.h"
 
 
 @implementation Meeting
 
-@dynamic title;
 @dynamic address;
-@dynamic types;
-@dynamic startDate;
 @dynamic duration;
 @dynamic isChairPerson;
+@dynamic startDate;
+@dynamic title;
+@dynamic types;
 
 @end

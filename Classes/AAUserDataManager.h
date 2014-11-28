@@ -44,6 +44,7 @@
 - (Resentment*)createResentment;
 - (Contact*)createContact;
 - (Meeting*)createMeeting;
+- (MeetingType*)createMeetingType;
 
 // info:    Creates a managed contact object with the properties of the address book contact already set
 // returns: A newly created managed contact or nil on error
@@ -71,6 +72,7 @@
 - (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts; // sorted by last name, first name, contact ID
 - (NSArray*)fetchMeetings; // sorted by startDate
+- (NSArray*)fetchMeetingTypes; // sorted by popularity
 
 // info: Returns the managed contact object associated with the given person record
 // returns: A managed contact or nil if the record cannot be located
