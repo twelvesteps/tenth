@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface AAEditMeetingDescriptionCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelWidthConstraint;
 
 @end

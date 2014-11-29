@@ -576,8 +576,16 @@ Details</string>
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
                                     <navigationItem id="cGp-oP-l1s">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="rVs-jp-HGi"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Add" id="8eh-5q-aRQ"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="rVs-jp-HGi">
+                                            <connections>
+                                                <action selector="leftToolbarButtonTapped:" destination="3oA-VT-Jsh" id="QLU-Yo-gVg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Add" id="8eh-5q-aRQ">
+                                            <connections>
+                                                <action selector="rightToolbarButtonTapped:" destination="3oA-VT-Jsh" id="eUv-h8-yPD"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -585,7 +593,7 @@ Details</string>
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInputCell" id="ypa-KT-cEA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInputCell" id="ypa-KT-cEA" customClass="AAEditMeetingTextInputCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypa-KT-cEA" id="l92-U2-Tv0">
@@ -604,8 +612,11 @@ Details</string>
                                                 <constraint firstItem="ihA-ke-k3D" firstAttribute="leading" secondItem="l92-U2-Tv0" secondAttribute="leadingMargin" constant="8" id="g6y-Ce-o3g"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="ihA-ke-k3D" id="BUk-Bm-Ol0"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescriptionCell" id="y7t-IL-0bf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescriptionCell" id="y7t-IL-0bf" customClass="AAEditMeetingDescriptionCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y7t-IL-0bf" id="Vo0-a8-4Nm">
@@ -637,23 +648,14 @@ Details</string>
                                                 <constraint firstItem="Ygr-7i-D3a" firstAttribute="leading" secondItem="Vo0-a8-4Nm" secondAttribute="leadingMargin" constant="8" id="qAo-zi-wq1"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="BlC-dE-3Ga" id="aX6-Qo-r0H"/>
+                                            <outlet property="infoLabel" destination="BlC-dE-3Ga" id="UHR-C7-xhs"/>
+                                            <outlet property="titleLabel" destination="Ygr-7i-D3a" id="VFW-OF-yN7"/>
+                                            <outlet property="titleLabelWidthConstraint" destination="l7z-d7-ftO" id="JmF-5e-jLR"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddAlertCell" id="NyS-xD-pcb">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NyS-xD-pcb" id="3uH-xW-Q2U">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Alert" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIV-Zw-595">
-                                                    <rect key="frame" x="16" y="11" width="72" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeInputCell" rowHeight="162" id="l65-BV-tMl">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeInputCell" rowHeight="162" id="l65-BV-tMl" customClass="AAEditMeetingDateTimeInputCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l65-BV-tMl" id="g31-qM-m5L">
@@ -671,11 +673,14 @@ Details</string>
                                                 <constraint firstItem="ZrB-ZP-RzQ" firstAttribute="leading" secondItem="g31-qM-m5L" secondAttribute="leading" id="rpD-IT-hj0"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="picker" destination="ZrB-ZP-RzQ" id="f3X-ig-bvO"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2d5-Fd-02S" secondAttribute="trailing" id="GIm-df-Fay"/>
                             <constraint firstItem="2d5-Fd-02S" firstAttribute="top" secondItem="ph2-ih-5kO" secondAttribute="bottom" id="XcX-Ke-9Vk"/>
@@ -684,6 +689,10 @@ Details</string>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Hj8-eg-VRy"/>
+                    <connections>
+                        <outlet property="rightToolbarItem" destination="8eh-5q-aRQ" id="Wad-1X-Sgk"/>
+                        <outlet property="tableView" destination="FX1-YW-PmZ" id="s1T-tZ-8H9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QGf-xV-QtQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

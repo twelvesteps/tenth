@@ -10,4 +10,6 @@
 
 @interface AAEditMeetingDateTimeInputCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *picker;
+
 @end

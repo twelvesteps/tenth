@@ -10,4 +10,6 @@
 
 @interface AAEditMeetingTextInputCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
 @end
