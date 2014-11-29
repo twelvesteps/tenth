@@ -18,6 +18,7 @@
 #define AA_RESENTMENT_ITEM_NAME         @"Resentment"
 #define AA_CONTACT_ITEM_NAME            @"Contact"
 #define AA_MEETING_ITEM_NAME            @"Meeting"
+#define AA_MEETING_TYPE_ITEM_NAME       @"MeetingType"
 
 @interface AAUserDataManager ()
 
@@ -102,6 +103,15 @@
                                   withSortDescriptors:@[sortByDate]
                                         withPredicate:nil];
     return meetings;
+}
+
+- (NSArray*)fetchMeetingTypes
+{
+    NSSortDescriptor* sortByUsage = [NSSortDescriptor sortDescriptorWithKey:@"meetings.count" ascending:NO];
+    NSArray* meetingTypes = [self fetchItemsForEntityName:AA_MEETING_TYPE_ITEM_NAME
+                                      withSortDescriptors:@[sortByUsage]
+                                            withPredicate:nil];
+    return meetingTypes;
 }
 
 - (Contact*)fetchContactForPersonRecord:(ABRecordRef)person
@@ -267,6 +277,12 @@
 - (Meeting*)createMeeting
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
+                                         inManagedObjectContext:self.managedObjectContext];
+}
+
+- (MeetingType*)createMeetingType
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_TYPE_ITEM_NAME
                                          inManagedObjectContext:self.managedObjectContext];
 }
 

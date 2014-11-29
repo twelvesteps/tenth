@@ -29,7 +29,6 @@
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
-
 // *** CREATING OBJECTS ***
 // info:    creates a singleton instance that should be shared by all objects. No controller should retain a unique copy
 //          of an AAUserDataManager object

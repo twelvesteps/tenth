@@ -91,7 +91,7 @@
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.titleLabel.text = meeting.title;
     cell.addressLabel.text = meeting.address;
-    cell.notesLabel.text = meeting.types;
+    
     
     return cell;
 }
