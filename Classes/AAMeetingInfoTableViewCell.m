@@ -264,22 +264,22 @@
 
 + (UIFont*)fontForMeetingLabel
 {
-    return [UIFont boldSystemFontOfSize:19.0f];
+    return [UIFont boldSystemFontOfSize:17.0f];
 }
 
 + (UIFont*)fontForLocationLabel
 {
-    return [UIFont boldSystemFontOfSize:17.0f];
+    return [UIFont boldSystemFontOfSize:15.0f];
 }
 
 + (UIFont*)fontForChairPersonLabel
 {
-    return [UIFont systemFontOfSize:17.0f];
+    return [UIFont systemFontOfSize:15.0f];
 }
 
 + (UIFont*)fontForDetailsTextView
 {
-    return [UIFont systemFontOfSize:15.0f];
+    return [UIFont systemFontOfSize:13.0f];
 }
 
 @end

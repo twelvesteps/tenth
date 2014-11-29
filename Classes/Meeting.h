@@ -14,9 +14,9 @@
 @interface Meeting : NSManagedObject
 
 @property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSDate * duration;
+@property (nonatomic, retain) NSDate * duration; // hours and minutes
 @property (nonatomic, retain) NSNumber * isChairPerson;
-@property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSDate * startDate; // contains weekday and time information only
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet *types;
 @end
