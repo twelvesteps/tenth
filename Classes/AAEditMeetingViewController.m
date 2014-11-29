@@ -7,8 +7,10 @@
 //
 
 #import "AAEditMeetingViewController.h"
+#import "AAEditMeetingDescriptionCell.h"
 #import "AAEditMeetingTextInputCell.h"
 #import "AAEditMeetingDateTimeInputCell.h"
+#import "AAEditMeetingWeekdayPickerCell.h"
 
 
 @interface AAEditMeetingViewController()
@@ -17,7 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic) BOOL dateTimePickerVisible;
+@property (nonatomic) BOOL dateTimePickerHidden;
+@property (strong, nonatomic) NSIndexPath* dateTimePickerIndexPath;
 
 @end
 
@@ -37,6 +40,11 @@
     }
 }
 
+- (BOOL)dateTimePickerHidden
+{
+    return !self.dateTimePickerIndexPath;
+}
+
 #pragma mark - UI Events
 
 - (IBAction)leftToolbarButtonTapped:(UIBarButtonItem *)sender
@@ -52,9 +60,10 @@
 
 #pragma mark - Tableview Delegate and DataSource
 
-#define TEXT_INPUT_CELL_REUSE_ID       @"TextInputCell"
-#define DESCRIPTION_CELL_REUSE_ID      @"DescriptionCell"
-#define DATE_TIME_PICKER_CELL_REUSE_ID @"TimeInputCell"
+#define TEXT_INPUT_CELL_REUSE_ID        @"TextInputCell"
+#define DESCRIPTION_CELL_REUSE_ID       @"DescriptionCell"
+#define DATE_TIME_PICKER_CELL_REUSE_ID  @"TimeInputCell"
+#define WEEKDAY_PICKER_CELL_REUSE_ID    @"WeekdayInputCell"
 
 #define TITLE_LOCATION_SECTION_INDEX    0
 #define DATE_TIME_SECTION_INDEX         1
@@ -71,10 +80,10 @@
             return 2;
             
         case DATE_TIME_SECTION_INDEX:
-            if (self.dateTimePickerVisible) {
-                return 4;
-            } else {
+            if (self.dateTimePickerHidden) {
                 return 3;
+            } else {
+                return 4;
             }
             
         default:
@@ -82,13 +91,15 @@
     }
 }
 
-#define HEADER_VIEW_HEIGHT  30.0f
+#define HEADER_VIEW_HEIGHT  22.0f
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     CGRect headerViewFrame = CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, HEADER_VIEW_HEIGHT);
     
     UIView* headerView = [[UIView alloc] initWithFrame:headerViewFrame];
+    headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
     return headerView;
 }
 
@@ -124,7 +135,30 @@
 
 - (UITableViewCell*)dateTimeCellForIndexPath:(NSIndexPath*)indexPath
 {
+    if (self.dateTimePickerHidden ||
+        ![self.dateTimePickerIndexPath isEqual:indexPath]) {
+        return [self dateTimeDescriptionCellForIndexPath:indexPath];
+    } else {
+        return [self dateTimeInputCellForIndexPath:indexPath];
+    }
+}
+
+#define WEEKDAY_ROW_INDEX       0
+#define START_TIME_ROW_INDEX    1
+#define DURATION_ROW_INDEX      2
+
+- (UITableViewCell*)dateTimeDescriptionCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAEditMeetingDescriptionCell* cell = [self.tableView dequeueReusableCellWithIdentifier:DESCRIPTION_CELL_REUSE_ID];
     
+    
+}
+
+- (UITableViewCell*)dateTimeInputCellForIndexPath:(NSIndexPath*)indexPath
+{
+    if (indexPath.row == WEEKDAY_ROW_INDEX + 1) {
+        AAEditMeetingWeekdayPickerCell* cell = [self.tableView dequeueReusableCellWithIdentifier:WEEKDAY_PICKER_CELL_REUSE_ID];
+    }
 }
 
 

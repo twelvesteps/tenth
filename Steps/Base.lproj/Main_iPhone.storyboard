@@ -677,10 +677,25 @@ Details</string>
                                             <outlet property="picker" destination="ZrB-ZP-RzQ" id="f3X-ig-bvO"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeekdayInputCell" rowHeight="162" id="qgF-yc-tLv" customClass="AAEditMeetingWeekdayPickerCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qgF-yc-tLv" id="QvM-ZV-Frg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXb-eQ-OTX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
+                                                </pickerView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="picker" destination="bXb-eQ-OTX" id="iqJ-Jo-Jfw"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2d5-Fd-02S" secondAttribute="trailing" id="GIm-df-Fay"/>
                             <constraint firstItem="2d5-Fd-02S" firstAttribute="top" secondItem="ph2-ih-5kO" secondAttribute="bottom" id="XcX-Ke-9Vk"/>
