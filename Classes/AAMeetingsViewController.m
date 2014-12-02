@@ -10,8 +10,9 @@
 #import "AAMeetingViewController.h"
 #import "AAUserDataManager.h"
 #import "AAMeetingTableViewCell.h"
+#import "AAEditMeetingViewController.h"
 
-@interface AAMeetingsViewController ()
+@interface AAMeetingsViewController () <AAEditMeetingViewControllerDelegate>
 
 @property (strong, nonatomic) NSArray* meetings; // an array of arrays, sorted by start date
 
@@ -103,6 +104,19 @@
 }
 
 
+#pragma mark - Edit Meeting View Controller
+
+- (void)viewControllerDidCancel:(AAEditMeetingViewController *)vc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewControllerDidFinish:(AAEditMeetingViewController *)vc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Navigation
 
 #define NEW_MEETING_SEGUE_IDENTIFIER    @"newMeeting"
@@ -112,6 +126,10 @@
 
     if ([segue.identifier isEqualToString:NEW_MEETING_SEGUE_IDENTIFIER]) {
     // The "+" button was tapped, create a new meeting
+        if ([segue.destinationViewController isKindOfClass:[AAEditMeetingViewController class]]) {
+            AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)segue.destinationViewController;
+            aaemvc.delegate = self;
+        }
     } else if ([segue.identifier isEqualToString:MEETING_DETAIL_SEGUE_IDENTIFIER]) {
     // A meeting cell was tapped, display the meeting
         if ([segue.destinationViewController isKindOfClass:[AAMeetingViewController class]]) {

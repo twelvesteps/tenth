@@ -21,4 +21,9 @@
     return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
++ (UIColor*)stepsBlueTextColor
+{
+    return [UIColor colorWithRed:11.0f/255.0f green:96.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
+}
+
 @end

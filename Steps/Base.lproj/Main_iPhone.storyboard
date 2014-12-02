@@ -462,7 +462,7 @@
                     <navigationItem key="navigationItem" title="Calendar" id="Dyq-Ct-fbo">
                         <barButtonItem key="rightBarButtonItem" image="add_btn.png" id="Omk-Hq-Wye">
                             <connections>
-                                <segue destination="3oA-VT-Jsh" kind="modal" id="YOC-rY-wGw"/>
+                                <segue destination="3oA-VT-Jsh" kind="modal" identifier="newMeeting" id="YOC-rY-wGw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -589,116 +589,47 @@ Details</string>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FX1-YW-PmZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FX1-YW-PmZ">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInputCell" id="ypa-KT-cEA" customClass="AAEditMeetingTextInputCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextInputCell" rowHeight="32" id="ypa-KT-cEA" customClass="AAEditMeetingTextInputCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypa-KT-cEA" id="l92-U2-Tv0">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title/Location" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ihA-ke-k3D">
-                                                    <rect key="frame" x="16" y="7" width="296" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title/Location" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ihA-ke-k3D">
+                                                    <rect key="frame" x="14" y="1" width="298" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="e2Y-Dd-Uu3"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ihA-ke-k3D" secondAttribute="bottom" constant="-1.5" id="89W-xB-1ff"/>
-                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="trailing" secondItem="l92-U2-Tv0" secondAttribute="trailingMargin" id="FLf-PH-CTJ"/>
-                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="top" secondItem="l92-U2-Tv0" secondAttribute="topMargin" constant="-1" id="XYx-59-MCc"/>
-                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="leading" secondItem="l92-U2-Tv0" secondAttribute="leadingMargin" constant="8" id="g6y-Ce-o3g"/>
+                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="leading" secondItem="l92-U2-Tv0" secondAttribute="leadingMargin" constant="6" id="acT-6L-xhY"/>
+                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="trailing" secondItem="l92-U2-Tv0" secondAttribute="trailingMargin" id="lBK-44-cox"/>
+                                                <constraint firstAttribute="centerY" secondItem="ihA-ke-k3D" secondAttribute="centerY" id="wPm-aa-JqD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="textField" destination="ihA-ke-k3D" id="BUk-Bm-Ol0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescriptionCell" id="y7t-IL-0bf" customClass="AAEditMeetingDescriptionCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y7t-IL-0bf" id="Vo0-a8-4Nm">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ygr-7i-D3a">
-                                                    <rect key="frame" x="16" y="11" width="79" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="79" id="l7z-d7-ftO"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date/Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlC-dE-3Ga">
-                                                    <rect key="frame" x="240" y="11" width="71" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="BlC-dE-3Ga" secondAttribute="trailing" constant="1" id="5sN-qW-ZC2"/>
-                                                <constraint firstItem="BlC-dE-3Ga" firstAttribute="centerY" secondItem="Vo0-a8-4Nm" secondAttribute="centerY" id="PY0-gA-Hkk"/>
-                                                <constraint firstItem="BlC-dE-3Ga" firstAttribute="firstBaseline" secondItem="Ygr-7i-D3a" secondAttribute="firstBaseline" id="QAB-Uc-RPR"/>
-                                                <constraint firstItem="Ygr-7i-D3a" firstAttribute="top" secondItem="Vo0-a8-4Nm" secondAttribute="topMargin" constant="3" id="S49-26-yZ9"/>
-                                                <constraint firstItem="BlC-dE-3Ga" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ygr-7i-D3a" secondAttribute="trailing" constant="8" id="Uvw-L9-lad"/>
-                                                <constraint firstItem="BlC-dE-3Ga" firstAttribute="baseline" secondItem="Ygr-7i-D3a" secondAttribute="baseline" id="feK-5G-qOT"/>
-                                                <constraint firstItem="Ygr-7i-D3a" firstAttribute="leading" secondItem="Vo0-a8-4Nm" secondAttribute="leadingMargin" constant="8" id="qAo-zi-wq1"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="descriptionLabel" destination="BlC-dE-3Ga" id="aX6-Qo-r0H"/>
-                                            <outlet property="infoLabel" destination="BlC-dE-3Ga" id="UHR-C7-xhs"/>
-                                            <outlet property="titleLabel" destination="Ygr-7i-D3a" id="VFW-OF-yN7"/>
-                                            <outlet property="titleLabelWidthConstraint" destination="l7z-d7-ftO" id="JmF-5e-jLR"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeInputCell" rowHeight="162" id="l65-BV-tMl" customClass="AAEditMeetingDateTimeInputCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l65-BV-tMl" id="g31-qM-m5L">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZrB-ZP-RzQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="438947535.66049403">
-                                                        <!--2014-11-29 09:52:15 +0000-->
-                                                    </date>
-                                                </datePicker>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ZrB-ZP-RzQ" firstAttribute="top" secondItem="g31-qM-m5L" secondAttribute="top" id="3qr-80-Z9D"/>
-                                                <constraint firstItem="ZrB-ZP-RzQ" firstAttribute="leading" secondItem="g31-qM-m5L" secondAttribute="leading" id="rpD-IT-hj0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="picker" destination="ZrB-ZP-RzQ" id="f3X-ig-bvO"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeekdayInputCell" rowHeight="162" id="qgF-yc-tLv" customClass="AAEditMeetingWeekdayPickerCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qgF-yc-tLv" id="QvM-ZV-Frg">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXb-eQ-OTX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
-                                                </pickerView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="picker" destination="bXb-eQ-OTX" id="iqJ-Jo-Jfw"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="FX1-YW-PmZ" firstAttribute="trailing" secondItem="2d5-Fd-02S" secondAttribute="trailing" id="70I-PY-xOn"/>
                             <constraint firstAttribute="trailing" secondItem="2d5-Fd-02S" secondAttribute="trailing" id="GIm-df-Fay"/>
                             <constraint firstItem="2d5-Fd-02S" firstAttribute="top" secondItem="ph2-ih-5kO" secondAttribute="bottom" id="XcX-Ke-9Vk"/>
+                            <constraint firstItem="FX1-YW-PmZ" firstAttribute="top" secondItem="2d5-Fd-02S" secondAttribute="bottom" id="aVV-lX-Q3F"/>
+                            <constraint firstItem="FX1-YW-PmZ" firstAttribute="leading" secondItem="2d5-Fd-02S" secondAttribute="leading" id="bhk-4i-5fO"/>
+                            <constraint firstItem="FX1-YW-PmZ" firstAttribute="bottom" secondItem="BvM-TD-dx6" secondAttribute="top" id="fhA-at-vCE"/>
                             <constraint firstItem="2d5-Fd-02S" firstAttribute="leading" secondItem="Az9-6g-PYd" secondAttribute="leading" id="oT5-ag-Mxj"/>
                         </constraints>
                     </view>

@@ -9,6 +9,7 @@
 #import "AAMeetingInfoTableViewCell.h"
 #import "MeetingType.h"
 #import "Meeting+AAAdditions.h"
+#import "UIFont+AAAdditions.h"
 
 @interface AAMeetingInfoTableViewCell()
 
@@ -103,13 +104,13 @@
     NSArray* constraints = [self layoutConstraintsForMeetingTitleLabel];
     constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForLabel:self.meetingLocationLabel
                                                                                    belowView:self.meetingTitleLabel
-                                                                                        font:[AAMeetingInfoTableViewCell fontForLocationLabel]]];
+                                                                                        font:[UIFont stepsSubheaderFont]]];
     constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForLabel:self.meetingChairpersonLabel
                                                                                    belowView:self.meetingLocationLabel
-                                                                                        font:[AAMeetingInfoTableViewCell fontForChairPersonLabel]]];
+                                                                                        font:[UIFont stepsCaptionFont]]];
     constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForTextView:self.meetingDetailTextView
                                                                                       belowView:self.meetingChairpersonLabel
-                                                                                           font:[AAMeetingInfoTableViewCell fontForDetailsTextView]]];
+                                                                                           font:[UIFont stepsBodyFont]]];
     
     return constraints;
 }
@@ -226,10 +227,10 @@
     CGFloat height = TOP_EDGE_PADDING + BOTTOM_EDGE_PADDING;
     CGSize contentBoundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:cell];
     
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingTitleLabel boundingSize:contentBoundingSize font:[AAMeetingInfoTableViewCell fontForMeetingLabel]];
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingLocationLabel boundingSize:contentBoundingSize font:[AAMeetingInfoTableViewCell fontForLocationLabel]];
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingChairpersonLabel boundingSize:contentBoundingSize font:[AAMeetingInfoTableViewCell fontForChairPersonLabel]];
-    height += [AAMeetingInfoTableViewCell heightForTextView:cell.meetingDetailTextView boundingSize:contentBoundingSize font:[AAMeetingInfoTableViewCell fontForDetailsTextView]];
+    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingTitleLabel boundingSize:contentBoundingSize font:[UIFont stepsHeaderFont]];
+    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingLocationLabel boundingSize:contentBoundingSize font:[UIFont stepsSubheaderFont]];
+    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingChairpersonLabel boundingSize:contentBoundingSize font:[UIFont stepsCaptionFont]];
+    height += [AAMeetingInfoTableViewCell heightForTextView:cell.meetingDetailTextView boundingSize:contentBoundingSize font:[UIFont stepsBodyFont]];
     
     return height;
 }
@@ -258,28 +259,6 @@
 {
     CGSize boundingSize = CGSizeMake(cell.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX);
     return boundingSize;
-}
-
-#pragma mark Font
-
-+ (UIFont*)fontForMeetingLabel
-{
-    return [UIFont boldSystemFontOfSize:17.0f];
-}
-
-+ (UIFont*)fontForLocationLabel
-{
-    return [UIFont boldSystemFontOfSize:15.0f];
-}
-
-+ (UIFont*)fontForChairPersonLabel
-{
-    return [UIFont systemFontOfSize:15.0f];
-}
-
-+ (UIFont*)fontForDetailsTextView
-{
-    return [UIFont systemFontOfSize:13.0f];
 }
 
 @end

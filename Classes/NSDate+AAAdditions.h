@@ -14,4 +14,9 @@
 + (NSDate*)dateForEndOfToday;
 + (BOOL)dateIsSameDayAsToday:(NSDate*)date;
 
++ (NSDate*)oneHour;
+
+- (NSInteger)weekday;
+- (NSDate*)nearestHalfHour;
+
 @end

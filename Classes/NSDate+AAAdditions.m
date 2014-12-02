@@ -37,4 +37,41 @@
     return [calender dateFromComponents:dateComponents];
 }
 
++ (NSDate*)oneHour
+{
+    NSCalendar* calender = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [[NSDateComponents alloc] init];
+    
+    dateComponents.hour = 1;
+    
+    return [calender dateFromComponents:dateComponents];
+}
+
+- (NSInteger)weekday
+{
+    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitWeekday) fromDate:self];
+    
+    return dateComponents.weekday;
+}
+
+- (NSDate*)nearestHalfHour
+{
+    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self];
+    
+    dateComponents.second = 0;
+    if (dateComponents.minute > 45) {
+        dateComponents.hour += 1;
+    }
+    
+    if (abs((int)dateComponents.minute - 30) > 15) {
+        dateComponents.minute = 0;
+    } else {
+        dateComponents.minute = 30;
+    }
+    
+    return [calendar dateFromComponents:dateComponents];
+}
+
 @end

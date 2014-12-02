@@ -17,4 +17,5 @@
 
 + (UIColor*)colorWithUIColor:(UIColor*)color withAlpha:(CGFloat)alpha;
 
++ (UIColor*)stepsBlueTextColor;
 @end
