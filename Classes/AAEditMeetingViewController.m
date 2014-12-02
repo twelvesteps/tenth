@@ -17,7 +17,7 @@
 #import "UIColor+AAAdditions.h"
 
 
-@interface AAEditMeetingViewController() <UIPickerViewDataSource, UIPickerViewDelegate, AAEditMeetingPickerCellDelegate>
+@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
 
