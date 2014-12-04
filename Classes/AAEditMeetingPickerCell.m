@@ -109,8 +109,8 @@
     UIView* labelSeparatorView = [[UIView alloc] init];
     UIView* pickerSeparatorView = [[UIView alloc] init];
     
-    labelSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    pickerSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    labelSeparatorView.backgroundColor = [UIColor grayColor];
+    pickerSeparatorView.backgroundColor = [UIColor grayColor];
     
     self.labelSeparatorView = labelSeparatorView;
     self.pickerSeparatorView = pickerSeparatorView;
@@ -122,7 +122,7 @@
 
 #pragma mark - Layout
 
-#define SEPARATOR_VIEW_HEIGHT   1.0f
+#define SEPARATOR_VIEW_HEIGHT   0.5f
 #define LABEL_BLOCK_HEIGHT      32.0f
 #define PICKER_BLOCK_HEIGHT     216.0f
 
@@ -161,19 +161,19 @@
 
 - (void)layoutSeparators
 {
-    CGRect labelSeparatorFrame = CGRectMake(self.contentView.bounds.origin.x,
+    CGRect labelSeparatorFrame = CGRectMake(self.contentView.bounds.origin.x + 14.0f,
                                             self.contentView.bounds.origin.y + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                            self.contentView.bounds.size.width,
+                                            self.contentView.bounds.size.width - 14.0f,
                                             SEPARATOR_VIEW_HEIGHT);
     
     CGRect pickerSeparatorFrame;
     if (!self.pickerHidden) {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
+        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x + 14.0f,
                                           self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
                                           self.contentView.bounds.size.width,
                                           SEPARATOR_VIEW_HEIGHT);
     } else {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
+        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x + 14.0f,
                                           self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
                                           0.0f,
                                           0.0f);

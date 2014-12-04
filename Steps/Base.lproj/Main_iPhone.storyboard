@@ -532,13 +532,6 @@ Details</string>
                                             <outlet property="meetingTitleLabel" destination="SsF-g8-lm8" id="yZM-rb-MkZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="3VH-7X-Uui">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3VH-7X-Uui" id="lpb-tE-Ldd">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -606,7 +599,7 @@ Details</string>
                                                         <constraint firstAttribute="height" constant="30" id="e2Y-Dd-Uu3"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -794,7 +787,7 @@ Details</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w7c-Lc-0rq"/>
         <segue reference="MTG-GX-Tev"/>
+        <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>

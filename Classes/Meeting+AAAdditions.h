@@ -16,4 +16,9 @@
 - (NSString*)startTimeString;
 - (NSString*)endTimeString;
 
+- (NSComparisonResult)compareStartTime:(Meeting*)otherMeeting;
+- (NSComparisonResult)compareWeekday:(Meeting*)otherMeeting;
+- (NSComparisonResult)compareTitle:(Meeting*)otherMeeting;
+- (NSComparisonResult)compare:(Meeting*)otherMeeting;
+
 @end

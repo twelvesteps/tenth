@@ -7,6 +7,7 @@
 //
 
 #import "Meeting+AAAdditions.h"
+#import "NSDate+AAAdditions.h"
 
 @implementation Meeting (AAAdditions)
 
@@ -17,6 +18,9 @@
     
     return [calendar dateByAddingComponents:durationComponents toDate:self.startDate options:0];
 }
+
+
+#pragma mark - Creating String
 
 - (NSString*)dayOfWeekString
 {
@@ -47,6 +51,88 @@
     dateFormatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"j:mm" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
     
     return [dateFormatter stringFromDate:time];
+}
+
+
+#pragma mark - Compare
+
+- (NSComparisonResult)compare:(Meeting*)otherMeeting
+{
+    NSComparisonResult weekdayResult = [self compareWeekday:otherMeeting];
+    if (weekdayResult != NSOrderedSame) {
+        return weekdayResult;
+    } else {
+        NSComparisonResult startTimeResult = [self compareStartTime:otherMeeting];
+        if (startTimeResult != NSOrderedSame) {
+            return startTimeResult;
+        } else {
+            NSComparisonResult titleResult = [self compareTitle:otherMeeting];
+            return titleResult;
+        }
+    }
+}
+
+- (NSComparisonResult)compareWeekday:(Meeting *)otherMeeting
+{
+    if (!otherMeeting) {
+        return NSOrderedDescending;
+    }
+    
+    if (!self.startDate) {
+        if (!otherMeeting.startDate) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedAscending;
+        }
+    }
+    
+    NSInteger weekday = [self.startDate weekday];
+    NSInteger otherWeekday = [otherMeeting.startDate weekday];
+    
+    if (weekday < otherWeekday) {
+        return NSOrderedAscending;
+    } else if (weekday > otherWeekday) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
+}
+
+- (NSComparisonResult)compareStartTime:(Meeting *)otherMeeting
+{
+    if (!otherMeeting) {
+        return NSOrderedDescending;
+    }
+    
+    if (!self.startDate) {
+        if (!otherMeeting.startDate) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedAscending;
+        }
+    }
+    
+    NSDate* startTime = [self.startDate timeOfDay];
+    NSDate* otherStartTime = [otherMeeting.startDate timeOfDay];
+    
+    return [startTime compare:otherStartTime];
+}
+
+- (NSComparisonResult)compareTitle:(Meeting *)otherMeeting
+{
+    if (!otherMeeting) {
+        return NSOrderedDescending;
+    }
+    
+    if (!self.title) {
+        if (!otherMeeting.title) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedAscending;
+        }
+    }
+    
+    return [self.title compare:otherMeeting.title];
 }
 
 @end

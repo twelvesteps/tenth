@@ -55,6 +55,14 @@
     return dateComponents.weekday;
 }
 
+- (NSDate*)timeOfDay
+{
+    NSCalendar* calender = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [calender components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
+    
+    return [calender dateFromComponents:dateComponents];
+}
+
 - (NSDate*)nearestHalfHour
 {
     NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];

@@ -30,6 +30,14 @@
     self.meetings = [self parseMeetingsByStartDate:allMeetings];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSArray* allMeetings = [[AAUserDataManager sharedManager] fetchMeetings];
+    self.meetings = [self parseMeetingsByStartDate:allMeetings];
+    
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Meeting Parsing
 
@@ -51,7 +59,7 @@
                     break;
                     
                 case NSOrderedAscending: {
-                    NSMutableArray* parsedMeetings = [[NSMutableArray alloc] init];
+                    NSMutableArray* parsedMeetings = [@[meeting] mutableCopy];
                     [mutableParsedMeetings addObject:parsedMeetings];
                     break;
                 }

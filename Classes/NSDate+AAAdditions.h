@@ -16,7 +16,14 @@
 
 + (NSDate*)oneHour;
 
+// info:        
+// returns:     An integer representing the date's weekday.
+// discussion:  Weekdays begin at 1 in the NSCalendar framework. Remember to adjust accordingly when accessing
+//              arrays using weekday indices.
 - (NSInteger)weekday;
+
+// info:
+- (NSDate*)timeOfDay;
 - (NSDate*)nearestHalfHour;
 
 @end

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "AAUserDataManager.h"
+
 #import "AAEditMeetingViewController.h"
 #import "AAEditMeetingTextInputCell.h"
 #import "AAEditMeetingWeekdayCell.h"
@@ -17,11 +19,14 @@
 #import "UIColor+AAAdditions.h"
 
 
-@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate>
+@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) UITextField* titleTextField;
+@property (weak, nonatomic) UITextField* locationTextField;
 
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
@@ -62,6 +67,7 @@
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self setupTableviewHeaderAndFooter];
 }
 
@@ -83,9 +89,26 @@
 
 #pragma mark - Meeting
 
-- (void)createMeeting
+- (void)syncMeeting
 {
+    if (!self.meeting) {
+        self.meeting = [[AAUserDataManager sharedManager] createMeeting];
+    }
+
+    self.meeting.title = self.titleTextField.text;
+    self.meeting.address = self.locationTextField.text;
     
+    self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
+    self.meeting.duration = self.duration;
+}
+
+- (NSDate*)dateByCombiningWeekdayAndStartTime
+{
+    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:self.startTime];
+    dateComponents.weekday = self.weekday;
+    
+    return [calendar dateFromComponents:dateComponents];
 }
 
 
@@ -98,7 +121,7 @@
 
 - (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
-    [self createMeeting];
+    [self syncMeeting];
     [self.delegate viewControllerDidFinish:self];
 }
 
@@ -209,8 +232,11 @@
     }
 }
 
-#define TITLE_ROW_INDEX     0
-#define LOCATION_ROW_INDEX  1
+#define TITLE_ROW_INDEX             0
+#define LOCATION_ROW_INDEX          1
+
+#define TITLE_INPUT_FIELD_TAG       100
+#define LOCATION_INPUT_FIELD_TAG    101
 
 - (UITableViewCell*)textInputCellForIndexPath:(NSIndexPath*)indexPath
 {
@@ -218,9 +244,15 @@
     
     if (indexPath.row == TITLE_ROW_INDEX) {
         cell.textField.placeholder = NSLocalizedString(@"Title", @"Meeting Title");
+        cell.textField.tag = TITLE_INPUT_FIELD_TAG;
+        self.titleTextField = cell.textField;
     } else {
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
+        cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
+        self.locationTextField = cell.textField;
     }
+    
+    cell.textField.delegate = self;
     
     return cell;
 }
@@ -323,6 +355,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self updateSelectedCellIndexPath:indexPath];
+    
+    if (indexPath.section == DATE_TIME_SECTION) {
+        [self.view endEditing:YES];
+    }
+    
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
+- (void)updateSelectedCellIndexPath:(NSIndexPath*)indexPath
+{
+    // Hide current picker if visible
     UITableViewCell* oldSelectedCell = [self.tableView cellForRowAtIndexPath:self.selectedIndexPath];
     if ([oldSelectedCell isKindOfClass:[AAEditMeetingPickerCell class]]) {
         AAEditMeetingPickerCell* pickerCell = (AAEditMeetingPickerCell*)oldSelectedCell;
@@ -330,9 +375,10 @@
     }
     
     if ([self.selectedIndexPath isEqual:indexPath]) {
+        // Selected cell should be deselected
         self.selectedIndexPath = nil;
     } else {
-        
+        // Show picker if a picker cell was tapped
         UITableViewCell* selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
         if ([selectedCell isKindOfClass:[AAEditMeetingPickerCell class]]) {
             AAEditMeetingPickerCell* pickerCell = (AAEditMeetingPickerCell*)selectedCell;
@@ -342,8 +388,51 @@
         self.selectedIndexPath = indexPath;
     }
     
+}
+
+#pragma mark - Text Field Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    // dismiss any pickers that are visible
+    [self updateSelectedCellIndexPath:nil];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.tag == TITLE_INPUT_FIELD_TAG) {
+        NSString* result = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if ([result isEqualToString:@""]) {
+            self.rightToolbarItem.enabled = NO;
+        } else {
+            self.rightToolbarItem.enabled = YES;
+        }
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    if (textField.tag == TITLE_INPUT_FIELD_TAG) {
+        self.rightToolbarItem.enabled = NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.tag == TITLE_INPUT_FIELD_TAG) {
+        [self.titleTextField resignFirstResponder];
+        [self.locationTextField becomeFirstResponder];
+    } else {
+        [self.locationTextField resignFirstResponder];
+    }
+    
+    return YES;
 }
 
 @end
