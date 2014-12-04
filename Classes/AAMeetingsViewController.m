@@ -26,16 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSArray* allMeetings = [[AAUserDataManager sharedManager] fetchMeetings];
-    self.meetings = [self parseMeetingsByStartDate:allMeetings];
+    [self updateMeetings];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self updateMeetings];
+    [self.tableView reloadData];
+}
+
+- (void)updateMeetings
+{
     NSArray* allMeetings = [[AAUserDataManager sharedManager] fetchMeetings];
     self.meetings = [self parseMeetingsByStartDate:allMeetings];
-    
-    [self.tableView reloadData];
 }
 
 
@@ -98,9 +101,9 @@
     AAMeetingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell"];
     
     Meeting* meeting = [self meetingForIndexPath:indexPath];
+    cell.meeting = meeting;
     cell.titleLabel.text = meeting.title;
     cell.addressLabel.text = meeting.address;
-    
     
     return cell;
 }
@@ -109,6 +112,22 @@
 {
     NSArray* sectionMeetings = self.meetings[indexPath.section];
     return sectionMeetings[indexPath.row];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Meeting* meeting = [self meetingForIndexPath:indexPath];
+        [[AAUserDataManager sharedManager] removeMeeting:meeting];
+        [self updateMeetings];
+        DLog(@"Section: %d, Row: %d", (int)indexPath.section, (int)indexPath.row);
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 
@@ -128,7 +147,7 @@
 #pragma mark - Navigation
 
 #define NEW_MEETING_SEGUE_IDENTIFIER    @"newMeeting"
-#define MEETING_DETAIL_SEGUE_IDENTIFIER @"setMeeting:"
+#define MEETING_DETAIL_SEGUE_IDENTIFIER @"setMeeting"
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 

@@ -27,7 +27,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
 }
@@ -84,7 +84,7 @@
 
 #pragma mark - Autolayout Constraints
 
-#define TOP_EDGE_PADDING        4.0f
+#define TOP_EDGE_PADDING        14.0f
 #define BOTTOM_EDGE_PADDING     4.0f
 #define LEADING_EDGE_PADDING    14.0f
 #define TRAILING_EDGE_PADDING   8.0f
@@ -93,10 +93,12 @@
 {
     [super updateConstraints];
     
-    [self.contentView removeConstraints:self.contentView.constraints]; // clear out old constraints
+    // clear out old constraints
+    [self.contentView removeConstraints:self.contentView.constraints];
+    [self removeConstraints:self.constraints];
     
     NSArray* constraints = [self createConstraints];
-    [self.contentView addConstraints:constraints];
+    [self addConstraints:constraints];
 }
 
 - (NSArray*)createConstraints
@@ -121,26 +123,37 @@
     NSLayoutConstraint* labelTopEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
                                                                               attribute:NSLayoutAttributeTop
                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:self.contentView
+                                                                                 toItem:self
                                                                               attribute:NSLayoutAttributeTop
                                                                              multiplier:1.0f
-                                                                               constant:0.0f];
+                                                                               constant:TOP_EDGE_PADDING];
     NSLayoutConstraint* labelLeadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
                                                                                   attribute:NSLayoutAttributeLeading
                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:self.contentView
+                                                                                     toItem:self
                                                                                   attribute:NSLayoutAttributeLeading
                                                                                  multiplier:1.0f
                                                                                    constant:LEADING_EDGE_PADDING];
     NSLayoutConstraint* labelTrailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
                                                                                    attribute:NSLayoutAttributeTrailing
                                                                                    relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:self.contentView
+                                                                                      toItem:self
                                                                                    attribute:NSLayoutAttributeTrailing
                                                                                   multiplier:1.0f
                                                                                     constant:TRAILING_EDGE_PADDING];
     
-    return @[labelTopEdgeConstraint, labelLeadingEdgeConstraint, labelTrailingEdgeConstraint];
+    CGSize boundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:self];
+    NSLayoutConstraint* labelHeightConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
+                                                                             attribute:NSLayoutAttributeHeight
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:nil
+                                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                                            multiplier:1.0f
+                                                                              constant:[AAMeetingInfoTableViewCell heightForLabel:self.meetingTitleLabel
+                                                                                                                     boundingSize:boundingSize
+                                                                                                                             font:[UIFont stepsHeaderFont]]];
+    
+    return @[labelTopEdgeConstraint, labelLeadingEdgeConstraint, labelTrailingEdgeConstraint, labelHeightConstraint];
 }
 
 - (NSArray*)layoutConstraintsForLabel:(UILabel*)label belowView:(UIView*)topView font:(UIFont*)font
@@ -192,14 +205,14 @@
     NSLayoutConstraint* labelLeadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                                   attribute:NSLayoutAttributeLeading
                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:self.contentView
+                                                                                     toItem:self
                                                                                   attribute:NSLayoutAttributeLeading
                                                                                  multiplier:1.0f
                                                                                    constant:LEADING_EDGE_PADDING];
     NSLayoutConstraint* labelTrailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                                    attribute:NSLayoutAttributeTrailing
                                                                                    relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:self.contentView
+                                                                                      toItem:self
                                                                                    attribute:NSLayoutAttributeTrailing
                                                                                   multiplier:1.0f
                                                                                     constant:TRAILING_EDGE_PADDING];

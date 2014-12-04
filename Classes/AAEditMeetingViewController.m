@@ -30,9 +30,6 @@
 
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
-@property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* location;
-
 @property (nonatomic) NSInteger weekday;
 @property (strong, nonatomic) NSDate* startTime;
 @property (strong, nonatomic) NSDate* duration;
@@ -243,10 +240,12 @@
     AAEditMeetingTextInputCell* cell = (AAEditMeetingTextInputCell*)[self.tableView dequeueReusableCellWithIdentifier:TEXT_INPUT_CELL_REUSE_ID];
     
     if (indexPath.row == TITLE_ROW_INDEX) {
+        cell.textField.text = self.meeting.title;
         cell.textField.placeholder = NSLocalizedString(@"Title", @"Meeting Title");
         cell.textField.tag = TITLE_INPUT_FIELD_TAG;
         self.titleTextField = cell.textField;
     } else {
+        cell.textField.text = self.meeting.address;
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
         cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
         self.locationTextField = cell.textField;

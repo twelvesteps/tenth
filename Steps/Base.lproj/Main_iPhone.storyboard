@@ -441,7 +441,7 @@
                                             <outlet property="addressLabel" destination="iz3-2k-4Ey" id="X54-zT-OSv"/>
                                             <outlet property="notesLabel" destination="aSb-ng-850" id="oFG-N1-z4V"/>
                                             <outlet property="titleLabel" destination="rjd-xl-ndw" id="3aE-U6-ONt"/>
-                                            <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting:" id="95i-zP-kvr"/>
+                                            <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting" id="95i-zP-kvr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -491,7 +491,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingInfoCell" rowHeight="148" id="avF-2q-c1a" customClass="AAMeetingInfoTableViewCell">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MeetingInfoCell" rowHeight="148" id="avF-2q-c1a" customClass="AAMeetingInfoTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="avF-2q-c1a" id="Xnv-2B-i1C">
@@ -540,7 +540,7 @@ Details</string>
                     <navigationItem key="navigationItem" id="Lnx-dh-qfA">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="eZl-cj-gwT">
                             <connections>
-                                <segue destination="3oA-VT-Jsh" kind="modal" id="MTG-GX-Tev"/>
+                                <segue destination="3oA-VT-Jsh" kind="modal" identifier="setMeeting" id="MTG-GX-Tev"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

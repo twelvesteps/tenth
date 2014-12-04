@@ -7,9 +7,10 @@
 //
 
 #import "AAMeetingViewController.h"
+#import "AAMeetingInfoTableViewCell.h"
+#import "AAEditMeetingViewController.h"
 
-
-@interface AAMeetingViewController ()
+@interface AAMeetingViewController () <AAEditMeetingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editDoneButton; // edit/done button
 
@@ -19,19 +20,15 @@
 
 @implementation AAMeetingViewController
 
-#pragma mark - Lifecycle and Properties
-
-#define MEETING_INFO_CELL_REUSE_IDENTIFIER  @"MeetingInfoCell"
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
 #pragma mark - UI Events
 
 
 #pragma mark - UITableview Delegate and Datasource
 
+#define MEETING_INFO_CELL_REUSE_ID  @"MeetingInfoCell"
+
+#define MEETING_INFO_CELL_SECTION   0
+#define MEETING_INFO_CELL_ROW       0
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -45,18 +42,52 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:MEETING_INFO_CELL_REUSE_IDENTIFIER];
+    return [self meetingInfoCellForIndexPath:indexPath];
+}
+
+- (AAMeetingInfoTableViewCell*)meetingInfoCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAMeetingInfoTableViewCell* cell = (AAMeetingInfoTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:MEETING_INFO_CELL_REUSE_ID];
+    
+    cell.meeting = self.meeting;
     
     return cell;
-    
-    /*
-    switch (indexPath.section) {
-            
-        default:
-            return nil;
-    }
-     */
+}
 
+
+#pragma mark - Edit Meeting View Controller Delegate
+
+- (void)viewControllerDidCancel:(AAEditMeetingViewController *)vc
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewControllerDidFinish:(AAEditMeetingViewController *)vc
+{
+    self.meeting = vc.meeting;
+    
+    AAMeetingInfoTableViewCell* cell = (AAMeetingInfoTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:MEETING_INFO_CELL_ROW
+                                                                                                                              inSection:MEETING_INFO_CELL_SECTION]];
+    cell.meeting = vc.meeting;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Navigation
+
+#define EDIT_MEETING_SEGUE_ID   @"setMeeting"
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:EDIT_MEETING_SEGUE_ID]) {
+        if ([segue.destinationViewController isKindOfClass:[AAEditMeetingViewController class]]) {
+            AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)segue.destinationViewController;
+            
+            aaemvc.meeting = self.meeting;
+            aaemvc.delegate = self;
+        }
+    }
 }
 
 @end
