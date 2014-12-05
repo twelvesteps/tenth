@@ -587,25 +587,23 @@ Details</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextInputCell" rowHeight="32" id="ypa-KT-cEA" customClass="AAEditMeetingTextInputCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextInputCell" id="ypa-KT-cEA" customClass="AAEditMeetingTextInputCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypa-KT-cEA" id="l92-U2-Tv0">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title/Location" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ihA-ke-k3D">
-                                                    <rect key="frame" x="14" y="1" width="298" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="e2Y-Dd-Uu3"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="14" y="0.0" width="298" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="leading" secondItem="l92-U2-Tv0" secondAttribute="leadingMargin" constant="6" id="acT-6L-xhY"/>
-                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="trailing" secondItem="l92-U2-Tv0" secondAttribute="trailingMargin" id="lBK-44-cox"/>
-                                                <constraint firstAttribute="centerY" secondItem="ihA-ke-k3D" secondAttribute="centerY" id="wPm-aa-JqD"/>
+                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="trailing" secondItem="l92-U2-Tv0" secondAttribute="trailingMargin" id="Bmm-Qe-Io8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ihA-ke-k3D" secondAttribute="bottom" constant="-8.5" id="Tte-tl-kc0"/>
+                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="leading" secondItem="l92-U2-Tv0" secondAttribute="leadingMargin" constant="6" id="jpr-CB-qAn"/>
+                                                <constraint firstItem="ihA-ke-k3D" firstAttribute="top" secondItem="l92-U2-Tv0" secondAttribute="top" id="t9S-aA-5sA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
