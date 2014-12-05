@@ -11,10 +11,14 @@
 #import "AAUserDataManager.h"
 #import "AAMeetingTableViewCell.h"
 #import "AAEditMeetingViewController.h"
+#import "AAMeetingSectionDividerView.h"
+
+#import "Meeting+AAAdditions.h"
+#import "NSDate+AAAdditions.h"
 
 @interface AAMeetingsViewController () <AAEditMeetingViewControllerDelegate>
 
-@property (strong, nonatomic) NSArray* meetings; // an array of arrays, sorted by start date
+@property (strong, nonatomic) NSMutableArray* meetings; // an array of arrays, sorted by start date
 
 
 @end
@@ -44,7 +48,7 @@
 
 #pragma mark - Meeting Parsing
 
-- (NSArray*)parseMeetingsByStartDate:(NSArray*)meetings
+- (NSMutableArray*)parseMeetingsByStartDate:(NSArray*)meetings
 {
     NSMutableArray* mutableParsedMeetings = [[NSMutableArray alloc] init];
     for (Meeting* meeting in meetings) {
@@ -56,7 +60,7 @@
             NSMutableArray* recentlyParsedMeetings = [mutableParsedMeetings lastObject];
             Meeting* recentlyParsedMeeting = [recentlyParsedMeetings lastObject];
 
-            switch ([recentlyParsedMeeting.startDate compare:meeting.startDate]) {
+            switch ([recentlyParsedMeeting compareWeekday:meeting]) {
                 case NSOrderedSame:
                     [recentlyParsedMeetings addObject:meeting];
                     break;
@@ -75,7 +79,7 @@
         }
     }
     
-    return [mutableParsedMeetings copy];
+    return mutableParsedMeetings;
 }
 
 
@@ -96,6 +100,27 @@
     return sectionMeetings.count;
 }
 
+#define HEADER_VIEW_HEIGHT  30.0f
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return HEADER_VIEW_HEIGHT;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSArray* weekdayMeetings = self.meetings[section];
+    Meeting* meeting = [weekdayMeetings firstObject];
+    NSInteger weekdayIndex = [meeting.startDate weekday] - 1;
+    
+    CGRect headerViewFrame = CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, HEADER_VIEW_HEIGHT);
+    
+    AAMeetingSectionDividerView* headerView = [[AAMeetingSectionDividerView alloc] initWithFrame:headerViewFrame];
+    headerView.titleLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[weekdayIndex];
+
+    return headerView;
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AAMeetingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell"];
@@ -111,7 +136,17 @@
 - (Meeting*)meetingForIndexPath:(NSIndexPath*)indexPath
 {
     NSArray* sectionMeetings = self.meetings[indexPath.section];
-    return sectionMeetings[indexPath.row];
+    if (sectionMeetings.count > indexPath.row) {
+        return sectionMeetings[indexPath.row];
+    } else {
+        return nil;
+    }
+}
+
+- (void)deleteMeetingAtIndexPath:(NSIndexPath*)indexPath
+{
+    NSMutableArray* sectionMeetings = self.meetings[indexPath.section];
+    [sectionMeetings removeObjectAtIndex:indexPath.row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,9 +159,16 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Meeting* meeting = [self meetingForIndexPath:indexPath];
         [[AAUserDataManager sharedManager] removeMeeting:meeting];
-        [self updateMeetings];
-        DLog(@"Section: %d, Row: %d", (int)indexPath.section, (int)indexPath.row);
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self deleteMeetingAtIndexPath:indexPath];
+        
+        NSMutableArray* sectionMeetings = self.meetings[indexPath.section];
+        if (sectionMeetings.count == 0) {
+            [self.meetings removeObjectAtIndex:indexPath.section];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
 }
 

@@ -106,10 +106,11 @@
 - (NSDate*)dateByCombiningWeekdayAndStartTime
 {
     NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:self.startTime];
-    dateComponents.weekday = self.weekday;
+    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:self.startTime];
+    dateComponents.second = 0;
+    NSInteger weekdayOffset = self.weekday - dateComponents.weekday;
     
-    return [calendar dateFromComponents:dateComponents];
+    return [calendar dateByAddingUnit:NSCalendarUnitDay value:weekdayOffset toDate:self.startTime options:0];
 }
 
 
@@ -195,7 +196,12 @@
     }
 }
 
-#define HEADER_VIEW_HEIGHT  22.0f
+#define HEADER_VIEW_HEIGHT  30.0f
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return HEADER_VIEW_HEIGHT;
+}
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

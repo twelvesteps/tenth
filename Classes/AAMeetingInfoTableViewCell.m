@@ -9,7 +9,9 @@
 #import "AAMeetingInfoTableViewCell.h"
 #import "MeetingType.h"
 #import "Meeting+AAAdditions.h"
+
 #import "UIFont+AAAdditions.h"
+#import "UIColor+AAAdditions.h"
 
 @interface AAMeetingInfoTableViewCell()
 
@@ -27,15 +29,29 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.clipsToBounds = YES;
-    self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
-    self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
+
+    
+    [self setup];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setup
+{
+    self.clipsToBounds = YES;
+    self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
+    self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
+    
+    self.meetingTitleLabel.font = [UIFont stepsHeaderFont];
+    self.meetingLocationLabel.font = [UIFont stepsSubheaderFont];
+    self.meetingChairpersonLabel.font = [UIFont stepsCaptionFont];
+    self.meetingChairpersonLabel.textColor = [UIColor stepsBlueTextColor];
+    self.meetingDetailTextView.font = [UIFont stepsBodyFont];
+    self.meetingDetailTextView.selectable = NO;
 }
 
 - (void)setMeeting:(Meeting *)meeting
@@ -89,7 +105,7 @@
 #pragma mark - Layout
 
 #define TOP_EDGE_PADDING        14.0f
-#define BOTTOM_EDGE_PADDING     4.0f
+#define BOTTOM_EDGE_PADDING     8.0f
 #define LEADING_EDGE_PADDING    14.0f
 #define TRAILING_EDGE_PADDING   8.0f
 

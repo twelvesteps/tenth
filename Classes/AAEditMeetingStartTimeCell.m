@@ -14,6 +14,7 @@
 {
     [super initPicker];
     self.datePicker.datePickerMode = UIDatePickerModeTime;
+    self.datePicker.minuteInterval = 5;
 }
 
 - (AAEditMeetingPickerCellType)type

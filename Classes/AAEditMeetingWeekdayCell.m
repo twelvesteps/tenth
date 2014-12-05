@@ -53,11 +53,6 @@
     return [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols.count;
 }
 
-//- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
-//}
-
 - (NSAttributedString*)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     NSString* weekdaySymbol = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
