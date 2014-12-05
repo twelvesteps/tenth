@@ -13,7 +13,7 @@
 
 @interface Meeting : NSManagedObject
 
-@property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSDate * duration; // hours and minutes
 @property (nonatomic, retain) NSNumber * isChairPerson;
 @property (nonatomic, retain) NSDate * startDate; // contains weekday and time information only

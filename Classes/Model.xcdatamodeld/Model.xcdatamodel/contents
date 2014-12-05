@@ -46,9 +46,9 @@
         <relationship name="inventory" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="DailyInventory" inverseName="questions" inverseEntity="DailyInventory" syncable="YES"/>
     </entity>
     <entity name="Meeting" representedClassName="Meeting" syncable="YES">
-        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isChairPerson" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="types" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingType" inverseName="meetings" inverseEntity="MeetingType" syncable="YES"/>
@@ -79,8 +79,8 @@
         <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
         <element name="InventoryQuestion" positionX="-117" positionY="-243" width="128" height="118"/>
         <element name="Meeting" positionX="450" positionY="-160" width="128" height="133"/>
+        <element name="MeetingType" positionX="457" positionY="104" width="128" height="73"/>
         <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
         <element name="Resentment" positionX="241" positionY="0" width="128" height="163"/>
-        <element name="MeetingType" positionX="457" positionY="104" width="128" height="73"/>
     </elements>
 </model>

@@ -103,7 +103,7 @@
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
     cell.titleLabel.text = meeting.title;
-    cell.addressLabel.text = meeting.address;
+    cell.addressLabel.text = meeting.location;
     
     return cell;
 }

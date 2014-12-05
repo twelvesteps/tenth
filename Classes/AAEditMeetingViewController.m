@@ -97,7 +97,7 @@
     }
 
     self.meeting.title = self.titleTextField.text;
-    self.meeting.address = self.locationTextField.text;
+    self.meeting.location = self.locationTextField.text;
     
     self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
     self.meeting.duration = self.duration;
@@ -249,7 +249,7 @@
         cell.textField.tag = TITLE_INPUT_FIELD_TAG;
         self.titleTextField = cell.textField;
     } else {
-        cell.textField.text = self.meeting.address;
+        cell.textField.text = self.meeting.location;
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
         cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
         self.locationTextField = cell.textField;

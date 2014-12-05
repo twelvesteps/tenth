@@ -50,7 +50,7 @@
 - (void)updateViews
 {
     self.meetingTitleLabel.text = self.meeting.title;
-    self.meetingLocationLabel.text = self.meeting.address;
+    self.meetingLocationLabel.text = self.meeting.location;
     self.meetingChairpersonLabel.text = (self.meeting.isChairPerson) ? NSLocalizedString(@"Chair Person", @"Leader of the AA meeting") : @"";
     self.meetingDetailTextView.text = [self detailText];
 }

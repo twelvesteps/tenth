@@ -12,7 +12,7 @@
 
 @implementation Meeting
 
-@dynamic address;
+@dynamic location;
 @dynamic duration;
 @dynamic isChairPerson;
 @dynamic startDate;
