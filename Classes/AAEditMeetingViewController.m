@@ -212,7 +212,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([indexPath isEqual:self.selectedIndexPath]) {
+    if (indexPath.section == DATE_TIME_SECTION && [indexPath isEqual:self.selectedIndexPath]) {
         return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
     } else {
         return TEXT_CELL_HEIGHT;
