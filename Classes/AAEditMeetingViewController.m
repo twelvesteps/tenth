@@ -17,10 +17,13 @@
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
+#import "UIFont+AAAdditions.h"
 
 
 @interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationBarTitle;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -52,12 +55,13 @@
     }
     
     if (self.meeting) {
-        self.title = NSLocalizedString(@"Edit Meeting", @"Edit the selected meeting's details");
+        self.navigationBarTitle.title = NSLocalizedString(@"Edit Meeting", @"Edit the selected meeting's details");
         self.weekday = [self.meeting.startDate weekday];
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
     } else {
-        self.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
+        
+        self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
         self.weekday = [[NSDate date] weekday];
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
@@ -136,8 +140,8 @@
 
 - (void)updateDurationWithCell:(AAEditMeetingDurationCell*)cell
 {
-    self.duration = cell.datePicker.date;
-    cell.descriptionLabel.text = [self durationStringForDate:self.duration];
+    self.duration = cell.durationPicker.date;
+    cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
 }
 
 
@@ -203,7 +207,7 @@
     return headerView;
 }
 
-#define TEXT_CELL_HEIGHT    32.0f
+#define TEXT_CELL_HEIGHT    44.0f
 #define PICKER_CELL_HEIGHT  216.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -330,8 +334,8 @@
     }
     
     cell.titleLabel.text = NSLocalizedString(@"Duration", @"The length of the meeting in hours and minutes");
-    cell.descriptionLabel.text = [self durationStringForDate:self.duration];
-    cell.datePicker.date = self.duration;
+    cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
+    cell.durationPicker.date = self.duration;
     
     return cell;
 }
@@ -342,14 +346,6 @@
     formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"j:mm" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
     
     return [formatter stringFromDate:date];
-}
-
-- (NSString*)durationStringForDate:(NSDate*)date
-{
-    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
-    NSDateComponents* components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
-    
-    return [NSString localizedStringWithFormat:NSLocalizedString(@"%d hr %d min", @"{num_hours} hrs {num_minutes} min"), components.hour, components.minute];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

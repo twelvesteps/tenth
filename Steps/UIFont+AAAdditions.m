@@ -12,26 +12,26 @@
 
 + (UIFont*)stepsHeaderFont
 {
-    return [UIFont boldSystemFontOfSize:17.0f];
+    return [UIFont boldSystemFontOfSize:19.0f];
 }
 
 + (UIFont*)stepsSubheaderFont
 {
-    return [UIFont boldSystemFontOfSize:15.0f];
+    return [UIFont boldSystemFontOfSize:17.0f];
 }
 
 + (UIFont*)stepsCaptionFont
 {
-    return [UIFont systemFontOfSize:15.0f];
+    return [UIFont systemFontOfSize:17.0f];
 }
 
 + (UIFont*)stepsBodyFont
 {
-    return [UIFont systemFontOfSize:13.0f];
+    return [UIFont systemFontOfSize:15.0f];
 }
 
 + (UIFont*)stepsFooterFont
 {
-    return [UIFont systemFontOfSize:12.0f];
+    return [UIFont systemFontOfSize:14.0f];
 }
 @end

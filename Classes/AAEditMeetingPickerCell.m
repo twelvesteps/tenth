@@ -68,11 +68,6 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-}
-
 
 #pragma mark - Init Subviews
 
@@ -109,8 +104,8 @@
     UIView* labelSeparatorView = [[UIView alloc] init];
     UIView* pickerSeparatorView = [[UIView alloc] init];
     
-    labelSeparatorView.backgroundColor = [UIColor grayColor];
-    pickerSeparatorView.backgroundColor = [UIColor grayColor];
+    labelSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    pickerSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     self.labelSeparatorView = labelSeparatorView;
     self.pickerSeparatorView = pickerSeparatorView;
@@ -122,11 +117,10 @@
 
 #pragma mark - Layout
 
-#define SEPARATOR_VIEW_HEIGHT   0.5f
-#define LABEL_BLOCK_HEIGHT      32.0f
+#define SEPARATOR_VIEW_HEIGHT   1.0f
+#define LABEL_BLOCK_HEIGHT      44.0f
 #define PICKER_BLOCK_HEIGHT     216.0f
 
-#define LABEL_TOP_PADDING       8.0f
 #define LABEL_LEFT_PADDING      14.0f
 #define LABEL_RIGHT_PADDING     8.0f
 #define LABEL_SPACING           8.0f
@@ -145,7 +139,7 @@
     
     
     CGRect titleLabelFrame = CGRectMake(self.bounds.origin.x + LABEL_LEFT_PADDING,
-                                        self.bounds.origin.y + LABEL_TOP_PADDING,
+                                        LABEL_BLOCK_HEIGHT / 2.0f - titleLabelSize.height / 2.0f,
                                         titleLabelSize.width,
                                         titleLabelSize.height);
     
@@ -161,19 +155,19 @@
 
 - (void)layoutSeparators
 {
-    CGRect labelSeparatorFrame = CGRectMake(self.contentView.bounds.origin.x + 14.0f,
+    CGRect labelSeparatorFrame = CGRectMake(self.contentView.bounds.origin.x,
                                             self.contentView.bounds.origin.y + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                            self.contentView.bounds.size.width - 14.0f,
+                                            self.contentView.bounds.size.width,
                                             SEPARATOR_VIEW_HEIGHT);
     
     CGRect pickerSeparatorFrame;
     if (!self.pickerHidden) {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x + 14.0f,
+        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
                                           self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
                                           self.contentView.bounds.size.width,
                                           SEPARATOR_VIEW_HEIGHT);
     } else {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x + 14.0f,
+        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
                                           self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
                                           0.0f,
                                           0.0f);

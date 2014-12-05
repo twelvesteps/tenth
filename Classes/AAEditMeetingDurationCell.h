@@ -7,8 +7,9 @@
 //
 
 #import "AAEditMeetingDatePickerCell.h"
-@interface AAEditMeetingDurationCell : AAEditMeetingDatePickerCell
+#import "AAMeetingDurationPickerView.h"
+@interface AAEditMeetingDurationCell : AAEditMeetingPickerCell
 
-@property (weak, nonatomic) UIDatePicker* datePicker;
+@property (weak, nonatomic) AAMeetingDurationPickerView* durationPicker;
 
 @end

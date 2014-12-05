@@ -27,7 +27,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.clipsToBounds = YES;
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
 }
@@ -42,7 +42,7 @@
 {
     _meeting = meeting;
     [self updateViews];
-    [self setNeedsUpdateConstraints];
+    [self setNeedsLayout];
 }
 
 #pragma mark - Update Views
@@ -59,7 +59,11 @@
 {
     NSString* detailText = [self.meeting dayOfWeekString];
     detailText = [detailText stringByAppendingFormat:@"\n%@ - %@", [self.meeting startTimeString], [self.meeting endTimeString]];
-    detailText = [detailText stringByAppendingFormat:@"\n%@", [self meetingTypesString]];
+    
+    NSString* typesString = [self meetingTypesString];
+    if (typesString) {
+        detailText = [detailText stringByAppendingFormat:@"\n%@", [self meetingTypesString]];
+    }
     
     return detailText;
 }
@@ -82,175 +86,68 @@
     }
 }
 
-#pragma mark - Autolayout Constraints
+#pragma mark - Layout
 
 #define TOP_EDGE_PADDING        14.0f
 #define BOTTOM_EDGE_PADDING     4.0f
 #define LEADING_EDGE_PADDING    14.0f
 #define TRAILING_EDGE_PADDING   8.0f
 
-- (void)updateConstraints
+- (void)layoutSubviews
 {
-    [super updateConstraints];
+    [super layoutSubviews];
     
-    // clear out old constraints
-    [self.contentView removeConstraints:self.contentView.constraints];
-    [self removeConstraints:self.constraints];
-    
-    NSArray* constraints = [self createConstraints];
-    [self addConstraints:constraints];
+    [self layoutTitleLabel];
+    [self layoutLocationLabel];
+    [self layoutChairpersonLabel];
+    [self layoutDetailTextView];
 }
 
-- (NSArray*)createConstraints
+- (void)layoutTitleLabel
 {
-    NSArray* constraints = [self layoutConstraintsForMeetingTitleLabel];
-    constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForLabel:self.meetingLocationLabel
-                                                                                   belowView:self.meetingTitleLabel
-                                                                                        font:[UIFont stepsSubheaderFont]]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForLabel:self.meetingChairpersonLabel
-                                                                                   belowView:self.meetingLocationLabel
-                                                                                        font:[UIFont stepsCaptionFont]]];
-    constraints = [constraints arrayByAddingObjectsFromArray:[self layoutConstraintsForTextView:self.meetingDetailTextView
-                                                                                      belowView:self.meetingChairpersonLabel
-                                                                                           font:[UIFont stepsBodyFont]]];
     
-    return constraints;
+    CGRect meetingTitleLabelFrame = CGRectMake(self.contentView.bounds.origin.x + LEADING_EDGE_PADDING,
+                                               self.contentView.bounds.origin.y + TOP_EDGE_PADDING,
+                                               self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
+                                               [self heightForLabel:self.meetingTitleLabel font:[UIFont stepsHeaderFont]]);
+    
+    self.meetingTitleLabel.frame = meetingTitleLabelFrame;
+                
 }
 
-
-- (NSArray*)layoutConstraintsForMeetingTitleLabel
+- (void)layoutLocationLabel
 {
-    NSLayoutConstraint* labelTopEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
-                                                                              attribute:NSLayoutAttributeTop
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:self
-                                                                              attribute:NSLayoutAttributeTop
-                                                                             multiplier:1.0f
-                                                                               constant:TOP_EDGE_PADDING];
-    NSLayoutConstraint* labelLeadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
-                                                                                  attribute:NSLayoutAttributeLeading
-                                                                                  relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:self
-                                                                                  attribute:NSLayoutAttributeLeading
-                                                                                 multiplier:1.0f
-                                                                                   constant:LEADING_EDGE_PADDING];
-    NSLayoutConstraint* labelTrailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
-                                                                                   attribute:NSLayoutAttributeTrailing
-                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:self
-                                                                                   attribute:NSLayoutAttributeTrailing
-                                                                                  multiplier:1.0f
-                                                                                    constant:TRAILING_EDGE_PADDING];
+    CGRect meetingLocationLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
+                                                  CGRectGetMaxY(self.meetingTitleLabel.frame),
+                                                  self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
+                                                  [self heightForLabel:self.meetingLocationLabel font:[UIFont stepsSubheaderFont]]);
     
-    CGSize boundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:self];
-    NSLayoutConstraint* labelHeightConstraint = [NSLayoutConstraint constraintWithItem:self.meetingTitleLabel
-                                                                             attribute:NSLayoutAttributeHeight
-                                                                             relatedBy:NSLayoutRelationEqual
-                                                                                toItem:nil
-                                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                                            multiplier:1.0f
-                                                                              constant:[AAMeetingInfoTableViewCell heightForLabel:self.meetingTitleLabel
-                                                                                                                     boundingSize:boundingSize
-                                                                                                                             font:[UIFont stepsHeaderFont]]];
-    
-    return @[labelTopEdgeConstraint, labelLeadingEdgeConstraint, labelTrailingEdgeConstraint, labelHeightConstraint];
+    self.meetingLocationLabel.frame = meetingLocationLabelFrame;
 }
 
-- (NSArray*)layoutConstraintsForLabel:(UILabel*)label belowView:(UIView*)topView font:(UIFont*)font
+- (void)layoutChairpersonLabel
 {
-    NSArray* viewConstraints = [self layoutConstraintsForView:label belowView:topView];
+    CGRect meetingChairpersonLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
+                                                     CGRectGetMaxY(self.meetingLocationLabel.frame),
+                                                     self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
+                                                     [self heightForLabel:self.meetingChairpersonLabel font:[UIFont stepsCaptionFont]]);
     
-    CGSize boundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:self];
-    NSLayoutConstraint* labelHeightConstraint = [NSLayoutConstraint constraintWithItem:label
-                                                                             attribute:NSLayoutAttributeHeight
-                                                                             relatedBy:NSLayoutRelationEqual
-                                                                                toItem:nil
-                                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                                            multiplier:1.0f
-                                                                              constant:[AAMeetingInfoTableViewCell heightForLabel:label
-                                                                                                                     boundingSize:boundingSize
-                                                                                                                             font:font]];
-    viewConstraints = [viewConstraints arrayByAddingObject:labelHeightConstraint];
-    return viewConstraints;
+    self.meetingChairpersonLabel.frame = meetingChairpersonLabelFrame;
 }
 
-- (NSArray*)layoutConstraintsForTextView:(UITextView*)textView belowView:(UIView*)topView font:(UIFont*)font
+- (void)layoutDetailTextView
 {
-    NSArray* viewConstraints = [self layoutConstraintsForView:textView belowView:topView];
+    CGRect meetingDetailTextViewFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
+                                                   CGRectGetMaxY(self.meetingChairpersonLabel.frame),
+                                                   self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
+                                                   [self heightForTextView:self.meetingDetailTextView font:[UIFont stepsBodyFont]]);
     
-    CGSize boundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:self];
-    NSLayoutConstraint* textViewHeightConstraint = [NSLayoutConstraint constraintWithItem:textView
-                                                                                attribute:NSLayoutAttributeHeight
-                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                   toItem:nil
-                                                                                attribute:NSLayoutAttributeNotAnAttribute
-                                                                               multiplier:1.0f
-                                                                                 constant:[AAMeetingInfoTableViewCell heightForTextView:textView
-                                                                                                                           boundingSize:boundingSize
-                                                                                                                                   font:font]];
-    
-    viewConstraints = [viewConstraints arrayByAddingObject:textViewHeightConstraint];
-    return viewConstraints;
+    self.meetingDetailTextView.frame = meetingDetailTextViewFrame;
 }
 
-- (NSArray*)layoutConstraintsForView:(UIView*)view belowView:(UIView*)topView
+- (CGFloat)heightForLabel:(UILabel*)label font:(UIFont*)font
 {
-    NSLayoutConstraint* labelTopEdgeConstraint = [NSLayoutConstraint constraintWithItem:view
-                                                                              attribute:NSLayoutAttributeTop
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:topView
-                                                                              attribute:NSLayoutAttributeBottom
-                                                                             multiplier:1.0f
-                                                                               constant:0.0f];
-    NSLayoutConstraint* labelLeadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:view
-                                                                                  attribute:NSLayoutAttributeLeading
-                                                                                  relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:self
-                                                                                  attribute:NSLayoutAttributeLeading
-                                                                                 multiplier:1.0f
-                                                                                   constant:LEADING_EDGE_PADDING];
-    NSLayoutConstraint* labelTrailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:view
-                                                                                   attribute:NSLayoutAttributeTrailing
-                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:self
-                                                                                   attribute:NSLayoutAttributeTrailing
-                                                                                  multiplier:1.0f
-                                                                                    constant:TRAILING_EDGE_PADDING];
-    
-    return @[labelTopEdgeConstraint, labelLeadingEdgeConstraint, labelTrailingEdgeConstraint];
-}
-
-
-#pragma mark - Class Methods
-#pragma mark Layout
-// *** CELL LAYOUT ***
-// | : Top or Bottom Padding
-// - : Trailing or Leading padding
-// ------------------------------ // top edge
-// |                            |
-// -MEETING_TITLE_LABEL         -
-// -MEETING_LOCATION_LABEL      -
-// -MEETING_CHAIRPERSON_LABEL   -
-// -MEETING_DETAIL_TEXTVIEW     -
-// |                            |
-// ------------------------------
-
-+ (CGFloat)heightForCell:(AAMeetingInfoTableViewCell*)cell
-{
-    CGFloat height = TOP_EDGE_PADDING + BOTTOM_EDGE_PADDING;
-    CGSize contentBoundingSize = [AAMeetingInfoTableViewCell textBoundingSizeForCell:cell];
-    
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingTitleLabel boundingSize:contentBoundingSize font:[UIFont stepsHeaderFont]];
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingLocationLabel boundingSize:contentBoundingSize font:[UIFont stepsSubheaderFont]];
-    height += [AAMeetingInfoTableViewCell heightForLabel:cell.meetingChairpersonLabel boundingSize:contentBoundingSize font:[UIFont stepsCaptionFont]];
-    height += [AAMeetingInfoTableViewCell heightForTextView:cell.meetingDetailTextView boundingSize:contentBoundingSize font:[UIFont stepsBodyFont]];
-    
-    return height;
-}
-
-+ (CGFloat)heightForLabel:(UILabel*)label boundingSize:(CGSize)size font:(UIFont*)font
-{
-    CGFloat height = [label.text boundingRectWithSize:size
+    CGFloat height = [label.text boundingRectWithSize:[self textBoundingSize]
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName : font}
                                               context:nil].size.height;
@@ -258,20 +155,35 @@
     return ceilf(height);
 }
 
-+ (CGFloat)heightForTextView:(UITextView*)textView boundingSize:(CGSize)size font:(UIFont*)font
+- (CGFloat)heightForTextView:(UITextView*)textView font:(UIFont*)font
 {
-    CGFloat height = [textView.text boundingRectWithSize:size
-                                            options:NSStringDrawingUsesLineFragmentOrigin
-                                        attributes:@{NSFontAttributeName : font}
-                                            context:nil].size.height;
+    CGFloat height = [textView.text boundingRectWithSize:[self textBoundingSize]
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{NSFontAttributeName : font}
+                                                 context:nil].size.height;
     
     return ceilf(height);
 }
 
-+ (CGSize)textBoundingSizeForCell:(AAMeetingInfoTableViewCell*)cell
+- (CGSize)textBoundingSize
 {
-    CGSize boundingSize = CGSizeMake(cell.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX);
+    CGSize boundingSize = CGSizeMake(self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX);
     return boundingSize;
+}
+
+
+#pragma mark - Class Methods
+
++ (CGFloat)heightForCell:(AAMeetingInfoTableViewCell*)cell
+{
+    CGFloat height = TOP_EDGE_PADDING + BOTTOM_EDGE_PADDING;
+    
+    height += [cell heightForLabel:cell.meetingTitleLabel font:[UIFont stepsHeaderFont]];
+    height += [cell heightForLabel:cell.meetingLocationLabel font:[UIFont stepsSubheaderFont]];
+    height += [cell heightForLabel:cell.meetingChairpersonLabel font:[UIFont stepsCaptionFont]];
+    height += [cell heightForTextView:cell.meetingDetailTextView font:[UIFont stepsBodyFont]];
+    
+    return height;
 }
 
 @end

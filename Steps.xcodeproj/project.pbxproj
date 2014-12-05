@@ -17,6 +17,8 @@
 		842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */; };
 		842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */; };
 		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
+		8434EC621A31B14D00D85F32 /* black-iphone6-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434EC601A31B14D00D85F32 /* black-iphone6-portrait.png */; };
+		8434EC631A31B14D00D85F32 /* black-iphone6plus-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434EC611A31B14D00D85F32 /* black-iphone6plus-portrait.png */; };
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
 		8456A3541A1CCC2500B78D1E /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456A3531A1CCC2500B78D1E /* Contact.m */; };
 		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
@@ -33,6 +35,10 @@
 		84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D56E781A287A6E0059A75A /* Meeting+AAAdditions.m */; };
 		84D56E971A288A040059A75A /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D56E961A288A040059A75A /* Meeting.m */; };
 		84D56E9A1A288A050059A75A /* MeetingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D56E991A288A050059A75A /* MeetingType.m */; };
+		84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */; };
+		84E3C80C1A3151B800819EA4 /* AAMeetingDurationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */; };
+		84E3C8121A31658100819EA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E3C8101A31658100819EA4 /* Localizable.strings */; };
+		84E3C8191A31669500819EA4 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 84E3C8171A31669500819EA4 /* Localizable.stringsdict */; };
 		84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3361915CD250063F4EA /* CoreGraphics.framework */; };
 		84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -159,6 +165,8 @@
 		842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryDescriptiveQuestionTableViewCell.m; path = Classes/AADailyInventoryDescriptiveQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestionTableViewCell.h; path = Classes/AADailyInventoryQuestionTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTableViewCell.m; path = Classes/AADailyInventoryQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		8434EC601A31B14D00D85F32 /* black-iphone6-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-iphone6-portrait.png"; sourceTree = "<group>"; };
+		8434EC611A31B14D00D85F32 /* black-iphone6plus-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-iphone6plus-portrait.png"; sourceTree = "<group>"; };
 		844A7B741920C62B004AD4A8 /* NSDate+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+AAAdditions.h"; path = "Classes/NSDate+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
 		844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+AAAdditions.m"; path = "Classes/NSDate+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		8456A3521A1CCC2500B78D1E /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
@@ -189,6 +197,17 @@
 		84D56E961A288A040059A75A /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Meeting.m; path = Classes/Meeting.m; sourceTree = SOURCE_ROOT; };
 		84D56E981A288A050059A75A /* MeetingType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeetingType.h; path = Classes/MeetingType.h; sourceTree = SOURCE_ROOT; };
 		84D56E991A288A050059A75A /* MeetingType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeetingType.m; path = Classes/MeetingType.m; sourceTree = SOURCE_ROOT; };
+		84E3C8071A309FE100819EA4 /* UILabel+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+AAAdditions.h"; sourceTree = "<group>"; };
+		84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+AAAdditions.m"; sourceTree = "<group>"; };
+		84E3C80A1A3151B800819EA4 /* AAMeetingDurationPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingDurationPickerView.h; path = Classes/AAMeetingDurationPickerView.h; sourceTree = SOURCE_ROOT; };
+		84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingDurationPickerView.m; path = Classes/AAMeetingDurationPickerView.m; sourceTree = SOURCE_ROOT; };
+		84E3C80D1A31652200819EA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Steps/zh-Hans.lproj/Main_iPhone.strings"; sourceTree = "<group>"; };
+		84E3C80E1A31652200819EA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		84E3C80F1A31652200819EA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		84E3C8111A31658100819EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Steps/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84E3C81D1A3176C200819EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		84E3C81E1A3176C700819EA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		84E3C81F1A31797900819EA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Steps/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		84EBC3311915CD250063F4EA /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EBC3341915CD250063F4EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84EBC3361915CD250063F4EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -388,6 +407,8 @@
 		84491B2F1918A767006073B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84E3C80A1A3151B800819EA4 /* AAMeetingDurationPickerView.h */,
+				84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */,
 				E23996C4194969E100DD30C9 /* AACallButton.h */,
 				E23996C3194969E100DD30C9 /* AACallButton.m */,
 				E2DA1B3D194EBDA9001A178B /* AAPopoverListView.h */,
@@ -444,6 +465,8 @@
 		846ABC26192B30F700558785 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8434EC601A31B14D00D85F32 /* black-iphone6-portrait.png */,
+				8434EC611A31B14D00D85F32 /* black-iphone6plus-portrait.png */,
 				E239969B1946BCD500DD30C9 /* Icons */,
 				E27C2DCD1935F19A00BE2AB6 /* AA_Blue_Circle.jpg */,
 				84C59D571A19FEDE00E6B64B /* 12_step_triangle.jpg */,
@@ -530,6 +553,8 @@
 		84EBC33B1915CD250063F4EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84E3C8101A31658100819EA4 /* Localizable.strings */,
+				84E3C8171A31669500819EA4 /* Localizable.stringsdict */,
 				E2E2263D196837CD0065D35C /* AATelPromptDelegate.h */,
 				E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */,
 				E2489F97193774B300861066 /* NBPhoneNumber */,
@@ -547,6 +572,8 @@
 				E2A7E7111954385300510959 /* UIColor+AAAdditions.m */,
 				84B7FCF81A2DCEC30010E3DC /* UIFont+AAAdditions.h */,
 				84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */,
+				84E3C8071A309FE100819EA4 /* UILabel+AAAdditions.h */,
+				84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -816,6 +843,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 84EBC3281915CD250063F4EA;
 			productRefGroup = 84EBC3321915CD250063F4EA /* Products */;
@@ -851,6 +879,7 @@
 				84C59D581A19FEDE00E6B64B /* 12_step_triangle.jpg in Resources */,
 				E23996AF1947E78600DD30C9 /* email_btn.png in Resources */,
 				84EBC3501915CD250063F4EA /* Images.xcassets in Resources */,
+				84E3C8121A31658100819EA4 /* Localizable.strings in Resources */,
 				E20149A9198E032500A6B640 /* search_btn@2x.png in Resources */,
 				841EA9271A20721400FD85F6 /* map_pin.png in Resources */,
 				84EBC33F1915CD250063F4EA /* InfoPlist.strings in Resources */,
@@ -859,9 +888,12 @@
 				E23996991946BCCE00DD30C9 /* profile_icon.png in Resources */,
 				E20149AA198E032500A6B640 /* search_btn.png in Resources */,
 				E2489FCD19377C8700861066 /* NBPhoneNumberMetadataForTesting.plist in Resources */,
+				84E3C8191A31669500819EA4 /* Localizable.stringsdict in Resources */,
 				E23996A51946F35000DD30C9 /* sms_btn.png in Resources */,
+				8434EC631A31B14D00D85F32 /* black-iphone6plus-portrait.png in Resources */,
 				84F222CA1A232FFB00F07CE8 /* clock_btn@3x.png in Resources */,
 				E2489FCC19377C8700861066 /* NBPhoneNumberMetadata.plist in Resources */,
+				8434EC621A31B14D00D85F32 /* black-iphone6-portrait.png in Resources */,
 				E23996A41946F35000DD30C9 /* sms_btn@2x.png in Resources */,
 				841EA92A1A20832200FD85F6 /* map_pin@3x.png in Resources */,
 				E2399685194612B700DD30C9 /* stepwork_icon@2x.png in Resources */,
@@ -896,6 +928,7 @@
 				E2A7E7151956B14A00510959 /* AAInterceptTouchesView.m in Sources */,
 				E2EEF088192E547300CDEF0D /* Email.m in Sources */,
 				84D56E9A1A288A050059A75A /* MeetingType.m in Sources */,
+				84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */,
 				84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */,
 				842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */,
 				841DB0CF1A29D59200DDB71D /* AAEditMeetingAddAlertCell.m in Sources */,
@@ -926,6 +959,7 @@
 				E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */,
 				8456A3541A1CCC2500B78D1E /* Contact.m in Sources */,
 				E27C2DD11935F5B700BE2AB6 /* AAContactPhoneTableViewCell.m in Sources */,
+				84E3C80C1A3151B800819EA4 /* AAMeetingDurationPickerView.m in Sources */,
 				84D56E971A288A040059A75A /* Meeting.m in Sources */,
 				E2249460193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m in Sources */,
 				E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */,
@@ -991,10 +1025,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		84E3C8101A31658100819EA4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E3C8111A31658100819EA4 /* en */,
+				84E3C81F1A31797900819EA4 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		84E3C8171A31669500819EA4 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E3C81D1A3176C200819EA4 /* en */,
+				84E3C81E1A3176C700819EA4 /* zh-Hans */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
 		84EBC33D1915CD250063F4EA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				84EBC33E1915CD250063F4EA /* en */,
+				84E3C80E1A31652200819EA4 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1003,6 +1057,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84EBC3601915CD250063F4EA /* en */,
+				84E3C80F1A31652200819EA4 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1011,6 +1066,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84FEDF1E191BD46200767CB0 /* Base */,
+				84E3C80D1A31652200819EA4 /* zh-Hans */,
 			);
 			name = Main_iPhone.storyboard;
 			path = ..;
@@ -1051,7 +1107,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1084,7 +1140,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

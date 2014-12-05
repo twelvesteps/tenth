@@ -32,7 +32,7 @@
 #pragma mark - UI Events
 
 - (void)datePickerScrolled:(UIDatePicker*)sender
-{    
+{
     [self.delegate pickerCellValueChanged:self];
 }
 

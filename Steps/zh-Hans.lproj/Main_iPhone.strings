@@ -1,0 +1,114 @@
+
+/* Class = "IBUILabel"; text = "Location"; ObjectID = "4AD-Hq-mCb"; */
+"4AD-Hq-mCb.text" = "Location";
+
+/* Class = "IBUINavigationItem"; title = "All Contacts"; ObjectID = "4lq-ag-frO"; */
+"4lq-ag-frO.title" = "All Contacts";
+
+/* Class = "IBUIBarButtonItem"; title = "Add"; ObjectID = "8eh-5q-aRQ"; */
+"8eh-5q-aRQ.title" = "Add";
+
+/* Class = "IBUINavigationItem"; title = "Calendar"; ObjectID = "Dyq-Ct-fbo"; */
+"Dyq-Ct-fbo.title" = "Calendar";
+
+/* Class = "IBUILabel"; text = "New Contact"; ObjectID = "GGf-BG-lZ6"; */
+"GGf-BG-lZ6.text" = "New Contact";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "Gxq-Dx-hkF"; */
+"Gxq-Dx-hkF.normalTitle" = "Done";
+
+/* Class = "IBUITabBarItem"; title = "Contacts"; ObjectID = "H33-Mb-dLf"; */
+"H33-Mb-dLf.title" = "Contacts";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "I4o-ny-Uzq"; */
+"I4o-ny-Uzq.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Setting"; ObjectID = "IeT-d0-fde"; */
+"IeT-d0-fde.text" = "Setting";
+
+/* Class = "IBUILabel"; text = "Sobriety Date"; ObjectID = "Ihr-M2-7m0"; */
+"Ihr-M2-7m0.text" = "Sobriety Date";
+
+/* Class = "IBUITabBarItem"; title = "Profile"; ObjectID = "KhN-ir-2nh"; */
+"KhN-ir-2nh.title" = "Profile";
+
+/* Class = "IBUINavigationItem"; title = "Profile"; ObjectID = "MSt-p5-DUx"; */
+"MSt-p5-DUx.title" = "Profile";
+
+/* Class = "IBUILabel"; text = "Set as Sponsor"; ObjectID = "NVa-Fv-iEs"; */
+"NVa-Fv-iEs.text" = "Set as Sponsor";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[0] = "ALL"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[0]" = "ALL";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[1] = "SU"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[1]" = "SU";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[2] = "M"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[2]" = "M";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[3] = "T"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[3]" = "T";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[4] = "W"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[4]" = "W";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[5] = "TH"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[5]" = "TH";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[6] = "F"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[6]" = "F";
+
+/* Class = "IBUISegmentedControl"; QZi-0F-1wF.segmentTitles[7] = "S"; ObjectID = "QZi-0F-1wF"; */
+"QZi-0F-1wF.segmentTitles[7]" = "S";
+
+/* Class = "IBUILabel"; text = "Meeting Name"; ObjectID = "SsF-g8-lm8"; */
+"SsF-g8-lm8.text" = "Meeting Name";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "UyZ-Oa-x53"; */
+"UyZ-Oa-x53.text" = "Label";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "XM9-eY-u7W"; */
+"XM9-eY-u7W.title" = "Edit";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "YO4-dg-Sn6"; */
+"YO4-dg-Sn6.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Notes"; ObjectID = "aSb-ng-850"; */
+"aSb-ng-850.text" = "Notes";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "eZl-cj-gwT"; */
+"eZl-cj-gwT.title" = "Edit";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "elo-ad-2o6"; */
+"elo-ad-2o6.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "hFd-LC-vJZ"; */
+"hFd-LC-vJZ.text" = "Label";
+
+/* Class = "IBUITextField"; placeholder = "Title/Location"; ObjectID = "ihA-ke-k3D"; */
+"ihA-ke-k3D.placeholder" = "Title/Location";
+
+/* Class = "IBUILabel"; text = "Location"; ObjectID = "iz3-2k-4Ey"; */
+"iz3-2k-4Ey.text" = "Location";
+
+/* Class = "IBUILabel"; text = "Sponsor"; ObjectID = "lR2-z1-g9d"; */
+"lR2-z1-g9d.text" = "Sponsor";
+
+/* Class = "IBUITabBarItem"; title = "Calendar"; ObjectID = "lbu-u1-vUQ"; */
+"lbu-u1-vUQ.title" = "Calendar";
+
+/* Class = "IBUIBarButtonItem"; title = "Cancel"; ObjectID = "rVs-jp-HGi"; */
+"rVs-jp-HGi.title" = "Cancel";
+
+/* Class = "IBUILabel"; text = "Meeting Title"; ObjectID = "rjd-xl-ndw"; */
+"rjd-xl-ndw.text" = "Meeting Title";
+
+/* Class = "IBUITextView"; text = "Day of week\nStart Time to End Time\nDetails"; ObjectID = "tN8-Lp-20d"; */
+"tN8-Lp-20d.text" = "Day of week\nStart Time to End Time\nDetails";
+
+/* Class = "IBUILabel"; text = "Sobriety Date Picker"; ObjectID = "tOJ-kF-Ox1"; */
+"tOJ-kF-Ox1.text" = "Sobriety Date Picker";
+
+/* Class = "IBUILabel"; text = "Chairperson"; ObjectID = "yF5-Sl-dfA"; */
+"yF5-Sl-dfA.text" = "Chairperson";

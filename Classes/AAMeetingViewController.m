@@ -45,6 +45,12 @@
     return [self meetingInfoCellForIndexPath:indexPath];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AAMeetingInfoTableViewCell* cell = [self meetingInfoCellForIndexPath:indexPath];
+    return [AAMeetingInfoTableViewCell heightForCell:cell];
+}
+
 - (AAMeetingInfoTableViewCell*)meetingInfoCellForIndexPath:(NSIndexPath*)indexPath
 {
     AAMeetingInfoTableViewCell* cell = (AAMeetingInfoTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:MEETING_INFO_CELL_REUSE_ID];

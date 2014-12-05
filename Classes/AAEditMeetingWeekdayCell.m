@@ -7,6 +7,7 @@
 //
 
 #import "AAEditMeetingWeekdayCell.h"
+#import "UIColor+AAAdditions.h"
 @interface AAEditMeetingWeekdayCell() <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
@@ -52,9 +53,16 @@
     return [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols.count;
 }
 
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    return [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
+//}
+
+- (NSAttributedString*)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
+    NSString* weekdaySymbol = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
+    NSAttributedString* blueWeekdaySymbol = [[NSAttributedString alloc] initWithString:weekdaySymbol attributes:@{NSForegroundColorAttributeName : [UIColor stepsBlueTextColor]}];
+    return blueWeekdaySymbol;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
