@@ -2,4 +2,5 @@
 *.DS_Store
 *.xcuserstate
 Steps.xcodeproj/xcuserdata/admin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.orig
 Todo.txt
