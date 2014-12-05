@@ -659,11 +659,11 @@ Details</string>
             </objects>
             <point key="canvasLocation" x="1488" y="205"/>
         </scene>
-        <!--Calendar-->
+        <!--Meetings-->
         <scene sceneID="Gbn-eo-5m3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E7V-5V-Mso" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar_btn.png" id="lbu-u1-vUQ"/>
+                    <tabBarItem key="tabBarItem" title="Meetings" image="calendar_btn.png" id="lbu-u1-vUQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wHI-Vq-rFC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
