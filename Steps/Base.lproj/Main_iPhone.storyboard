@@ -387,12 +387,15 @@
                                     <segment title="F"/>
                                     <segment title="S"/>
                                 </segments>
+                                <connections>
+                                    <action selector="weekdaySegementedControlTapped:" destination="BUA-3q-KLa" eventType="valueChanged" id="QNg-34-hTh"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9dG-3i-1kM">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingCell" id="Gsa-Na-0wc" customClass="AAMeetingTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingCell" id="Gsa-Na-0wc" customClass="AAMeetingTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gsa-Na-0wc" id="By1-eJ-iU4">
@@ -402,39 +405,39 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSb-ng-850">
                                                     <rect key="frame" x="237" y="11" width="46" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="46" id="RGG-Lx-vzk"/>
+                                                        <constraint firstAttribute="width" constant="46" id="ZG0-KN-X7T"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-xl-ndw">
-                                                    <rect key="frame" x="15" y="0.0" width="221" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <rect key="frame" x="18" y="0.0" width="221" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-2k-4Ey">
-                                                    <rect key="frame" x="15" y="22" width="214" height="21"/>
+                                                    <rect key="frame" x="18" y="22" width="214" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="Rku-s4-BPz"/>
+                                                        <constraint firstAttribute="height" constant="21" id="0GJ-Jx-t4v"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="leading" secondItem="rjd-xl-ndw" secondAttribute="leading" id="1bA-zm-6xF"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" constant="7" id="27W-7z-B5A"/>
-                                                <constraint firstItem="aSb-ng-850" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="3" id="52M-p1-Mlm"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="top" id="7VX-zr-W3M"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="aSb-ng-850" secondAttribute="trailing" constant="-4" id="DRn-8V-Ief"/>
-                                                <constraint firstItem="aSb-ng-850" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="trailing" constant="8" symbolic="YES" id="TPC-ZR-3tY"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="iz3-2k-4Ey" secondAttribute="bottom" constant="-7.5" id="Y5v-63-oQc"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="top" secondItem="rjd-xl-ndw" secondAttribute="bottom" constant="1" id="bIC-V4-a6O"/>
-                                                <constraint firstItem="aSb-ng-850" firstAttribute="centerY" secondItem="By1-eJ-iU4" secondAttribute="centerY" id="bO4-g6-tFg"/>
-                                                <constraint firstItem="aSb-ng-850" firstAttribute="leading" secondItem="rjd-xl-ndw" secondAttribute="trailing" constant="1" id="sAy-AE-iqX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="iz3-2k-4Ey" secondAttribute="bottom" constant="-7.5" id="1gT-Kk-lDe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rjd-xl-ndw" secondAttribute="trailing" constant="40" id="7aV-bB-tDm"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="3" id="Ax0-k6-9Xx"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aSb-ng-850" secondAttribute="trailing" constant="-4" id="Cpq-h0-bqH"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="centerY" secondItem="By1-eJ-iU4" secondAttribute="centerY" id="DDh-Dk-YIY"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="leading" id="T7c-2j-CGL"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="top" secondItem="rjd-xl-ndw" secondAttribute="bottom" constant="1" id="UKf-Ez-6d6"/>
+                                                <constraint firstItem="aSb-ng-850" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="trailing" constant="5" id="bN5-hU-8xm"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="top" id="gWp-pk-ZyD"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" constant="10" id="k54-r2-lY4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -469,6 +472,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="9dG-3i-1kM" id="c1R-1Q-eRI"/>
+                        <outlet property="weekdaySegmentedControl" destination="QZi-0F-1wF" id="f8T-pv-9Fn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rci-gH-jY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -787,7 +791,7 @@ Details</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MTG-GX-Tev"/>
+        <segue reference="YOC-rY-wGw"/>
         <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>
