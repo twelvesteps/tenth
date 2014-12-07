@@ -12,6 +12,7 @@
 #import "AAMeetingTableViewCell.h"
 #import "AAEditMeetingViewController.h"
 #import "AAMeetingSectionDividerView.h"
+#import "AAMeetingFellowshipIcon.h"
 
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
@@ -22,14 +23,12 @@
 @property (strong, nonatomic) NSMutableArray* meetings; // an array of arrays, sorted by start date of meetings
 @property (strong, nonatomic) NSArray* filteredMeetings; // an array of arrays containing visible meetings
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
-
 @end
 
 @implementation AAMeetingsViewController
 
-#define SHOW_ALL_WEEKDAYS_INDEX     -1
-#define ALL_WEEKDAYS_SEGMENT_INDEX  0
+//#define SHOW_ALL_WEEKDAYS_INDEX     -1
+//#define ALL_WEEKDAYS_SEGMENT_INDEX  0
 
 #pragma mark - Lifecycle
 
@@ -42,13 +41,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self updateMeetings];
+    [self.tableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    //[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)updateMeetings
 {
     NSArray* allMeetings = [[AAUserDataManager sharedManager] fetchMeetings];
     self.meetings = [self parseMeetingsByStartDate:allMeetings];
-    self.filteredMeetings = [self filteredMeetingsForSelectedWeekday:self.weekdaySegmentedControl.selectedSegmentIndex - 1];
+    self.filteredMeetings = [self filterEmptyMeetings];
 }
 
 
@@ -100,14 +105,16 @@
     return mutableParsedMeetings;
 }
 
-- (NSArray*)filteredMeetingsForSelectedWeekday:(NSInteger)weekday
+- (NSArray*)filterEmptyMeetings
 {
-    if (weekday == SHOW_ALL_WEEKDAYS_INDEX) {
-        return [self.meetings copy];
-    } else {
-        NSArray* filteredMeetings = @[self.meetings[weekday]];
-        return filteredMeetings;
+    NSMutableArray* filteredMeetings = [[NSMutableArray alloc] init];
+    for (NSArray* weekdayMeetings in self.meetings) {
+        if (weekdayMeetings.count > 0) {
+            [filteredMeetings addObject:weekdayMeetings];
+        }
     }
+    
+    return [filteredMeetings copy];
 }
 
 #pragma mark - UI Events
@@ -122,7 +129,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.filteredMeetings.count;
+    NSInteger numSections = 0;
+    for (NSArray* weekdayMeetings in self.filteredMeetings) {
+        if (weekdayMeetings.count > 0) {
+            numSections++;
+        }
+    }
+    
+    return numSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -137,28 +151,29 @@
 }
 
 #define HEADER_VIEW_HEIGHT  30.0f
+#define TABLE_CELL_HEIGHT   52.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return HEADER_VIEW_HEIGHT;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return TABLE_CELL_HEIGHT;
+}
+
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    NSArray* weekdayMeetings = self.meetings[section];
-//    Meeting* meeting = [weekdayMeetings firstObject];
-//    NSInteger weekdayIndex = [meeting.startDate weekday] - 1;
+    NSArray* weekdayMeetings = self.filteredMeetings[section];
+    Meeting* meeting = [weekdayMeetings firstObject];
+    NSInteger weekdayIndex = [meeting.startDate weekday] - 1;
     
     CGRect headerViewFrame = CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, HEADER_VIEW_HEIGHT);
-    
     AAMeetingSectionDividerView* headerView = [[AAMeetingSectionDividerView alloc] initWithFrame:headerViewFrame];
-    
-    if (self.weekdaySegmentedControl.selectedSegmentIndex == ALL_WEEKDAYS_SEGMENT_INDEX) {
-        headerView.titleLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[section];
-    } else {
-        headerView.titleLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[self.weekdaySegmentedControl.selectedSegmentIndex - 1];
-    }
 
+    headerView.titleLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[weekdayIndex];
+    
     return headerView;
 }
 
@@ -175,8 +190,12 @@
     
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
+    cell.startDateLabel.text = [meeting startTimeString];
+    cell.endDateLabel.text = [meeting endTimeString];
     cell.titleLabel.text = meeting.title;
     cell.addressLabel.text = meeting.location;
+    cell.fellowshipIcon.openMeeting = (rand() % 2 == 0) ? YES : NO;
+    cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
     
     return cell;
 }
@@ -193,7 +212,10 @@
 
 - (void)deleteMeetingAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSMutableArray* sectionMeetings = self.meetings[indexPath.section];
+    NSArray* weekdayMeetings = self.filteredMeetings[indexPath.section];
+    Meeting* meeting = weekdayMeetings[indexPath.row];
+    
+    NSMutableArray* sectionMeetings = self.meetings[[meeting.startDate weekday] - 1];
     [sectionMeetings removeObjectAtIndex:indexPath.row];
 }
 
@@ -208,10 +230,18 @@
         Meeting* meeting = [self meetingForIndexPath:indexPath];
         [[AAUserDataManager sharedManager] removeMeeting:meeting];
         
-        [self deleteMeetingAtIndexPath:indexPath];
-        self.filteredMeetings = [self filteredMeetingsForSelectedWeekday:self.weekdaySegmentedControl.selectedSegmentIndex - 1];
+        
+        if ([self meetingCountForSection:indexPath.section] == 1) {
+            [self deleteMeetingAtIndexPath:indexPath];
+            self.filteredMeetings = [self filterEmptyMeetings];
 
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [self deleteMeetingAtIndexPath:indexPath];
+            self.filteredMeetings = [self filterEmptyMeetings];
+
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }        
     }
 }
 

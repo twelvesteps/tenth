@@ -360,12 +360,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAMeetingsViewController.m"
-            timestampString = "439497052.265302"
+            timestampString = "439642974.125723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -440,11 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAMeetingsViewController.m"
-            timestampString = "439497548.517996"
+            timestampString = "439642974.125723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "-parseMeetingsByStartDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -456,11 +456,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAMeetingsViewController.m"
-            timestampString = "439497767.395799"
+            timestampString = "439644918.07822"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251">
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -614,11 +616,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Classes/AAEditMeetingViewController.m"
-            timestampString = "439467984.300682"
+            timestampString = "439645331.414359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "-syncMeeting"
             landmarkType = "5">
          </BreakpointContent>
@@ -652,6 +654,54 @@
             startingLineNumber = "130"
             endingLineNumber = "130"
             landmarkName = "-layoutTitleLabel"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAMeetingsViewController.m"
+            timestampString = "439643813.197931"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-parseMeetingsByStartDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAMeetingFellowshipIcon.m"
+            timestampString = "439644852.342357"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-setOpenMeeting:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/AAMeetingFellowshipIcon.m"
+            timestampString = "439644998.574572"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-setup"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

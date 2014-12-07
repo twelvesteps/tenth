@@ -9,13 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
 
+@class AAMeetingFellowshipIcon;
 @interface AAMeetingTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) Meeting* meeting;
 
+@property (weak, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endDateLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *notesLabel;
 
+@property (weak, nonatomic) IBOutlet AAMeetingFellowshipIcon *fellowshipIcon;
 
 @end

@@ -60,7 +60,6 @@
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
     } else {
-        
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
         self.weekday = [[NSDate date] weekday];
         self.startTime = [[NSDate date] nearestHalfHour];
@@ -84,7 +83,12 @@
     
     self.tableView.tableHeaderView = dummyHeader;
     self.tableView.tableFooterView = dummyFooter;
-    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, -dummyViewHeight, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, -dummyViewHeight, 0); // Adjust table view insets to account for dummy views
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.titleTextField becomeFirstResponder];
 }
 
 
