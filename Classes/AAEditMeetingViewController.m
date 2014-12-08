@@ -36,6 +36,7 @@
 
 @property (weak, nonatomic) AAMeetingFellowshipIcon* fellowshipIcon;
 
+@property (nonatomic) BOOL shouldActivateTitleField;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
 @property (nonatomic) NSInteger weekday;
@@ -67,12 +68,14 @@
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
         self.openMeeting = self.meeting.openMeeting;
+        self.shouldActivateTitleField = NO;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
         self.weekday = [[NSDate date] weekday];
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
         self.openMeeting = NO;
+        self.shouldActivateTitleField = YES;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -97,7 +100,12 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.titleTextField becomeFirstResponder];
+    if (self.shouldActivateTitleField) {
+        [self.titleTextField becomeFirstResponder];
+        self.shouldActivateTitleField = NO;
+    }
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 
@@ -447,7 +455,7 @@
 {
     [self updateSelectedCellIndexPath:indexPath];
     
-    if (indexPath.section == DATE_TIME_SECTION) {
+    if (indexPath.section != TITLE_LOCATION_SECTION) {
         [self.view endEditing:YES];
     }
     
