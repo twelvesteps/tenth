@@ -56,7 +56,7 @@
 - (NSAttributedString*)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     NSString* weekdaySymbol = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[row];
-    NSAttributedString* blueWeekdaySymbol = [[NSAttributedString alloc] initWithString:weekdaySymbol attributes:@{NSForegroundColorAttributeName : [UIColor stepsBlueTextColor]}];
+    NSAttributedString* blueWeekdaySymbol = [[NSAttributedString alloc] initWithString:weekdaySymbol attributes:@{NSForegroundColorAttributeName : [UIColor stepsBlueColor]}];
     return blueWeekdaySymbol;
 }
 

@@ -8,49 +8,45 @@
 
 #import "AAEditMeetingTextInputCell.h"
 #import "UIFont+AAAdditions.h"
+#import "UIColor+AAAdditions.h"
 
 @interface AAEditMeetingTextInputCell()
-
-@property (nonatomic, weak) UIView* separatorView;
 
 @end
 
 @implementation AAEditMeetingTextInputCell
 
-#define SEPARATOR_VIEW_HEIGHT   1.0f
+#define SEPARATOR_VIEW_HEIGHT   0.5f
 #define CELL_HEIGHT             44.0f
 
 - (void)awakeFromNib
 {
+    self.topSeparator = YES;
+    
     [super awakeFromNib];
     
-    UIView* separatorView = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
-                                                                     CELL_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                                                     self.bounds.size.width,
-                                                                     SEPARATOR_VIEW_HEIGHT)];
-    
-    separatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
-    self.separatorView = separatorView;
-    [self.contentView addSubview:separatorView];
-    
     self.textField.font = [UIFont stepsCaptionFont];
+
 }
 
-- (void)layoutSubviews
+- (NSInteger)separatorsCount
 {
-    [super layoutSubviews];
-    
-    [self layoutSeparatorView];
+    if (self.topSeparator) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
-- (void)layoutSeparatorView
+- (NSArray*)separatorOrigins
 {
-    CGRect separatorViewFrame = CGRectMake(0.0f,
-                                           CELL_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                           self.bounds.size.width,
-                                           SEPARATOR_VIEW_HEIGHT);
-    self.separatorView.frame = separatorViewFrame;
+    if (self.topSeparator) {
+        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.origin.y)],
+                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)]];
+    } else {
+        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
+    }
 }
+
 
 @end

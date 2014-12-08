@@ -25,9 +25,10 @@
 
 @interface AAUserDataManager : NSObject
 
-@property (nonatomic, readonly) BOOL hasUserAddressBookAccess;
-
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+
+
+@property (nonatomic, readonly) BOOL hasUserAddressBookAccess;
 
 // *** CREATING OBJECTS ***
 // info:    creates a singleton instance that should be shared by all objects. No controller should retain a unique copy
@@ -43,7 +44,8 @@
 - (Resentment*)createResentment;
 - (Contact*)createContact;
 - (Meeting*)createMeeting;
-- (MeetingType*)createMeetingType;
+
+- (MeetingType*)getMeetingType:(NSString*)title;
 
 // info:    Creates a managed contact object with the properties of the address book contact already set
 // returns: A newly created managed contact or nil on error

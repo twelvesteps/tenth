@@ -87,11 +87,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:EDIT_MEETING_SEGUE_ID]) {
-        if ([segue.destinationViewController isKindOfClass:[AAEditMeetingViewController class]]) {
-            AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)segue.destinationViewController;
-            
-            aaemvc.meeting = self.meeting;
-            aaemvc.delegate = self;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController* navController = (UINavigationController*)segue.destinationViewController;
+            if ([navController.topViewController isKindOfClass:[AAEditMeetingViewController class]]) {
+                AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)navController.topViewController;
+                
+                aaemvc.meeting = self.meeting;
+                aaemvc.delegate = self;
+            }
         }
     }
 }

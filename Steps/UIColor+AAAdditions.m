@@ -21,9 +21,31 @@
     return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
-+ (UIColor*)stepsBlueTextColor
+#define UIColorWithRGB(r, g, b)     [UIColor colorWithRed:r/255.0f  green:g/255.0f  blue:b/255.0f alpha:1.0f];
+
++ (UIColor*)stepsBlueColor
 {
-    return [UIColor colorWithRed:11.0f/255.0f green:96.0f/255.0f blue:254.0f/255.0f alpha:1.0f];
+    return UIColorWithRGB(11.0f, 97.0f, 254.0f);
+}
+
++ (UIColor*)stepsRedColor
+{
+    return UIColorWithRGB(0xFF, 0x0D, 0x00);
+}
+
++ (UIColor*)stepsOrangeColor
+{
+    return UIColorWithRGB(0xFF, 0xA5, 0x00);
+}
+
++ (UIColor*)stepsGreenColor
+{
+    return UIColorWithRGB(0x00, 0xFE, 0x1F);
+}
+
++ (UIColor*)stepsTableViewCellSeparatorColor
+{
+    return UIColorWithRGB(207.0f, 207.0f, 207.0f);
 }
 
 @end

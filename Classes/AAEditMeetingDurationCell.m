@@ -21,7 +21,7 @@
     AAMeetingDurationPickerView* durationPicker = [[AAMeetingDurationPickerView alloc] init];
     
     durationPicker.durationDelegate = self;
-    durationPicker.textColor = [UIColor stepsBlueTextColor];
+    durationPicker.textColor = [UIColor stepsBlueColor];
     durationPicker.minuteInterval = 5;
     
     self.durationPicker = durationPicker;

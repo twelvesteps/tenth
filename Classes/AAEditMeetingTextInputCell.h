@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
-@interface AAEditMeetingTextInputCell : UITableViewCell
+@interface AAEditMeetingTextInputCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 

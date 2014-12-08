@@ -32,7 +32,7 @@
     if([self view:self hasSuperviewOfClass:[UIDatePicker class]] ||
        [self view:self hasSuperviewOfClass:NSClassFromString(@"UIDatePickerWeekMonthDayView")] ||
        [self view:self hasSuperviewOfClass:NSClassFromString(@"UIDatePickerContentView")]){
-        [self swizzledSetTextColor:[UIColor stepsBlueTextColor]];
+        [self swizzledSetTextColor:[UIColor stepsBlueColor]];
     } else {
         //Carry on with the default
         [self swizzledSetTextColor:textColor];

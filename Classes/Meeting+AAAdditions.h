@@ -10,6 +10,8 @@
 
 @interface Meeting (AAAdditions)
 
+@property (nonatomic) BOOL openMeeting;
+
 - (NSDate*)endDate;
 
 - (NSString*)dayOfWeekString;

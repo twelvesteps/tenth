@@ -190,11 +190,10 @@
     
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
-    cell.startDateLabel.text = [meeting startTimeString];
-    cell.endDateLabel.text = [meeting endTimeString];
-    cell.titleLabel.text = meeting.title;
-    cell.addressLabel.text = meeting.location;
-    cell.fellowshipIcon.openMeeting = (rand() % 2 == 0) ? YES : NO;
+    
+    cell.topSeparator = (indexPath.row == 0);
+    cell.bottomSeparator = (indexPath.row == [self meetingCountForSection:indexPath.section] - 1);
+    
     cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
     
     return cell;
@@ -268,9 +267,12 @@
 
     if ([segue.identifier isEqualToString:NEW_MEETING_SEGUE_IDENTIFIER]) {
     // The "+" button was tapped, create a new meeting
-        if ([segue.destinationViewController isKindOfClass:[AAEditMeetingViewController class]]) {
-            AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)segue.destinationViewController;
-            aaemvc.delegate = self;
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+            UINavigationController* navController = (UINavigationController*)segue.destinationViewController;
+            if ([navController.topViewController isKindOfClass:[AAEditMeetingViewController class]]) {
+                AAEditMeetingViewController* aaemvc = (AAEditMeetingViewController*)navController.topViewController;
+                aaemvc.delegate = self;
+            }
         }
     } else if ([segue.identifier isEqualToString:MEETING_DETAIL_SEGUE_IDENTIFIER]) {
     // A meeting cell was tapped, display the meeting

@@ -17,5 +17,10 @@
 
 + (UIColor*)colorWithUIColor:(UIColor*)color withAlpha:(CGFloat)alpha;
 
-+ (UIColor*)stepsBlueTextColor;
++ (UIColor*)stepsBlueColor;
++ (UIColor*)stepsRedColor;
++ (UIColor*)stepsOrangeColor;
++ (UIColor*)stepsGreenColor;
+
++ (UIColor*)stepsTableViewCellSeparatorColor;
 @end

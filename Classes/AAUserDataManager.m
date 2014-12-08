@@ -11,6 +11,7 @@
 #import "Contact+AAAdditions.h"
 #import "Phone.h"
 #import "Email.h"
+#import "MeetingType.h"
 #import <CoreData/CoreData.h>
 
 #define AA_AMEND_ITEM_NAME              @"Amend"
@@ -26,6 +27,7 @@
 @property (nonatomic, assign) ABAddressBookRef addressBook;
 @property (nonatomic, strong) NSManagedObjectModel* managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator* persistentStoreCoordinator;
+
 
 @end
 
@@ -280,10 +282,25 @@
                                          inManagedObjectContext:self.managedObjectContext];
 }
 
-- (MeetingType*)createMeetingType
+- (MeetingType*)getMeetingType:(NSString*)title
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_TYPE_ITEM_NAME
-                                         inManagedObjectContext:self.managedObjectContext];
+    NSPredicate* titlePredicate = [NSPredicate predicateWithFormat:@"title == %@", title];
+    NSArray* types = [self fetchItemsForEntityName:AA_MEETING_TYPE_ITEM_NAME
+                               withSortDescriptors:nil
+                                     withPredicate:titlePredicate];
+    
+    if (types.count == 0) {
+    
+        MeetingType* type = [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_TYPE_ITEM_NAME
+                                                          inManagedObjectContext:self.managedObjectContext];
+        type.title = title;
+        return type;
+    } else if (types.count == 1) {
+        return [types firstObject];
+    } else {
+        DLog(@"<DEBUG> Multiple types exist with a given title");
+        return nil;
+    }
 }
 
 - (DailyInventory*)todaysDailyInventory

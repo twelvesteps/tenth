@@ -8,8 +8,32 @@
 
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
+#import "AAUserDataManager.h"
 
 @implementation Meeting (AAAdditions)
+
+#define OPEN_MEETING_TYPE   @"Open"
+#define CLOSED_MEETING_TYPE @"Closed"
+
+- (void)setOpenMeeting:(BOOL)openMeeting
+{
+    MeetingType* openType = [[AAUserDataManager sharedManager] getMeetingType:OPEN_MEETING_TYPE];
+    MeetingType* closedType = [[AAUserDataManager sharedManager] getMeetingType:CLOSED_MEETING_TYPE];
+    
+    [self removeTypes:[NSSet setWithObjects:openType, closedType, nil]];
+    
+    if (openMeeting) {
+        [self addTypesObject:openType];
+    } else {
+        [self addTypesObject:closedType];
+    }
+}
+
+- (BOOL)openMeeting
+{
+    MeetingType* openType = [[AAUserDataManager sharedManager] getMeetingType:OPEN_MEETING_TYPE];
+    return [self.types containsObject:openType];
+}
 
 - (NSDate*)endDate
 {

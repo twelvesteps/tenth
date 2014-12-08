@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
+#import "AASeparatorTableViewCell.h"
 
 @class AAMeetingFellowshipIcon;
-@interface AAMeetingTableViewCell : UITableViewCell
+@interface AAMeetingTableViewCell : AASeparatorTableViewCell
 
 @property (strong, nonatomic) Meeting* meeting;
 

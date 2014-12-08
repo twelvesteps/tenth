@@ -41,7 +41,6 @@
 
 - (void)setup
 {
-    [self initSeparators];
     [self initLabels];
     [self initPicker];
 
@@ -64,7 +63,7 @@
     if (self.pickerHidden) {
         self.descriptionLabel.textColor = [UIColor darkTextColor];
     } else {
-        self.descriptionLabel.textColor = [UIColor stepsBlueTextColor];
+        self.descriptionLabel.textColor = [UIColor stepsBlueColor];
     }
 }
 
@@ -99,26 +98,34 @@
     }
 }
 
-- (void)initSeparators
+- (NSInteger)separatorsCount
 {
-    UIView* labelSeparatorView = [[UIView alloc] init];
-    UIView* pickerSeparatorView = [[UIView alloc] init];
-    
-    labelSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    pickerSeparatorView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
-    self.labelSeparatorView = labelSeparatorView;
-    self.pickerSeparatorView = pickerSeparatorView;
-    
-    [self addSubview:labelSeparatorView];
-    [self addSubview:pickerSeparatorView];
+    if (self.topSeparator) {
+        return 3;
+    } else {
+        return 2;
+    }
 }
 
+#define LABEL_BLOCK_HEIGHT      44.0f
+
+- (NSArray*)separatorOrigins
+{
+    if (self.topSeparator) {
+        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)],
+                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)],
+                 [NSValue valueWithCGPoint:self.bounds.origin]];
+    } else if (self.bottomSeparator) {
+        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)],
+                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
+    } else {
+        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)],
+                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)]];
+    }
+}
 
 #pragma mark - Layout
 
-#define SEPARATOR_VIEW_HEIGHT   1.0f
-#define LABEL_BLOCK_HEIGHT      44.0f
 #define PICKER_BLOCK_HEIGHT     216.0f
 
 #define LABEL_LEFT_PADDING      14.0f
@@ -127,8 +134,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     [self layoutLabels];
-    [self layoutSeparators];
     [self layoutPicker];
 }
 
@@ -151,30 +158,6 @@
     
     self.titleLabel.frame = titleLabelFrame;
     self.descriptionLabel.frame = descriptionLabelFrame;
-}
-
-- (void)layoutSeparators
-{
-    CGRect labelSeparatorFrame = CGRectMake(self.contentView.bounds.origin.x,
-                                            self.contentView.bounds.origin.y + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                            self.contentView.bounds.size.width,
-                                            SEPARATOR_VIEW_HEIGHT);
-    
-    CGRect pickerSeparatorFrame;
-    if (!self.pickerHidden) {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
-                                          self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                          self.contentView.bounds.size.width,
-                                          SEPARATOR_VIEW_HEIGHT);
-    } else {
-        pickerSeparatorFrame = CGRectMake(self.bounds.origin.x,
-                                          self.contentView.bounds.origin.y + PICKER_BLOCK_HEIGHT + LABEL_BLOCK_HEIGHT - SEPARATOR_VIEW_HEIGHT,
-                                          0.0f,
-                                          0.0f);
-    }
-    
-    self.pickerSeparatorView.frame = pickerSeparatorFrame;
-    self.labelSeparatorView.frame = labelSeparatorFrame;
 }
 
 - (void)layoutPicker

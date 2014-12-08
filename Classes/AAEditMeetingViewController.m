@@ -13,6 +13,9 @@
 #import "AAEditMeetingWeekdayCell.h"
 #import "AAEditMeetingDurationCell.h"
 #import "AAEditMeetingStartTimeCell.h"
+#import "AAEditMeetingProgramTypeCell.h"
+#import "AAEditMeetingOpenCell.h"
+#import "AAMeetingFellowshipIcon.h"
 
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
@@ -23,7 +26,7 @@
 @interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBarTitle;
-@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+//@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,11 +34,15 @@
 @property (weak, nonatomic) UITextField* titleTextField;
 @property (weak, nonatomic) UITextField* locationTextField;
 
+@property (weak, nonatomic) AAMeetingFellowshipIcon* fellowshipIcon;
+
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
 @property (nonatomic) NSInteger weekday;
 @property (strong, nonatomic) NSDate* startTime;
 @property (strong, nonatomic) NSDate* duration;
+
+@property (nonatomic) BOOL openMeeting;
 
 @end
 
@@ -59,11 +66,13 @@
         self.weekday = [self.meeting.startDate weekday];
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
+        self.openMeeting = self.meeting.openMeeting;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
         self.weekday = [[NSDate date] weekday];
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
+        self.openMeeting = NO;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -105,6 +114,8 @@
     
     self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
     self.meeting.duration = self.duration;
+    
+    self.meeting.openMeeting = self.openMeeting;
 }
 
 - (NSDate*)dateByCombiningWeekdayAndStartTime
@@ -120,6 +131,8 @@
 
 #pragma mark - UI Events
 
+#define ANIMATION_DURATION  0.2f
+
 - (IBAction)leftToolbarButtonTapped:(UIBarButtonItem *)sender
 {
     [self.delegate viewControllerDidCancel:self];
@@ -129,6 +142,20 @@
 {
     [self syncMeeting];
     [self.delegate viewControllerDidFinish:self];
+}
+
+- (void)openMeetingSwitchTapped:(UISwitch*)sender
+{
+    self.openMeeting = sender.isOn;
+    [self updateFellowshipIcon];
+}
+
+- (void)updateFellowshipIcon
+{
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        self.fellowshipIcon.openMeeting = self.openMeeting;
+    }];
+    
 }
 
 - (void)updateWeekdayWithCell:(AAEditMeetingWeekdayCell*)cell
@@ -149,6 +176,13 @@
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
 }
 
+- (NSString*)timeStringForDate:(NSDate*)date
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"j:mm" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
+    
+    return [formatter stringFromDate:date];
+}
 
 #pragma mark - Picker Cell Delegate
 
@@ -176,10 +210,12 @@
 #define WEEKDAY_PICKER_CELL_REUSE_ID    @"WeekdayInputCell"
 #define START_TIME_PICKER_CELL_REUSE_ID @"StartTimeCell"
 #define DURATION_PICKER_CELL_REUSE_ID   @"DurationInputCell"
-
+#define OPEN_MEETING_CELL_REUSE_ID      @"MeetingOpenCell"
+#define PROGRAM_TYPE_CELL_REUSE_ID      @"MeetingProgramCell"
 
 #define TITLE_LOCATION_SECTION          0
 #define DATE_TIME_SECTION               1
+#define MEETING_TYPE_SECTION            2
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -194,6 +230,9 @@
             
         case DATE_TIME_SECTION:
             return 3;
+            
+        case MEETING_TYPE_SECTION:
+            return 2;
             
         default:
             return 0;
@@ -229,6 +268,8 @@
     }
 }
 
+#pragma mark Cell Creation
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -238,11 +279,15 @@
         case DATE_TIME_SECTION:
             return [self dateTimeCellForIndexPath:indexPath];
             
+        case MEETING_TYPE_SECTION:
+            return [self meetingTypeCellForIndexPath:indexPath];
+            
         default:
             return nil;
     }
 }
 
+#pragma mark Title/Location Cells
 #define TITLE_ROW_INDEX             0
 #define LOCATION_ROW_INDEX          1
 
@@ -257,11 +302,13 @@
         cell.textField.text = self.meeting.title;
         cell.textField.placeholder = NSLocalizedString(@"Title", @"Meeting Title");
         cell.textField.tag = TITLE_INPUT_FIELD_TAG;
+        cell.topSeparator = YES;
         self.titleTextField = cell.textField;
     } else {
         cell.textField.text = self.meeting.location;
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
         cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
+        cell.topSeparator = NO;
         self.locationTextField = cell.textField;
     }
     
@@ -270,6 +317,7 @@
     return cell;
 }
 
+#pragma mark Date/Time Cells
 #define WEEKDAY_ROW                     0
 #define START_TIME_ROW                  1
 #define DURATION_ROW                    2
@@ -316,6 +364,7 @@
     cell.titleLabel.text = NSLocalizedString(@"Weekday", @"Day of the week the meeting occurs");
     cell.descriptionLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[self.weekday - 1];
     cell.selectedWeekday = self.weekday;
+    cell.topSeparator = YES;
     
     return cell;
 }
@@ -346,17 +395,53 @@
     cell.titleLabel.text = NSLocalizedString(@"Duration", @"The length of the meeting in hours and minutes");
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
     cell.durationPicker.date = self.duration;
+    cell.bottomSeparator = YES;
     
     return cell;
 }
 
-- (NSString*)timeStringForDate:(NSDate*)date
+#pragma mark Meeting Type Cells
+#define OPEN_MEETING_ROW    0
+#define PROGRAM_ROW         1
+- (UITableViewCell*)meetingTypeCellForIndexPath:(NSIndexPath*)indexPath
 {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"j:mm" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
-    
-    return [formatter stringFromDate:date];
+    switch (indexPath.row) {
+        case OPEN_MEETING_ROW:
+            return [self openMeetingCellForIndexPath:indexPath];
+            
+        case PROGRAM_ROW:
+            return [self programCellForIndexPath:indexPath];
+            
+        default:
+            return nil;
+    }
 }
+
+- (AAEditMeetingOpenCell*)openMeetingCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAEditMeetingOpenCell* cell = (AAEditMeetingOpenCell*)[self.tableView dequeueReusableCellWithIdentifier:OPEN_MEETING_CELL_REUSE_ID];
+    
+    [cell.openMeetingSwitch setOn:self.openMeeting animated:YES];
+    [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
+    
+    cell.fellowshipIcon.openMeeting = self.openMeeting;
+    cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
+    self.fellowshipIcon = cell.fellowshipIcon;
+    cell.topSeparator = YES;
+    
+    return cell;
+}
+
+- (AAEditMeetingProgramTypeCell*)programCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
+    
+    cell.bottomSeparator = YES;
+    
+    return cell;
+}
+
+#pragma mark Cell Interaction
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

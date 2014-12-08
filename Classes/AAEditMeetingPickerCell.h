@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
 @class AAEditMeetingPickerCell;
 @protocol AAEditMeetingPickerCellDelegate <NSObject>
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, AAEditMeetingPickerCellType) {
     AAEditMeetingPickerCellTypeWeekday,
 };
 
-@interface AAEditMeetingPickerCell : UITableViewCell
+@interface AAEditMeetingPickerCell : AASeparatorTableViewCell
 
 @property (nonatomic) AAEditMeetingPickerCellType type;
 

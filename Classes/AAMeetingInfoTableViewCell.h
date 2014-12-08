@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
+#import "AASeparatorTableViewCell.h"
 
-@interface AAMeetingInfoTableViewCell : UITableViewCell
+@interface AAMeetingInfoTableViewCell : AASeparatorTableViewCell
 
 @property (strong, nonatomic) Meeting* meeting;
 

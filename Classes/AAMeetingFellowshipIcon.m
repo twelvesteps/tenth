@@ -47,7 +47,7 @@
     [self initFellowshipNameLabel];
     
     self.backgroundColor = [UIColor whiteColor];
-    self.color = [UIColor stepsBlueTextColor];
+    self.color = [UIColor stepsBlueColor];
 }
 
 - (void)initFellowshipNameLabel
