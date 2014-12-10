@@ -12,28 +12,28 @@
 
 @implementation Meeting (AAAdditions)
 
-#define OPEN_MEETING_TYPE   @"Open"
-#define CLOSED_MEETING_TYPE @"Closed"
+#pragma mark - Properties 
 
-- (void)setOpenMeeting:(BOOL)openMeeting
+- (void)setMeetingFormat:(AAMeetingFormat)format
 {
-    MeetingType* openType = [[AAUserDataManager sharedManager] getMeetingType:OPEN_MEETING_TYPE];
-    MeetingType* closedType = [[AAUserDataManager sharedManager] getMeetingType:CLOSED_MEETING_TYPE];
-    
-    [self removeTypes:[NSSet setWithObjects:openType, closedType, nil]];
-    
-    if (openMeeting) {
-        [self addTypesObject:openType];
-    } else {
-        [self addTypesObject:closedType];
-    }
+    self.format = @(format);
+}
+
+- (AAMeetingFormat)meetingFormat
+{
+    return [self.format integerValue];
 }
 
 - (BOOL)openMeeting
 {
-    MeetingType* openType = [[AAUserDataManager sharedManager] getMeetingType:OPEN_MEETING_TYPE];
-    return [self.types containsObject:openType];
+    return [self.isOpen boolValue];
 }
+
+- (void)setOpenMeeting:(BOOL)openMeeting
+{
+    self.isOpen = @(openMeeting);
+}
+
 
 - (NSDate*)endDate
 {
@@ -44,7 +44,28 @@
 }
 
 
-#pragma mark - Creating String
+#pragma mark - Creating Strings
+
+- (NSString*)meetingFormatString
+{
+    return [[Meeting meetingFormatStringMap] objectForKey:self.format];
+}
+
++ (NSDictionary*)meetingFormatStringMap
+{
+    static NSDictionary* meetingFormatStringMap = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        meetingFormatStringMap = @{@(AAMeetingFormatBeginner)   : NSLocalizedString(@"Beginner", @"AA meeting specifically for beginners"),
+                                   @(AAMeetingFormatDiscussion) : NSLocalizedString(@"Discussion", @"AA meeting focused on member discussion"),
+                                   @(AAMeetingFormatLiterature) : NSLocalizedString(@"Literature", @"AA meeting focused on reading or discussing literature"),
+                                   @(AAMeetingFormatSpeaker)    : NSLocalizedString(@"Speaker", @"AA meeting with a speaker or speaker's"),
+                                   @(AAMeetingFormatStepStudy)  : NSLocalizedString(@"Step Study", @"AA meeting where a step or steps are discussed")};
+    });
+    
+    return meetingFormatStringMap;
+}
+
 
 - (NSString*)dayOfWeekString
 {

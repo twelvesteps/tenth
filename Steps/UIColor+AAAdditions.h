@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Meeting;
 @interface UIColor (AAAdditions)
+
+- (NSArray*)numberValues; // A single NSNumber containing the RGB values for the color
+
++ (UIColor*)colorFromNumbers:(NSArray*)numbers;
 
 // info:    If color is nil [UIColor blackColor] will be called.
 //          If alpha is outside of the range [0.0, 1.0], the closest acceptable value will be used.
@@ -21,6 +26,7 @@
 + (UIColor*)stepsRedColor;
 + (UIColor*)stepsOrangeColor;
 + (UIColor*)stepsGreenColor;
++ (UIColor*)stepsPurpleColor;
 
 + (UIColor*)stepsTableViewCellSeparatorColor;
 @end

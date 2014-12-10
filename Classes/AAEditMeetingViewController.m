@@ -122,7 +122,6 @@
     
     self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
     self.meeting.duration = self.duration;
-    
     self.meeting.openMeeting = self.openMeeting;
 }
 

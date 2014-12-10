@@ -7,7 +7,6 @@
 //
 
 #import "AAMeetingInfoTableViewCell.h"
-#import "MeetingType.h"
 #import "Meeting+AAAdditions.h"
 #import "AAMeetingFellowshipIcon.h"
 
@@ -64,7 +63,7 @@
 {
     self.meetingTitleLabel.text = self.meeting.title;
     self.meetingLocationLabel.text = self.meeting.location;
-    self.meetingChairpersonLabel.text = (self.meeting.isChairPerson) ? NSLocalizedString(@"Chair Person", @"Leader of the AA meeting") : @"";
+    self.meetingChairpersonLabel.text = (self.meeting.userIsChairPerson) ? NSLocalizedString(@"Chair Person", @"Leader of the AA meeting") : @"";
     self.meetingDetailTextView.text = [self detailText];
     self.fellowshipIcon.openMeeting = self.meeting.openMeeting;
     self.fellowshipIcon.fellowshipNameLabel.text = @"AA";
@@ -85,20 +84,7 @@
 
 - (NSString*)meetingTypesString
 {
-    if (self.meeting.types.count > 0) {
-        NSArray* allTypes = [self.meeting.types allObjects];
-        MeetingType* firstType = [allTypes firstObject];
-        NSString* typesString = firstType.title;
-
-        for (NSInteger i = 1; i < allTypes.count; i++) {
-            MeetingType* type = allTypes[i];
-            typesString = [typesString stringByAppendingFormat:@", %@", type.title];
-        }
-        
-        return typesString;
-    } else {
-        return nil;
-    }
+    return nil;
 }
 
 #pragma mark - Layout

@@ -8,9 +8,20 @@
 
 #import "Meeting.h"
 
+typedef NS_ENUM(NSInteger, AAMeetingFormat) {
+    AAMeetingFormatLiterature,
+    AAMeetingFormatDiscussion,
+    AAMeetingFormatSpeaker,
+    AAMeetingFormatBeginner,
+    AAMeetingFormatStepStudy,
+};
+
 @interface Meeting (AAAdditions)
 
+@property (nonatomic) AAMeetingFormat meetingFormat;
 @property (nonatomic) BOOL openMeeting;
+
+- (NSString*)meetingFormatString;
 
 - (NSDate*)endDate;
 

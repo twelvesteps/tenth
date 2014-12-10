@@ -10,18 +10,9 @@
 #import <AddressBook/AddressBook.h>
 #import "Amend.h"
 #import "Contact.h"
-#import "Meeting.h"
+#import "Meeting+AAAdditions.h"
 #import "Resentment.h"
 #import "DailyInventory.h"
-
-// *** USER SETTINGS ***
-// info:    The following keys are used for accessing user settings
-#define AA_USER_SETTING_USE_ADDRESS_BOOK    @"AddressBook"      // NSNumber (boolean)
-#define AA_USER_SETTING_USE_LOCK_SCREEN     @"LockScreen"       // NSNumber (boolean)
-#define AA_USER_SETTING_SPONSOR             @"Sponsor"          // NSDictionary
-#define AA_USER_SETTING_SPONSOR_FIRST_NAME  @"SponsorFirstName" // NSString
-#define AA_USER_SETTING_SPONSOR_LAST_NAME   @"SponsorLastName"  // NSString
-#define AA_USER_SETTING_SPONSOR_CONTACT_ID  @"SponsorContactID" // NSNumber (int)
 
 @interface AAUserDataManager : NSObject
 
@@ -40,12 +31,8 @@
 // info:    Creates an empty managed object of the desired type. The object will not be persistent unless a save event occurs
 // returns: A newly created object or nil on error
 // use:     Amend* amend = [manager createAmend];
-- (Amend*)createAmend;
-- (Resentment*)createResentment;
 - (Contact*)createContact;
 - (Meeting*)createMeeting;
-
-- (MeetingType*)getMeetingType:(NSString*)title;
 
 // info:    Creates a managed contact object with the properties of the address book contact already set
 // returns: A newly created managed contact or nil on error
@@ -55,11 +42,6 @@
 // info:    Creates a managed inventory for the current date if it does not already exist or fetches the inventory for today
 // returns: An inventory for the current day (based on user's local calendar) or nil on error
 // use:     DailyInventory* todaysInventory = [manager todaysDailyInventory];
-- (DailyInventory*)todaysDailyInventory;
-
-- (void)removeAmend:(Amend*)amend;
-- (void)removeResentment:(Resentment*)resentment;
-- (void)removeDailyInventory:(DailyInventory*)dailyInventory;
 - (void)removeAAContact:(Contact*)contact;
 - (void)removeMeeting:(Meeting*)meeting;
 
@@ -68,12 +50,8 @@
 // info:    Convenience methods for fetching all entities of the given type,
 // returns: An array containing the requested entity type sorted by creation date, or nil on error
 // use:     NSArray* userAmends = [manager userAmends];
-- (NSArray*)fetchUserAmends;
-- (NSArray*)fetchUserResentments;
-- (NSArray*)fetchUserDailyInventories;
 - (NSArray*)fetchUserAAContacts; // sorted by last name, first name, contact ID
 - (NSArray*)fetchMeetings; // sorted by startDate
-- (NSArray*)fetchMeetingTypes; // sorted by popularity
 
 // info: Returns the managed contact object associated with the given person record
 // returns: A managed contact or nil if the record cannot be located
@@ -106,7 +84,6 @@
 
 // *** USER MEETING CALENDAR ***
 //
-
 
 
 // *** MAINTAINING PERSISTENCE ***
