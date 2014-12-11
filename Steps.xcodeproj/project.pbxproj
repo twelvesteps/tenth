@@ -584,7 +584,7 @@
 				E299567D193A0AC60053759F /* AATableViewController.h */,
 				E299567E193A0AC60053759F /* AATableViewController.m */,
 				84B9FF3F1A18A2F8008B197D /* Meetings */,
-				E2DADF881932E2FF00E934E5 /* Settings */,
+				E2DADF881932E2FF00E934E5 /* Profile */,
 				E2006254192A117000142609 /* Contacts */,
 			);
 			name = Controllers;
@@ -704,13 +704,13 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
-		E2DADF881932E2FF00E934E5 /* Settings */ = {
+		E2DADF881932E2FF00E934E5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				E2DADF851932E2F400E934E5 /* AASettingsViewController.h */,
 				E2DADF861932E2F400E934E5 /* AASettingsViewController.m */,
 			);
-			name = Settings;
+			name = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
