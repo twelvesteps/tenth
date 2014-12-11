@@ -8,6 +8,14 @@
 
 #import "AAMeetingSectionDividerView.h"
 #import "UIFont+AAAdditions.h"
+#import "UIColor+AAAdditions.h"
+
+@interface AAMeetingSectionDividerView()
+
+@property (nonatomic, weak) UIView* topSeparator;
+@property (nonatomic, weak) UIView* bottomSeparator;
+
+@end
 
 @implementation AAMeetingSectionDividerView
 
@@ -38,6 +46,7 @@
 - (void)setup
 {
     [self initTitleLabel];
+    [self initSeparators];
     
     self.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
@@ -52,6 +61,21 @@
     
     _titleLabel = titleLabel;
     [self addSubview:titleLabel];
+}
+
+- (void)initSeparators
+{
+    UIView* topSeparator = [[UIView alloc] init];
+    UIView* bottomSeparator = [[UIView alloc] init];
+    
+    topSeparator.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
+    bottomSeparator.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
+    
+    self.topSeparator = topSeparator;
+    self.bottomSeparator = bottomSeparator;
+    
+    [self addSubview:topSeparator];
+    [self addSubview:bottomSeparator];
 }
 
 - (void)dealloc
@@ -73,11 +97,13 @@
 #pragma mark - Layout
 
 #define LEADING_MARGIN_PADDING  14.0f
+#define SEPARATOR_HEIGHT        0.5f
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     [self layoutTitleLabel];
+    [self layoutSeparators];
 }
 
 - (void)layoutTitleLabel
@@ -90,4 +116,20 @@
                                          CGRectGetMidY(self.bounds) - titleLabelFrame.size.height / 2.0f);
     self.titleLabel.frame = titleLabelFrame;
 }
+
+- (void)layoutSeparators
+{
+    CGRect topSeparatorFrame = CGRectMake(self.bounds.origin.x,
+                                          self.bounds.origin.y + SEPARATOR_HEIGHT,
+                                          self.bounds.size.width,
+                                          SEPARATOR_HEIGHT);
+    CGRect bottomSeparatorFrame = CGRectMake(self.bounds.origin.x,
+                                             CGRectGetMaxY(self.bounds) - SEPARATOR_HEIGHT,
+                                             self.bounds.size.width,
+                                             SEPARATOR_HEIGHT);
+    
+    self.topSeparator.frame = topSeparatorFrame;
+    self.bottomSeparator.frame = bottomSeparatorFrame;
+}
+
 @end

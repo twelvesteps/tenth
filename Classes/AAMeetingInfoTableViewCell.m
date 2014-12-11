@@ -39,7 +39,8 @@
 
 - (void)setup
 {
-    self.topSeparator = YES;
+    self.bottomSeparator = YES;
+    self.fullSeparator = YES;
     
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
@@ -118,8 +119,8 @@
                                      font:[UIFont stepsHeaderFont]
                              boundingSize:[self titleAndLocationLabelTextBoundingSize]];
     
-    CGRect meetingTitleLabelFrame = CGRectMake(self.contentView.bounds.origin.x + LEADING_EDGE_PADDING,
-                                               self.contentView.bounds.origin.y + TOP_EDGE_PADDING,
+    CGRect meetingTitleLabelFrame = CGRectMake(self.bounds.origin.x + LEADING_EDGE_PADDING,
+                                               self.bounds.origin.y + TOP_EDGE_PADDING,
                                                labelSize.width,
                                                labelSize.height);
     
@@ -158,7 +159,7 @@
 {
     CGRect meetingDetailTextViewFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
                                                    CGRectGetMaxY(self.meetingChairpersonLabel.frame),
-                                                   self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
+                                                   self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
                                                    [self heightForTextView:self.meetingDetailTextView font:[UIFont stepsBodyFont]]);
     
     self.meetingDetailTextView.frame = meetingDetailTextViewFrame;
@@ -202,14 +203,14 @@
 
 - (CGSize)textBoundingSize
 {
-    CGSize boundingSize = CGSizeMake(self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX);
+    CGSize boundingSize = CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX);
     return boundingSize;
 }
 
 - (CGSize)titleAndLocationLabelTextBoundingSize
 {
     CGFloat trailingEdgeInset = 2 * TRAILING_EDGE_PADDING + FELLOWSHIP_ICON_WIDTH;
-    CGSize boundingSize = CGSizeMake(self.contentView.bounds.size.width - (LEADING_EDGE_PADDING + trailingEdgeInset), CGFLOAT_MAX);
+    CGSize boundingSize = CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + trailingEdgeInset), CGFLOAT_MAX);
     return boundingSize;
 }
 

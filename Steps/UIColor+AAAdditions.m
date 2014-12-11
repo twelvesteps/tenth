@@ -68,7 +68,7 @@
     dispatch_once(&once, ^{
         colorMap = @{ STEPS_BLUE_COLOR      : UIColorWithRGB(11.0f, 97.0f, 254.0f),
                       STEPS_RED_COLOR       : UIColorWithRGB(0xFC, 0x00, 0x12),
-                      STEPS_GREEN_COLOR     : UIColorWithRGB(0x20, 0xE9, 0x00),
+                      STEPS_GREEN_COLOR     : UIColorWithRGB(0x1D, 0xD2, 0x00),
                       STEPS_ORANGE_COLOR    : UIColorWithRGB(0xFF, 0xA5, 0x00),
                       STEPS_PURPLE_COLOR    : UIColorWithRGB(192.0f, 82.0f, 221.0f)};
     });

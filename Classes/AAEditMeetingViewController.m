@@ -18,6 +18,7 @@
 #import "AAEditMeetingFormatPickerCell.h"
 #import "AAEditMeetingOpenCell.h"
 #import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingSectionDividerView.h"
 
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
@@ -284,8 +285,7 @@
 {
     CGRect headerViewFrame = CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, HEADER_VIEW_HEIGHT);
     
-    UIView* headerView = [[UIView alloc] initWithFrame:headerViewFrame];
-    headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    AAMeetingSectionDividerView* headerView = [[AAMeetingSectionDividerView alloc] initWithFrame:headerViewFrame];
     
     return headerView;
 }
@@ -339,13 +339,12 @@
         cell.textField.text = self.meeting.title;
         cell.textField.placeholder = NSLocalizedString(@"Title", @"Meeting Title");
         cell.textField.tag = TITLE_INPUT_FIELD_TAG;
-        cell.topSeparator = YES;
         self.titleTextField = cell.textField;
+        cell.bottomSeparator = YES;
     } else {
         cell.textField.text = self.meeting.location;
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
         cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
-        cell.topSeparator = NO;
         self.locationTextField = cell.textField;
     }
     
@@ -399,7 +398,7 @@
     cell.titleLabel.text = NSLocalizedString(@"Weekday", @"Day of the week the meeting occurs");
     cell.descriptionLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[self.weekday - 1];
     cell.selectedWeekday = self.weekday;
-    cell.topSeparator = YES;
+    cell.bottomSeparator = YES;
     
     return cell;
 }
@@ -415,6 +414,7 @@
     cell.titleLabel.text = NSLocalizedString(@"Starts", @"The meeting starts at the following time");
     cell.descriptionLabel.text = [self timeStringForDate:self.startTime];
     cell.datePicker.date = self.startTime;
+    cell.bottomSeparator = YES;
     
     return cell;
 }
@@ -430,7 +430,6 @@
     cell.titleLabel.text = NSLocalizedString(@"Duration", @"The length of the meeting in hours and minutes");
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
     cell.durationPicker.date = self.duration;
-    cell.bottomSeparator = YES;
     
     return cell;
 }
@@ -465,7 +464,7 @@
     cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
     cell.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
     self.fellowshipIcon = cell.fellowshipIcon;
-    cell.topSeparator = YES;
+    cell.bottomSeparator = YES;
     
     return cell;
 }
@@ -481,6 +480,7 @@
     cell.titleLabel.text = NSLocalizedString(@"Format", @"12 step meeting format");
     cell.format = self.format;
     cell.delegate = self;
+    cell.bottomSeparator = YES;
     
     return cell;
 }
@@ -489,7 +489,7 @@
 {
     AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
     
-    cell.bottomSeparator = YES;
+    cell.fullSeparator = YES;
     
     return cell;
 }

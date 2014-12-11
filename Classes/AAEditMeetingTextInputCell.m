@@ -20,33 +20,11 @@
 #define CELL_HEIGHT             44.0f
 
 - (void)awakeFromNib
-{
-    self.topSeparator = YES;
-    
+{    
     [super awakeFromNib];
     
     self.textField.font = [UIFont stepsCaptionFont];
 
 }
-
-- (NSInteger)separatorsCount
-{
-    if (self.topSeparator) {
-        return 2;
-    } else {
-        return 1;
-    }
-}
-
-- (NSArray*)separatorOrigins
-{
-    if (self.topSeparator) {
-        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.origin.y)],
-                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)]];
-    } else {
-        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
-    }
-}
-
 
 @end

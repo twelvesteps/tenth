@@ -32,6 +32,33 @@
     return self;
 }
 
+- (void)setFullSeparator:(BOOL)fullSeparator
+{
+    _fullSeparator = fullSeparator;
+    [self updateSeparators];
+}
+
+- (void)setBottomSeparator:(BOOL)bottomSeparator
+{
+    _bottomSeparator = bottomSeparator;
+    [self updateSeparators];
+}
+
+- (void)updateSeparators
+{
+    [self clearSeparators];
+    [self initSeparators];
+}
+
+- (void)clearSeparators
+{
+    for (UIView* separatorView in self.separatorViews) {
+        [separatorView removeFromSuperview];
+    }
+    
+    self.separatorViews = nil;
+}
+
 - (void)initSeparators
 {
     NSMutableArray* separators = [[NSMutableArray alloc] init];
@@ -46,46 +73,20 @@
     self.separatorViews = [separators copy];
 }
 
-- (void)clearSeparators
-{
-    for (UIView* separatorView in self.separatorViews) {
-        [separatorView removeFromSuperview];
-    }
-    
-    self.separatorViews = nil;
-}
-
-- (void)setTopSeparator:(BOOL)topSeparator
-{
-    _topSeparator = topSeparator;
-    [self clearSeparators];
-    [self initSeparators];
-}
-
-- (void)setBottomSeparator:(BOOL)bottomSeparator
-{
-    _bottomSeparator = bottomSeparator;
-    [self clearSeparators];
-    [self initSeparators];
-}
-
 - (NSInteger)separatorsCount
 {
-    if (self.topSeparator) {
-        return 2;
-    } else {
+    if (self.bottomSeparator) {
         return 1;
+    } else {
+        return 0;
     }
 }
 
 - (NSArray*)separatorOrigins
 {
     NSMutableArray* origins = [[NSMutableArray alloc] init];
-    if (self.topSeparator) {
-        [origins addObject:[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.origin.y)]];
-    }
     
-    if (self.bottomSeparator) {
+    if (self.fullSeparator) {
         [origins addObject:[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
     } else {
         [origins addObject:[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)]];

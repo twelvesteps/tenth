@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, AAEditMeetingPickerCellType) {
     AAEditMeetingPickerCellTypeMeetingFormat,
 };
 
+#define LABEL_BLOCK_HEIGHT      44.0f
+
 @interface AAEditMeetingPickerCell : AASeparatorTableViewCell
 
 @property (nonatomic) AAEditMeetingPickerCellType type;

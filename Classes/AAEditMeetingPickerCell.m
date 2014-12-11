@@ -100,28 +100,26 @@
 
 - (NSInteger)separatorsCount
 {
-    if (self.topSeparator) {
-        return 3;
-    } else {
+    if (self.bottomSeparator) {
         return 2;
+    } else {
+        return 1;
     }
 }
 
-#define LABEL_BLOCK_HEIGHT      44.0f
 
 - (NSArray*)separatorOrigins
 {
-    if (self.topSeparator) {
-        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)],
-                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)],
-                 [NSValue valueWithCGPoint:self.bounds.origin]];
-    } else if (self.bottomSeparator) {
-        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)],
-                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
-    } else {
-        return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)],
-                 [NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)]];
+    NSMutableArray* origins = [[NSMutableArray alloc] init];
+    CGFloat originX = (self.fullSeparator) ? self.bounds.origin.x : self.bounds.origin.x + SEPARATOR_INSET;
+    
+    [origins addObject:[NSValue valueWithCGPoint:CGPointMake(originX, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)]];
+    
+    if (self.bottomSeparator) {
+        [origins addObject:[NSValue valueWithCGPoint:CGPointMake(originX, CGRectGetMaxY(self.bounds) - SEPARATOR_HEIGHT)]];
     }
+    
+    return [origins copy];
 }
 
 #pragma mark - Layout

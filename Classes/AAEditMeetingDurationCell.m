@@ -10,10 +10,6 @@
 #import "AAMeetingDurationPickerView.h"
 #import "UIColor+AAAdditions.h"
 
-@interface AAEditMeetingDurationCell() <AAMeetingDurationPickerViewDelegate>
-
-@end
-
 @implementation AAEditMeetingDurationCell
 
 - (void)initPicker
@@ -36,6 +32,11 @@
 - (AAEditMeetingPickerCellType)type
 {
     return AAEditMeetingPickerCellTypeDuration;
+}
+
+- (NSArray*)separatorOrigins
+{
+    return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, LABEL_BLOCK_HEIGHT + SEPARATOR_HEIGHT)]];
 }
 
 

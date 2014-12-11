@@ -72,11 +72,8 @@
 {
     self.meeting = vc.meeting;
     
-    AAMeetingInfoTableViewCell* cell = (AAMeetingInfoTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:MEETING_INFO_CELL_ROW
-                                                                                                                              inSection:MEETING_INFO_CELL_SECTION]];
-    cell.meeting = vc.meeting;
-    
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:MEETING_INFO_CELL_SECTION] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

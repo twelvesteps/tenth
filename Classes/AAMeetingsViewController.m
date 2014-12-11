@@ -132,14 +132,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger numSections = 0;
-    for (NSArray* weekdayMeetings in self.filteredMeetings) {
-        if (weekdayMeetings.count > 0) {
-            numSections++;
-        }
-    }
-    
-    return numSections;
+    return self.filteredMeetings.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -194,8 +187,8 @@
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
     
-    cell.topSeparator = (indexPath.row == 0);
-    cell.bottomSeparator = (indexPath.row == [self meetingCountForSection:indexPath.section] - 1);
+    cell.fullSeparator = (indexPath.section == self.filteredMeetings.count - 1 &&
+                          indexPath.row == [self meetingCountForSection:indexPath.section] - 1);
     
     return cell;
 }
