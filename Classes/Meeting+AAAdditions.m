@@ -63,53 +63,37 @@
 
 + (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format
 {
-    switch (format) {
-        case AAMeetingFormatBeginner:
-            return @"Beginner";
-            
-        case AAMeetingFormatDiscussion:
-            return @"Discussion";
-            
-        case AAMeetingFormatLiterature:
-            return @"Literature";
-            
-        case AAMeetingFormatSpeaker:
-            return @"Speaker";
-            
-        case AAMeetingFormatStepStudy:
-            return @"Step Study";
-            
-        default:
-            return @"";
-    }
+    return [[Meeting meetingFormatKeyMap] objectForKey:@(format)];
 }
 
 + (NSString*)stringForMeetingFormat:(AAMeetingFormat)format
 {
     return [[Meeting meetingFormatStringMap] objectForKey:@(format)];
 }
-//
-//+ (NSDictionary*)meetingFormatKeyMap
-//{
-//    static NSDictionary* meetingFormatStringMap = nil;
-//    static dispatch_once_t once;
-//    dispatch_once(&once, ^{
-//        meetingFormatStringMap = @{@(AAMeetingFormatBeginner)   : @"Beginnger",
-//                                   @(AAMeetingFormatDiscussion) : @"Discussion",
-//                                   @(AAMeetingFormatLiterature) : @"Literature",
-//                                   @(AAMeetingFormatSpeaker)    : @"Speaker",
-//                                   @(AAMeetingFormatStepStudy)  : @"Step Study"};
-//    });
-//    
-//    return meetingFormatStringMap;
-//}
+
++ (NSDictionary*)meetingFormatKeyMap
+{
+    static NSDictionary* meetingFormatStringMap = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        meetingFormatStringMap = @{@(AAMeetingFormatUnspecified): @"Unspecified",
+                                   @(AAMeetingFormatBeginner)   : @"Beginnger",
+                                   @(AAMeetingFormatDiscussion) : @"Discussion",
+                                   @(AAMeetingFormatLiterature) : @"Literature",
+                                   @(AAMeetingFormatSpeaker)    : @"Speaker",
+                                   @(AAMeetingFormatStepStudy)  : @"Step Study"};
+    });
+    
+    return meetingFormatStringMap;
+}
 
 + (NSDictionary*)meetingFormatStringMap
 {
     static NSDictionary* meetingFormatStringMap = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        meetingFormatStringMap = @{@(AAMeetingFormatBeginner)   : NSLocalizedString(@"Beginner", @"AA meeting specifically for beginners"),
+        meetingFormatStringMap = @{@(AAMeetingFormatUnspecified): NSLocalizedString(@"", @""),
+                                   @(AAMeetingFormatBeginner)   : NSLocalizedString(@"Beginner", @"AA meeting specifically for beginners"),
                                    @(AAMeetingFormatDiscussion) : NSLocalizedString(@"Discussion", @"AA meeting focused on member discussion"),
                                    @(AAMeetingFormatLiterature) : NSLocalizedString(@"Literature", @"AA meeting focused on reading or discussing literature"),
                                    @(AAMeetingFormatSpeaker)    : NSLocalizedString(@"Speaker", @"AA meeting with a speaker or speaker's"),

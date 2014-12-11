@@ -9,11 +9,12 @@
 #import "Meeting.h"
 
 typedef NS_ENUM(NSInteger, AAMeetingFormat) {
-    AAMeetingFormatLiterature = 0,
-    AAMeetingFormatDiscussion = 1,
-    AAMeetingFormatSpeaker = 2,
-    AAMeetingFormatBeginner = 3,
-    AAMeetingFormatStepStudy = 4,
+    AAMeetingFormatUnspecified = 0,
+    AAMeetingFormatLiterature = 1,
+    AAMeetingFormatDiscussion = 2,
+    AAMeetingFormatSpeaker = 3,
+    AAMeetingFormatBeginner = 4,
+    AAMeetingFormatStepStudy = 5,
 };
 
 typedef NS_ENUM(NSInteger, AAMeetingProgram) {

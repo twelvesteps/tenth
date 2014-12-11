@@ -70,6 +70,7 @@
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
         self.openMeeting = self.meeting.openMeeting;
+        self.format = self.meeting.meetingFormat;
         self.shouldActivateTitleField = NO;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
@@ -77,6 +78,7 @@
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
         self.openMeeting = NO;
+        self.format = AAMeetingFormatUnspecified;
         self.shouldActivateTitleField = YES;
     }
     
@@ -189,10 +191,8 @@
 
 - (void)updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell
 {
-    self.format = cell.selectedFormat;
+    self.format = cell.format;
     self.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
-    cell.descriptionLabel.text = [Meeting stringForMeetingFormat:self.format];
-    cell.descriptionLabel.textColor = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
 }
 
 - (NSString*)timeStringForDate:(NSDate*)date
@@ -463,6 +463,7 @@
     
     cell.fellowshipIcon.openMeeting = self.openMeeting;
     cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
+    cell.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
     self.fellowshipIcon = cell.fellowshipIcon;
     cell.topSeparator = YES;
     
@@ -478,7 +479,7 @@
     }
     
     cell.titleLabel.text = NSLocalizedString(@"Format", @"12 step meeting format");
-    cell.descriptionLabel.text = @"";
+    cell.format = self.format;
     cell.delegate = self;
     
     return cell;

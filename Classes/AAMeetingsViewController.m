@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "AAUserDataManager.h"
+#import "AAUserSettingsManager.h"
+
 #import "AAMeetingsViewController.h"
 #import "AAMeetingViewController.h"
-#import "AAUserDataManager.h"
-#import "AAMeetingTableViewCell.h"
 #import "AAEditMeetingViewController.h"
+
+#import "AAMeetingTableViewCell.h"
 #import "AAMeetingSectionDividerView.h"
 #import "AAMeetingFellowshipIcon.h"
 
@@ -193,8 +196,6 @@
     
     cell.topSeparator = (indexPath.row == 0);
     cell.bottomSeparator = (indexPath.row == [self meetingCountForSection:indexPath.section] - 1);
-    
-    cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
     
     return cell;
 }

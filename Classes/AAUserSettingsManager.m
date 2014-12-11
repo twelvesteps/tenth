@@ -86,7 +86,8 @@
 
 - (NSDictionary*)defaultColorMap
 {
-    return @{ [Meeting plistKeyForMeetingFormat:AAMeetingFormatBeginner]    : STEPS_GREEN_COLOR,
+    return @{ [Meeting plistKeyForMeetingFormat:AAMeetingFormatUnspecified] : STEPS_BLUE_COLOR,
+              [Meeting plistKeyForMeetingFormat:AAMeetingFormatBeginner]    : STEPS_GREEN_COLOR,
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatDiscussion]  : STEPS_ORANGE_COLOR,
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatLiterature]  : STEPS_BLUE_COLOR,
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatSpeaker]     : STEPS_RED_COLOR,

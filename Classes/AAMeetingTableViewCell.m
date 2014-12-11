@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "AAUserSettingsManager.h"
+
 #import "AAMeetingTableViewCell.h"
 #import "Meeting+AAAdditions.h"
 #import "AAMeetingFellowshipIcon.h"
@@ -34,6 +36,8 @@
     self.titleLabel.text = self.meeting.title;
     self.addressLabel.text = self.meeting.location;
     self.fellowshipIcon.openMeeting = self.meeting.openMeeting;
+    self.fellowshipIcon.fellowshipNameLabel.text = @"AA";
+    self.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.meeting.meetingFormat];
 }
 
 @end

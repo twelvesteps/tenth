@@ -24,14 +24,31 @@
     self.picker.dataSource = self;
 }
 
+@synthesize pickerHidden = _pickerHidden;
+
+- (void)setPickerHidden:(BOOL)pickerHidden
+{
+    _pickerHidden = pickerHidden;
+    
+    [self setNeedsLayout];
+}
+
 - (AAEditMeetingPickerCellType)type
 {
     return AAEditMeetingPickerCellTypeMeetingFormat;
 }
 
-- (AAMeetingFormat)selectedFormat
+- (void)setFormat:(AAMeetingFormat)format
 {
-    return (AAMeetingFormat)[self.picker selectedRowInComponent:0];
+    _format = format;
+    [self.picker selectRow:(NSInteger)format inComponent:0 animated:YES];
+    [self updateLabels];
+}
+
+- (void)updateLabels
+{
+    self.descriptionLabel.text = [Meeting stringForMeetingFormat:self.format];
+    self.descriptionLabel.textColor = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
 }
 
 
@@ -41,6 +58,7 @@
 {
     NSString* formatString;
     switch ((AAMeetingFormat)row) {
+        case AAMeetingFormatUnspecified:
         case AAMeetingFormatBeginner:
         case AAMeetingFormatDiscussion:
         case AAMeetingFormatLiterature:
@@ -58,7 +76,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 5;
+    return 6;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -68,6 +86,8 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    self.format = (AAMeetingFormat)[self.picker selectedRowInComponent:0];
+    
     [self.delegate pickerCellValueChanged:self];
 }
 

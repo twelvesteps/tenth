@@ -10,6 +10,6 @@
 
 @interface AAEditMeetingFormatPickerCell : AAEditMeetingPickerCell
 
-- (AAMeetingFormat)selectedFormat;
+@property (nonatomic) AAMeetingFormat format;
 
 @end
