@@ -7,6 +7,7 @@
 //
 
 #import "AAUserDataManager.h"
+#import "AAUserSettingsManager.h"
 
 #import "AAEditMeetingViewController.h"
 #import "AAEditMeetingTextInputCell.h"
@@ -124,6 +125,7 @@
     self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
     self.meeting.duration = self.duration;
     self.meeting.openMeeting = self.openMeeting;
+    self.meeting.meetingFormat = self.format;
 }
 
 - (NSDate*)dateByCombiningWeekdayAndStartTime
@@ -188,7 +190,9 @@
 - (void)updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell
 {
     self.format = cell.selectedFormat;
+    self.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
     cell.descriptionLabel.text = [Meeting stringForMeetingFormat:self.format];
+    cell.descriptionLabel.textColor = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
 }
 
 - (NSString*)timeStringForDate:(NSDate*)date

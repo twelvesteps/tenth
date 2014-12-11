@@ -236,17 +236,6 @@
 
 #pragma mark - Creating/Removing Objects
 #pragma mark Create
-- (Amend*)createAmend
-{
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_AMEND_ITEM_NAME
-                                         inManagedObjectContext:self.managedObjectContext];
-}
-
-- (Resentment*)createResentment
-{
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_RESENTMENT_ITEM_NAME
-                                         inManagedObjectContext:self.managedObjectContext];
-}
 
 - (Contact*)createContact
 {
@@ -270,47 +259,6 @@
 {
     return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
                                          inManagedObjectContext:self.managedObjectContext];
-}
-
-- (DailyInventory*)todaysDailyInventory
-{
-    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:AA_DAILY_INVENTORY_ITEM_NAME];
-    NSPredicate* startDatePredicate = [NSPredicate predicateWithFormat:@"date >= %@", [NSDate dateForStartOfToday]];
-    NSPredicate* endDatePredicate = [NSPredicate predicateWithFormat:@"date <= %@", [NSDate dateForEndOfToday]];
-    NSPredicate* todayPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[startDatePredicate, endDatePredicate]];
-    request.predicate = todayPredicate;
-    
-    NSError* err;
-    NSArray* results = [self.managedObjectContext executeFetchRequest:request error:&err];
-    
-    if (results.count == 0) {
-        // daily inventory not created yet, add it
-        return [NSEntityDescription insertNewObjectForEntityForName:AA_DAILY_INVENTORY_ITEM_NAME
-                                             inManagedObjectContext:self.managedObjectContext];
-    } else if (results.count == 1) {
-        // return daily inventory
-        return [results lastObject];
-    } else {
-        DLog(@"<ERROR> Database state violates invariant \"Only one inventory per day\"\n %@, %@", err, err.userInfo);
-        return nil;
-    }
-}
-
-#pragma mark Remove
-
-- (void)removeAmend:(Amend *)amend
-{
-    [self.managedObjectContext deleteObject:amend];
-}
-
-- (void)removeDailyInventory:(DailyInventory *)dailyInventory
-{
-    [self.managedObjectContext deleteObject:dailyInventory];
-}
-
-- (void)removeResentment:(Resentment *)resentment
-{
-    [self.managedObjectContext deleteObject:resentment];
 }
 
 - (void)removeAAContact:(Contact*)contact
