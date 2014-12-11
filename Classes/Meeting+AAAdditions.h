@@ -8,6 +8,7 @@
 
 #import "Meeting.h"
 
+#define MEETING_FORMAT_COUNT    6
 typedef NS_ENUM(NSInteger, AAMeetingFormat) {
     AAMeetingFormatUnspecified = 0,
     AAMeetingFormatLiterature = 1,

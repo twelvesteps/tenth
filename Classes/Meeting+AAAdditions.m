@@ -83,7 +83,7 @@
                                    @(AAMeetingFormatSpeaker)    : @"Speaker",
                                    @(AAMeetingFormatStepStudy)  : @"Step Study"};
     });
-    
+    assert(meetingFormatStringMap.count == MEETING_FORMAT_COUNT);
     return meetingFormatStringMap;
 }
 
@@ -99,7 +99,7 @@
                                    @(AAMeetingFormatSpeaker)    : NSLocalizedString(@"Speaker", @"AA meeting with a speaker or speaker's"),
                                    @(AAMeetingFormatStepStudy)  : NSLocalizedString(@"Step Study", @"AA meeting where a step or steps are discussed")};
     });
-    
+    assert(meetingFormatStringMap.count == MEETING_FORMAT_COUNT);
     return meetingFormatStringMap;
 }
 

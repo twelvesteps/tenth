@@ -76,7 +76,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 6;
+    return MEETING_FORMAT_COUNT;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
