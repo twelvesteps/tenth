@@ -24,6 +24,16 @@
     return [self.format integerValue];
 }
 
+- (void)setMeetingProgram:(AAMeetingProgram)meetingProgram
+{
+    self.program = @(meetingProgram);
+}
+
+- (AAMeetingProgram)meetingProgram
+{
+    return [self.program integerValue];
+}
+
 - (BOOL)openMeeting
 {
     return [self.isOpen boolValue];
@@ -51,6 +61,49 @@
     return [[Meeting meetingFormatStringMap] objectForKey:self.format];
 }
 
++ (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format
+{
+    switch (format) {
+        case AAMeetingFormatBeginner:
+            return @"Beginner";
+            
+        case AAMeetingFormatDiscussion:
+            return @"Discussion";
+            
+        case AAMeetingFormatLiterature:
+            return @"Literature";
+            
+        case AAMeetingFormatSpeaker:
+            return @"Speaker";
+            
+        case AAMeetingFormatStepStudy:
+            return @"Step Study";
+            
+        default:
+            return @"";
+    }
+}
+
++ (NSString*)stringForMeetingFormat:(AAMeetingFormat)format
+{
+    return [[Meeting meetingFormatStringMap] objectForKey:@(format)];
+}
+//
+//+ (NSDictionary*)meetingFormatKeyMap
+//{
+//    static NSDictionary* meetingFormatStringMap = nil;
+//    static dispatch_once_t once;
+//    dispatch_once(&once, ^{
+//        meetingFormatStringMap = @{@(AAMeetingFormatBeginner)   : @"Beginnger",
+//                                   @(AAMeetingFormatDiscussion) : @"Discussion",
+//                                   @(AAMeetingFormatLiterature) : @"Literature",
+//                                   @(AAMeetingFormatSpeaker)    : @"Speaker",
+//                                   @(AAMeetingFormatStepStudy)  : @"Step Study"};
+//    });
+//    
+//    return meetingFormatStringMap;
+//}
+
 + (NSDictionary*)meetingFormatStringMap
 {
     static NSDictionary* meetingFormatStringMap = nil;
@@ -64,6 +117,31 @@
     });
     
     return meetingFormatStringMap;
+}
+
+- (NSString*)programName
+{
+    return [[Meeting programNameMap] objectForKey:self.program];
+}
+
++ (NSString*)stringForProgram:(AAMeetingProgram)program
+{
+    return [[Meeting programNameMap] objectForKey:@(program)];
+}
+
++ (NSDictionary*)programNameMap
+{
+    static NSDictionary* programNameMap = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        programNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"AA", @"Alcoholics Anonymous"),
+                           @(AAMeetingProgramNA)        : NSLocalizedString(@"NA", @"Narcotics Anonymous"),
+                           @(AAMeetingProgramAlAnon)    : NSLocalizedString(@"Al-Anon", @"Al-Anon"),
+                           @(AAMeetingProgramAlateen)   : NSLocalizedString(@"Alateen", @"Aalateen")};
+                           
+    });
+    
+    return programNameMap;
 }
 
 

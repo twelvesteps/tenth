@@ -9,19 +9,32 @@
 #import "Meeting.h"
 
 typedef NS_ENUM(NSInteger, AAMeetingFormat) {
-    AAMeetingFormatLiterature,
-    AAMeetingFormatDiscussion,
-    AAMeetingFormatSpeaker,
-    AAMeetingFormatBeginner,
-    AAMeetingFormatStepStudy,
+    AAMeetingFormatLiterature = 0,
+    AAMeetingFormatDiscussion = 1,
+    AAMeetingFormatSpeaker = 2,
+    AAMeetingFormatBeginner = 3,
+    AAMeetingFormatStepStudy = 4,
+};
+
+typedef NS_ENUM(NSInteger, AAMeetingProgram) {
+    AAMeetingProgramAA,
+    AAMeetingProgramNA,
+    AAMeetingProgramAlAnon,
+    AAMeetingProgramAlateen,
 };
 
 @interface Meeting (AAAdditions)
 
 @property (nonatomic) AAMeetingFormat meetingFormat;
+@property (nonatomic) AAMeetingProgram meetingProgram;
 @property (nonatomic) BOOL openMeeting;
 
++ (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format;
++ (NSString*)stringForMeetingFormat:(AAMeetingFormat)format;
++ (NSString*)stringForProgram:(AAMeetingProgram)program;
+
 - (NSString*)meetingFormatString;
+- (NSString*)programName;
 
 - (NSDate*)endDate;
 

@@ -42,6 +42,12 @@
     return _meetingColorsMap;
 }
 
+- (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format
+{
+    NSString* colorKey = [self.meetingColorsMap objectForKey:[Meeting plistKeyForMeetingFormat:format]];
+    return [UIColor stepsColorForKey:colorKey];
+}
+
 - (void)setMeetingColorsMap:(NSDictionary *)meetingColorsMap
 {
     _meetingColorsMap = meetingColorsMap;
@@ -55,17 +61,17 @@
     
     if (!colorMap) {
         colorMap = [self defaultColorMap];
-        [defaults setValue:colorMap forKey:AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY];
+        [defaults setObject:colorMap forKey:AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY];
         [defaults synchronize];
     }
     
     return colorMap;
 }
 
-- (void)setColor:(UIColor *)color forMeetingFormat:(AAMeetingFormat)format
+- (void)setColor:(NSString*)name forMeetingFormat:(AAMeetingFormat)format
 {
     NSMutableDictionary* meetingColorsMap = [self.meetingColorsMap mutableCopy];
-    [meetingColorsMap setObject:[color numberValues] forKeyedSubscript:@(format)];
+    [meetingColorsMap setObject:name forKey:[Meeting plistKeyForMeetingFormat:format]];
     
     self.meetingColorsMap = [meetingColorsMap copy];
     [self synchronizeColorsMap];
@@ -80,11 +86,11 @@
 
 - (NSDictionary*)defaultColorMap
 {
-    return @{ @(AAMeetingFormatBeginner)    : [[UIColor stepsGreenColor] numberValues],
-              @(AAMeetingFormatDiscussion)  : [[UIColor stepsOrangeColor] numberValues],
-              @(AAMeetingFormatLiterature)  : [[UIColor stepsBlueColor] numberValues],
-              @(AAMeetingFormatSpeaker)     : [[UIColor stepsRedColor] numberValues],
-              @(AAMeetingFormatStepStudy)   : [[UIColor stepsPurpleColor] numberValues]};
+    return @{ [Meeting plistKeyForMeetingFormat:AAMeetingFormatBeginner]    : STEPS_GREEN_COLOR,
+              [Meeting plistKeyForMeetingFormat:AAMeetingFormatDiscussion]  : STEPS_ORANGE_COLOR,
+              [Meeting plistKeyForMeetingFormat:AAMeetingFormatLiterature]  : STEPS_BLUE_COLOR,
+              [Meeting plistKeyForMeetingFormat:AAMeetingFormatSpeaker]     : STEPS_RED_COLOR,
+              [Meeting plistKeyForMeetingFormat:AAMeetingFormatStepStudy]   : STEPS_PURPLE_COLOR};
 }
 
 @end

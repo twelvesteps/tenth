@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Amend, Email, Phone, Resentment;
+@class Email, Phone;
 
 @interface Contact : NSManagedObject
 
@@ -22,10 +22,8 @@
 @property (nonatomic, retain) NSNumber * needsABLink;
 @property (nonatomic, retain) NSDate * sobrietyDate;
 @property (nonatomic, retain) NSData * image;
-@property (nonatomic, retain) Amend *amend;
 @property (nonatomic, retain) NSSet *emails;
 @property (nonatomic, retain) NSSet *phones;
-@property (nonatomic, retain) Resentment *resentment;
 @end
 
 @interface Contact (CoreDataGeneratedAccessors)

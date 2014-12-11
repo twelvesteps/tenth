@@ -14,6 +14,7 @@
 #import "AAEditMeetingDurationCell.h"
 #import "AAEditMeetingStartTimeCell.h"
 #import "AAEditMeetingProgramTypeCell.h"
+#import "AAEditMeetingFormatPickerCell.h"
 #import "AAEditMeetingOpenCell.h"
 #import "AAMeetingFellowshipIcon.h"
 
@@ -26,7 +27,6 @@
 @interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBarTitle;
-//@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,6 +39,7 @@
 @property (nonatomic) BOOL shouldActivateTitleField;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
+@property (nonatomic) AAMeetingFormat format;
 @property (nonatomic) NSInteger weekday;
 @property (strong, nonatomic) NSDate* startTime;
 @property (strong, nonatomic) NSDate* duration;
@@ -154,6 +155,7 @@
 - (void)openMeetingSwitchTapped:(UISwitch*)sender
 {
     self.openMeeting = sender.isOn;
+    [self.view endEditing:YES];
     [self updateFellowshipIcon];
 }
 
@@ -183,6 +185,12 @@
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
 }
 
+- (void)updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell
+{
+    self.format = cell.selectedFormat;
+    cell.descriptionLabel.text = [Meeting stringForMeetingFormat:self.format];
+}
+
 - (NSString*)timeStringForDate:(NSDate*)date
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -207,6 +215,9 @@
         case AAEditMeetingPickerCellTypeDuration:
             [self updateDurationWithCell:(AAEditMeetingDurationCell*)cell];
             break;
+            
+        case AAEditMeetingPickerCellTypeMeetingFormat:
+            [self updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell];
     }
 }
 
@@ -217,12 +228,24 @@
 #define WEEKDAY_PICKER_CELL_REUSE_ID    @"WeekdayInputCell"
 #define START_TIME_PICKER_CELL_REUSE_ID @"StartTimeCell"
 #define DURATION_PICKER_CELL_REUSE_ID   @"DurationInputCell"
+#define FORMAT_PICKER_CELL_REUSE_ID     @"FormatInputCell"
 #define OPEN_MEETING_CELL_REUSE_ID      @"MeetingOpenCell"
 #define PROGRAM_TYPE_CELL_REUSE_ID      @"MeetingProgramCell"
 
 #define TITLE_LOCATION_SECTION          0
+#define TITLE_ROW_INDEX             0
+#define LOCATION_ROW_INDEX          1
+
 #define DATE_TIME_SECTION               1
+#define WEEKDAY_ROW                 0
+#define START_TIME_ROW              1
+#define DURATION_ROW                2
+
 #define MEETING_TYPE_SECTION            2
+#define OPEN_MEETING_ROW            0
+#define FORMAT_ROW                  1
+#define PROGRAM_ROW                 2
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -239,7 +262,7 @@
             return 3;
             
         case MEETING_TYPE_SECTION:
-            return 2;
+            return 3;
             
         default:
             return 0;
@@ -270,6 +293,10 @@
 {
     if (indexPath.section == DATE_TIME_SECTION && [indexPath isEqual:self.selectedIndexPath]) {
         return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
+    } else if (indexPath.section == MEETING_TYPE_SECTION &&
+               indexPath.row == FORMAT_ROW && 
+               [indexPath isEqual:self.selectedIndexPath]) {
+        return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
     } else {
         return TEXT_CELL_HEIGHT;
     }
@@ -295,8 +322,7 @@
 }
 
 #pragma mark Title/Location Cells
-#define TITLE_ROW_INDEX             0
-#define LOCATION_ROW_INDEX          1
+
 
 #define TITLE_INPUT_FIELD_TAG       100
 #define LOCATION_INPUT_FIELD_TAG    101
@@ -325,9 +351,7 @@
 }
 
 #pragma mark Date/Time Cells
-#define WEEKDAY_ROW                     0
-#define START_TIME_ROW                  1
-#define DURATION_ROW                    2
+
 
 - (UITableViewCell*)dateTimeCellForIndexPath:(NSIndexPath*)indexPath
 {
@@ -408,13 +432,15 @@
 }
 
 #pragma mark Meeting Type Cells
-#define OPEN_MEETING_ROW    0
-#define PROGRAM_ROW         1
+
 - (UITableViewCell*)meetingTypeCellForIndexPath:(NSIndexPath*)indexPath
 {
     switch (indexPath.row) {
         case OPEN_MEETING_ROW:
             return [self openMeetingCellForIndexPath:indexPath];
+        
+        case FORMAT_ROW:
+            return [self formatCellForIndexPath:indexPath];
             
         case PROGRAM_ROW:
             return [self programCellForIndexPath:indexPath];
@@ -435,6 +461,21 @@
     cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
     self.fellowshipIcon = cell.fellowshipIcon;
     cell.topSeparator = YES;
+    
+    return cell;
+}
+
+- (AAEditMeetingFormatPickerCell*)formatCellForIndexPath:(NSIndexPath*)indexPath
+{
+    AAEditMeetingFormatPickerCell* cell = (AAEditMeetingFormatPickerCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_PICKER_CELL_REUSE_ID];
+    
+    if (!cell) {
+        cell = [[AAEditMeetingFormatPickerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FORMAT_PICKER_CELL_REUSE_ID];
+    }
+    
+    cell.titleLabel.text = NSLocalizedString(@"Format", @"12 step meeting format");
+    cell.descriptionLabel.text = @"";
+    cell.delegate = self;
     
     return cell;
 }

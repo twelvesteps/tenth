@@ -14,9 +14,6 @@
 		841EA9271A20721400FD85F6 /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 841EA9261A20721400FD85F6 /* map_pin.png */; };
 		841EA92A1A20832200FD85F6 /* map_pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 841EA9281A20832200FD85F6 /* map_pin@3x.png */; };
 		841EA92B1A20832200FD85F6 /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 841EA9291A20832200FD85F6 /* map_pin@2x.png */; };
-		842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */; };
-		842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */; };
-		843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */; };
 		8434EC621A31B14D00D85F32 /* black-iphone6-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434EC601A31B14D00D85F32 /* black-iphone6-portrait.png */; };
 		8434EC631A31B14D00D85F32 /* black-iphone6plus-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434EC611A31B14D00D85F32 /* black-iphone6plus-portrait.png */; };
 		8434EC661A31C3C600D85F32 /* AAMeetingSectionDividerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434EC651A31C3C600D85F32 /* AAMeetingSectionDividerView.m */; };
@@ -60,19 +57,16 @@
 		84F7BBD11A35BC2800BD6C0F /* AAEditMeetingProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBD01A35BC2800BD6C0F /* AAEditMeetingProgramViewController.m */; };
 		84F7BBDA1A37EFED00BD6C0F /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBD91A37EFED00BD6C0F /* Meeting.m */; };
 		84F7BBDD1A38192100BD6C0F /* AAUserSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBDC1A38192100BD6C0F /* AAUserSettingsManager.m */; };
+		84F7BBE01A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBDF1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m */; };
 		84FAD12B191A8F1800B72BC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
 		84FAD12C191A8F1800B72BC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84FAD12D191A8F1800B72BC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
-		84FC238B19235AC10012F57C /* InventoryQuestion+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */; };
 		84FEDF04191B77F900767CB0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEDF03191B77F900767CB0 /* EventKit.framework */; };
 		84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */; };
 		84FEDF1F191BD46200767CB0 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FEDF1D191BD46200767CB0 /* Main_iPhone.storyboard */; };
-		84FEDF25191BD9BF00767CB0 /* AADailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */; };
 		84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */; };
 		84FEDF2A191CE05400767CB0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEDF29191CE05400767CB0 /* CoreData.framework */; };
 		84FEDF2C191D181400767CB0 /* AAUserDataManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF2B191D181400767CB0 /* AAUserDataManagerTests.m */; };
-		84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */; };
-		84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */; };
 		E2006252192A103C00142609 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2006251192A103C00142609 /* AddressBook.framework */; };
 		E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2006257192A11A900142609 /* AAContactsListViewController.m */; };
 		E20149A9198E032500A6B640 /* search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E20149A7198E032500A6B640 /* search_btn@2x.png */; };
@@ -127,13 +121,8 @@
 		E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF861932E2F400E934E5 /* AASettingsViewController.m */; };
 		E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */; };
 		E2E2263F196837CD0065D35C /* AATelPromptDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */; };
-		E2EEF07F192E547200CDEF0D /* InventoryQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */; };
 		E2EEF082192E547300CDEF0D /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF081192E547300CDEF0D /* Phone.m */; };
-		E2EEF085192E547300CDEF0D /* Resentment.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF084192E547300CDEF0D /* Resentment.m */; };
 		E2EEF088192E547300CDEF0D /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF087192E547300CDEF0D /* Email.m */; };
-		E2EEF08B192E547300CDEF0D /* DailyInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF08A192E547300CDEF0D /* DailyInventory.m */; };
-		E2EEF08E192E547300CDEF0D /* Amend.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF08D192E547300CDEF0D /* Amend.m */; };
-		E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EEF093192E548100CDEF0D /* Amend+AAAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,12 +154,6 @@
 		841EA9261A20721400FD85F6 /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
 		841EA9281A20832200FD85F6 /* map_pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin@3x.png"; sourceTree = "<group>"; };
 		841EA9291A20832200FD85F6 /* map_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin@2x.png"; sourceTree = "<group>"; };
-		842AC506192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryYesNoQuestionTableViewCell.h; path = Classes/AADailyInventoryYesNoQuestionTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryYesNoQuestionTableViewCell.m; path = Classes/AADailyInventoryYesNoQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		842AC5091925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryDescriptiveQuestionTableViewCell.h; path = Classes/AADailyInventoryDescriptiveQuestionTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryDescriptiveQuestionTableViewCell.m; path = Classes/AADailyInventoryDescriptiveQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryQuestionTableViewCell.h; path = Classes/AADailyInventoryQuestionTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryQuestionTableViewCell.m; path = Classes/AADailyInventoryQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		8434EC601A31B14D00D85F32 /* black-iphone6-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-iphone6-portrait.png"; sourceTree = "<group>"; };
 		8434EC611A31B14D00D85F32 /* black-iphone6plus-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-iphone6plus-portrait.png"; sourceTree = "<group>"; };
 		8434EC641A31C3C600D85F32 /* AAMeetingSectionDividerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingSectionDividerView.h; path = Classes/AAMeetingSectionDividerView.h; sourceTree = SOURCE_ROOT; };
@@ -245,22 +228,16 @@
 		84F7BBD91A37EFED00BD6C0F /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Meeting.m; path = Classes/Meeting.m; sourceTree = SOURCE_ROOT; };
 		84F7BBDB1A38192100BD6C0F /* AAUserSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAUserSettingsManager.h; path = Classes/AAUserSettingsManager.h; sourceTree = SOURCE_ROOT; };
 		84F7BBDC1A38192100BD6C0F /* AAUserSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserSettingsManager.m; path = Classes/AAUserSettingsManager.m; sourceTree = SOURCE_ROOT; };
+		84F7BBDE1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingFormatPickerCell.h; path = Classes/AAEditMeetingFormatPickerCell.h; sourceTree = SOURCE_ROOT; };
+		84F7BBDF1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingFormatPickerCell.m; path = Classes/AAEditMeetingFormatPickerCell.m; sourceTree = SOURCE_ROOT; };
 		84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Steps_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		84FC238919235AC10012F57C /* InventoryQuestion+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "InventoryQuestion+AAAdditions.h"; path = "Classes/InventoryQuestion+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
-		84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "InventoryQuestion+AAAdditions.m"; path = "Classes/InventoryQuestion+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		84FEDF03191B77F900767CB0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		84FEDF09191BCBD700767CB0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		84FEDF1E191BD46200767CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Steps/Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		84FEDF23191BD9BF00767CB0 /* AADailyInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADailyInventoryViewController.h; path = Classes/AADailyInventoryViewController.h; sourceTree = "<group>"; };
-		84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADailyInventoryViewController.m; path = Classes/AADailyInventoryViewController.m; sourceTree = "<group>"; };
 		84FEDF26191CDF3700767CB0 /* AAUserDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAUserDataManager.h; path = Classes/AAUserDataManager.h; sourceTree = SOURCE_ROOT; };
 		84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserDataManager.m; path = Classes/AAUserDataManager.m; sourceTree = SOURCE_ROOT; };
 		84FEDF29191CE05400767CB0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84FEDF2B191D181400767CB0 /* AAUserDataManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAUserDataManagerTests.m; sourceTree = "<group>"; };
-		84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DailyInventory+AAAdditions.h"; path = "Classes/DailyInventory+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
-		84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DailyInventory+AAAdditions.m"; path = "Classes/DailyInventory+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
-		84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditDailyInventoryViewController.h; path = Classes/AAEditDailyInventoryViewController.h; sourceTree = "<group>"; };
-		84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditDailyInventoryViewController.m; path = Classes/AAEditDailyInventoryViewController.m; sourceTree = "<group>"; };
 		E2006251192A103C00142609 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E2006256192A11A900142609 /* AAContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactsListViewController.h; path = Classes/AAContactsListViewController.h; sourceTree = "<group>"; };
 		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
@@ -345,20 +322,10 @@
 		E2DADF8D1932E8F800E934E5 /* AASettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AASettingTableViewCell.m; path = Classes/AASettingTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		E2E2263D196837CD0065D35C /* AATelPromptDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AATelPromptDelegate.h; path = Classes/AATelPromptDelegate.h; sourceTree = SOURCE_ROOT; };
 		E2E2263E196837CD0065D35C /* AATelPromptDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AATelPromptDelegate.m; path = Classes/AATelPromptDelegate.m; sourceTree = SOURCE_ROOT; };
-		E2EEF07D192E547200CDEF0D /* InventoryQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InventoryQuestion.h; path = Classes/InventoryQuestion.h; sourceTree = SOURCE_ROOT; };
-		E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InventoryQuestion.m; path = Classes/InventoryQuestion.m; sourceTree = SOURCE_ROOT; };
 		E2EEF080192E547300CDEF0D /* Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Phone.h; path = Classes/Phone.h; sourceTree = SOURCE_ROOT; };
 		E2EEF081192E547300CDEF0D /* Phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Phone.m; path = Classes/Phone.m; sourceTree = SOURCE_ROOT; };
-		E2EEF083192E547300CDEF0D /* Resentment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resentment.h; path = Classes/Resentment.h; sourceTree = SOURCE_ROOT; };
-		E2EEF084192E547300CDEF0D /* Resentment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Resentment.m; path = Classes/Resentment.m; sourceTree = SOURCE_ROOT; };
 		E2EEF086192E547300CDEF0D /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Email.h; path = Classes/Email.h; sourceTree = SOURCE_ROOT; };
 		E2EEF087192E547300CDEF0D /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Email.m; path = Classes/Email.m; sourceTree = SOURCE_ROOT; };
-		E2EEF089192E547300CDEF0D /* DailyInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DailyInventory.h; path = Classes/DailyInventory.h; sourceTree = SOURCE_ROOT; };
-		E2EEF08A192E547300CDEF0D /* DailyInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DailyInventory.m; path = Classes/DailyInventory.m; sourceTree = SOURCE_ROOT; };
-		E2EEF08C192E547300CDEF0D /* Amend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Amend.h; path = Classes/Amend.h; sourceTree = SOURCE_ROOT; };
-		E2EEF08D192E547300CDEF0D /* Amend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Amend.m; path = Classes/Amend.m; sourceTree = SOURCE_ROOT; };
-		E2EEF092192E548100CDEF0D /* Amend+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Amend+AAAdditions.h"; path = "../Classes/Amend+AAAdditions.h"; sourceTree = "<group>"; };
-		E2EEF093192E548100CDEF0D /* Amend+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Amend+AAAdditions.m"; path = "../Classes/Amend+AAAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +389,8 @@
 				84F7BBC71A34B77E00BD6C0F /* AAEditMeetingProgramTypeCell.m */,
 				84F7BBC91A34B7F300BD6C0F /* AAEditMeetingOpenCell.h */,
 				84F7BBCA1A34B7F300BD6C0F /* AAEditMeetingOpenCell.m */,
+				84F7BBDE1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.h */,
+				84F7BBDF1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m */,
 			);
 			name = "Edit Meetings";
 			sourceTree = "<group>";
@@ -442,7 +411,6 @@
 				84B9FF461A18AA93008B197D /* Meetings */,
 				E2A7E7161956CF6400510959 /* Profile */,
 				E27C2DCC1935ED4F00BE2AB6 /* Contacts */,
-				E2006255192A117C00142609 /* Daily Inventory */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -450,26 +418,14 @@
 		846ABC25192B308200558785 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				E2EEF08C192E547300CDEF0D /* Amend.h */,
-				E2EEF08D192E547300CDEF0D /* Amend.m */,
-				E2EEF092192E548100CDEF0D /* Amend+AAAdditions.h */,
-				E2EEF093192E548100CDEF0D /* Amend+AAAdditions.m */,
 				8456A3521A1CCC2500B78D1E /* Contact.h */,
 				8456A3531A1CCC2500B78D1E /* Contact.m */,
 				E2980146193350D2007A0F49 /* Contact+AAAdditions.h */,
 				E2980147193350D2007A0F49 /* Contact+AAAdditions.m */,
-				E2EEF089192E547300CDEF0D /* DailyInventory.h */,
-				E2EEF08A192E547300CDEF0D /* DailyInventory.m */,
-				84FEDF39191DA95D00767CB0 /* DailyInventory+AAAdditions.h */,
-				84FEDF3A191DA95D00767CB0 /* DailyInventory+AAAdditions.m */,
 				E2EEF086192E547300CDEF0D /* Email.h */,
 				E2EEF087192E547300CDEF0D /* Email.m */,
 				E2399688194617B700DD30C9 /* Email+AAAdditions.h */,
 				E2399689194617B700DD30C9 /* Email+AAAdditions.m */,
-				E2EEF07D192E547200CDEF0D /* InventoryQuestion.h */,
-				E2EEF07E192E547200CDEF0D /* InventoryQuestion.m */,
-				84FC238919235AC10012F57C /* InventoryQuestion+AAAdditions.h */,
-				84FC238A19235AC10012F57C /* InventoryQuestion+AAAdditions.m */,
 				84F7BBD81A37EFED00BD6C0F /* Meeting.h */,
 				84F7BBD91A37EFED00BD6C0F /* Meeting.m */,
 				84D56E771A287A6E0059A75A /* Meeting+AAAdditions.h */,
@@ -478,8 +434,6 @@
 				E2EEF081192E547300CDEF0D /* Phone.m */,
 				E239968E194619D900DD30C9 /* Phone+AAAdditions.h */,
 				E239968F194619D900DD30C9 /* Phone+AAAdditions.m */,
-				E2EEF083192E547300CDEF0D /* Resentment.h */,
-				E2EEF084192E547300CDEF0D /* Resentment.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -632,7 +586,6 @@
 				84B9FF3F1A18A2F8008B197D /* Meetings */,
 				E2DADF881932E2FF00E934E5 /* Settings */,
 				E2006254192A117000142609 /* Contacts */,
-				E2006253192A116600142609 /* Inventory */,
 			);
 			name = Controllers;
 			path = ..;
@@ -651,17 +604,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		E2006253192A116600142609 /* Inventory */ = {
-			isa = PBXGroup;
-			children = (
-				84FEDF23191BD9BF00767CB0 /* AADailyInventoryViewController.h */,
-				84FEDF24191BD9BF00767CB0 /* AADailyInventoryViewController.m */,
-				84FEDF3C191DBB1900767CB0 /* AAEditDailyInventoryViewController.h */,
-				84FEDF3D191DBB1900767CB0 /* AAEditDailyInventoryViewController.m */,
-			);
-			name = Inventory;
-			sourceTree = "<group>";
-		};
 		E2006254192A117000142609 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,19 +615,6 @@
 				E2406CAD196EA4630026C0C0 /* AAPeoplePickerViewController.m */,
 			);
 			name = Contacts;
-			sourceTree = "<group>";
-		};
-		E2006255192A117C00142609 /* Daily Inventory */ = {
-			isa = PBXGroup;
-			children = (
-				843273DD191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.h */,
-				843273DE191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m */,
-				842AC506192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.h */,
-				842AC507192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m */,
-				842AC5091925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.h */,
-				842AC50A1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m */,
-			);
-			name = "Daily Inventory";
 			sourceTree = "<group>";
 		};
 		E239969B1946BCD500DD30C9 /* Icons */ = {
@@ -960,31 +889,23 @@
 				84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */,
 				84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */,
 				8434EC661A31C3C600D85F32 /* AAMeetingSectionDividerView.m in Sources */,
-				842AC508192512B2001EC6CC /* AADailyInventoryYesNoQuestionTableViewCell.m in Sources */,
 				841DB0CF1A29D59200DDB71D /* AAEditMeetingAddAlertCell.m in Sources */,
-				84FEDF3B191DA95D00767CB0 /* DailyInventory+AAAdditions.m in Sources */,
 				E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */,
 				84F7BBCE1A34C85A00BD6C0F /* AASeparatorTableViewCell.m in Sources */,
 				84B7FD031A2E201B0010E3DC /* AAEditMeetingWeekdayCell.m in Sources */,
-				84FC238B19235AC10012F57C /* InventoryQuestion+AAAdditions.m in Sources */,
 				E2489FC61937756200861066 /* NBPhoneNumber.m in Sources */,
-				84FEDF3E191DBB1900767CB0 /* AAEditDailyInventoryViewController.m in Sources */,
-				E2EEF07F192E547200CDEF0D /* InventoryQuestion.m in Sources */,
 				84B7FCFD1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m in Sources */,
 				E2489FC51937756200861066 /* NBPhoneMetaDataGenerator.m in Sources */,
 				844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */,
 				84B9FF491A18AAC5008B197D /* AAMeetingTableViewCell.m in Sources */,
 				841DB0C51A29D1FC00DDB71D /* AAEditMeetingTextInputCell.m in Sources */,
 				E2489FC91937756200861066 /* NSArray+NBAdditions.m in Sources */,
-				84FEDF25191BD9BF00767CB0 /* AADailyInventoryViewController.m in Sources */,
 				E2DA1B3F194EBDA9001A178B /* AAPopoverListView.m in Sources */,
 				E27C2DCB1935ED4500BE2AB6 /* AAContactNameAndImageTableViewCell.m in Sources */,
 				E2980145193339AD007A0F49 /* AAContactViewController.m in Sources */,
 				84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */,
-				843273DF191DC67B0085B484 /* AADailyInventoryQuestionTableViewCell.m in Sources */,
 				E23996C81949B92D00DD30C9 /* AAContactSobrietyDateTableViewCell.m in Sources */,
 				E2E2263F196837CD0065D35C /* AATelPromptDelegate.m in Sources */,
-				E2EEF094192E548100CDEF0D /* Amend+AAAdditions.m in Sources */,
 				E23996B419481B6600DD30C9 /* AAContactEmailTableViewCell.m in Sources */,
 				E2489FC71937756200861066 /* NBPhoneNumberDesc.m in Sources */,
 				E2489FC21937756200861066 /* NBAsYouTypeFormatter.m in Sources */,
@@ -1009,9 +930,6 @@
 				E2EEF082192E547300CDEF0D /* Phone.m in Sources */,
 				E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */,
 				E2489FC31937756200861066 /* NBNumberFormat.m in Sources */,
-				E2EEF08B192E547300CDEF0D /* DailyInventory.m in Sources */,
-				E2EEF08E192E547300CDEF0D /* Amend.m in Sources */,
-				E2EEF085192E547300CDEF0D /* Resentment.m in Sources */,
 				E2489FC41937756200861066 /* NBPhoneMetaData.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
 				84F7BBD11A35BC2800BD6C0F /* AAEditMeetingProgramViewController.m in Sources */,
@@ -1021,11 +939,11 @@
 				841DB0C81A29D21600DDB71D /* AAEditMeetingStartTimeCell.m in Sources */,
 				E2006258192A11A900142609 /* AAContactsListViewController.m in Sources */,
 				841DB0C21A29C75100DDB71D /* AAEditMeetingViewController.m in Sources */,
-				842AC50B1925134A001EC6CC /* AADailyInventoryDescriptiveQuestionTableViewCell.m in Sources */,
 				84B7FD001A2E1C470010E3DC /* AAEditMeetingDatePickerCell.m in Sources */,
 				84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */,
 				E2406CAE196EA4630026C0C0 /* AAPeoplePickerViewController.m in Sources */,
 				E2A7E7121954385300510959 /* UIColor+AAAdditions.m in Sources */,
+				84F7BBE01A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m in Sources */,
 				E2489FC81937756200861066 /* NBPhoneNumberUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

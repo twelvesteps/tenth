@@ -7,10 +7,8 @@
 //
 
 #import "Contact.h"
-#import "Amend.h"
 #import "Email.h"
 #import "Phone.h"
-#import "Resentment.h"
 
 
 @implementation Contact
@@ -24,9 +22,8 @@
 @dynamic needsABLink;
 @dynamic sobrietyDate;
 @dynamic image;
-@dynamic amend;
 @dynamic emails;
 @dynamic phones;
-@dynamic resentment;
+
 
 @end

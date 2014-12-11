@@ -8,11 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
-#import "Amend.h"
 #import "Contact.h"
 #import "Meeting+AAAdditions.h"
-#import "Resentment.h"
-#import "DailyInventory.h"
 
 @interface AAUserDataManager : NSObject
 
