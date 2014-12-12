@@ -177,13 +177,6 @@
 
 - (void)drawCircleInTriangleInRect:(CGRect)rect
 {
-    // adjust rect to avoid clipping
-//    CGFloat halfStrokeLineWidth = STROKE_LINE_WIDTH / 2.0f;
-//    CGRect shrunkRect = CGRectMake(rect.origin.x + halfStrokeLineWidth,
-//                                   rect.origin.y + halfStrokeLineWidth,
-//                                   rect.size.width - STROKE_LINE_WIDTH,
-//                                   rect.size.height - STROKE_LINE_WIDTH);
-    
     // calculate triangle dimensions based on rect
     CGFloat triangleHeight = ceilf(rect.size.height * sin(M_PI / 3)); // equilateral triangle height
     CGFloat triangleInset = (rect.size.height - triangleHeight) / 2.0f;
