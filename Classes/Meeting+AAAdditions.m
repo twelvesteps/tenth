@@ -113,19 +113,38 @@
     return [[Meeting programNameMap] objectForKey:@(program)];
 }
 
++ (NSString*)shortStringForProgram:(AAMeetingProgram)program
+{
+    return [[Meeting programShortNameMap] objectForKey:@(program)];
+}
+
 + (NSDictionary*)programNameMap
 {
     static NSDictionary* programNameMap = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        programNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"AA", @"Alcoholics Anonymous"),
-                           @(AAMeetingProgramNA)        : NSLocalizedString(@"NA", @"Narcotics Anonymous"),
+        programNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"Alcoholics Anonymous", @"Alcoholics Anonymous"),
+                           @(AAMeetingProgramNA)        : NSLocalizedString(@"Narcotics Anonymous", @"Narcotics Anonymous"),
                            @(AAMeetingProgramAlAnon)    : NSLocalizedString(@"Al-Anon", @"Al-Anon"),
                            @(AAMeetingProgramAlateen)   : NSLocalizedString(@"Alateen", @"Aalateen")};
                            
     });
-    
+    assert(programNameMap.count == MEETING_PROGRAM_COUNT);
     return programNameMap;
+}
+
+ + (NSDictionary*)programShortNameMap
+{
+    static NSDictionary* programShortNameMap = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        programShortNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"AA", @"Alcoholics Anonymous"),
+                                @(AAMeetingProgramNA)        : NSLocalizedString(@"NA", @"Narcotics Anonymous"),
+                                @(AAMeetingProgramAlAnon)    : NSLocalizedString(@"", @"Al-Anon"),
+                                @(AAMeetingProgramAlateen)   : NSLocalizedString(@"", @"Aalateen")};
+    });
+    
+    return programShortNameMap;
 }
 
 

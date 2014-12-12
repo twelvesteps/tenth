@@ -35,9 +35,9 @@
     self.endDateLabel.text = [self.meeting endTimeString];
     self.titleLabel.text = self.meeting.title;
     self.addressLabel.text = self.meeting.location;
-    self.fellowshipIcon.openMeeting = self.meeting.openMeeting;
-    self.fellowshipIcon.fellowshipNameLabel.text = @"AA";
-    self.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.meeting.meetingFormat];
+    self.fellowshipIcon.format = self.meeting.meetingFormat;
+    self.fellowshipIcon.program = self.meeting.meetingProgram;
+    self.fellowshipIcon.isOpen = self.meeting.openMeeting;
 }
 
 @end

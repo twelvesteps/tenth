@@ -31,6 +31,8 @@
     return sharedManager;
 }
 
+#pragma mark - Colors
+
 @synthesize meetingColorsMap = _meetingColorsMap;
 
 - (NSDictionary*)meetingColorsMap
@@ -92,6 +94,19 @@
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatLiterature]  : STEPS_BLUE_COLOR,
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatSpeaker]     : STEPS_RED_COLOR,
               [Meeting plistKeyForMeetingFormat:AAMeetingFormatStepStudy]   : STEPS_PURPLE_COLOR};
+}
+
+
+#pragma mark - Default Meeting Settings
+
+- (AAMeetingProgram)defaultProgram
+{
+    return AAMeetingProgramAA;
+}
+
+- (AAMeetingFormat)defaultFormat
+{
+    return AAMeetingFormatUnspecified;
 }
 
 @end

@@ -7,7 +7,19 @@
 //
 
 #import "AATableViewController.h"
+#import "Meeting+AAAdditions.h"
+
+@class AAEditMeetingProgramViewController;
+@protocol AAEditMeetingProgramViewControllerDelegate <NSObject>
+
+- (void)programViewDidSelectProgramType:(AAEditMeetingProgramViewController*)controller;
+
+@end
 
 @interface AAEditMeetingProgramViewController : AATableViewController
+
+@property (nonatomic) AAMeetingProgram program;
+
+@property (nonatomic, weak) id<AAEditMeetingProgramViewControllerDelegate> programDelegate;
 
 @end

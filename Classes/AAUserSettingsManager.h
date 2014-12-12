@@ -25,4 +25,7 @@
 - (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format;
 - (void)setColor:(UIColor*)color forMeetingFormat:(AAMeetingFormat)format;
 
+- (AAMeetingProgram)defaultProgram;
+- (AAMeetingFormat)defaultFormat;
+
 @end

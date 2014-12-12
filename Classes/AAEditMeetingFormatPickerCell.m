@@ -7,10 +7,15 @@
 //
 
 #import "AAEditMeetingFormatPickerCell.h"
+
+#import "AAMeetingFormatView.h"
+
 #import "Meeting+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
 #import "AAUserSettingsManager.h"
 @interface AAEditMeetingFormatPickerCell() <UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property (nonatomic, weak) AAMeetingFormatView* formatView;
 
 @end
 
@@ -33,6 +38,24 @@
     [self setNeedsLayout];
 }
 
+- (AAMeetingFormatView*)formatView
+{
+    if (!_formatView) {
+        CGRect formatViewFrame = CGRectMake(0.0f,
+                                            0.0f,
+                                            [AAMeetingFormatView widthForFormat:self.format],
+                                            FORMAT_VIEW_HEIGHT);
+
+        AAMeetingFormatView* formatView = [[AAMeetingFormatView alloc] initWithFrame:formatViewFrame];
+        formatView.format = self.format;
+        
+        self.formatView = formatView;
+        [self addSubview:formatView];
+    }
+    
+    return _formatView;
+}
+
 - (AAEditMeetingPickerCellType)type
 {
     return AAEditMeetingPickerCellTypeMeetingFormat;
@@ -42,21 +65,44 @@
 {
     _format = format;
     [self.picker selectRow:(NSInteger)format inComponent:0 animated:YES];
-    [self updateLabels];
+    [self updateViews];
 }
 
-- (void)updateLabels
+- (void)updateViews
 {
-    self.descriptionLabel.text = [Meeting stringForMeetingFormat:self.format];
-    self.descriptionLabel.textColor = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
+    self.formatView.format = self.format;
+    [self setNeedsLayout];
+}
+
+#pragma mark - Layout 
+
+#define HORIZONTAL_INSET    8.0f
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self layoutFormatView];
+}
+
+- (void)layoutFormatView
+{
+    CGFloat formatWidth = [AAMeetingFormatView widthForFormat:self.format];
+    CGFloat formatViewOriginX = CGRectGetMaxX(self.bounds) - formatWidth - HORIZONTAL_INSET;
+    CGFloat formatViewOriginY = self.bounds.origin.y + (LABEL_BLOCK_HEIGHT - FORMAT_VIEW_HEIGHT) / 2.0f;
+    CGRect formatViewFrame = CGRectMake(formatViewOriginX,
+                                        formatViewOriginY,
+                                        formatWidth,
+                                        FORMAT_VIEW_HEIGHT);
+    
+    self.formatView.frame = formatViewFrame;
 }
 
 
 #pragma mark - Picker View Delegate and Datasource
 
-- (NSAttributedString*)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    NSString* formatString;
     switch ((AAMeetingFormat)row) {
         case AAMeetingFormatUnspecified:
         case AAMeetingFormatBeginner:
@@ -64,14 +110,17 @@
         case AAMeetingFormatLiterature:
         case AAMeetingFormatSpeaker:
         case AAMeetingFormatStepStudy:
-            formatString = [Meeting stringForMeetingFormat:(AAMeetingFormat)row];
             break;
             
         default:
             [NSException raise:@"InvalidMeetingType" format:@"The meeting format was set incorrectly"];
     }
-    UIColor* meetingColor = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:(AAMeetingFormat)row];
-    return [[NSAttributedString alloc] initWithString:formatString attributes:@{NSForegroundColorAttributeName : meetingColor}];
+    
+    CGRect formatViewFrame = CGRectMake(0.0, 0.0, [AAMeetingFormatView widthForFormat:(AAMeetingFormat)row], 23.0f);
+    AAMeetingFormatView* formatView = [[AAMeetingFormatView alloc] initWithFrame:formatViewFrame];
+    formatView.format = (AAMeetingFormat)row;
+    
+    return formatView;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component

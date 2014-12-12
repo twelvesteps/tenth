@@ -10,6 +10,8 @@
 #import "AAUserSettingsManager.h"
 
 #import "AAEditMeetingViewController.h"
+#import "AAEditMeetingProgramViewController.h"
+
 #import "AAEditMeetingTextInputCell.h"
 #import "AAEditMeetingWeekdayCell.h"
 #import "AAEditMeetingDurationCell.h"
@@ -26,7 +28,7 @@
 #import "UIFont+AAAdditions.h"
 
 
-@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, UITextFieldDelegate>
+@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, AAEditMeetingProgramViewControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBarTitle;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
@@ -42,6 +44,7 @@
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
 @property (nonatomic) AAMeetingFormat format;
+@property (nonatomic) AAMeetingProgram program;
 @property (nonatomic) NSInteger weekday;
 @property (strong, nonatomic) NSDate* startTime;
 @property (strong, nonatomic) NSDate* duration;
@@ -58,13 +61,18 @@
 {
     [super viewDidLoad];
     
-    if (self.meeting) {
-        self.rightToolbarItem.title = NSLocalizedString(@"Done", @"Done editing the meeting");
-    } else {
-        self.rightToolbarItem.title = NSLocalizedString(@"Add", @"Add the meeting to the calendar");
-        self.rightToolbarItem.enabled = NO;
-    }
-    
+    [self setup];
+}
+
+- (void)setup
+{
+    [self setupMeetingValues];
+    [self setupNavigationBar];
+    [self setupTableView];
+}
+
+- (void)setupMeetingValues
+{
     if (self.meeting) {
         self.navigationBarTitle.title = NSLocalizedString(@"Edit Meeting", @"Edit the selected meeting's details");
         self.weekday = [self.meeting.startDate weekday];
@@ -72,6 +80,7 @@
         self.duration = self.meeting.duration;
         self.openMeeting = self.meeting.openMeeting;
         self.format = self.meeting.meetingFormat;
+        self.program = self.meeting.meetingProgram;
         self.shouldActivateTitleField = NO;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
@@ -79,16 +88,30 @@
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
         self.openMeeting = NO;
-        self.format = AAMeetingFormatUnspecified;
+        self.format = [[AAUserSettingsManager sharedManager] defaultFormat];
+        self.program = [[AAUserSettingsManager sharedManager] defaultProgram];
         self.shouldActivateTitleField = YES;
     }
-    
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    [self setupTableviewHeaderAndFooter];
 }
 
-- (void)setupTableviewHeaderAndFooter
+- (void)setupNavigationBar
+{
+    if (self.meeting) {
+        self.rightToolbarItem.title = NSLocalizedString(@"Done", @"Done editing the meeting");
+    } else {
+        self.rightToolbarItem.title = NSLocalizedString(@"Add", @"Add the meeting to the calendar");
+        self.rightToolbarItem.enabled = NO;
+    }
+}
+
+- (void)setupTableView
+{
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [self setupTableViewHeaderAndFooter];
+}
+
+- (void)setupTableViewHeaderAndFooter
 {
     CGFloat dummyViewHeight = self.view.bounds.size.height;
     CGRect dummyViewFrame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, dummyViewHeight);
@@ -129,6 +152,7 @@
     self.meeting.duration = self.duration;
     self.meeting.openMeeting = self.openMeeting;
     self.meeting.meetingFormat = self.format;
+    self.meeting.meetingProgram = self.program;
 }
 
 - (NSDate*)dateByCombiningWeekdayAndStartTime
@@ -160,16 +184,8 @@
 - (void)openMeetingSwitchTapped:(UISwitch*)sender
 {
     self.openMeeting = sender.isOn;
+    self.fellowshipIcon.isOpen = self.openMeeting;
     [self.view endEditing:YES];
-    [self updateFellowshipIcon];
-}
-
-- (void)updateFellowshipIcon
-{
-    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        self.fellowshipIcon.openMeeting = self.openMeeting;
-    }];
-    
 }
 
 - (void)updateWeekdayWithCell:(AAEditMeetingWeekdayCell*)cell
@@ -193,7 +209,8 @@
 - (void)updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell
 {
     self.format = cell.format;
-    self.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
+    self.fellowshipIcon.format = self.format;
+    
 }
 
 - (NSString*)timeStringForDate:(NSDate*)date
@@ -224,6 +241,16 @@
         case AAEditMeetingPickerCellTypeMeetingFormat:
             [self updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell];
     }
+}
+
+
+#pragma mark - Program View Controller Delegate
+
+- (void)programViewDidSelectProgramType:(AAEditMeetingProgramViewController *)controller
+{
+    self.program = controller.program;
+    self.fellowshipIcon.program = self.program;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -460,9 +487,8 @@
     [cell.openMeetingSwitch setOn:self.openMeeting animated:YES];
     [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
     
-    cell.fellowshipIcon.openMeeting = self.openMeeting;
-    cell.fellowshipIcon.fellowshipNameLabel.text = @"AA";
-    cell.fellowshipIcon.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
+    cell.fellowshipIcon.format = self.format;
+    cell.fellowshipIcon.program = self.program;
     self.fellowshipIcon = cell.fellowshipIcon;
     cell.bottomSeparator = YES;
     
@@ -490,6 +516,7 @@
     AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
     
     cell.fullSeparator = YES;
+    cell.programNameLabel.text = [Meeting stringForProgram:self.program];
     
     return cell;
 }
@@ -576,6 +603,17 @@
     }
     
     return YES;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"programs"]) {
+        AAEditMeetingProgramViewController* aaempvc = (AAEditMeetingProgramViewController*)segue.destinationViewController;
+        aaempvc.programDelegate = self;
+        aaempvc.program = self.program;
+    }
 }
 
 @end

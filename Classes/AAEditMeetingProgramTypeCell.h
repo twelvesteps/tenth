@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AASeparatorTableViewCell.h"
 
-@class AAMeetingFellowshipIcon;
 @interface AAEditMeetingProgramTypeCell : AASeparatorTableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *programNameLabel;
+
 
 @end

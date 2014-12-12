@@ -58,6 +58,7 @@
 		84F7BBDA1A37EFED00BD6C0F /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBD91A37EFED00BD6C0F /* Meeting.m */; };
 		84F7BBDD1A38192100BD6C0F /* AAUserSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBDC1A38192100BD6C0F /* AAUserSettingsManager.m */; };
 		84F7BBE01A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBDF1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m */; };
+		84F7BBE31A39C1D300BD6C0F /* AAMeetingFormatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7BBE21A39C1D300BD6C0F /* AAMeetingFormatView.m */; };
 		84FAD12B191A8F1800B72BC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3561915CD250063F4EA /* XCTest.framework */; };
 		84FAD12C191A8F1800B72BC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3341915CD250063F4EA /* Foundation.framework */; };
 		84FAD12D191A8F1800B72BC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EBC3381915CD250063F4EA /* UIKit.framework */; };
@@ -230,6 +231,8 @@
 		84F7BBDC1A38192100BD6C0F /* AAUserSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserSettingsManager.m; path = Classes/AAUserSettingsManager.m; sourceTree = SOURCE_ROOT; };
 		84F7BBDE1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingFormatPickerCell.h; path = Classes/AAEditMeetingFormatPickerCell.h; sourceTree = SOURCE_ROOT; };
 		84F7BBDF1A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingFormatPickerCell.m; path = Classes/AAEditMeetingFormatPickerCell.m; sourceTree = SOURCE_ROOT; };
+		84F7BBE11A39C1D300BD6C0F /* AAMeetingFormatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingFormatView.h; path = Classes/AAMeetingFormatView.h; sourceTree = SOURCE_ROOT; };
+		84F7BBE21A39C1D300BD6C0F /* AAMeetingFormatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingFormatView.m; path = Classes/AAMeetingFormatView.m; sourceTree = SOURCE_ROOT; };
 		84FAD12A191A8F1800B72BC5 /* Steps_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Steps_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FEDF03191B77F900767CB0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		84FEDF09191BCBD700767CB0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 		84B9FF461A18AA93008B197D /* Meetings */ = {
 			isa = PBXGroup;
 			children = (
+				84F7BBE11A39C1D300BD6C0F /* AAMeetingFormatView.h */,
+				84F7BBE21A39C1D300BD6C0F /* AAMeetingFormatView.m */,
 				8434EC671A3464AD00D85F32 /* AAMeetingFellowshipIcon.h */,
 				8434EC681A3464AD00D85F32 /* AAMeetingFellowshipIcon.m */,
 				8434EC641A31C3C600D85F32 /* AAMeetingSectionDividerView.h */,
@@ -894,6 +899,7 @@
 				84F7BBCE1A34C85A00BD6C0F /* AASeparatorTableViewCell.m in Sources */,
 				84B7FD031A2E201B0010E3DC /* AAEditMeetingWeekdayCell.m in Sources */,
 				E2489FC61937756200861066 /* NBPhoneNumber.m in Sources */,
+				84F7BBE31A39C1D300BD6C0F /* AAMeetingFormatView.m in Sources */,
 				84B7FCFD1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m in Sources */,
 				E2489FC51937756200861066 /* NBPhoneMetaDataGenerator.m in Sources */,
 				844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */,

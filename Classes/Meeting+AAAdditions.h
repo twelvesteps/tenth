@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, AAMeetingFormat) {
     AAMeetingFormatStepStudy = 5,
 };
 
+#define MEETING_PROGRAM_COUNT   4
 typedef NS_ENUM(NSInteger, AAMeetingProgram) {
     AAMeetingProgramAA,
     AAMeetingProgramNA,
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, AAMeetingProgram) {
 + (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format;
 + (NSString*)stringForMeetingFormat:(AAMeetingFormat)format;
 + (NSString*)stringForProgram:(AAMeetingProgram)program;
++ (NSString*)shortStringForProgram:(AAMeetingProgram)program;
 
 - (NSString*)meetingFormatString;
 - (NSString*)programName;

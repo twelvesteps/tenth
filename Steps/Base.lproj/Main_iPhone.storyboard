@@ -702,7 +702,7 @@ Details</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxV-ov-Oau">
                                                     <rect key="frame" x="256" y="11" width="23" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="23" id="bgL-sO-PUD"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="23" id="bgL-sO-PUD"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -718,7 +718,8 @@ Details</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="zuW-eh-HAu" kind="push" id="LdH-jw-WPg"/>
+                                            <outlet property="programNameLabel" destination="pxV-ov-Oau" id="8D9-0j-Ti5"/>
+                                            <segue destination="zuW-eh-HAu" kind="push" identifier="programs" id="LdH-jw-WPg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -767,7 +768,7 @@ Details</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rKj-Y1-jJ7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rKj-Y1-jJ7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -782,6 +783,12 @@ Details</string>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="bottom" secondItem="tWa-7x-sYR" secondAttribute="top" id="CnN-KL-GPK"/>
+                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="top" secondItem="boB-hM-bE7" secondAttribute="top" id="MT0-i7-7Ac"/>
+                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="leading" secondItem="boB-hM-bE7" secondAttribute="leading" id="dUa-7E-cUM"/>
+                            <constraint firstAttribute="trailing" secondItem="rKj-Y1-jJ7" secondAttribute="trailing" id="z3N-am-hml"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PSi-Gq-xxz"/>
                     <connections>
@@ -790,7 +797,7 @@ Details</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUi-3t-fGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3732" y="1304"/>
+            <point key="canvasLocation" x="3734" y="920"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">
