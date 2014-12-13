@@ -44,6 +44,11 @@
     return _meetingColorsMap;
 }
 
+- (UIColor*)defaultColor
+{
+    return [self colorForMeetingFormat:AAMeetingFormatUnspecified];
+}
+
 - (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format
 {
     NSString* colorKey = [self.meetingColorsMap objectForKey:[Meeting plistKeyForMeetingFormat:format]];

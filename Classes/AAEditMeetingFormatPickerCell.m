@@ -7,15 +7,14 @@
 //
 
 #import "AAEditMeetingFormatPickerCell.h"
-
-#import "AAMeetingFormatView.h"
+#import "AAMeetingFormatLabel.h"
 
 #import "Meeting+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
 #import "AAUserSettingsManager.h"
 @interface AAEditMeetingFormatPickerCell() <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, weak) AAMeetingFormatView* formatView;
+@property (nonatomic, weak) AAMeetingFormatLabel* formatLabel;
 
 @end
 
@@ -38,22 +37,18 @@
     [self setNeedsLayout];
 }
 
-- (AAMeetingFormatView*)formatView
+- (AAMeetingFormatLabel*)formatLabel
 {
-    if (!_formatView) {
-        CGRect formatViewFrame = CGRectMake(0.0f,
-                                            0.0f,
-                                            [AAMeetingFormatView widthForFormat:self.format],
-                                            FORMAT_VIEW_HEIGHT);
+    if (!_formatLabel) {
+        AAMeetingFormatLabel* formatLabel = [[AAMeetingFormatLabel alloc] init];
 
-        AAMeetingFormatView* formatView = [[AAMeetingFormatView alloc] initWithFrame:formatViewFrame];
-        formatView.format = self.format;
+        formatLabel.format = self.format;
         
-        self.formatView = formatView;
-        [self addSubview:formatView];
+        _formatLabel = formatLabel;
+        [self addSubview:formatLabel];
     }
     
-    return _formatView;
+    return _formatLabel;
 }
 
 - (AAEditMeetingPickerCellType)type
@@ -70,7 +65,7 @@
 
 - (void)updateViews
 {
-    self.formatView.format = self.format;
+    self.formatLabel.format = self.format;
     [self setNeedsLayout];
 }
 
@@ -82,20 +77,20 @@
 {
     [super layoutSubviews];
     
-    [self layoutFormatView];
+    [self layoutFormatLabel];
 }
 
-- (void)layoutFormatView
+- (void)layoutFormatLabel
 {
-    CGFloat formatWidth = [AAMeetingFormatView widthForFormat:self.format];
-    CGFloat formatViewOriginX = CGRectGetMaxX(self.bounds) - formatWidth - HORIZONTAL_INSET;
-    CGFloat formatViewOriginY = self.bounds.origin.y + (LABEL_BLOCK_HEIGHT - FORMAT_VIEW_HEIGHT) / 2.0f;
-    CGRect formatViewFrame = CGRectMake(formatViewOriginX,
-                                        formatViewOriginY,
-                                        formatWidth,
-                                        FORMAT_VIEW_HEIGHT);
+    CGSize boundingSize = CGSizeMake(self.bounds.size.width - self.titleLabel.frame.size.width - 2 * HORIZONTAL_INSET, self.bounds.size.height);
+    CGFloat formatWidth = [AAMeetingLabel widthForText:[Meeting stringForMeetingFormat:self.format] boundingSize:boundingSize];
+    CGFloat formatLabelOriginX = CGRectGetMaxX(self.bounds) - formatWidth - HORIZONTAL_INSET;
+    CGRect formatLabelFrame = CGRectMake(formatLabelOriginX,
+                                         self.bounds.origin.y,
+                                         formatWidth,
+                                         LABEL_BLOCK_HEIGHT);
     
-    self.formatView.frame = formatViewFrame;
+    self.formatLabel.frame = formatLabelFrame;
 }
 
 
@@ -103,6 +98,7 @@
 
 - (UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
+    AAMeetingFormat format;
     switch ((AAMeetingFormat)row) {
         case AAMeetingFormatUnspecified:
         case AAMeetingFormatBeginner:
@@ -110,17 +106,22 @@
         case AAMeetingFormatLiterature:
         case AAMeetingFormatSpeaker:
         case AAMeetingFormatStepStudy:
+            format = (AAMeetingFormat)row;
             break;
             
         default:
             [NSException raise:@"InvalidMeetingType" format:@"The meeting format was set incorrectly"];
     }
     
-    CGRect formatViewFrame = CGRectMake(0.0, 0.0, [AAMeetingFormatView widthForFormat:(AAMeetingFormat)row], 23.0f);
-    AAMeetingFormatView* formatView = [[AAMeetingFormatView alloc] initWithFrame:formatViewFrame];
-    formatView.format = (AAMeetingFormat)row;
     
-    return formatView;
+    CGFloat formatLabelWidth = [AAMeetingLabel widthForText:[Meeting stringForMeetingFormat:format] boundingSize:self.picker.bounds.size];
+    CGRect labelFrame = CGRectMake(0.0f, 0.0f, formatLabelWidth, 23.0f);
+    
+    AAMeetingFormatLabel* formatLabel = [[AAMeetingFormatLabel alloc] initWithFrame:labelFrame];
+    formatLabel.format = format;
+    
+    
+    return formatLabel;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component

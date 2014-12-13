@@ -22,6 +22,7 @@
 // contains the colors chosen by the user to represent different meeting formats
 @property (strong, nonatomic, readonly) NSDictionary* meetingColorsMap; // returns nil if no preference has been set
 
+- (UIColor*)defaultColor;
 - (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format;
 - (void)setColor:(UIColor*)color forMeetingFormat:(AAMeetingFormat)format;
 

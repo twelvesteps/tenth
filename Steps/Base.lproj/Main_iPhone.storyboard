@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Lu4-F3-dIZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -379,7 +379,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingCell" rowHeight="52" id="Gsa-Na-0wc" customClass="AAMeetingTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="MeetingCell" rowHeight="52" id="Gsa-Na-0wc" customClass="AAMeetingTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gsa-Na-0wc" id="By1-eJ-iU4">
@@ -387,16 +387,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-xl-ndw">
-                                                    <rect key="frame" x="114" y="8" width="173" height="21"/>
+                                                    <rect key="frame" x="114" y="8" width="198" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-2k-4Ey">
-                                                    <rect key="frame" x="114" y="28" width="165" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" priority="250" constant="165" id="QCl-if-Qm5"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="114" y="28" width="198" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -432,19 +429,19 @@
                                                 <constraint firstItem="QmV-Ga-V9W" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" id="1Sa-Fu-fnP"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" id="BJc-qP-L7Y"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="leading" secondItem="HNl-Hn-apW" secondAttribute="trailing" constant="8" symbolic="YES" id="Egg-Xw-BQY"/>
-                                                <constraint firstAttribute="trailing" secondItem="rjd-xl-ndw" secondAttribute="trailing" id="I0S-i3-bxo"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="L7J-WR-YVN"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="QmV-Ga-V9W" secondAttribute="leading" id="Lbx-Fj-LSc"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="4" id="MaM-VE-Xk3"/>
-                                                <constraint firstItem="HNl-Hn-apW" firstAttribute="baseline" secondItem="rjd-xl-ndw" secondAttribute="baseline" id="U08-4b-jaO"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="rjd-xl-ndw" secondAttribute="trailing" id="N6H-Sw-3B0"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="leading" id="Oq9-Oa-NXg"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="leading" secondItem="QmV-Ga-V9W" secondAttribute="trailing" constant="8" symbolic="YES" id="U4m-KZ-VV9"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" id="ZWa-cc-JKr"/>
-                                                <constraint firstItem="QmV-Ga-V9W" firstAttribute="baseline" secondItem="iz3-2k-4Ey" secondAttribute="baseline" id="bUa-CF-nmR"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="QmV-Ga-V9W" secondAttribute="bottom" id="eH5-xR-53n"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="leading" secondItem="rjd-xl-ndw" secondAttribute="leading" id="iuu-s4-Acx"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" id="ezA-IT-RjZ"/>
                                                 <constraint firstItem="QmV-Ga-V9W" firstAttribute="top" secondItem="HNl-Hn-apW" secondAttribute="bottom" id="keL-mD-mBL"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="5" id="m1U-lX-o28"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="Ces-hK-nYa" secondAttribute="trailing" constant="8" symbolic="YES" id="toL-RD-zt7"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="y4U-g9-VJL"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="baseline" id="uC9-kP-VPP"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="Ces-hK-nYa" secondAttribute="trailing" constant="8" symbolic="YES" id="uNp-gR-8yH"/>
+                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="baseline" secondItem="HNl-Hn-apW" secondAttribute="baseline" id="zRT-cy-p4z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

@@ -90,7 +90,7 @@
 - (void)updateViews
 {
     self.fellowshipNameLabel.text = [Meeting shortStringForProgram:self.program];
-    self.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
+    self.color = [[AAUserSettingsManager sharedManager] defaultColor];
     [self updateLabelColor];
     [self setNeedsDisplay];
 }
