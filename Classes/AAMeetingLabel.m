@@ -81,17 +81,23 @@
     [self updateViews];
 }
 
-- (void)updateViews
-{
-    [self setNeedsDisplay];
-    [self setNeedsLayout];
-}
-
 - (NSString*)text
 {
     return self.titleLabel.text;
 }
 
+- (void)setLeftCircle:(BOOL)leftCircle
+{
+    _leftCircle = leftCircle;
+    
+    [self updateViews];
+}
+
+- (void)updateViews
+{
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
+}
 
 #pragma mark - Layout
 
@@ -158,7 +164,7 @@
                                      options:0
                                   attributes:@{NSFontAttributeName : font}
                                      context:nil].size;
-    size.width = ceilf(size.width);
+    size.width = MAX(ceilf(size.width), 0);
     size.height = ceilf(size.height);
     
     return size;
@@ -192,7 +198,7 @@
     if (self.leftCircle) {
         circleOriginX = self.bounds.origin.x;
     } else {
-        circleOriginX = self.titleLabel.frame.origin.x + (CIRCLE_VIEW_WIDTH - 2 * CIRCLE_RADIUS);
+        circleOriginX = CGRectGetMaxX(self.titleLabel.frame) + (CIRCLE_VIEW_WIDTH - 2 * CIRCLE_RADIUS);
     }
     
     CGRect circleRect = CGRectMake(circleOriginX,

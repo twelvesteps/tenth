@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -386,12 +387,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-xl-ndw">
-                                                    <rect key="frame" x="114" y="8" width="198" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-2k-4Ey">
                                                     <rect key="frame" x="114" y="28" width="198" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -424,24 +419,29 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pf1-sL-dmS" customClass="AAMeetingLabel">
+                                                    <rect key="frame" x="114" y="7" width="198" height="21"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="QmV-Ga-V9W" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" id="1Sa-Fu-fnP"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="bottom" secondItem="HNl-Hn-apW" secondAttribute="bottom" id="7Yv-sw-SLm"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" id="BJc-qP-L7Y"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="leading" secondItem="Ces-hK-nYa" secondAttribute="trailing" constant="8" symbolic="YES" id="EIB-GO-arQ"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="leading" secondItem="HNl-Hn-apW" secondAttribute="trailing" constant="8" symbolic="YES" id="Egg-Xw-BQY"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="L7J-WR-YVN"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="QmV-Ga-V9W" secondAttribute="leading" id="Lbx-Fj-LSc"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="4" id="MaM-VE-Xk3"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="rjd-xl-ndw" secondAttribute="trailing" id="N6H-Sw-3B0"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="leading" id="Oq9-Oa-NXg"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="firstBaseline" id="ONB-JG-sha"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="leading" secondItem="QmV-Ga-V9W" secondAttribute="trailing" constant="8" symbolic="YES" id="U4m-KZ-VV9"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="-1" id="cFe-Hn-X8o"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="trailing" secondItem="Pf1-sL-dmS" secondAttribute="trailing" id="cX6-Tj-zJS"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="QmV-Ga-V9W" secondAttribute="bottom" id="eH5-xR-53n"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" id="ezA-IT-RjZ"/>
                                                 <constraint firstItem="QmV-Ga-V9W" firstAttribute="top" secondItem="HNl-Hn-apW" secondAttribute="bottom" id="keL-mD-mBL"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="5" id="m1U-lX-o28"/>
-                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="baseline" id="uC9-kP-VPP"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="leading" secondItem="Ces-hK-nYa" secondAttribute="trailing" constant="8" symbolic="YES" id="uNp-gR-8yH"/>
-                                                <constraint firstItem="rjd-xl-ndw" firstAttribute="baseline" secondItem="HNl-Hn-apW" secondAttribute="baseline" id="zRT-cy-p4z"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="qRt-eD-cOD"/>
+                                                <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="baseline" id="ti6-hT-dHy"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="leading" id="yL3-hL-M2j"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -449,7 +449,7 @@
                                             <outlet property="endDateLabel" destination="QmV-Ga-V9W" id="SW0-KA-VBT"/>
                                             <outlet property="fellowshipIcon" destination="Ces-hK-nYa" id="Fe5-1p-WeY"/>
                                             <outlet property="startDateLabel" destination="HNl-Hn-apW" id="gKE-w2-eJH"/>
-                                            <outlet property="titleLabel" destination="rjd-xl-ndw" id="3aE-U6-ONt"/>
+                                            <outlet property="titleLabel" destination="Pf1-sL-dmS" id="eVb-Kf-Rff"/>
                                             <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting" id="95i-zP-kvr"/>
                                         </connections>
                                     </tableViewCell>
