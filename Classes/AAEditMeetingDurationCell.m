@@ -9,6 +9,9 @@
 #import "AAEditMeetingDurationCell.h"
 #import "AAMeetingDurationPickerView.h"
 #import "UIColor+AAAdditions.h"
+@interface AAEditMeetingDurationCell() <AAMeetingDurationPickerViewDelegate>
+
+@end
 
 @implementation AAEditMeetingDurationCell
 

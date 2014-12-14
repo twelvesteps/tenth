@@ -135,9 +135,11 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [self updateDate];
-    [self reloadComponent:component + 1];
-    [self.durationDelegate pickerView:self didSelectRow:row inComponent:component];
+    if (component != HOUR_LABEL_COMPONENT && component != MINUTE_LABEL_COMPONENT) {
+        [self updateDate];
+        [self reloadComponent:component + 1];
+        [self.durationDelegate pickerView:self didSelectRow:row inComponent:component];
+    }
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

@@ -489,6 +489,7 @@
     
     cell.fellowshipIcon.format = self.format;
     cell.fellowshipIcon.program = self.program;
+    cell.fellowshipIcon.isOpen = self.openMeeting;
     self.fellowshipIcon = cell.fellowshipIcon;
     cell.bottomSeparator = YES;
     

@@ -14,9 +14,8 @@
 @interface AAUserDataManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
-
-
 @property (nonatomic, readonly) BOOL hasUserAddressBookAccess;
+
 
 // *** CREATING OBJECTS ***
 // info:    creates a singleton instance that should be shared by all objects. No controller should retain a unique copy
@@ -78,6 +77,7 @@
 // returns: YES if the contact was synced and no if the person record could not be found
 // use:     BOOL contactSynced = [manager syncContactWithAssociatedPersonRecord:contact];
 - (BOOL)syncContactWithAssociatedPersonRecord:(Contact*)contact;
+
 
 // *** USER MEETING CALENDAR ***
 //

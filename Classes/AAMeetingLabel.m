@@ -59,6 +59,7 @@
         UILabel* titleLabel = [[UILabel alloc] init];
         
         titleLabel.font = [UIFont stepsCaptionFont];
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 
         _titleLabel = titleLabel;
         [self addSubview:titleLabel];
@@ -118,9 +119,10 @@
         titleLabelOriginX = self.bounds.origin.x + CIRCLE_VIEW_WIDTH;
     }
     
-    CGSize boundingSize = self.bounds.size;
+    CGSize boundingSize = self.frame.size;
     boundingSize.width -= CIRCLE_VIEW_WIDTH;
     CGSize labelSize = [AAMeetingLabel labelSizeForText:self.titleLabel.text boundingSize:boundingSize font:self.titleLabel.font];
+    labelSize.width = MIN(boundingSize.width, labelSize.width);
     
     CGFloat titleLabelOriginY = self.bounds.origin.y + (self.bounds.size.height - labelSize.height) / 2.0f;
     

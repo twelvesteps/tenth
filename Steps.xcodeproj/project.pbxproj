@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5123B5BC25496339F80A25CE /* libPods-Steps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB15AC9D228F07A7D6C5067 /* libPods-Steps.a */; };
 		84010C421A3B407C00D80ED9 /* AAMeetingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84010C411A3B407C00D80ED9 /* AAMeetingLabel.m */; };
 		84010C451A3B454600D80ED9 /* AAMeetingFormatLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84010C441A3B454600D80ED9 /* AAMeetingFormatLabel.m */; };
 		841DB0C21A29C75100DDB71D /* AAEditMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DB0C11A29C75100DDB71D /* AAEditMeetingViewController.m */; };
@@ -23,6 +24,9 @@
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
 		8456A3541A1CCC2500B78D1E /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456A3531A1CCC2500B78D1E /* Contact.m */; };
 		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
+		847E86D71A3DBBA200620869 /* AAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E86D61A3DBBA200620869 /* AAEvent.m */; };
+		847E86DA1A3DBBB500620869 /* AAMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E86D91A3DBBB500620869 /* AAMeeting.m */; };
+		847E86DD1A3DBBCF00620869 /* AABirthday.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E86DC1A3DBBCF00620869 /* AABirthday.m */; };
 		84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */; };
 		84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */; };
 		84B7FCFD1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCFC1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m */; };
@@ -145,6 +149,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		60574D7E882794E42F052675 /* Pods-Steps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Steps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Steps/Pods-Steps.debug.xcconfig"; sourceTree = "<group>"; };
+		790420266CD41DB340E5F883 /* Pods-Steps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Steps.release.xcconfig"; path = "Pods/Target Support Files/Pods-Steps/Pods-Steps.release.xcconfig"; sourceTree = "<group>"; };
 		84010C401A3B407C00D80ED9 /* AAMeetingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingLabel.h; path = Classes/AAMeetingLabel.h; sourceTree = SOURCE_ROOT; };
 		84010C411A3B407C00D80ED9 /* AAMeetingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingLabel.m; path = Classes/AAMeetingLabel.m; sourceTree = SOURCE_ROOT; };
 		84010C431A3B454600D80ED9 /* AAMeetingFormatLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingFormatLabel.h; path = Classes/AAMeetingFormatLabel.h; sourceTree = SOURCE_ROOT; };
@@ -171,6 +177,12 @@
 		8456A3521A1CCC2500B78D1E /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
 		8456A3531A1CCC2500B78D1E /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = Classes/Contact.m; sourceTree = SOURCE_ROOT; };
 		846ABC27192BB15A00558785 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		847E86D51A3DBBA200620869 /* AAEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEvent.h; path = Classes/AAEvent.h; sourceTree = SOURCE_ROOT; };
+		847E86D61A3DBBA200620869 /* AAEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEvent.m; path = Classes/AAEvent.m; sourceTree = SOURCE_ROOT; };
+		847E86D81A3DBBB500620869 /* AAMeeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeeting.h; path = Classes/AAMeeting.h; sourceTree = SOURCE_ROOT; };
+		847E86D91A3DBBB500620869 /* AAMeeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeeting.m; path = Classes/AAMeeting.m; sourceTree = SOURCE_ROOT; };
+		847E86DB1A3DBBCF00620869 /* AABirthday.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABirthday.h; path = Classes/AABirthday.h; sourceTree = SOURCE_ROOT; };
+		847E86DC1A3DBBCF00620869 /* AABirthday.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AABirthday.m; path = Classes/AABirthday.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF51A2CA2620010E3DC /* AAEditMeetingPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingPickerCell.h; path = Classes/AAEditMeetingPickerCell.h; sourceTree = SOURCE_ROOT; };
 		84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingPickerCell.m; path = Classes/AAEditMeetingPickerCell.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF81A2DCEC30010E3DC /* UIFont+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AAAdditions.h"; sourceTree = "<group>"; };
@@ -244,6 +256,7 @@
 		84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserDataManager.m; path = Classes/AAUserDataManager.m; sourceTree = SOURCE_ROOT; };
 		84FEDF29191CE05400767CB0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84FEDF2B191D181400767CB0 /* AAUserDataManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAUserDataManagerTests.m; sourceTree = "<group>"; };
+		DDB15AC9D228F07A7D6C5067 /* libPods-Steps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Steps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2006251192A103C00142609 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E2006256192A11A900142609 /* AAContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAContactsListViewController.h; path = Classes/AAContactsListViewController.h; sourceTree = "<group>"; };
 		E2006257192A11A900142609 /* AAContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAContactsListViewController.m; path = Classes/AAContactsListViewController.m; sourceTree = "<group>"; };
@@ -348,6 +361,7 @@
 				84EBC3371915CD250063F4EA /* CoreGraphics.framework in Frameworks */,
 				84EBC3391915CD250063F4EA /* UIKit.framework in Frameworks */,
 				84EBC3351915CD250063F4EA /* Foundation.framework in Frameworks */,
+				5123B5BC25496339F80A25CE /* libPods-Steps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +388,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		51B9BEACA00383D0569A5088 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60574D7E882794E42F052675 /* Pods-Steps.debug.xcconfig */,
+				790420266CD41DB340E5F883 /* Pods-Steps.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		841DB0CC1A29D52B00DDB71D /* Edit Meetings */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,6 +523,7 @@
 				84EBC35C1915CD250063F4EA /* StepsTests */,
 				84EBC3331915CD250063F4EA /* Frameworks */,
 				84EBC3321915CD250063F4EA /* Products */,
+				51B9BEACA00383D0569A5088 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -526,6 +550,7 @@
 				84EBC3361915CD250063F4EA /* CoreGraphics.framework */,
 				84EBC3381915CD250063F4EA /* UIKit.framework */,
 				84EBC3561915CD250063F4EA /* XCTest.framework */,
+				DDB15AC9D228F07A7D6C5067 /* libPods-Steps.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -610,6 +635,12 @@
 				84FEDF27191CDF3700767CB0 /* AAUserDataManager.m */,
 				84F7BBDB1A38192100BD6C0F /* AAUserSettingsManager.h */,
 				84F7BBDC1A38192100BD6C0F /* AAUserSettingsManager.m */,
+				847E86D51A3DBBA200620869 /* AAEvent.h */,
+				847E86D61A3DBBA200620869 /* AAEvent.m */,
+				847E86D81A3DBBB500620869 /* AAMeeting.h */,
+				847E86D91A3DBBB500620869 /* AAMeeting.m */,
+				847E86DB1A3DBBCF00620869 /* AABirthday.h */,
+				847E86DC1A3DBBCF00620869 /* AABirthday.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -730,9 +761,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84EBC3661915CD250063F4EA /* Build configuration list for PBXNativeTarget "Steps" */;
 			buildPhases = (
+				4410997927BD79E34EA12D88 /* Check Pods Manifest.lock */,
 				84EBC32D1915CD250063F4EA /* Sources */,
 				84EBC32E1915CD250063F4EA /* Frameworks */,
 				84EBC32F1915CD250063F4EA /* Resources */,
+				D192E45B9A8A2DBC44EB9387 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -888,6 +921,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4410997927BD79E34EA12D88 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D192E45B9A8A2DBC44EB9387 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Steps/Pods-Steps-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84EBC32D1915CD250063F4EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -928,12 +994,14 @@
 				84F7BBCB1A34B7F300BD6C0F /* AAEditMeetingOpenCell.m in Sources */,
 				84D56E731A276FA20059A75A /* AAMeetingInfoTableViewCell.m in Sources */,
 				84F7BBDD1A38192100BD6C0F /* AAUserSettingsManager.m in Sources */,
+				847E86DA1A3DBBB500620869 /* AAMeeting.m in Sources */,
 				E2399690194619D900DD30C9 /* Phone+AAAdditions.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,
 				84C59D561A19FC9500E6B64B /* AAMeetingViewController.m in Sources */,
 				84EBC3451915CD250063F4EA /* AAAppDelegate.m in Sources */,
 				8434EC691A3464AD00D85F32 /* AAMeetingFellowshipIcon.m in Sources */,
 				E299567F193A0AC60053759F /* AATableViewController.m in Sources */,
+				847E86DD1A3DBBCF00620869 /* AABirthday.m in Sources */,
 				E23996C5194969E100DD30C9 /* AACallButton.m in Sources */,
 				E23996CE194C9E8F00DD30C9 /* AAContactSelectSobrietyDateTableViewCell.m in Sources */,
 				E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */,
@@ -954,6 +1022,7 @@
 				84B7FD001A2E1C470010E3DC /* AAEditMeetingDatePickerCell.m in Sources */,
 				84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */,
 				E2406CAE196EA4630026C0C0 /* AAPeoplePickerViewController.m in Sources */,
+				847E86D71A3DBBA200620869 /* AAEvent.m in Sources */,
 				E2A7E7121954385300510959 /* UIColor+AAAdditions.m in Sources */,
 				84F7BBE01A3836DF00BD6C0F /* AAEditMeetingFormatPickerCell.m in Sources */,
 				E2489FC81937756200861066 /* NBPhoneNumberUtil.m in Sources */,
@@ -1115,6 +1184,7 @@
 		};
 		84EBC3671915CD250063F4EA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60574D7E882794E42F052675 /* Pods-Steps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1133,6 +1203,7 @@
 		};
 		84EBC3681915CD250063F4EA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 790420266CD41DB340E5F883 /* Pods-Steps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

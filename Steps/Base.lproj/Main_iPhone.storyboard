@@ -430,6 +430,7 @@
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="By1-eJ-iU4" secondAttribute="leadingMargin" id="BJc-qP-L7Y"/>
                                                 <constraint firstItem="Pf1-sL-dmS" firstAttribute="leading" secondItem="Ces-hK-nYa" secondAttribute="trailing" constant="8" symbolic="YES" id="EIB-GO-arQ"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="leading" secondItem="HNl-Hn-apW" secondAttribute="trailing" constant="8" symbolic="YES" id="Egg-Xw-BQY"/>
+                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="JZH-ln-oIY"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="leading" secondItem="QmV-Ga-V9W" secondAttribute="leading" id="Lbx-Fj-LSc"/>
                                                 <constraint firstItem="Ces-hK-nYa" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="4" id="MaM-VE-Xk3"/>
                                                 <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="firstBaseline" id="ONB-JG-sha"/>
@@ -439,7 +440,6 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="QmV-Ga-V9W" secondAttribute="bottom" id="eH5-xR-53n"/>
                                                 <constraint firstItem="QmV-Ga-V9W" firstAttribute="top" secondItem="HNl-Hn-apW" secondAttribute="bottom" id="keL-mD-mBL"/>
                                                 <constraint firstItem="HNl-Hn-apW" firstAttribute="top" secondItem="By1-eJ-iU4" secondAttribute="topMargin" constant="5" id="m1U-lX-o28"/>
-                                                <constraint firstItem="Pf1-sL-dmS" firstAttribute="trailing" secondItem="By1-eJ-iU4" secondAttribute="trailingMargin" id="qRt-eD-cOD"/>
                                                 <constraint firstItem="iz3-2k-4Ey" firstAttribute="baseline" secondItem="QmV-Ga-V9W" secondAttribute="baseline" id="ti6-hT-dHy"/>
                                                 <constraint firstItem="Pf1-sL-dmS" firstAttribute="leading" secondItem="iz3-2k-4Ey" secondAttribute="leading" id="yL3-hL-M2j"/>
                                             </constraints>
@@ -781,13 +781,15 @@ Details</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="bottom" secondItem="tWa-7x-sYR" secondAttribute="top" id="CnN-KL-GPK"/>
-                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="top" secondItem="boB-hM-bE7" secondAttribute="top" id="MT0-i7-7Ac"/>
-                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="leading" secondItem="boB-hM-bE7" secondAttribute="leading" id="dUa-7E-cUM"/>
-                            <constraint firstAttribute="trailing" secondItem="rKj-Y1-jJ7" secondAttribute="trailing" id="z3N-am-hml"/>
+                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="top" secondItem="boB-hM-bE7" secondAttribute="top" id="PMj-uS-foR"/>
+                            <constraint firstAttribute="bottom" secondItem="rKj-Y1-jJ7" secondAttribute="bottom" id="SMA-9g-htd"/>
+                            <constraint firstAttribute="trailing" secondItem="rKj-Y1-jJ7" secondAttribute="trailing" id="WXO-CD-je2"/>
+                            <constraint firstItem="rKj-Y1-jJ7" firstAttribute="leading" secondItem="boB-hM-bE7" secondAttribute="leading" id="r4m-fE-inb"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="PSi-Gq-xxz"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="rKj-Y1-jJ7" id="wi8-7E-HEQ"/>
                     </connections>
