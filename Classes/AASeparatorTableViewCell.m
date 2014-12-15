@@ -32,12 +32,6 @@
     return self;
 }
 
-- (void)setFullSeparator:(BOOL)fullSeparator
-{
-    _fullSeparator = fullSeparator;
-    [self updateSeparators];
-}
-
 - (void)setBottomSeparator:(BOOL)bottomSeparator
 {
     _bottomSeparator = bottomSeparator;
@@ -84,15 +78,7 @@
 
 - (NSArray*)separatorOrigins
 {
-    NSMutableArray* origins = [[NSMutableArray alloc] init];
-    
-    if (self.fullSeparator) {
-        [origins addObject:[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x, self.bounds.size.height - SEPARATOR_HEIGHT)]];
-    } else {
-        [origins addObject:[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)]];
-    }
-    
-    return [origins copy];
+    return @[[NSValue valueWithCGPoint:CGPointMake(self.bounds.origin.x + SEPARATOR_INSET, self.bounds.size.height - SEPARATOR_HEIGHT)]];
 }
 
 

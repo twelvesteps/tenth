@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AATableViewController.h"
+#import "AAGroupedTableViewController.h"
 #import "Meeting+AAAdditions.h"
 
 @class AAEditMeetingProgramViewController;
@@ -16,7 +16,7 @@
 
 @end
 
-@interface AAEditMeetingProgramViewController : AATableViewController
+@interface AAEditMeetingProgramViewController : AAGroupedTableViewController
 
 @property (nonatomic) AAMeetingProgram program;
 

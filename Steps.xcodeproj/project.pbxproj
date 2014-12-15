@@ -23,6 +23,7 @@
 		8434EC691A3464AD00D85F32 /* AAMeetingFellowshipIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434EC681A3464AD00D85F32 /* AAMeetingFellowshipIcon.m */; };
 		844A7B761920C62B004AD4A8 /* NSDate+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */; };
 		8456A3541A1CCC2500B78D1E /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456A3531A1CCC2500B78D1E /* Contact.m */; };
+		8463C3601A3DDA1600DEDB13 /* AAGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463C35F1A3DDA1600DEDB13 /* AAGroupedTableViewController.m */; };
 		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
 		847E86D71A3DBBA200620869 /* AAEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E86D61A3DBBA200620869 /* AAEvent.m */; };
 		847E86DA1A3DBBB500620869 /* AAMeeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 847E86D91A3DBBB500620869 /* AAMeeting.m */; };
@@ -176,6 +177,8 @@
 		844A7B751920C62B004AD4A8 /* NSDate+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+AAAdditions.m"; path = "Classes/NSDate+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		8456A3521A1CCC2500B78D1E /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = Classes/Contact.h; sourceTree = SOURCE_ROOT; };
 		8456A3531A1CCC2500B78D1E /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = Classes/Contact.m; sourceTree = SOURCE_ROOT; };
+		8463C35E1A3DDA1600DEDB13 /* AAGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAGroupedTableViewController.h; path = Classes/AAGroupedTableViewController.h; sourceTree = "<group>"; };
+		8463C35F1A3DDA1600DEDB13 /* AAGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAGroupedTableViewController.m; path = Classes/AAGroupedTableViewController.m; sourceTree = "<group>"; };
 		846ABC27192BB15A00558785 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		847E86D51A3DBBA200620869 /* AAEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEvent.h; path = Classes/AAEvent.h; sourceTree = SOURCE_ROOT; };
 		847E86D61A3DBBA200620869 /* AAEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEvent.m; path = Classes/AAEvent.m; sourceTree = SOURCE_ROOT; };
@@ -618,6 +621,8 @@
 			children = (
 				E299567D193A0AC60053759F /* AATableViewController.h */,
 				E299567E193A0AC60053759F /* AATableViewController.m */,
+				8463C35E1A3DDA1600DEDB13 /* AAGroupedTableViewController.h */,
+				8463C35F1A3DDA1600DEDB13 /* AAGroupedTableViewController.m */,
 				84B9FF3F1A18A2F8008B197D /* Meetings */,
 				E2DADF881932E2FF00E934E5 /* Profile */,
 				E2006254192A117000142609 /* Contacts */,
@@ -963,6 +968,7 @@
 				E2A7E7151956B14A00510959 /* AAInterceptTouchesView.m in Sources */,
 				E2EEF088192E547300CDEF0D /* Email.m in Sources */,
 				84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */,
+				8463C3601A3DDA1600DEDB13 /* AAGroupedTableViewController.m in Sources */,
 				84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */,
 				8434EC661A31C3C600D85F32 /* AAMeetingSectionDividerView.m in Sources */,
 				841DB0CF1A29D59200DDB71D /* AAEditMeetingAddAlertCell.m in Sources */,

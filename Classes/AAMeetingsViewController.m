@@ -187,9 +187,6 @@
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
     
-    cell.fullSeparator = (indexPath.section == self.filteredMeetings.count - 1 &&
-                          indexPath.row == [self meetingCountForSection:indexPath.section] - 1);
-    
     return cell;
 }
 

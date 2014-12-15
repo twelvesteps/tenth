@@ -12,8 +12,8 @@
 
 @interface AAMeetingSectionDividerView()
 
-@property (nonatomic, weak) UIView* topSeparator;
-@property (nonatomic, weak) UIView* bottomSeparator;
+@property (nonatomic, weak) UIView* topSeparatorView;
+@property (nonatomic, weak) UIView* bottomSeparatorView;
 
 @end
 
@@ -48,6 +48,9 @@
     [self initTitleLabel];
     [self initSeparators];
     
+    self.topSeparator = YES;
+    self.bottomSeparator = YES;
+    
     self.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
@@ -71,8 +74,8 @@
     topSeparator.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
     bottomSeparator.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
     
-    self.topSeparator = topSeparator;
-    self.bottomSeparator = bottomSeparator;
+    self.topSeparatorView = topSeparator;
+    self.bottomSeparatorView = bottomSeparator;
     
     [self addSubview:topSeparator];
     [self addSubview:bottomSeparator];
@@ -81,6 +84,18 @@
 - (void)dealloc
 {
     [self.titleLabel removeObserver:self forKeyPath:OBSERVE_TITLE_LABEL_TEXT_KEY_PATH];
+}
+
+- (void)setTopSeparator:(BOOL)topSeparator
+{
+    _topSeparator = topSeparator;
+    self.topSeparatorView.hidden = !topSeparator;
+}
+
+- (void)setBottomSeparator:(BOOL)bottomSeparator
+{
+    _bottomSeparator = bottomSeparator;
+    self.bottomSeparatorView.hidden = !bottomSeparator;
 }
 
 
@@ -128,8 +143,8 @@
                                              self.bounds.size.width,
                                              SEPARATOR_HEIGHT);
     
-    self.topSeparator.frame = topSeparatorFrame;
-    self.bottomSeparator.frame = bottomSeparatorFrame;
+    self.topSeparatorView.frame = topSeparatorFrame;
+    self.bottomSeparatorView.frame = bottomSeparatorFrame;
 }
 
 @end

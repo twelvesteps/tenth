@@ -44,7 +44,6 @@
     [self initLabels];
     [self initPicker];
 
-    //self.translatesAutoresizingMaskIntoConstraints = NO;
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.clipsToBounds = YES;
@@ -111,7 +110,7 @@
 - (NSArray*)separatorOrigins
 {
     NSMutableArray* origins = [[NSMutableArray alloc] init];
-    CGFloat originX = (self.fullSeparator) ? self.bounds.origin.x : self.bounds.origin.x + SEPARATOR_INSET;
+    CGFloat originX = self.bounds.origin.x + SEPARATOR_INSET;
     
     [origins addObject:[NSValue valueWithCGPoint:CGPointMake(originX, LABEL_BLOCK_HEIGHT - SEPARATOR_HEIGHT)]];
     

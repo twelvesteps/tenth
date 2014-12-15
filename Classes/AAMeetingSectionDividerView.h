@@ -12,4 +12,7 @@
 
 @property (weak, nonatomic) UILabel* titleLabel;
 
+@property (nonatomic) BOOL topSeparator;
+@property (nonatomic) BOOL bottomSeparator;
+
 @end

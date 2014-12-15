@@ -68,7 +68,8 @@
 {
     [self setupMeetingValues];
     [self setupNavigationBar];
-    [self setupTableView];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)setupMeetingValues
@@ -102,28 +103,6 @@
         self.rightToolbarItem.title = NSLocalizedString(@"Add", @"Add the meeting to the calendar");
         self.rightToolbarItem.enabled = NO;
     }
-}
-
-- (void)setupTableView
-{
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    [self setupTableViewHeaderAndFooter];
-}
-
-- (void)setupTableViewHeaderAndFooter
-{
-    CGFloat dummyViewHeight = self.view.bounds.size.height;
-    CGRect dummyViewFrame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, dummyViewHeight);
-    
-    UIView* dummyHeader = [[UIView alloc] initWithFrame:dummyViewFrame]; // Allows header views to scroll
-    UIView* dummyFooter = [[UIView alloc] initWithFrame:dummyViewFrame]; // Creates consistent color scheme
-    dummyHeader.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    dummyFooter.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
-    self.tableView.tableHeaderView = dummyHeader;
-    self.tableView.tableFooterView = dummyFooter;
-    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, -dummyViewHeight, 0); // Adjust table view insets to account for dummy views
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -301,22 +280,6 @@
     }
 }
 
-#define HEADER_VIEW_HEIGHT  30.0f
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return HEADER_VIEW_HEIGHT;
-}
-
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    CGRect headerViewFrame = CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, HEADER_VIEW_HEIGHT);
-    
-    AAMeetingSectionDividerView* headerView = [[AAMeetingSectionDividerView alloc] initWithFrame:headerViewFrame];
-    
-    return headerView;
-}
-
 #define TEXT_CELL_HEIGHT    44.0f
 #define PICKER_CELL_HEIGHT  216.0f
 
@@ -373,6 +336,7 @@
         cell.textField.placeholder = NSLocalizedString(@"Location", @"Meeting Location");
         cell.textField.tag = LOCATION_INPUT_FIELD_TAG;
         self.locationTextField = cell.textField;
+        cell.bottomSeparator = NO;
     }
     
     cell.textField.delegate = self;
@@ -457,6 +421,7 @@
     cell.titleLabel.text = NSLocalizedString(@"Duration", @"The length of the meeting in hours and minutes");
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
     cell.durationPicker.date = self.duration;
+    cell.bottomSeparator = NO;
     
     return cell;
 }
@@ -516,7 +481,6 @@
 {
     AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
     
-    cell.fullSeparator = YES;
     cell.programNameLabel.text = [Meeting stringForProgram:self.program];
     
     return cell;

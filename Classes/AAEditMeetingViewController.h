@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AATableViewController.h"
+#import "AAGroupedTableViewController.h"
 
 @class Meeting;
 @class AAEditMeetingViewController;
@@ -21,7 +21,7 @@
 
 @end
 
-@interface AAEditMeetingViewController : AATableViewController
+@interface AAEditMeetingViewController : AAGroupedTableViewController
 
 @property (strong, nonatomic) Meeting* meeting; // default is nil, set to edit an existing meeting
 @property (weak, nonatomic) id<AAEditMeetingViewControllerDelegate> delegate;

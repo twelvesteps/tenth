@@ -24,7 +24,6 @@
     [super awakeFromNib];
     
     self.textField.font = [UIFont stepsCaptionFont];
-
 }
 
 @end

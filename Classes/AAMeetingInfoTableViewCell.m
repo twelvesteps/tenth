@@ -40,7 +40,6 @@
 - (void)setup
 {
     self.bottomSeparator = YES;
-    self.fullSeparator = YES;
     
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;

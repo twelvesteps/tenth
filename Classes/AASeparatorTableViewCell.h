@@ -13,7 +13,6 @@
 
 @interface AASeparatorTableViewCell : UITableViewCell
 
-@property (nonatomic) BOOL fullSeparator;
 @property (nonatomic) BOOL bottomSeparator;
 
 @property (nonatomic) NSInteger separatorsCount;
