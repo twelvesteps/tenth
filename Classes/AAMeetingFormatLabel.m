@@ -13,11 +13,11 @@
 
 @synthesize format = _format;
 
-- (void)setFormat:(AAMeetingFormat)format
+- (void)setFormat:(MeetingFormat*)format
 {
     _format = format;
     
-    self.text = [Meeting stringForMeetingFormat:format];
+    self.text = format.localizedTitle;
 }
 
 - (BOOL)leftCircle

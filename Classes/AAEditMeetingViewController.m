@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AAUserDataManager.h"
+#import "AAUserContactsManager.h"
+#import "AAUserMeetingsManager.h"
 #import "AAUserSettingsManager.h"
 
 #import "AAEditMeetingViewController.h"
@@ -22,6 +23,7 @@
 #import "AAMeetingFellowshipIcon.h"
 #import "AAMeetingSectionDividerView.h"
 
+#import "MeetingDescriptor+Localization.h"
 #import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
@@ -43,8 +45,8 @@
 @property (nonatomic) BOOL shouldActivateTitleField;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
-@property (nonatomic) AAMeetingFormat format;
-@property (nonatomic) AAMeetingProgram program;
+@property (nonatomic) MeetingFormat* format;
+@property (nonatomic) MeetingProgram* program;
 @property (nonatomic) NSInteger weekday;
 @property (strong, nonatomic) NSDate* startTime;
 @property (strong, nonatomic) NSDate* duration;
@@ -80,8 +82,8 @@
         self.startTime = self.meeting.startDate;
         self.duration = self.meeting.duration;
         self.openMeeting = self.meeting.openMeeting;
-        self.format = self.meeting.meetingFormat;
-        self.program = self.meeting.meetingProgram;
+        self.format = [self.meeting.formats anyObject];
+        self.program = [self.meeting.programs anyObject];
         self.shouldActivateTitleField = NO;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
@@ -89,8 +91,8 @@
         self.startTime = [[NSDate date] nearestHalfHour];
         self.duration = [NSDate oneHour];
         self.openMeeting = NO;
-        self.format = [[AAUserSettingsManager sharedManager] defaultFormat];
-        self.program = [[AAUserSettingsManager sharedManager] defaultProgram];
+        self.format = nil;
+        self.program = [[AAUserSettingsManager sharedManager] defaultMeetingProgram];
         self.shouldActivateTitleField = YES;
     }
 }
@@ -121,7 +123,7 @@
 - (void)syncMeeting
 {
     if (!self.meeting) {
-        self.meeting = [[AAUserDataManager sharedManager] createMeeting];
+        self.meeting = [[AAUserMeetingsManager sharedManager] createMeeting];
     }
 
     self.meeting.title = self.titleTextField.text;
@@ -130,8 +132,17 @@
     self.meeting.startDate = [self dateByCombiningWeekdayAndStartTime];
     self.meeting.duration = self.duration;
     self.meeting.openMeeting = self.openMeeting;
-    self.meeting.meetingFormat = self.format;
-    self.meeting.meetingProgram = self.program;
+    if (self.format) {
+        self.meeting.formats = [NSSet setWithObjects:self.format, nil];
+    } else {
+        self.meeting.formats = nil;
+    }
+    
+    if (self.program) {
+        self.meeting.programs = [NSSet setWithObjects:self.program, nil];
+    } else {
+        self.meeting.programs = nil;
+    }
 }
 
 - (NSDate*)dateByCombiningWeekdayAndStartTime
@@ -481,7 +492,7 @@
 {
     AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
     
-    cell.programNameLabel.text = [Meeting stringForProgram:self.program];
+    cell.programNameLabel.text = self.program.localizedTitle;
     
     return cell;
 }

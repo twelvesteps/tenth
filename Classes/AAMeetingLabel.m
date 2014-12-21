@@ -68,7 +68,7 @@
     return _titleLabel;
 }
 
-- (void)setFormat:(AAMeetingFormat)format
+- (void)setFormat:(MeetingFormat*)format
 {
     _format = format;
 
@@ -182,7 +182,7 @@
     [super drawRect:rect];
     [self clearRect:self.bounds];
     
-    if (self.format != AAMeetingFormatUnspecified) {
+    if (self.format) {
         [self drawCircle];
     }
 }
@@ -210,7 +210,7 @@
     
     UIBezierPath* circlePath = [UIBezierPath bezierPathWithOvalInRect:circleRect];
     
-    [[[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format] setFill];
+    [[[AAUserSettingsManager sharedManager] colorForFormat:self.format] setFill];
     [circlePath fill];
 }
 

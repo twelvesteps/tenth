@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AAUserDataManager.h"
+#import "AAUserContactsManager.h"
 #import "AATableViewController.h"
 
 typedef NS_ENUM(NSInteger, AAContactViewConrollerMode) {

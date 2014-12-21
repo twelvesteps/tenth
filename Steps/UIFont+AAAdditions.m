@@ -34,4 +34,18 @@
 {
     return [UIFont systemFontOfSize:14.0f];
 }
+
++ (UIFont*)stepsCompressedFont:(NSUInteger)compression
+{
+    if (compression > 3) {
+        return nil;
+    } else {
+        return [UIFont systemFontOfSize:14.0f - (compression * 2.0f)];
+    }
+}
+
++ (UIFont*)stepsFontOfSize:(CGFloat)size
+{
+    return [UIFont systemFontOfSize:size];
+}
 @end

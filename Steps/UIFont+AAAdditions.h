@@ -16,4 +16,6 @@
 + (UIFont*)stepsBodyFont;
 + (UIFont*)stepsFooterFont;
 
++ (UIFont*)stepsCompressedFont:(NSUInteger)compression; // maximum allowed compression is 3
+
 @end

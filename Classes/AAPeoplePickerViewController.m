@@ -7,7 +7,7 @@
 //
 
 #import "AAPeoplePickerViewController.h"
-#import "AAUserDataManager.h"
+#import "AAUserContactsManager.h"
 #import "Contact+AAAdditions.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -83,7 +83,7 @@
 - (NSArray*)people
 {
     if (!_people) {
-        _people = [self partitionPersonRecords:[[AAUserDataManager sharedManager] fetchPersonRecords]];
+        _people = [self partitionPersonRecords:[[AAUserContactsManager sharedManager] fetchPersonRecords]];
         
     }
     return _people;
@@ -173,7 +173,7 @@
 {
     // objects have been stored in core data
     for (Contact* contact in self.selectedPeople) {
-        [[AAUserDataManager sharedManager] removeAAContact:contact];
+        [[AAUserContactsManager sharedManager] removeAAContact:contact];
     }
     
     [self.peoplePickerDelegate peoplePickerNavigationControllerDidCancel:self];
@@ -221,7 +221,7 @@
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     ABRecordRef selectedPerson = [self personAtIndexPath:indexPath];
-    Contact* selectedContact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:selectedPerson];
+    Contact* selectedContact = [[AAUserContactsManager sharedManager] createContactWithPersonRecord:selectedPerson];
     
     [self.selectedPeople addObject:selectedContact];
 }
@@ -232,10 +232,10 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     
     ABRecordRef selectedPerson = [self personAtIndexPath:indexPath];
-    Contact* selectedContact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:selectedPerson];
+    Contact* selectedContact = [[AAUserContactsManager sharedManager] fetchContactForPersonRecord:selectedPerson];
     
     [self.selectedPeople removeObject:selectedContact];
-    [[AAUserDataManager sharedManager] removeAAContact:selectedContact];
+    [[AAUserContactsManager sharedManager] removeAAContact:selectedContact];
 }
 
 
@@ -275,7 +275,7 @@
 
 - (BOOL)recordShouldBeSelectable:(ABRecordRef)person
 {
-    Contact* contact = [[AAUserDataManager sharedManager] fetchContactForPersonRecord:person];
+    Contact* contact = [[AAUserContactsManager sharedManager] fetchContactForPersonRecord:person];
 
     // contact has not been added to database
     if (!contact) {

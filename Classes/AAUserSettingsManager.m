@@ -7,9 +7,15 @@
 //
 
 #import "AAUserSettingsManager.h"
+#import "AAUserMeetingsManager.h"
 #import "UIColor+AAAdditions.h"
 
-#define AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY    @"MeetingsColorMap"
+#define AA_USER_SETTING_MEETING_COLORS_MAP_KEY          @"MeetingColorsMap" // NSDictionary
+#define AA_USER_SETTING_DEFAULT_COLOR_KEY               @"DefaultColor" // NSString
+#define AA_USER_SETTING_DEFAULT_MEETING_FORMAT_KEY      @"DefaultFormat" // uuid string
+#define AA_USER_SETTING_DEFAULT_MEETING_PROGRAM_KEY     @"DefaultProgram" // uuid string
+#define AA_USER_SETTING_MEETING_FORMATS_KEY             @"MeetingFormats" // NSArray
+#define AA_USER_SETTING_MEETING_PROGRAMS_KEY            @"MeetingPrograms" // NSArray
 
 @interface AAUserSettingsManager()
 
@@ -19,6 +25,7 @@
 
 @implementation AAUserSettingsManager
 
+#pragma mark - Lifecycle
 
 + (instancetype)sharedManager
 {
@@ -31,87 +38,65 @@
     return sharedManager;
 }
 
-#pragma mark - Colors
 
-@synthesize meetingColorsMap = _meetingColorsMap;
+#pragma mark - Properties
 
 - (NSDictionary*)meetingColorsMap
 {
-    if (!_meetingColorsMap) {
-        _meetingColorsMap = [self userDefaultsMeetingColorsMap];
+    if (_meetingColorsMap) {
+        _meetingColorsMap = [self loadMeetingColorsMap];
     }
     
     return _meetingColorsMap;
 }
 
-- (UIColor*)defaultColor
-{
-    return [self colorForMeetingFormat:AAMeetingFormatUnspecified];
-}
 
-- (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format
-{
-    NSString* colorKey = [self.meetingColorsMap objectForKey:[Meeting plistKeyForMeetingFormat:format]];
-    return [UIColor stepsColorForKey:colorKey];
-}
+#pragma mark - Colors
 
-- (void)setMeetingColorsMap:(NSDictionary *)meetingColorsMap
+- (NSDictionary*)loadMeetingColorsMap
 {
-    _meetingColorsMap = meetingColorsMap;
-    [[NSNotificationCenter defaultCenter] postNotificationName:AA_USER_SETTING_MEETING_COLORS_NOTIFICATION object:meetingColorsMap];
-}
-
-- (NSDictionary*)userDefaultsMeetingColorsMap
-{
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary* colorMap = [defaults objectForKey:AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY];
+    NSDictionary* colorsMap = [[NSUserDefaults standardUserDefaults] objectForKey:AA_USER_SETTING_MEETING_COLORS_MAP_KEY];
     
-    if (!colorMap) {
-        colorMap = [self defaultColorMap];
-        [defaults setObject:colorMap forKey:AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY];
-        [defaults synchronize];
+    if (!colorsMap) {
+        colorsMap = nil;
     }
     
-    return colorMap;
+    return colorsMap;
 }
 
-- (void)setColor:(NSString*)name forMeetingFormat:(AAMeetingFormat)format
+- (UIColor*)defaultColor
 {
-    NSMutableDictionary* meetingColorsMap = [self.meetingColorsMap mutableCopy];
-    [meetingColorsMap setObject:name forKey:[Meeting plistKeyForMeetingFormat:format]];
-    
-    self.meetingColorsMap = [meetingColorsMap copy];
-    [self synchronizeColorsMap];
+    return [UIColor stepsBlueColor];
 }
 
-- (void)synchronizeColorsMap
+- (UIColor*)colorForFormat:(MeetingFormat *)format
 {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:self.meetingColorsMap forKey:AA_USER_SETTING_MEETING_FORMAT_COLOR_MAP_KEY];
-    [defaults synchronize];
-}
-
-- (NSDictionary*)defaultColorMap
-{
-    return @{ [Meeting plistKeyForMeetingFormat:AAMeetingFormatUnspecified] : STEPS_BLUE_COLOR,
-              [Meeting plistKeyForMeetingFormat:AAMeetingFormatBeginner]    : STEPS_GREEN_COLOR,
-              [Meeting plistKeyForMeetingFormat:AAMeetingFormatDiscussion]  : STEPS_ORANGE_COLOR,
-              [Meeting plistKeyForMeetingFormat:AAMeetingFormatLiterature]  : STEPS_BLUE_COLOR,
-              [Meeting plistKeyForMeetingFormat:AAMeetingFormatSpeaker]     : STEPS_RED_COLOR,
-              [Meeting plistKeyForMeetingFormat:AAMeetingFormatStepStudy]   : STEPS_PURPLE_COLOR};
+    return [UIColor stepsBlueColor];
 }
 
 
 #pragma mark - Default Meeting Settings
 
-- (AAMeetingProgram)defaultProgram
+- (MeetingProgram*)defaultMeetingProgram
 {
-    return AAMeetingProgramAA;
+    NSString* programID = [[NSUserDefaults standardUserDefaults] objectForKey:AA_USER_SETTING_DEFAULT_MEETING_FORMAT_KEY];
+    
+    if (!programID) {
+        programID = [self setDefaultMeetingProgram];
+    }
+    
+    MeetingProgram* program = [[AAUserMeetingsManager sharedManager] fetchMeetingProgramWithIdentifier:programID];
+    
+    return program;
 }
 
-- (AAMeetingFormat)defaultFormat
+- (NSString*)setDefaultMeetingProgram
 {
-    return AAMeetingFormatUnspecified;
+    MeetingProgram* defaultProgram = [[AAUserMeetingsManager sharedManager] meetingProgramWithTitle:@"Alcoholics Anonymous"];
+    [[NSUserDefaults standardUserDefaults] setObject:defaultProgram.identifier forKey:AA_USER_SETTING_DEFAULT_MEETING_PROGRAM_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return defaultProgram.identifier;
 }
 
 @end

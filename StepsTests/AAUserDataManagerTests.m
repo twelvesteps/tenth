@@ -7,16 +7,15 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "AAUserDataManager.h"
+#import "AAUserContactsManager.h"
 #import "Email.h"
 #import "Phone.h"
-#import "InventoryQuestion+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 #import <AddressBook/AddressBook.h>
 
 @interface AAUserDataManagerTests : XCTestCase
 
-@property (strong, nonatomic) AAUserDataManager* manager;
+@property (strong, nonatomic) AAUserContactsManager* manager;
 @property (nonatomic) ABAddressBookRef addressBook;
 
 @end
@@ -260,7 +259,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     if (!_manager)
-        _manager = [AAUserDataManager sharedManager];
+        _manager = [AAUserContactsManager sharedManager];
     
     if (!_addressBook) {
         _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -283,60 +282,15 @@
 
 - (void)testSingletonInstance
 {
-    AAUserDataManager* manager1 = [AAUserDataManager sharedManager];
-    AAUserDataManager* manager2 = [AAUserDataManager sharedManager];
+    AAUserContactsManager* manager1 = [AAUserContactsManager sharedManager];
+    AAUserContactsManager* manager2 = [AAUserContactsManager sharedManager];
     
-    XCTAssert(manager1 && manager2, @"AAUserDataManager unable to allocate shared instance");
-    XCTAssert(manager1 == manager2, @"AAUserDataManager sharedManager returned different instances");
+    XCTAssert(manager1 && manager2, @"AAUserContactsManager unable to allocate shared instance");
+    XCTAssert(manager1 == manager2, @"AAUserContactsManager sharedManager returned different instances");
 }
 
 
 #pragma mark - Test CoreData
-
-- (void)testCreateOneAmend
-{
-    NSDate* beforeCreation = [NSDate date];
-    Amend* amend = [self.manager createAmend];
-    NSDate* afterCreation = [NSDate date];
-    
-    XCTAssert([self.manager fetchUserAmends].count == 1, @"Amend not properly added to context");
-    XCTAssert([amend.creationDate compare:beforeCreation] == NSOrderedDescending &&
-             [amend.creationDate compare:afterCreation] == NSOrderedAscending,
-             @"CreationDate not properly set");
-    
-    // clean amends from database
-    [self.manager removeAmend:amend];
-    XCTAssert([self.manager fetchUserAmends].count == 0, @"Amend not removed");
-}
-
-- (void)testCreateMultipleAmmends
-{
-    // create multiple ammends
-    for (int i = 0; i < 10; i++) {
-        Amend* amend = [self.manager createAmend];
-        amend.amends = [NSString stringWithFormat:@"Amend%d", i];
-    }
-    
-    XCTAssert([self.manager fetchUserAmends].count == 10, @"Amends not properly added");
-    
-    // clean up amends
-    NSArray* amends = [self.manager fetchUserAmends];
-    for (Amend* amend in amends) {
-        [self.manager removeAmend:amend];
-    }
-    
-    XCTAssert([self.manager fetchUserAmends].count == 0, @"Amends not properly removed");
-}
-
-- (void)testUniqueInventoryForDay
-{
-    // create inventory
-    DailyInventory* inventory = [self.manager todaysDailyInventory];
-    DailyInventory* inventory2 = [self.manager todaysDailyInventory];
-    XCTAssert([NSDate dateIsSameDayAsToday:inventory.date], @"Today's inventory is incorrect date");
-    XCTAssert([inventory isEqual:inventory2], @"todaysDailyInventory should only create one item per day");
-    XCTAssert([inventory.questions count] == AA_DAILY_INVENTORY_QUESTION_COUNT, @"Improper number of questions created");
-}
 
 - (void)testSimpleContactCreation
 {

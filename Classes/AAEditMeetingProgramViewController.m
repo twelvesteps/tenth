@@ -7,11 +7,15 @@
 //
 
 #import "AAEditMeetingProgramViewController.h"
+#import "AAUserMeetingsManager.h"
+#import "MeetingProgram.h"
 
 @interface AAEditMeetingProgramViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
+
+@property (strong, nonatomic) NSArray* meetingPrograms;
 
 @end
 
@@ -22,14 +26,27 @@
     // Do any additional setup after loading the view.
 }
 
-- (AAMeetingProgram)program
+- (NSArray*)meetingPrograms
 {
-    return (AAMeetingProgram)self.selectedIndexPath.row;
+    if (!_meetingPrograms) {
+        _meetingPrograms = [[AAUserMeetingsManager sharedManager] fetchMeetingPrograms];
+    }
+    
+    return _meetingPrograms;
 }
 
-- (void)setProgram:(AAMeetingProgram)program
+- (MeetingProgram*)program
 {
-    self.selectedIndexPath = [NSIndexPath indexPathForRow:(NSInteger)program inSection:0];
+    return [self.meetingPrograms objectAtIndex:self.selectedIndexPath.row];
+}
+
+- (void)setProgram:(MeetingProgram*)program
+{
+    if (program) {
+        self.selectedIndexPath = [NSIndexPath indexPathForRow:[self.meetingPrograms indexOfObject:program] inSection:0];
+    } else {
+        self.selectedIndexPath = nil;
+    }
 }
 
 
@@ -44,14 +61,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.meetingPrograms.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingProgramCell"];
     
-    cell.textLabel.text = [Meeting stringForProgram:(AAMeetingProgram)indexPath.row];
+    MeetingProgram* program = [self.meetingPrograms objectAtIndex:indexPath.row];
+    cell.textLabel.text = program.localizedTitle;
     
     if ([indexPath isEqual:self.selectedIndexPath]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

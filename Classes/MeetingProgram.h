@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MeetingDescriptor+Localization.h"
 
 @class Meeting;
 
-@interface MeetingProgram : NSManagedObject
+@interface MeetingProgram : MeetingDescriptor
 
 @property (nonatomic, retain) NSString * shortTitle;
 @property (nonatomic, retain) NSNumber * symbolType;

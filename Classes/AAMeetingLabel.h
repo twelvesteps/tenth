@@ -12,7 +12,7 @@
 @interface AAMeetingLabel : UIView
 
 @property (nonatomic) BOOL leftCircle;
-@property (nonatomic) AAMeetingFormat format;
+@property (nonatomic) MeetingFormat* format;
 
 @property (nonatomic, strong) NSString* text;
 @property (nonatomic, strong) UIFont* font;

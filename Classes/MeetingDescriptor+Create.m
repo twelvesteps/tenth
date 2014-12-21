@@ -7,7 +7,39 @@
 //
 
 #import "MeetingDescriptor+Create.h"
+#import "AAUserMeetingsManager.h"
+@interface MeetingDescriptor()
+
+@property (nonatomic, retain, readwrite) NSString* identifier;
+
+@end
 
 @implementation MeetingDescriptor (Create)
+
++ (MeetingDescriptor*)meetingDescriptorWithEntityName:(NSString*)name
+                                                title:(NSString*)title
+                               inManagedObjectContext:(NSManagedObjectContext*)context
+{
+    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:name];
+    NSPredicate* titlePredicate = [NSPredicate predicateWithFormat:@"title == %@", title];
+    request.predicate = titlePredicate;
+    
+    NSError* err;
+    NSArray* results = [context executeFetchRequest:request error:&err];
+    
+    if (results.count == 1) {
+        return [results firstObject];
+    } else if (results.count == 0) {
+        MeetingFormat* format = (MeetingFormat*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
+        format.title = title;
+        format.identifier = [[[NSUUID UUID] UUIDString] lowercaseString];
+        
+        return format;
+    } else {
+        DLog(@"<DEBUG> Multiple formats with the given title already exist");
+        return nil;
+    }
+}
+
 
 @end

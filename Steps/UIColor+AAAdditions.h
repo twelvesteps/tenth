@@ -12,7 +12,7 @@
 #define STEPS_RED_COLOR     @"red"
 #define STEPS_ORANGE_COLOR  @"orange"
 #define STEPS_GREEN_COLOR   @"green"
-#define STEPS_PURPLE_COLOR  @"purple"
+#define STEPS_YELLOW_COLOR  @"purple"
 
 @class Meeting;
 @interface UIColor (AAAdditions)
@@ -21,7 +21,6 @@
 //          If alpha is outside of the range [0.0, 1.0], the closest acceptable value will be used.
 // returns: Returns a UIColor with the same RGB values as color and the given alpha
 // use:     UIColor* transparentGreen = [UIColor colorWithUIColor:[UIColor greenColor] withAlpha:0.8f];
-
 + (UIColor*)colorWithUIColor:(UIColor*)color withAlpha:(CGFloat)alpha;
 
 + (UIColor*)stepsColorForKey:(NSString*)key;
@@ -30,7 +29,7 @@
 + (UIColor*)stepsRedColor;
 + (UIColor*)stepsOrangeColor;
 + (UIColor*)stepsGreenColor;
-+ (UIColor*)stepsPurpleColor;
++ (UIColor*)stepsYellowColor;
 
 + (UIColor*)stepsTableViewCellSeparatorColor;
 @end

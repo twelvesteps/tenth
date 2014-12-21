@@ -12,9 +12,14 @@
 #import "Meeting+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
 #import "AAUserSettingsManager.h"
+#import "AAUserMeetingsManager.h"
+
+#define UNSPECIFIED_FORMAT_ROW  0
+
 @interface AAEditMeetingFormatPickerCell() <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, weak) AAMeetingFormatLabel* formatLabel;
+@property (nonatomic, strong) NSArray* meetingFormats;
 
 @end
 
@@ -26,6 +31,15 @@
     
     self.picker.delegate = self;
     self.picker.dataSource = self;
+}
+
+- (NSArray*)meetingFormats
+{
+    if (!_meetingFormats) {
+        _meetingFormats = [[AAUserMeetingsManager sharedManager] fetchMeetingFormats];
+    }
+    
+    return _meetingFormats;
 }
 
 @synthesize pickerHidden = _pickerHidden;
@@ -56,10 +70,14 @@
     return AAEditMeetingPickerCellTypeMeetingFormat;
 }
 
-- (void)setFormat:(AAMeetingFormat)format
+- (void)setFormat:(MeetingFormat*)format
 {
     _format = format;
-    [self.picker selectRow:(NSInteger)format inComponent:0 animated:YES];
+    if (format) {
+        [self.picker selectRow:[self.meetingFormats indexOfObject:format] + 1 inComponent:0 animated:YES];
+    } else {
+        [self.picker selectRow:UNSPECIFIED_FORMAT_ROW inComponent:0 animated:YES];
+    }
     [self updateViews];
 }
 
@@ -83,7 +101,7 @@
 - (void)layoutFormatLabel
 {
     CGSize boundingSize = CGSizeMake(self.bounds.size.width - self.titleLabel.frame.size.width - 2 * HORIZONTAL_INSET, self.bounds.size.height);
-    CGFloat formatWidth = [AAMeetingLabel widthForText:[Meeting stringForMeetingFormat:self.format] boundingSize:boundingSize];
+    CGFloat formatWidth = [AAMeetingLabel widthForText:self.format.localizedTitle boundingSize:boundingSize];
     CGFloat formatLabelOriginX = CGRectGetMaxX(self.bounds) - formatWidth - HORIZONTAL_INSET;
     CGRect formatLabelFrame = CGRectMake(formatLabelOriginX,
                                          self.bounds.origin.y,
@@ -98,23 +116,14 @@
 
 - (UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    AAMeetingFormat format;
-    switch ((AAMeetingFormat)row) {
-        case AAMeetingFormatUnspecified:
-        case AAMeetingFormatBeginner:
-        case AAMeetingFormatDiscussion:
-        case AAMeetingFormatLiterature:
-        case AAMeetingFormatSpeaker:
-        case AAMeetingFormatStepStudy:
-            format = (AAMeetingFormat)row;
-            break;
-            
-        default:
-            [NSException raise:@"InvalidMeetingType" format:@"The meeting format was set incorrectly"];
+    MeetingFormat* format = nil;
+    if (row == UNSPECIFIED_FORMAT_ROW) {
+        format = nil;
+    } else {
+        format = [self.meetingFormats objectAtIndex:row - 1];
     }
     
-    
-    CGFloat formatLabelWidth = [AAMeetingLabel widthForText:[Meeting stringForMeetingFormat:format] boundingSize:self.picker.bounds.size];
+    CGFloat formatLabelWidth = [AAMeetingLabel widthForText:format.localizedTitle boundingSize:self.picker.bounds.size];
     CGRect labelFrame = CGRectMake(0.0f, 0.0f, formatLabelWidth, 23.0f);
     
     AAMeetingFormatLabel* formatLabel = [[AAMeetingFormatLabel alloc] initWithFrame:labelFrame];
@@ -126,7 +135,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return MEETING_FORMAT_COUNT;
+    return self.meetingFormats.count + 1;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -136,7 +145,11 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.format = (AAMeetingFormat)[self.picker selectedRowInComponent:0];
+    if (row == UNSPECIFIED_FORMAT_ROW) {
+        self.format = nil;
+    } else {
+        self.format = [self.meetingFormats objectAtIndex:[pickerView selectedRowInComponent:component] - 1];
+    }
     
     [self.delegate pickerCellValueChanged:self];
 }

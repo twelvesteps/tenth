@@ -55,7 +55,7 @@
     [self initFellowshipNameLabel];
     
     self.backgroundColor = [UIColor whiteColor];
-    self.color = [[AAUserSettingsManager sharedManager] colorForMeetingFormat:self.format];
+    self.color = [[AAUserSettingsManager sharedManager] colorForFormat:self.format];
 }
 
 - (void)initFellowshipNameLabel
@@ -68,13 +68,13 @@
     self.fellowshipNameLabel = fellowshipNameLabel;
 }
 
-- (void)setFormat:(AAMeetingFormat)format
+- (void)setFormat:(MeetingFormat*)format
 {
     _format = format;
     [self updateViews];
 }
 
-- (void)setProgram:(AAMeetingProgram)program
+- (void)setProgram:(MeetingProgram*)program
 {
     _program = program;
     [self updateViews];
@@ -89,7 +89,15 @@
 
 - (void)updateViews
 {
-    self.fellowshipNameLabel.text = [Meeting shortStringForProgram:self.program];
+    NSString* fellowshipShortName = self.program.shortTitle;
+    if (fellowshipShortName.length >= 3) {
+        NSUInteger fontCompression = fellowshipShortName.length - 2;
+        self.fellowshipNameLabel.font = [UIFont stepsCompressedFont:fontCompression];
+    } else {
+        self.fellowshipNameLabel.font = [UIFont stepsFooterFont];
+    }
+    
+    self.fellowshipNameLabel.text = fellowshipShortName;
     self.color = [[AAUserSettingsManager sharedManager] defaultColor];
     [self updateLabelColor];
     [self setNeedsDisplay];
@@ -137,9 +145,8 @@
     [super drawRect:rect];
     [self clearRect:rect];
     
-    switch (self.program) {
-        case AAMeetingProgramAlAnon:
-        case AAMeetingProgramAlateen:
+    switch (self.program.symbolType.integerValue) {
+        case AAMeetingProgramSymbolTypeTriangleAroundCircle:
             [self drawCircleInTriangleInRect:rect];
             break;
             

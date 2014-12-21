@@ -8,25 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "Meeting+AAAdditions.h"
+#import "MeetingFormat.h"
+#import "MeetingProgram.h"
 
 // *** USER SETTINGS ***
-// info:    The following keys are used for accessing user settings
-#define AA_USER_SETTING_ADDRESS_BOOK_NOTIFICATION   @"AddressBook"
-#define AA_USER_SETTING_LOCK_SCREEN_NOTIFICATION    @"LockScreen"
-#define AA_USER_SETTING_MEETING_COLORS_NOTIFICATION @"MeetingColorsMap"
+#define AA_USER_SETTING_ADDRESS_BOOK_NOTIFICATION   @"AddressBookAccessChanged"
+#define AA_USER_SETTING_LOCK_SCREEN_NOTIFICATION    @"LockScreenChanged"
+#define AA_USER_SETTING_MEETING_COLORS_NOTIFICATION @"MeetingColorsMapChanged"
 
 @interface AAUserSettingsManager : NSObject
 
 + (instancetype)sharedManager;
 
-// contains the colors chosen by the user to represent different meeting formats
-@property (strong, nonatomic, readonly) NSDictionary* meetingColorsMap; // returns nil if no preference has been set
-
 - (UIColor*)defaultColor;
-- (UIColor*)colorForMeetingFormat:(AAMeetingFormat)format;
-- (void)setColor:(UIColor*)color forMeetingFormat:(AAMeetingFormat)format;
+- (UIColor*)colorForFormat:(MeetingFormat*)format;
 
-- (AAMeetingProgram)defaultProgram;
-- (AAMeetingFormat)defaultFormat;
+- (MeetingProgram*)defaultMeetingProgram;
 
 @end

@@ -89,7 +89,7 @@
 
 - (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
-    ABRecordRef person = [[AAUserDataManager sharedManager] fetchPersonRecordForContact:self.contact];
+    ABRecordRef person = [[AAUserContactsManager sharedManager] fetchPersonRecordForContact:self.contact];
     if (person) {
         // use new person view controller to go straight to edit screen
         [self presentNewPersonViewControllerWithPerson:person];
@@ -351,10 +351,10 @@
 {
     if (person) {
         if (self.contact) {
-            [[AAUserDataManager sharedManager] syncContact:self.contact withPersonRecord:person];
+            [[AAUserContactsManager sharedManager] syncContact:self.contact withPersonRecord:person];
             [self.tableView reloadData];
         } else if (self.mode == AAContactViewConrollerNewContactMode && person) {
-            self.contact = [[AAUserDataManager sharedManager] createContactWithPersonRecord:person];
+            self.contact = [[AAUserContactsManager sharedManager] createContactWithPersonRecord:person];
             [self.tableView reloadData];
         }
     }
@@ -567,7 +567,7 @@
                 if ([self.contact.isSponsor boolValue]) {
                     self.contact.isSponsor = [NSNumber numberWithBool:NO];
                 } else {
-                    [[AAUserDataManager sharedManager] setContactAsSponsor:self.contact];
+                    [[AAUserContactsManager sharedManager] setContactAsSponsor:self.contact];
                 }
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:CONTACT_NAME_CELL_SECTION],
                                                          [NSIndexPath indexPathForRow:0 inSection:CONTACT_SET_SPONSOR_SECTION]]

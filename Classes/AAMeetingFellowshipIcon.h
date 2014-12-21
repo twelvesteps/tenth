@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Meeting+AAAdditions.h"
 
+@class MeetingProgram;
+@class MeetingFormat;
+
 @interface AAMeetingFellowshipIcon : UIView
 
-@property (nonatomic) AAMeetingFormat format;
-@property (nonatomic) AAMeetingProgram program;
+@property (nonatomic) MeetingFormat* format;
+@property (nonatomic) MeetingProgram* program;
 @property (nonatomic) BOOL isOpen;
 
 @end

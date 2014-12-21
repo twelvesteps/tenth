@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MeetingDescriptor+Localization.h"
 
 @class Meeting;
 
-@interface MeetingFormat : NSManagedObject
+@interface MeetingFormat : MeetingDescriptor
 
 @property (nonatomic, retain) NSSet *meetings;
 @end

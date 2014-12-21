@@ -12,8 +12,8 @@
 
 @interface MeetingDescriptor : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSNumber * localizeTitle;
+@property (nonatomic, retain)            NSString * title;
+@property (nonatomic, retain, readonly)  NSString * identifier;
+@property (nonatomic, retain)            NSNumber * localizeTitle;
 
 @end

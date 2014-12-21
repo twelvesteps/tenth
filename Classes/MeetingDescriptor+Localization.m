@@ -10,4 +10,9 @@
 
 @implementation MeetingDescriptor (Localization)
 
+- (NSString*)localizedTitle
+{
+    return NSLocalizedString(self.title, @"Localized descriptor title");
+}
+
 @end

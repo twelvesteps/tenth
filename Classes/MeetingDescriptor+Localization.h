@@ -10,4 +10,6 @@
 
 @interface MeetingDescriptor (Localization)
 
+- (NSString*)localizedTitle;
+
 @end

@@ -12,27 +12,7 @@
 
 @implementation Meeting (AAAdditions)
 
-#pragma mark - Properties 
-
-- (void)setMeetingFormat:(AAMeetingFormat)format
-{
-    self.format = @(format);
-}
-
-- (AAMeetingFormat)meetingFormat
-{
-    return [self.format integerValue];
-}
-
-- (void)setMeetingProgram:(AAMeetingProgram)meetingProgram
-{
-    self.program = @(meetingProgram);
-}
-
-- (AAMeetingProgram)meetingProgram
-{
-    return [self.program integerValue];
-}
+#pragma mark - Properties
 
 - (BOOL)openMeeting
 {
@@ -55,98 +35,6 @@
 
 
 #pragma mark - Creating Strings
-
-- (NSString*)meetingFormatString
-{
-    return [[Meeting meetingFormatStringMap] objectForKey:self.format];
-}
-
-+ (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format
-{
-    return [[Meeting meetingFormatKeyMap] objectForKey:@(format)];
-}
-
-+ (NSString*)stringForMeetingFormat:(AAMeetingFormat)format
-{
-    return [[Meeting meetingFormatStringMap] objectForKey:@(format)];
-}
-
-+ (NSDictionary*)meetingFormatKeyMap
-{
-    static NSDictionary* meetingFormatStringMap = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        meetingFormatStringMap = @{@(AAMeetingFormatUnspecified): @"Unspecified",
-                                   @(AAMeetingFormatBeginner)   : @"Beginnger",
-                                   @(AAMeetingFormatDiscussion) : @"Discussion",
-                                   @(AAMeetingFormatLiterature) : @"Literature",
-                                   @(AAMeetingFormatSpeaker)    : @"Speaker",
-                                   @(AAMeetingFormatStepStudy)  : @"Step Study"};
-    });
-    assert(meetingFormatStringMap.count == MEETING_FORMAT_COUNT);
-    return meetingFormatStringMap;
-}
-
-+ (NSDictionary*)meetingFormatStringMap
-{
-    static NSDictionary* meetingFormatStringMap = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        meetingFormatStringMap = @{@(AAMeetingFormatUnspecified): NSLocalizedString(@"", @""),
-                                   @(AAMeetingFormatBeginner)   : NSLocalizedString(@"Beginner", @"AA meeting specifically for beginners"),
-                                   @(AAMeetingFormatDiscussion) : NSLocalizedString(@"Discussion", @"AA meeting focused on member discussion"),
-                                   @(AAMeetingFormatLiterature) : NSLocalizedString(@"Literature", @"AA meeting focused on reading or discussing literature"),
-                                   @(AAMeetingFormatSpeaker)    : NSLocalizedString(@"Speaker", @"AA meeting with a speaker or speaker's"),
-                                   @(AAMeetingFormatStepStudy)  : NSLocalizedString(@"Step Study", @"AA meeting where a step or steps are discussed")};
-    });
-    assert(meetingFormatStringMap.count == MEETING_FORMAT_COUNT);
-    return meetingFormatStringMap;
-}
-
-- (NSString*)programName
-{
-    return [[Meeting programNameMap] objectForKey:self.program];
-}
-
-+ (NSString*)stringForProgram:(AAMeetingProgram)program
-{
-    return [[Meeting programNameMap] objectForKey:@(program)];
-}
-
-+ (NSString*)shortStringForProgram:(AAMeetingProgram)program
-{
-    return [[Meeting programShortNameMap] objectForKey:@(program)];
-}
-
-+ (NSDictionary*)programNameMap
-{
-    static NSDictionary* programNameMap = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        programNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"Alcoholics Anonymous", @"Alcoholics Anonymous"),
-                           @(AAMeetingProgramNA)        : NSLocalizedString(@"Narcotics Anonymous", @"Narcotics Anonymous"),
-                           @(AAMeetingProgramAlAnon)    : NSLocalizedString(@"Al-Anon", @"Al-Anon"),
-                           @(AAMeetingProgramAlateen)   : NSLocalizedString(@"Alateen", @"Aalateen")};
-                           
-    });
-    assert(programNameMap.count == MEETING_PROGRAM_COUNT);
-    return programNameMap;
-}
-
- + (NSDictionary*)programShortNameMap
-{
-    static NSDictionary* programShortNameMap = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        programShortNameMap = @{@(AAMeetingProgramAA)        : NSLocalizedString(@"AA", @"Alcoholics Anonymous"),
-                                @(AAMeetingProgramNA)        : NSLocalizedString(@"NA", @"Narcotics Anonymous"),
-                                @(AAMeetingProgramAlAnon)    : NSLocalizedString(@"", @"Al-Anon"),
-                                @(AAMeetingProgramAlateen)   : NSLocalizedString(@"", @"Aalateen")};
-    });
-    
-    return programShortNameMap;
-}
-
 
 - (NSString*)dayOfWeekString
 {

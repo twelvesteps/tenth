@@ -9,6 +9,7 @@
 #import "AAGroupedTableViewController.h"
 #import "Meeting+AAAdditions.h"
 
+@class MeetingProgram;
 @class AAEditMeetingProgramViewController;
 @protocol AAEditMeetingProgramViewControllerDelegate <NSObject>
 
@@ -18,7 +19,7 @@
 
 @interface AAEditMeetingProgramViewController : AAGroupedTableViewController
 
-@property (nonatomic) AAMeetingProgram program;
+@property (nonatomic, strong) MeetingProgram* program;
 
 @property (nonatomic, weak) id<AAEditMeetingProgramViewControllerDelegate> programDelegate;
 

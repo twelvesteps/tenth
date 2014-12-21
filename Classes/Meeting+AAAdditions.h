@@ -8,37 +8,14 @@
 
 #import "Meeting.h"
 
-#define MEETING_FORMAT_COUNT    6
-typedef NS_ENUM(NSInteger, AAMeetingFormat) {
-    AAMeetingFormatUnspecified = 0,
-    AAMeetingFormatLiterature = 1,
-    AAMeetingFormatDiscussion = 2,
-    AAMeetingFormatSpeaker = 3,
-    AAMeetingFormatBeginner = 4,
-    AAMeetingFormatStepStudy = 5,
-};
-
-#define MEETING_PROGRAM_COUNT   4
-typedef NS_ENUM(NSInteger, AAMeetingProgram) {
-    AAMeetingProgramAA,
-    AAMeetingProgramNA,
-    AAMeetingProgramAlAnon,
-    AAMeetingProgramAlateen,
+typedef NS_ENUM(NSInteger, AAMeetingProgramSymbolType) {
+    AAMeetingProgramSymbolTypeCircleAroundTriangle,
+    AAMeetingProgramSymbolTypeTriangleAroundCircle,
 };
 
 @interface Meeting (AAAdditions)
 
-@property (nonatomic) AAMeetingFormat meetingFormat;
-@property (nonatomic) AAMeetingProgram meetingProgram;
 @property (nonatomic) BOOL openMeeting;
-
-+ (NSString*)plistKeyForMeetingFormat:(AAMeetingFormat)format;
-+ (NSString*)stringForMeetingFormat:(AAMeetingFormat)format;
-+ (NSString*)stringForProgram:(AAMeetingProgram)program;
-+ (NSString*)shortStringForProgram:(AAMeetingProgram)program;
-
-- (NSString*)meetingFormatString;
-- (NSString*)programName;
 
 - (NSDate*)endDate;
 

@@ -8,6 +8,11 @@
 
 #import "MeetingDescriptor.h"
 
+@class MeetingFormat;
 @interface MeetingDescriptor (Create)
+
++ (MeetingDescriptor*)meetingDescriptorWithEntityName:(NSString*)name
+                                                title:(NSString*)title
+                               inManagedObjectContext:(NSManagedObjectContext*)context;
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AAUserDataManager.h"
+#import "AAUserMeetingsManager.h"
 #import "AAUserSettingsManager.h"
 
 #import "AAMeetingsViewController.h"
@@ -54,7 +54,7 @@
 
 - (void)updateMeetings
 {
-    NSArray* allMeetings = [[AAUserDataManager sharedManager] fetchMeetings];
+    NSArray* allMeetings = [[AAUserMeetingsManager sharedManager] fetchMeetings];
     self.meetings = [self parseMeetingsByStartDate:allMeetings];
     self.filteredMeetings = [self filterEmptyMeetings];
 }
@@ -218,7 +218,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Meeting* meeting = [self meetingForIndexPath:indexPath];
-        [[AAUserDataManager sharedManager] removeMeeting:meeting];
+        [[AAUserMeetingsManager sharedManager] removeMeeting:meeting];
         
         
         if ([self meetingCountForSection:indexPath.section] == 1) {

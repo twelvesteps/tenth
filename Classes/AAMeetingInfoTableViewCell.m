@@ -65,10 +65,9 @@
 {
     self.meetingTitleLabel.text = self.meeting.title;
     self.meetingLocationLabel.text = self.meeting.location;
-    self.meetingChairpersonLabel.text = (self.meeting.userIsChairPerson) ? NSLocalizedString(@"Chair Person", @"Leader of the AA meeting") : @"";
     self.meetingDetailTextView.text = [self detailText];
-    self.fellowshipIcon.format = self.meeting.meetingFormat;
-    self.fellowshipIcon.program = self.meeting.meetingProgram;
+    self.fellowshipIcon.format = [self.meeting.formats anyObject];
+    self.fellowshipIcon.program = [self.meeting.programs anyObject];
     self.fellowshipIcon.isOpen = self.meeting.openMeeting;
 }
 

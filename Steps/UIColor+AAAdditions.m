@@ -45,9 +45,9 @@
     return [[UIColor stepsColorMap] objectForKey:STEPS_GREEN_COLOR];
 }
 
-+ (UIColor*)stepsPurpleColor
++ (UIColor*)stepsYellowColor
 {
-    return [[UIColor stepsColorMap] objectForKey:STEPS_PURPLE_COLOR];
+    return [[UIColor stepsColorMap] objectForKey:STEPS_YELLOW_COLOR];
 }
 
 + (UIColor*)stepsTableViewCellSeparatorColor
@@ -55,10 +55,14 @@
     return UIColorWithRGB(207.0f, 207.0f, 207.0f);
 }
 
-
 + (UIColor*)stepsColorForKey:(NSString *)key
 {
-    return [[UIColor stepsColorMap] objectForKey:key];
+    UIColor* color = [[UIColor stepsColorMap] objectForKey:key];
+    if (!color) {
+        DLog(@"<DEBUG> Unrecognized color key: %@", key);
+    }
+    
+    return color;
 }
 
 + (NSDictionary*)stepsColorMap
@@ -66,11 +70,11 @@
     static NSDictionary* colorMap = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        colorMap = @{ STEPS_BLUE_COLOR      : UIColorWithRGB(11.0f, 97.0f, 254.0f),
-                      STEPS_RED_COLOR       : UIColorWithRGB(0xFC, 0x00, 0x12),
-                      STEPS_GREEN_COLOR     : UIColorWithRGB(0x1D, 0xD2, 0x00),
-                      STEPS_ORANGE_COLOR    : UIColorWithRGB(0xFF, 0xA5, 0x00),
-                      STEPS_PURPLE_COLOR    : UIColorWithRGB(192.0f, 82.0f, 221.0f)};
+        colorMap = @{ STEPS_BLUE_COLOR      : UIColorWithRGB(0x00, 0xA5, 0xDB), //#00A5DB
+                      STEPS_RED_COLOR       : UIColorWithRGB(0xD8, 0x1E, 0x05), //#D81E05
+                      STEPS_GREEN_COLOR     : UIColorWithRGB(0xBA, 0xD8, 0x0A), //#BAD80A
+                      STEPS_ORANGE_COLOR    : UIColorWithRGB(0xFC, 0xA3, 0x11), //#FCA311
+                      STEPS_YELLOW_COLOR    : UIColorWithRGB(0xF9, 0xD6, 0x16)}; //#F9D616
     });
     
     return colorMap;

@@ -9,7 +9,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "AAContactsListViewController.h"
 #import "AAContactViewController.h"
-#import "AAUserDataManager.h"
+#import "AAUserContactsManager.h"
 #import "Contact+AAAdditions.h"
 #import "Phone+AAAdditions.h"
 #import "AAPopoverListView.h"
@@ -62,7 +62,7 @@
 
 - (void)reloadContacts
 {
-    _contacts = [[AAUserDataManager sharedManager] fetchUserAAContacts];
+    _contacts = [[AAUserContactsManager sharedManager] fetchUserAAContacts];
 }
 
 
@@ -204,7 +204,7 @@
 - (void)callConactPopoverView:(AAPopoverListView*)pv buttonTappedAtIndex:(NSInteger)index
 {
     if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_SPONSOR_TITLE]) {
-        Contact* sponsor = [[AAUserDataManager sharedManager] fetchSponsor];
+        Contact* sponsor = [[AAUserContactsManager sharedManager] fetchSponsor];
         if (sponsor) {
             [self performSegueWithIdentifier:@"callContact" sender:sponsor];
         } else {
@@ -252,7 +252,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.deletedContactIndexPath = indexPath;
-        [[AAUserDataManager sharedManager] removeAAContact:self.contacts[indexPath.row]];
+        [[AAUserContactsManager sharedManager] removeAAContact:self.contacts[indexPath.row]];
         [self reloadContacts];
         [self.tableView reloadData];
     }
@@ -304,7 +304,7 @@
 - (BOOL)contactViewControllerShouldShowNotLinkedWarningForContact:(Contact*)contact
 {
     BOOL contactNeedsLink = [contact.needsABLink boolValue];
-    BOOL contactWasSynced = [[AAUserDataManager sharedManager] syncContactWithAssociatedPersonRecord:contact];
+    BOOL contactWasSynced = [[AAUserContactsManager sharedManager] syncContactWithAssociatedPersonRecord:contact];
     if (!contactNeedsLink && !contactWasSynced) {
         return YES;
     } else {

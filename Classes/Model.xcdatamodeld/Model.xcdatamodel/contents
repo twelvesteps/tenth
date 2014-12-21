@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="abFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,14 +21,26 @@
     <entity name="Meeting" representedClassName="Meeting" syncable="YES">
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="format" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isOpen" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="literature" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="program" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userIsChairPerson" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="formats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingFormat" inverseName="meetings" inverseEntity="MeetingFormat" syncable="YES"/>
+        <relationship name="programs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingProgram" inverseName="meetings" inverseEntity="MeetingProgram" syncable="YES"/>
+    </entity>
+    <entity name="MeetingDescriptor" representedClassName="MeetingDescriptor" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localizeTitle" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MeetingFormat" representedClassName="MeetingFormat" parentEntity="MeetingDescriptor" syncable="YES">
+        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="formats" inverseEntity="Meeting" syncable="YES"/>
+    </entity>
+    <entity name="MeetingProgram" representedClassName="MeetingProgram" parentEntity="MeetingDescriptor" syncable="YES">
+        <attribute name="shortTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="symbolType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="programs" inverseEntity="Meeting" syncable="YES"/>
     </entity>
     <entity name="Phone" representedClassName="Phone" syncable="YES">
         <attribute name="number" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,7 +50,10 @@
     <elements>
         <element name="Contact" positionX="88" positionY="191" width="128" height="208"/>
         <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
-        <element name="Meeting" positionX="306" positionY="225" width="128" height="193"/>
+        <element name="Meeting" positionX="430" positionY="194" width="128" height="178"/>
+        <element name="MeetingDescriptor" positionX="448" positionY="531" width="128" height="88"/>
+        <element name="MeetingFormat" positionX="529" positionY="423" width="128" height="58"/>
+        <element name="MeetingProgram" positionX="358" positionY="423" width="128" height="88"/>
         <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
     </elements>
 </model>
