@@ -25,6 +25,7 @@
 		8456A3541A1CCC2500B78D1E /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456A3531A1CCC2500B78D1E /* Contact.m */; };
 		8463C3601A3DDA1600DEDB13 /* AAGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463C35F1A3DDA1600DEDB13 /* AAGroupedTableViewController.m */; };
 		846ABC28192BB15A00558785 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846ABC27192BB15A00558785 /* AddressBookUI.framework */; };
+		8480B3F41A4846490061A6C5 /* AAEditMeetingDescriptorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480B3F31A4846490061A6C5 /* AAEditMeetingDescriptorViewController.m */; };
 		848D76C11A45A60E001B3BBF /* MeetingDescriptor+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */; };
 		848D76C41A45AEDF001B3BBF /* MeetingDescriptor+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */; };
 		84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */; };
@@ -185,6 +186,8 @@
 		8463C35E1A3DDA1600DEDB13 /* AAGroupedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAGroupedTableViewController.h; path = Classes/AAGroupedTableViewController.h; sourceTree = "<group>"; };
 		8463C35F1A3DDA1600DEDB13 /* AAGroupedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAGroupedTableViewController.m; path = Classes/AAGroupedTableViewController.m; sourceTree = "<group>"; };
 		846ABC27192BB15A00558785 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		8480B3F21A4846490061A6C5 /* AAEditMeetingDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingDescriptorViewController.h; path = Classes/AAEditMeetingDescriptorViewController.h; sourceTree = "<group>"; };
+		8480B3F31A4846490061A6C5 /* AAEditMeetingDescriptorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingDescriptorViewController.m; path = Classes/AAEditMeetingDescriptorViewController.m; sourceTree = "<group>"; };
 		848D76BF1A45A60E001B3BBF /* MeetingDescriptor+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MeetingDescriptor+Create.h"; path = "Classes/MeetingDescriptor+Create.h"; sourceTree = SOURCE_ROOT; };
 		848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MeetingDescriptor+Create.m"; path = "Classes/MeetingDescriptor+Create.m"; sourceTree = SOURCE_ROOT; };
 		848D76C21A45AEDF001B3BBF /* MeetingDescriptor+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MeetingDescriptor+Localization.h"; path = "Classes/MeetingDescriptor+Localization.h"; sourceTree = SOURCE_ROOT; };
@@ -493,6 +496,8 @@
 				84B9FF411A18A33D008B197D /* AAMeetingsViewController.m */,
 				841DB0C01A29C75100DDB71D /* AAEditMeetingViewController.h */,
 				841DB0C11A29C75100DDB71D /* AAEditMeetingViewController.m */,
+				8480B3F21A4846490061A6C5 /* AAEditMeetingDescriptorViewController.h */,
+				8480B3F31A4846490061A6C5 /* AAEditMeetingDescriptorViewController.m */,
 				84F7BBCF1A35BC2800BD6C0F /* AAEditMeetingProgramViewController.h */,
 				84F7BBD01A35BC2800BD6C0F /* AAEditMeetingProgramViewController.m */,
 			);
@@ -1050,6 +1055,7 @@
 				E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */,
 				84F7BBCB1A34B7F300BD6C0F /* AAEditMeetingOpenCell.m in Sources */,
 				84D56E731A276FA20059A75A /* AAMeetingInfoTableViewCell.m in Sources */,
+				8480B3F41A4846490061A6C5 /* AAEditMeetingDescriptorViewController.m in Sources */,
 				84F7BBDD1A38192100BD6C0F /* AAUserSettingsManager.m in Sources */,
 				E2399690194619D900DD30C9 /* Phone+AAAdditions.m in Sources */,
 				84FEDF0A191BCBD700767CB0 /* Model.xcdatamodeld in Sources */,

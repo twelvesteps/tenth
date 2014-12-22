@@ -44,6 +44,11 @@
     return nil;
 }
 
+- (BOOL)addSeparatorToCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath.row + 1 != [self tableView:self.tableView numberOfRowsInSection:indexPath.section];
+}
+
 #define HEADER_VIEW_HEIGHT  30.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -59,5 +64,12 @@
     headerView.topSeparator = (section != 0);
     
     return headerView;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AASeparatorTableViewCell* cell = [self separatorCellForRowAtIndexPath:indexPath];
+    cell.bottomSeparator = [self addSeparatorToCellAtIndexPath:indexPath];
+    return cell;
 }
 @end

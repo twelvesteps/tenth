@@ -171,11 +171,9 @@
 
 - (NSArray*)fetchMeetingFormats
 {
-    NSSortDescriptor* sortByPopularity = [NSSortDescriptor sortDescriptorWithKey:@"meetings.count" ascending:NO];
     NSArray* formats = [self fetchItemsForEntityName:AA_MEETING_FORMAT_ITEM_NAME
                                  withSortDescriptors:nil
                                        withPredicate:nil];
-    formats = [formats sortedArrayUsingDescriptors:@[sortByPopularity]];
     
     return formats;
 }

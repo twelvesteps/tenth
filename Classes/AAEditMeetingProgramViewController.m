@@ -64,9 +64,9 @@
     return self.meetingPrograms.count;
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (AASeparatorTableViewCell*)separatorCellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingProgramCell"];
+    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"MeetingProgramCell"];
     
     MeetingProgram* program = [self.meetingPrograms objectAtIndex:indexPath.row];
     cell.textLabel.text = program.localizedTitle;
