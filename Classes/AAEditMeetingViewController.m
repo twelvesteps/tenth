@@ -12,13 +12,14 @@
 
 #import "AAEditMeetingViewController.h"
 #import "AAEditMeetingProgramViewController.h"
+#import "AAEditMeetingFormatViewController.h"
 
 #import "AAEditMeetingTextInputCell.h"
 #import "AAEditMeetingWeekdayCell.h"
 #import "AAEditMeetingDurationCell.h"
 #import "AAEditMeetingStartTimeCell.h"
 #import "AAEditMeetingProgramTypeCell.h"
-#import "AAEditMeetingFormatPickerCell.h"
+#import "AAEditMeetingFormatCell.h"
 #import "AAEditMeetingOpenCell.h"
 #import "AAMeetingFellowshipIcon.h"
 #import "AAMeetingSectionDividerView.h"
@@ -30,7 +31,7 @@
 #import "UIFont+AAAdditions.h"
 
 
-@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, AAEditMeetingProgramViewControllerDelegate, UITextFieldDelegate>
+@interface AAEditMeetingViewController() <AAEditMeetingPickerCellDelegate, AAEditMeetingProgramViewControllerDelegate, AAEditMeetingFormatViewControllerDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBarTitle;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarItem; // add/edit
@@ -196,13 +197,6 @@
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.duration];
 }
 
-- (void)updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell
-{
-    self.format = cell.format;
-    self.fellowshipIcon.format = self.format;
-    
-}
-
 - (NSString*)timeStringForDate:(NSDate*)date
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -227,19 +221,22 @@
         case AAEditMeetingPickerCellTypeDuration:
             [self updateDurationWithCell:(AAEditMeetingDurationCell*)cell];
             break;
-            
-        case AAEditMeetingPickerCellTypeMeetingFormat:
-            [self updateFormatWithCell:(AAEditMeetingFormatPickerCell*)cell];
     }
 }
 
 
-#pragma mark - Program View Controller Delegate
+#pragma mark - Program, Format View Controller Delegate
 
 - (void)programViewDidSelectProgramType:(AAEditMeetingProgramViewController *)controller
 {
     self.program = controller.program;
     self.fellowshipIcon.program = self.program;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)formatViewDidSelectFormatType:(AAEditMeetingFormatViewController *)controller
+{
+    self.format = controller.format;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -250,7 +247,7 @@
 #define WEEKDAY_PICKER_CELL_REUSE_ID    @"WeekdayInputCell"
 #define START_TIME_PICKER_CELL_REUSE_ID @"StartTimeCell"
 #define DURATION_PICKER_CELL_REUSE_ID   @"DurationInputCell"
-#define FORMAT_PICKER_CELL_REUSE_ID     @"FormatInputCell"
+#define FORMAT_CELL_REUSE_ID            @"MeetingFormatCell"
 #define OPEN_MEETING_CELL_REUSE_ID      @"MeetingOpenCell"
 #define PROGRAM_TYPE_CELL_REUSE_ID      @"MeetingProgramCell"
 
@@ -298,10 +295,11 @@
 {
     if (indexPath.section == DATE_TIME_SECTION && [indexPath isEqual:self.selectedIndexPath]) {
         return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
-    } else if (indexPath.section == MEETING_TYPE_SECTION &&
-               indexPath.row == FORMAT_ROW && 
-               [indexPath isEqual:self.selectedIndexPath]) {
-        return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
+//    } else if (indexPath.section == MEETING_TYPE_SECTION &&
+//               indexPath.row == FORMAT_ROW && 
+//               [indexPath isEqual:self.selectedIndexPath]) {
+//        return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
+//
     } else {
         return TEXT_CELL_HEIGHT;
     }
@@ -466,17 +464,11 @@
     return cell;
 }
 
-- (AAEditMeetingFormatPickerCell*)formatCellForIndexPath:(NSIndexPath*)indexPath
+- (AAEditMeetingFormatCell*)formatCellForIndexPath:(NSIndexPath*)indexPath
 {
-    AAEditMeetingFormatPickerCell* cell = (AAEditMeetingFormatPickerCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_PICKER_CELL_REUSE_ID];
+    AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
-    if (!cell) {
-        cell = [[AAEditMeetingFormatPickerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FORMAT_PICKER_CELL_REUSE_ID];
-    }
-    
-    cell.titleLabel.text = NSLocalizedString(@"Format", @"12 step meeting format");
-    cell.format = self.format;
-    cell.delegate = self;
+    cell.formatLabel.format = self.format;
     
     return cell;
 }
@@ -582,6 +574,12 @@
         AAEditMeetingProgramViewController* aaempvc = (AAEditMeetingProgramViewController*)segue.destinationViewController;
         aaempvc.programDelegate = self;
         aaempvc.program = self.program;
+    }
+    
+    if ([segue.identifier isEqualToString:@"formats"]) {
+        AAEditMeetingFormatViewController* aaemfvc = (AAEditMeetingFormatViewController*)segue.destinationViewController;
+        aaemfvc.formatDelegate = self;
+        aaemfvc.format = self.format;
     }
 }
 

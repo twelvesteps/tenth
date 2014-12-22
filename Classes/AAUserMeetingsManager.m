@@ -59,10 +59,12 @@
 {
     NSArray* programTitles = [AAUserMeetingsManager defaultMeetingProgramTitles];
     NSArray* programShortTitles = [AAUserMeetingsManager defaultMeetingProgramShortTitles];
+    NSArray* programSymbolTypes = [AAUserMeetingsManager defaultMeetingProgramSymbolTypes];
     for (NSInteger i = 0; i < programTitles.count; i++) {
         MeetingProgram* program = [self meetingProgramWithTitle:programTitles[i]];
         program.shortTitle = programShortTitles[i];
         program.localizeTitle = @(YES);
+        program.symbolType = programSymbolTypes[i];
     }
 }
 
@@ -114,6 +116,14 @@
              AA_MEETING_PROGRAM_NA_SHORT_TITLE,
              AA_MEETING_PROGRAM_ALANON_SHORT_TITLE,
              AA_MEETING_PROGRAM_ALATEEN_SHORT_TITLE];
+}
+
++ (NSArray*)defaultMeetingProgramSymbolTypes
+{
+    return @[@(AAMeetingProgramSymbolTypeCircleAroundTriangle), // Alcoholics Anyonmous
+             @(AAMeetingProgramSymbolTypeCircleAroundTriangle), // Narcotics Anonymous
+             @(AAMeetingProgramSymbolTypeTriangleAroundCircle), // Alanon
+             @(AAMeetingProgramSymbolTypeTriangleAroundCircle),]; // Alateen
 }
 
 

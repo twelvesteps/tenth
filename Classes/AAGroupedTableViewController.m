@@ -72,4 +72,9 @@
     cell.bottomSeparator = [self addSeparatorToCellAtIndexPath:indexPath];
     return cell;
 }
+
+- (AASeparatorTableViewCell*)separatorCellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
 @end

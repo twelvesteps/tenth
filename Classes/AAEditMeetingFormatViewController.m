@@ -1,48 +1,47 @@
 //
-//  AAEditMeetingProgramViewController.m
+//  AAEditMeetingFormatViewController.m
 //  Steps
 //
-//  Created by Tom on 12/8/14.
+//  Created by Tom on 12/22/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AAEditMeetingProgramViewController.h"
+#import "AAEditMeetingFormatViewController.h"
+#import "AAEditMeetingFormatCell.h"
 #import "AAUserMeetingsManager.h"
-#import "MeetingProgram.h"
-
-@interface AAEditMeetingProgramViewController ()
+@interface AAEditMeetingFormatViewController()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
-@property (strong, nonatomic) NSArray* meetingPrograms;
+@property (strong, nonatomic) NSArray* meetingFormats;
 
 @end
 
-@implementation AAEditMeetingProgramViewController
+@implementation AAEditMeetingFormatViewController
 
-- (NSArray*)meetingPrograms
+- (NSArray*)meetingFormats
 {
-    if (!_meetingPrograms) {
-        _meetingPrograms = [[AAUserMeetingsManager sharedManager] fetchMeetingPrograms];
+    if (!_meetingFormats) {
+        _meetingFormats = [[AAUserMeetingsManager sharedManager] fetchMeetingFormats];
     }
     
-    return _meetingPrograms;
+    return _meetingFormats;
 }
 
-- (MeetingProgram*)program
+- (MeetingFormat*)format
 {
     if (self.selectedIndexPath) {
-        return [self.meetingPrograms objectAtIndex:self.selectedIndexPath.row];
+        return [self.meetingFormats objectAtIndex:self.selectedIndexPath.row];
     } else {
         return nil;
     }
 }
 
-- (void)setProgram:(MeetingProgram*)program
+- (void)setFormat:(MeetingFormat *)format
 {
-    if (program) {
-        self.selectedIndexPath = [NSIndexPath indexPathForRow:[self.meetingPrograms indexOfObject:program] inSection:0];
+    if (format) {
+        self.selectedIndexPath = [NSIndexPath indexPathForRow:[self.meetingFormats indexOfObject:format] inSection:0];
     } else {
         self.selectedIndexPath = nil;
     }
@@ -51,7 +50,7 @@
 
 #pragma mark - Tableview Delegate and Datasource
 
-#define PROGRAM_CELL_REUSE_ID
+#define FORMAT_CELL_REUSE_ID    @"MeetingFormatCell"
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -60,15 +59,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.meetingPrograms.count;
+    return self.meetingFormats.count;
 }
 
 - (AASeparatorTableViewCell*)separatorCellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:@"MeetingProgramCell"];
+    AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
-    MeetingProgram* program = [self.meetingPrograms objectAtIndex:indexPath.row];
-    cell.textLabel.text = program.localizedTitle;
+    cell.formatLabel.format = self.meetingFormats[indexPath.row];
     
     if ([indexPath isEqual:self.selectedIndexPath]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -79,6 +77,7 @@
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([indexPath isEqual:self.selectedIndexPath]) {
@@ -86,10 +85,9 @@
     } else {
         self.selectedIndexPath = indexPath;
     }
-
-    [self.programDelegate programViewDidSelectProgramType:self];
+    
+    [self.formatDelegate formatViewDidSelectFormatType:self];
     [self.tableView reloadData];
 }
-
 
 @end
