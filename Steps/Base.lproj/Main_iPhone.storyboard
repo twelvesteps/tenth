@@ -719,25 +719,24 @@ Details</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Re-wz-I2L" id="w9v-ea-olN">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Format" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjs-18-GSm">
-                                                    <rect key="frame" x="14" y="11" width="55" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="Format" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjs-18-GSm">
+                                                    <rect key="frame" x="14" y="12" width="55" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6NL-aW-1PM" customClass="AAMeetingFormatLabel">
-                                                    <rect key="frame" x="77" y="0.0" width="210" height="44"/>
+                                                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6NL-aW-1PM" customClass="AAMeetingFormatLabel">
+                                                    <rect key="frame" x="77" y="1" width="202" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="6NL-aW-1PM" firstAttribute="top" secondItem="w9v-ea-olN" secondAttribute="top" id="9cW-G8-8jM"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="6NL-aW-1PM" secondAttribute="bottom" constant="-8.5" id="LNY-Pv-6bO"/>
-                                                <constraint firstItem="sjs-18-GSm" firstAttribute="top" secondItem="w9v-ea-olN" secondAttribute="topMargin" constant="3" id="SEn-Zr-wWS"/>
-                                                <constraint firstItem="6NL-aW-1PM" firstAttribute="leading" secondItem="sjs-18-GSm" secondAttribute="trailing" constant="8" symbolic="YES" id="UdD-Ru-1rT"/>
-                                                <constraint firstItem="sjs-18-GSm" firstAttribute="leading" secondItem="w9v-ea-olN" secondAttribute="leadingMargin" constant="6" id="hya-jZ-vjC"/>
-                                                <constraint firstItem="sjs-18-GSm" firstAttribute="centerY" secondItem="w9v-ea-olN" secondAttribute="centerY" id="nNP-2j-1ey"/>
-                                                <constraint firstAttribute="trailing" secondItem="6NL-aW-1PM" secondAttribute="trailing" id="ntf-Fo-iL4"/>
+                                                <constraint firstItem="sjs-18-GSm" firstAttribute="top" secondItem="w9v-ea-olN" secondAttribute="topMargin" constant="4" id="1Ku-Di-xFV"/>
+                                                <constraint firstItem="6NL-aW-1PM" firstAttribute="leading" secondItem="sjs-18-GSm" secondAttribute="trailing" constant="8" symbolic="YES" id="8M7-WG-QhL"/>
+                                                <constraint firstItem="6NL-aW-1PM" firstAttribute="top" secondItem="w9v-ea-olN" secondAttribute="topMargin" constant="-7" id="N1c-dF-ctQ"/>
+                                                <constraint firstItem="sjs-18-GSm" firstAttribute="leading" secondItem="w9v-ea-olN" secondAttribute="leadingMargin" constant="6" id="ZmL-RO-axh"/>
+                                                <constraint firstItem="6NL-aW-1PM" firstAttribute="trailing" secondItem="w9v-ea-olN" secondAttribute="trailingMargin" id="uSC-1m-t2m"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6NL-aW-1PM" secondAttribute="bottom" constant="-10" id="vql-2f-Xm6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -777,7 +776,7 @@ Details</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QGf-xV-QtQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3274" y="920"/>
+            <point key="canvasLocation" x="3274" y="919"/>
         </scene>
         <!--Edit Meeting Format View Controller-->
         <scene sceneID="nkh-EA-z8E">

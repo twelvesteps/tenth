@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, AAMeetingLabelAlignment)
 
 @interface AAMeetingLabel : UIView
 
+@property (nonatomic) AAMeetingLabelAlignment alignment; // default AAMeetingLabelAlignmentLeft
 @property (nonatomic) BOOL leftCircle;
 @property (nonatomic) MeetingFormat* format;
 

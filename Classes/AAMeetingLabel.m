@@ -51,6 +51,7 @@
 {
     self.font = [UIFont stepsCaptionFont];
     self.backgroundColor = [UIColor clearColor];
+    self.alignment = AAMeetingLabelAlignmentLeft; // default
 }
 
 - (UILabel*)titleLabel
@@ -94,6 +95,13 @@
     [self updateViews];
 }
 
+- (void)setAlignment:(AAMeetingLabelAlignment)alignment
+{
+    _alignment = alignment;
+    
+    [self updateViews];
+}
+
 - (void)updateViews
 {
     [self setNeedsDisplay];
@@ -114,15 +122,14 @@
 
 - (void)layoutTitleLabel
 {
-    CGFloat titleLabelOriginX = self.bounds.origin.x;
-    if (self.leftCircle) {
-        titleLabelOriginX = self.bounds.origin.x + CIRCLE_VIEW_WIDTH;
-    }
+
     
-    CGSize boundingSize = self.frame.size;
-    boundingSize.width -= CIRCLE_VIEW_WIDTH;
+    CGSize boundingSize = [self labelBoundingSize];
+    
     CGSize labelSize = [AAMeetingLabel labelSizeForText:self.titleLabel.text boundingSize:boundingSize font:self.titleLabel.font];
-    labelSize.width = MIN(boundingSize.width, labelSize.width);
+
+    CGFloat titleLabelOriginX = [self titleLabelOriginXForSize:labelSize];
+
     
     CGFloat titleLabelOriginY = self.bounds.origin.y + (self.bounds.size.height - labelSize.height) / 2.0f;
     
@@ -132,6 +139,47 @@
                                         labelSize.height);
     
     self.titleLabel.frame = titleLabelFrame;
+}
+
+- (CGFloat)titleLabelOriginXForSize:(CGSize)boundingSize
+{
+    CGFloat titleLabelOriginX;
+    switch (self.alignment) {
+        case AAMeetingLabelAlignmentLeft:
+            titleLabelOriginX = self.bounds.origin.x;
+            if (self.leftCircle) {
+                titleLabelOriginX += CIRCLE_VIEW_WIDTH;
+            }
+            break;
+            
+        case AAMeetingLabelAlignmentCenter:
+            titleLabelOriginX = CGRectGetMidX(self.bounds) - boundingSize.width / 2.0f;
+            if (self.leftCircle) {
+                titleLabelOriginX += (CIRCLE_VIEW_WIDTH / 2.0f);
+            } else {
+                titleLabelOriginX -= (CIRCLE_VIEW_WIDTH / 2.0f);
+            }
+            break;
+            
+        case AAMeetingLabelAlignmentRight:
+            titleLabelOriginX = CGRectGetMaxX(self.bounds) - boundingSize.width;
+            if (!self.leftCircle) {
+                titleLabelOriginX -= CIRCLE_VIEW_WIDTH;
+            }
+            break;
+            
+        default:
+            DLog(@"<DEBUG> Meeting label's alignment property not correctly set");
+    }
+    
+    return titleLabelOriginX;
+}
+
+- (CGSize)labelBoundingSize
+{
+    CGSize boundingSize = self.frame.size; // bounds are not guaranteed to be set
+    boundingSize.width -= CIRCLE_VIEW_WIDTH; // subtract the circle's bounding box width
+    return boundingSize;
 }
 
 + (CGFloat)heightForText:(NSString *)text boundingSize:(CGSize)boundingSize
@@ -162,14 +210,23 @@
 
 + (CGSize)labelSizeForText:(NSString*)text boundingSize:(CGSize)boundingSize font:(UIFont*)font
 {
-    CGSize size = [text boundingRectWithSize:boundingSize
-                                     options:0
-                                  attributes:@{NSFontAttributeName : font}
-                                     context:nil].size;
-    size.width = MAX(ceilf(size.width), 0);
-    size.height = ceilf(size.height);
-    
-    return size;
+    if (boundingSize.width > 0 && boundingSize.height > 0) {
+        CGSize size = [text boundingRectWithSize:boundingSize
+                                         options:0
+                                      attributes:@{NSFontAttributeName : font}
+                                         context:nil].size;
+        // round values for drawing
+        size.width = ceilf(size.width);
+        size.height = ceilf(size.height);
+        
+        // text size might be larger than bounding size, use min
+        size.width = MIN(boundingSize.width, size.width);
+        
+        return size;
+    } else {
+        // bounding size is too small, don't draw label
+        return CGSizeZero;
+    }
 }
 
 
@@ -198,7 +255,7 @@
 {
     CGFloat circleOriginX;
     if (self.leftCircle) {
-        circleOriginX = self.bounds.origin.x;
+        circleOriginX = self.titleLabel.frame.origin.x - CIRCLE_VIEW_WIDTH;
     } else {
         circleOriginX = CGRectGetMaxX(self.titleLabel.frame) + (CIRCLE_VIEW_WIDTH - 2 * CIRCLE_RADIUS);
     }

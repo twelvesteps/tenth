@@ -221,6 +221,9 @@
         case AAEditMeetingPickerCellTypeDuration:
             [self updateDurationWithCell:(AAEditMeetingDurationCell*)cell];
             break;
+            
+        default:
+            break;
     }
 }
 
@@ -469,6 +472,7 @@
     AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
     cell.formatLabel.format = self.format;
+    cell.formatLabel.alignment = AAMeetingLabelAlignmentRight;
     
     return cell;
 }
