@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Meeting+AAAdditions.h"
 
+typedef NS_ENUM(NSInteger, AAMeetingLabelAlignment)
+{
+    AAMeetingLabelAlignmentLeft,
+    AAMeetingLabelAlignmentCenter,
+    AAMeetingLabelAlignmentRight,
+};
+
 @interface AAMeetingLabel : UIView
 
 @property (nonatomic) BOOL leftCircle;

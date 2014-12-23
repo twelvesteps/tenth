@@ -25,11 +25,6 @@
 
 #pragma mark - Properties
 
-- (void)awakeFromNib
-{
-    self.titleLabel.leftCircle = NO;
-}
-
 - (void)setMeeting:(Meeting *)meeting
 {
     _meeting = meeting;
@@ -42,7 +37,6 @@
     self.startDateLabel.text = [self.meeting startTimeString];
     self.endDateLabel.text = [self.meeting endTimeString];
     self.titleLabel.text = self.meeting.title;
-    self.titleLabel.format = [self.meeting.formats anyObject];
     self.addressLabel.text = self.meeting.location;
     self.fellowshipIcon.format = [self.meeting.formats anyObject];
     self.fellowshipIcon.program = [self.meeting.programs anyObject];
