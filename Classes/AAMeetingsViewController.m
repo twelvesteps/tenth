@@ -23,21 +23,22 @@
 
 @interface AAMeetingsViewController () <AAEditMeetingViewControllerDelegate>
 
-@property (strong, nonatomic) NSMutableArray* meetings; // an array of arrays, sorted by start date of meetings
-@property (strong, nonatomic) NSArray* filteredMeetings; // an array of arrays containing visible meetings
+// Consists of seven arrays representing the days of the week.
+// Meetings are separated by weekday and sorted by startDate.
+// If a weekday has no meetings its array will empty
+@property (strong, nonatomic) NSMutableArray* meetings;
+
+// Only the meetings to be displayed on screen
+@property (strong, nonatomic) NSArray* filteredMeetings;
 
 @end
 
 @implementation AAMeetingsViewController
 
-//#define SHOW_ALL_WEEKDAYS_INDEX     -1
-//#define ALL_WEEKDAYS_SEGMENT_INDEX  0
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self updateMeetings];
 }
 
@@ -47,10 +48,8 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    //[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-}
+
+#pragma mark - Meeting Parsing and Filtering
 
 - (void)updateMeetings
 {
@@ -58,9 +57,6 @@
     self.meetings = [self parseMeetingsByStartDate:allMeetings];
     self.filteredMeetings = [self filterEmptyMeetings];
 }
-
-
-#pragma mark - Meeting Parsing and Filtering
 
 - (NSMutableArray*)parseMeetingsByStartDate:(NSArray*)meetings
 {
@@ -73,36 +69,9 @@
     }
     
     for (Meeting* meeting in meetings) {
-        
         NSInteger weekdayIndex = [meeting.startDate weekday] - 1;
         NSMutableArray* weekdayArray = mutableParsedMeetings[weekdayIndex];
         [weekdayArray addObject:meeting];
-        
-//        if (mutableParsedMeetings.count == 0) { // No meetings have been parsed, add current meeting
-//            NSMutableArray* firstMeeting = [@[meeting] mutableCopy];
-//            [mutableParsedMeetings addObject:firstMeeting];
-//        } else {
-//            // meetings are sorted by start date, only the last array needs to be checked
-//            NSMutableArray* recentlyParsedMeetings = [mutableParsedMeetings lastObject];
-//            Meeting* recentlyParsedMeeting = [recentlyParsedMeetings lastObject];
-//
-//            switch ([recentlyParsedMeeting compareWeekday:meeting]) {
-//                case NSOrderedSame:
-//                    [recentlyParsedMeetings addObject:meeting];
-//                    break;
-//                    
-//                case NSOrderedAscending: {
-//                    NSMutableArray* parsedMeetings = [@[meeting] mutableCopy];
-//                    [mutableParsedMeetings addObject:parsedMeetings];
-//                    break;
-//                }
-//                    
-//                case NSOrderedDescending: {
-//                    DLog(@"<DEBUG> Error with meeting sorting");
-//                    break;
-//                }
-//            }
-//        }
     }
     
     return mutableParsedMeetings;

@@ -522,7 +522,6 @@
         
         self.selectedIndexPath = indexPath;
     }
-    
 }
 
 #pragma mark - Text Field Delegate
@@ -530,6 +529,8 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     // dismiss any pickers that are visible
+    // by setting selected cell index path to nil
+    // and reloading cell heights
     [self updateSelectedCellIndexPath:nil];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
@@ -539,9 +540,11 @@
 {
     if (textField.tag == TITLE_INPUT_FIELD_TAG) {
         NSString* result = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if ([result isEqualToString:@""]) {
+        
+        // Before saving is allowed a title must be provided for the meeting
+        if ([[result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) { // no title entered
             self.rightToolbarItem.enabled = NO;
-        } else {
+        } else { // title has been entered
             self.rightToolbarItem.enabled = YES;
         }
     }
@@ -560,6 +563,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    //
     if (textField.tag == TITLE_INPUT_FIELD_TAG) {
         [self.titleTextField resignFirstResponder];
         [self.locationTextField becomeFirstResponder];
@@ -574,12 +578,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // Select Meeting Program segue
     if ([segue.identifier isEqualToString:@"programs"]) {
         AAEditMeetingProgramViewController* aaempvc = (AAEditMeetingProgramViewController*)segue.destinationViewController;
         aaempvc.programDelegate = self;
         aaempvc.program = self.program;
     }
-    
+    // Select Meeting Format segue
     if ([segue.identifier isEqualToString:@"formats"]) {
         AAEditMeetingFormatViewController* aaemfvc = (AAEditMeetingFormatViewController*)segue.destinationViewController;
         aaemfvc.formatDelegate = self;
