@@ -9,6 +9,8 @@
 #import "AAUserMeetingsManager.h"
 #import "MeetingDescriptor+Create.h"
 
+#import "UIColor+AAAdditions.h"
+
 #define AA_MEETING_ITEM_NAME                    @"Meeting"
 #define AA_MEETING_FORMAT_ITEM_NAME             @"MeetingFormat"
 #define AA_MEETING_PROGRAM_ITEM_NAME            @"MeetingProgram"
@@ -59,6 +61,7 @@
     for (NSString* title in [AAUserMeetingsManager defaultMeetingFormatTitles]) {
         MeetingFormat* format = [self meetingFormatWithTitle:title];
         format.localizeTitle = @(YES);
+        format.colorKey = [[AAUserMeetingsManager defaultMeetingFormatColorKeys] objectForKey:title];
     }
 }
 
@@ -84,6 +87,16 @@
              AA_MEETING_FORMAT_STEP_STUDY_TITLE,
              AA_MEETING_FORMAT_BEGINNER_TITLE,
              AA_MEETING_FORMAT_MEDITATION_TITLE];
+}
+
++ (NSDictionary*)defaultMeetingFormatColorKeys
+{
+    return @{AA_MEETING_FORMAT_LITERATURE_TITLE : STEPS_BLUE_COLOR,
+             AA_MEETING_FORMAT_SPEAKER_TITLE    : STEPS_ORANGE_COLOR,
+             AA_MEETING_FORMAT_DISCUSSION_TITLE : STEPS_RED_COLOR,
+             AA_MEETING_FORMAT_STEP_STUDY_TITLE : STEPS_BLUE_COLOR,
+             AA_MEETING_FORMAT_BEGINNER_TITLE   : STEPS_GREEN_COLOR,
+             AA_MEETING_FORMAT_MEDITATION_TITLE : STEPS_YELLOW_COLOR,};
 }
 
 + (NSArray*)defaultMeetingProgramTitles
@@ -174,11 +187,22 @@
 
 - (NSArray*)fetchMeetingFormats
 {
-    NSArray* formats = [self fetchItemsForEntityName:AA_MEETING_FORMAT_ITEM_NAME
-                                 withSortDescriptors:nil
-                                       withPredicate:nil];
+    return [self fetchMeetingDescriptorsWithEntityName:AA_MEETING_FORMAT_ITEM_NAME];
+}
+
+- (NSArray*)fetchMeetingPrograms
+{
+    return [self fetchMeetingDescriptorsWithEntityName:AA_MEETING_PROGRAM_ITEM_NAME];
+}
+
+- (NSArray*)fetchMeetingDescriptorsWithEntityName:(NSString*)name
+{
+    NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"Title" ascending:YES];
+    NSArray* descriptors = [self fetchItemsForEntityName:name
+                                     withSortDescriptors:@[sortByTitle]
+                                           withPredicate:nil];
     
-    return formats;
+    return descriptors;
 }
 
 - (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString *)identifier
@@ -206,14 +230,7 @@
     }
 }
 
-- (NSArray*)fetchMeetingPrograms
-{
-    NSArray* programs = [self fetchItemsForEntityName:AA_MEETING_PROGRAM_ITEM_NAME
-                                  withSortDescriptors:nil
-                                        withPredicate:nil];
-    
-    return programs;
-}
+
 
 
 @end

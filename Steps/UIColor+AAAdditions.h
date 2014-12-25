@@ -12,7 +12,7 @@
 #define STEPS_RED_COLOR     @"red"
 #define STEPS_ORANGE_COLOR  @"orange"
 #define STEPS_GREEN_COLOR   @"green"
-#define STEPS_YELLOW_COLOR  @"purple"
+#define STEPS_YELLOW_COLOR  @"yellow"
 
 @class Meeting;
 @interface UIColor (AAAdditions)

@@ -28,11 +28,13 @@
     NSArray* results = [context executeFetchRequest:request error:&err];
     
     if (results.count == 1) {
+        DLog(@"<DEBUG> Meeting descriptor found");
         return [results firstObject];
     } else if (results.count == 0) {
         MeetingDescriptor* descriptor = (MeetingDescriptor*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
         descriptor.title = title;
         descriptor.identifier = [[[NSUUID UUID] UUIDString] lowercaseString];
+        descriptor.localizeTitle = [NSNumber numberWithBool:NO]; // default value
         
         return descriptor;
     } else {

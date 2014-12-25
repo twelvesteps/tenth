@@ -800,17 +800,11 @@ Details</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J9i-La-mkb" id="4dy-VS-hyE">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0a-Ma-Vgv" customClass="AAMeetingFormatLabel">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0a-Ma-Vgv" customClass="AAMeetingFormatLabel">
                                                     <rect key="frame" x="22" y="0.0" width="298" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="G0a-Ma-Vgv" firstAttribute="top" secondItem="4dy-VS-hyE" secondAttribute="top" id="0ec-PP-zou"/>
-                                                <constraint firstItem="G0a-Ma-Vgv" firstAttribute="leading" secondItem="4dy-VS-hyE" secondAttribute="leadingMargin" constant="14" id="DBg-zB-Rez"/>
-                                                <constraint firstAttribute="trailing" secondItem="G0a-Ma-Vgv" secondAttribute="trailing" id="ERP-iD-yZt"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="G0a-Ma-Vgv" secondAttribute="bottom" constant="-8.5" id="hKB-Od-gCY"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="formatLabel" destination="G0a-Ma-Vgv" id="khp-b2-2pK"/>

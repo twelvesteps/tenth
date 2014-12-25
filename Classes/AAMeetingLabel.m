@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
+#import "AAUserSettingsManager.h"
 #import "AAMeetingLabel.h"
 
-#import "AAUserSettingsManager.h"
 #import "UIFont+AAAdditions.h"
+#import "UIColor+AAAdditions.h"
+
+
 @interface AAMeetingLabel()
 
 @property (nonatomic, weak) UILabel* titleLabel;
@@ -267,7 +270,7 @@
     
     UIBezierPath* circlePath = [UIBezierPath bezierPathWithOvalInRect:circleRect];
     
-    [[[AAUserSettingsManager sharedManager] colorForFormat:self.format] setFill];
+    [[UIColor stepsColorForKey:self.format.colorKey] setFill];
     [circlePath fill];
 }
 

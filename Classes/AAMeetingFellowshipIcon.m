@@ -11,6 +11,9 @@
 #import "AAUserSettingsManager.h"
 
 #import "UIFont+AAAdditions.h"
+#import "UIColor+AAAdditions.h"
+
+
 @interface AAMeetingFellowshipIcon()
 
 @property (weak, nonatomic) UILabel* fellowshipNameLabel;
@@ -55,7 +58,7 @@
     [self initFellowshipNameLabel];
     
     self.backgroundColor = [UIColor whiteColor];
-    self.color = [[AAUserSettingsManager sharedManager] colorForFormat:self.format];
+    self.color = [UIColor stepsBlueColor];
 }
 
 - (void)initFellowshipNameLabel
@@ -98,7 +101,6 @@
     }
     
     self.fellowshipNameLabel.text = fellowshipShortName;
-    self.color = [[AAUserSettingsManager sharedManager] defaultColor];
     [self updateLabelColor];
     [self setNeedsDisplay];
 }

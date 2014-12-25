@@ -20,9 +20,6 @@
 
 + (instancetype)sharedManager;
 
-- (UIColor*)defaultColor;
-- (UIColor*)colorForFormat:(MeetingFormat*)format;
-
 - (MeetingProgram*)defaultMeetingProgram;
 
 @end
