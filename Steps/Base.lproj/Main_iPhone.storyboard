@@ -444,6 +444,7 @@
                                             <outlet property="endDateLabel" destination="QmV-Ga-V9W" id="SW0-KA-VBT"/>
                                             <outlet property="fellowshipIcon" destination="Ces-hK-nYa" id="Fe5-1p-WeY"/>
                                             <outlet property="startDateLabel" destination="HNl-Hn-apW" id="gKE-w2-eJH"/>
+                                            <outlet property="titleLabel" destination="Gdp-pV-KlY" id="VXK-eB-DK6"/>
                                             <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting" id="95i-zP-kvr"/>
                                         </connections>
                                     </tableViewCell>
@@ -520,15 +521,6 @@ Details</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chairperson" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF5-Sl-dfA">
-                                                    <rect key="frame" x="8" y="53" width="264" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="jVt-Kr-6cB"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-Lh-jfj" customClass="AAMeetingFellowshipIcon">
                                                     <rect key="frame" x="280" y="22" width="32" height="32"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -537,30 +529,37 @@ Details</string>
                                                         <constraint firstAttribute="height" constant="32" id="buL-fR-Jt3"/>
                                                     </constraints>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOI-QP-FJt" customClass="AAMeetingFormatLabel">
+                                                    <rect key="frame" x="8" y="53" width="264" height="23"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="WaT-zY-KXM"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="yF5-Sl-dfA" firstAttribute="top" secondItem="4AD-Hq-mCb" secondAttribute="bottom" id="1W2-lc-6hR"/>
                                                 <constraint firstItem="4AD-Hq-mCb" firstAttribute="top" secondItem="SsF-g8-lm8" secondAttribute="bottom" id="1g6-z9-Igx"/>
                                                 <constraint firstItem="1sW-Lh-jfj" firstAttribute="trailing" secondItem="Xnv-2B-i1C" secondAttribute="trailingMargin" id="3J3-xb-v9g"/>
                                                 <constraint firstItem="SsF-g8-lm8" firstAttribute="trailing" secondItem="4AD-Hq-mCb" secondAttribute="trailing" id="6j8-zr-1gb"/>
                                                 <constraint firstItem="SsF-g8-lm8" firstAttribute="leading" secondItem="Xnv-2B-i1C" secondAttribute="leadingMargin" id="9bI-jo-crF"/>
-                                                <constraint firstItem="4AD-Hq-mCb" firstAttribute="leading" secondItem="yF5-Sl-dfA" secondAttribute="leading" id="D6E-mg-PY6"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="yF5-Sl-dfA" secondAttribute="bottom" constant="65.5" id="G9I-Zd-Ike"/>
+                                                <constraint firstItem="1sW-Lh-jfj" firstAttribute="leading" secondItem="SsF-g8-lm8" secondAttribute="trailing" constant="8" id="CSN-AU-2Mv"/>
+                                                <constraint firstItem="zOI-QP-FJt" firstAttribute="leading" secondItem="4AD-Hq-mCb" secondAttribute="leading" id="EZi-T2-FNK"/>
+                                                <constraint firstItem="zOI-QP-FJt" firstAttribute="trailing" secondItem="tN8-Lp-20d" secondAttribute="trailing" id="FJE-JA-pUT"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="zOI-QP-FJt" secondAttribute="bottom" constant="64" id="GC4-Xr-q2e"/>
                                                 <constraint firstItem="4AD-Hq-mCb" firstAttribute="leading" secondItem="SsF-g8-lm8" secondAttribute="leading" id="L9U-2x-hI2"/>
-                                                <constraint firstItem="4AD-Hq-mCb" firstAttribute="trailing" secondItem="yF5-Sl-dfA" secondAttribute="trailing" id="UHP-Pz-N3P"/>
                                                 <constraint firstItem="tN8-Lp-20d" firstAttribute="top" secondItem="4AD-Hq-mCb" secondAttribute="bottom" constant="20" id="cY9-5k-We9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zOI-QP-FJt" secondAttribute="trailing" constant="40" id="eM9-db-uTp"/>
                                                 <constraint firstItem="SsF-g8-lm8" firstAttribute="top" secondItem="Xnv-2B-i1C" secondAttribute="topMargin" id="fgp-Dt-w0L"/>
-                                                <constraint firstItem="yF5-Sl-dfA" firstAttribute="trailing" secondItem="Xnv-2B-i1C" secondAttribute="trailingMargin" constant="-40" id="hCr-rK-lLe"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tN8-Lp-20d" secondAttribute="bottom" constant="-0.5" id="nnb-PX-jNy"/>
-                                                <constraint firstItem="tN8-Lp-20d" firstAttribute="leading" secondItem="yF5-Sl-dfA" secondAttribute="leading" id="pb4-xN-bbX"/>
+                                                <constraint firstItem="zOI-QP-FJt" firstAttribute="leading" secondItem="tN8-Lp-20d" secondAttribute="leading" id="sHz-qh-V45"/>
+                                                <constraint firstItem="zOI-QP-FJt" firstAttribute="top" secondItem="4AD-Hq-mCb" secondAttribute="bottom" id="v2s-Vv-uqt"/>
                                                 <constraint firstItem="1sW-Lh-jfj" firstAttribute="top" secondItem="Xnv-2B-i1C" secondAttribute="topMargin" constant="14" id="wsF-vK-G6f"/>
-                                                <constraint firstItem="tN8-Lp-20d" firstAttribute="trailing" secondItem="yF5-Sl-dfA" secondAttribute="trailing" id="xL3-nf-sVz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="fellowshipIcon" destination="1sW-Lh-jfj" id="Qc6-PH-aeb"/>
-                                            <outlet property="meetingChairpersonLabel" destination="yF5-Sl-dfA" id="Vby-6h-tea"/>
                                             <outlet property="meetingDetailTextView" destination="tN8-Lp-20d" id="937-3q-SHH"/>
+                                            <outlet property="meetingFormatLabel" destination="zOI-QP-FJt" id="1Ss-6f-jP2"/>
                                             <outlet property="meetingLocationLabel" destination="4AD-Hq-mCb" id="jaF-73-K8j"/>
                                             <outlet property="meetingTitleLabel" destination="SsF-g8-lm8" id="yZM-rb-MkZ"/>
                                         </connections>
@@ -1043,7 +1042,7 @@ Details</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YOC-rY-wGw"/>
+        <segue reference="MTG-GX-Tev"/>
         <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>

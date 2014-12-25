@@ -11,6 +11,7 @@
 #import "AAMeetingInfoTableViewCell.h"
 #import "Meeting+AAAdditions.h"
 #import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingFormatLabel.h"
 
 #import "UIFont+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
@@ -19,7 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *meetingTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *meetingLocationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *meetingChairpersonLabel;
+@property (weak, nonatomic) IBOutlet AAMeetingFormatLabel *meetingFormatLabel;
 @property (weak, nonatomic) IBOutlet UITextView *meetingDetailTextView;
 
 @property (weak, nonatomic) IBOutlet AAMeetingFellowshipIcon *fellowshipIcon;
@@ -46,8 +47,6 @@
     
     self.meetingTitleLabel.font = [UIFont stepsHeaderFont];
     self.meetingLocationLabel.font = [UIFont stepsSubheaderFont];
-    self.meetingChairpersonLabel.font = [UIFont stepsCaptionFont];
-    self.meetingChairpersonLabel.textColor = [UIColor stepsBlueColor];
     self.meetingDetailTextView.font = [UIFont stepsBodyFont];
     self.meetingDetailTextView.selectable = NO;
 }
@@ -65,6 +64,7 @@
 {
     self.meetingTitleLabel.text = self.meeting.title;
     self.meetingLocationLabel.text = self.meeting.location;
+    self.meetingFormatLabel.format = [self.meeting.formats anyObject];
     self.meetingDetailTextView.text = [self detailText];
     self.fellowshipIcon.format = [self.meeting.formats anyObject];
     self.fellowshipIcon.program = [self.meeting.programs anyObject];
@@ -106,7 +106,7 @@
     
     [self layoutTitleLabel];
     [self layoutLocationLabel];
-    [self layoutChairpersonLabel];
+    [self layoutFormatLabel];
     [self layoutDetailTextView];
     [self layoutFellowshipIcon];
 }
@@ -140,23 +140,22 @@
     self.meetingLocationLabel.frame = meetingLocationLabelFrame;
 }
 
-- (void)layoutChairpersonLabel
+- (void)layoutFormatLabel
 {
-    CGSize labelSize = [self sizeForLabel:self.meetingChairpersonLabel
-                                     font:[UIFont stepsCaptionFont]
-                             boundingSize:[self textBoundingSize]];
+    MeetingFormat* format = self.meeting.formats.anyObject;
+    CGFloat formatLabelWidth = [AAMeetingFormatLabel widthForText:format.localizedTitle boundingSize:CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX)];
     CGRect meetingChairpersonLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
                                                      CGRectGetMaxY(self.meetingLocationLabel.frame),
-                                                     labelSize.width,
-                                                     labelSize.height);
+                                                     formatLabelWidth,
+                                                     23.0f);
     
-    self.meetingChairpersonLabel.frame = meetingChairpersonLabelFrame;
+    self.meetingFormatLabel.frame = meetingChairpersonLabelFrame;
 }
 
 - (void)layoutDetailTextView
 {
     CGRect meetingDetailTextViewFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
-                                                   CGRectGetMaxY(self.meetingChairpersonLabel.frame),
+                                                   CGRectGetMaxY(self.meetingFormatLabel.frame),
                                                    self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
                                                    [self heightForTextView:self.meetingDetailTextView font:[UIFont stepsBodyFont]]);
     
@@ -221,7 +220,7 @@
     
     height += [cell sizeForLabel:cell.meetingTitleLabel font:[UIFont stepsHeaderFont] boundingSize:[cell titleAndLocationLabelTextBoundingSize]].height;
     height += [cell sizeForLabel:cell.meetingLocationLabel font:[UIFont stepsSubheaderFont] boundingSize:[cell titleAndLocationLabelTextBoundingSize]].height;
-    height += [cell sizeForLabel:cell.meetingChairpersonLabel font:[UIFont stepsCaptionFont] boundingSize:[cell textBoundingSize]].height;
+    height += 23.0f;
     height += [cell heightForTextView:cell.meetingDetailTextView font:[UIFont stepsBodyFont]];
     
     return height;

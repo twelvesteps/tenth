@@ -114,7 +114,7 @@
 #pragma mark - Layout
 
 #define CIRCLE_RADIUS       5.0f
-#define CIRCLE_VIEW_WIDTH   14.0f
+#define CIRCLE_VIEW_WIDTH   18.0f
 
 - (void)layoutSubviews
 {
