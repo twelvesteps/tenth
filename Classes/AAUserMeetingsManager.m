@@ -197,7 +197,7 @@
 
 - (NSArray*)fetchMeetingDescriptorsWithEntityName:(NSString*)name
 {
-    NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"Title" ascending:YES];
+    NSSortDescriptor* sortByTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     NSArray* descriptors = [self fetchItemsForEntityName:name
                                      withSortDescriptors:@[sortByTitle]
                                            withPredicate:nil];
