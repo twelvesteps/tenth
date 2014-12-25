@@ -12,6 +12,7 @@
 
 @implementation MeetingFormat
 
+@dynamic colorKey;
 @dynamic meetings;
 
 @end

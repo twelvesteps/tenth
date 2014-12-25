@@ -30,6 +30,13 @@
 #define AA_MEETING_FORMAT_BEGINNER_TITLE        @"Beginner"
 #define AA_MEETING_FORMAT_MEDITATION_TITLE      @"Meditation"
 
+@interface AAUserMeetingsManager()
+
+@property (nonatomic, strong) NSArray* defaultMeetingFormats;
+@property (nonatomic, strong) NSArray* defaultMeetingPrograms;
+
+@end
+
 @implementation AAUserMeetingsManager
 
 #pragma mark - Lifecycle
@@ -77,18 +84,6 @@
              AA_MEETING_FORMAT_STEP_STUDY_TITLE,
              AA_MEETING_FORMAT_BEGINNER_TITLE,
              AA_MEETING_FORMAT_MEDITATION_TITLE];
-//    static NSArray* defaultMeetingFormatTitles = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        defaultMeetingFormatTitles = @[AA_MEETING_FORMAT_LITERATURE_TITLE,
-//                                       AA_MEETING_FORMAT_SPEAKER_TITLE,
-//                                       AA_MEETING_FORMAT_DISCUSSION_TITLE,
-//                                       AA_MEETING_FORMAT_STEP_STUDY_TITLE,
-//                                       AA_MEETING_FORMAT_BEGINNER_TITLE,
-//                                       AA_MEETING_FORMAT_MEDITATION_TITLE];
-//    });
-//    
-//    return defaultMeetingFormatTitles;
 }
 
 + (NSArray*)defaultMeetingProgramTitles
@@ -98,16 +93,6 @@
              AA_MEETING_PROGRAM_NA_TITLE,
              AA_MEETING_PROGRAM_ALANON_TITLE,
              AA_MEETING_PROGRAM_ALATEEN_TITLE];
-//    static NSArray* defaultMeetingProgramTitles = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        defaultMeetingProgramTitles = @[AA_MEETING_PROGRAM_AA_TITLE,
-//                                        AA_MEETING_PROGRAM_NA_TITLE,
-//                                        AA_MEETING_PROGRAM_ALANON_TITLE,
-//                                        AA_MEETING_PROGRAM_ALATEEN_TITLE];
-//    });
-//    
-//    return defaultMeetingProgramTitles;
 }
 
 + (NSArray*)defaultMeetingProgramShortTitles
@@ -147,6 +132,14 @@
     return (MeetingProgram*)[MeetingProgram meetingDescriptorWithEntityName:AA_MEETING_PROGRAM_ITEM_NAME
                                                                       title:title
                                                      inManagedObjectContext:self.managedObjectContext];
+}
+
+
+#pragma mark - Altering Objects
+
+- (BOOL)meetingFormatShouldChangeTitle:(MeetingFormat *)format
+{
+    return format.localizeTitle.boolValue;
 }
 
 

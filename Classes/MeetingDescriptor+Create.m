@@ -30,11 +30,11 @@
     if (results.count == 1) {
         return [results firstObject];
     } else if (results.count == 0) {
-        MeetingFormat* format = (MeetingFormat*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
-        format.title = title;
-        format.identifier = [[[NSUUID UUID] UUIDString] lowercaseString];
+        MeetingDescriptor* descriptor = (MeetingDescriptor*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
+        descriptor.title = title;
+        descriptor.identifier = [[[NSUUID UUID] UUIDString] lowercaseString];
         
-        return format;
+        return descriptor;
     } else {
         DLog(@"<DEBUG> Multiple formats with the given title already exist");
         return nil;

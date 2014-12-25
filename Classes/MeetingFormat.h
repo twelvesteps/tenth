@@ -13,7 +13,7 @@
 @class Meeting;
 
 @interface MeetingFormat : MeetingDescriptor
-
+@property (nonatomic, retain) NSString* colorKey;
 @property (nonatomic, retain) NSSet *meetings;
 @end
 

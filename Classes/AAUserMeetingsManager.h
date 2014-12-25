@@ -25,8 +25,8 @@ static const NSString* AADidDeleteMeetingProgramNotification = @"MeetingProgramD
 - (void)removeMeetingProgram:(MeetingProgram*)program;
 
 - (NSArray*)fetchMeetings; // sorted by startDate
-- (NSArray*)fetchMeetingFormats; // sorted by popularity
-- (NSArray*)fetchMeetingPrograms; // sorted by popularity
+- (NSArray*)fetchMeetingFormats; // sorted alphabetically
+- (NSArray*)fetchMeetingPrograms; // sorted alphabetically
 
 - (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString*)identifier;
 - (MeetingProgram*)fetchMeetingProgramWithIdentifier:(NSString*)identifier;

@@ -35,6 +35,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MeetingFormat" representedClassName="MeetingFormat" parentEntity="MeetingDescriptor" syncable="YES">
+        <attribute name="colorKey" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="formats" inverseEntity="Meeting" syncable="YES"/>
     </entity>
     <entity name="MeetingProgram" representedClassName="MeetingProgram" parentEntity="MeetingDescriptor" syncable="YES">
@@ -52,7 +53,7 @@
         <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
         <element name="Meeting" positionX="430" positionY="194" width="128" height="178"/>
         <element name="MeetingDescriptor" positionX="448" positionY="531" width="128" height="88"/>
-        <element name="MeetingFormat" positionX="529" positionY="423" width="128" height="58"/>
+        <element name="MeetingFormat" positionX="529" positionY="423" width="128" height="75"/>
         <element name="MeetingProgram" positionX="358" positionY="423" width="128" height="88"/>
         <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
     </elements>
