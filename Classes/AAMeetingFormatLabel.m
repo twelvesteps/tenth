@@ -20,9 +20,4 @@
     self.text = format.localizedTitle;
 }
 
-- (BOOL)leftCircle
-{
-    return YES;
-}
-
 @end

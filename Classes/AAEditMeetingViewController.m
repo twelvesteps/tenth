@@ -472,6 +472,7 @@
     AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
     cell.formatLabel.format = self.format;
+    cell.formatLabel.leftCircle = YES;
     cell.formatLabel.alignment = AAMeetingLabelAlignmentRight;
     
     return cell;

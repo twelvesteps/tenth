@@ -67,6 +67,7 @@
     AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
     cell.formatLabel.format = self.meetingFormats[indexPath.row];
+    cell.formatLabel.leftCircle = YES;
     
     if ([indexPath isEqual:self.selectedIndexPath]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
