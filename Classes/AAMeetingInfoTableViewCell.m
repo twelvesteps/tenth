@@ -92,10 +92,12 @@
 
 #pragma mark - Layout
 
-#define TOP_EDGE_PADDING        14.0f
+#define TOP_EDGE_PADDING        20.0f
 #define BOTTOM_EDGE_PADDING     8.0f
 #define LEADING_EDGE_PADDING    14.0f
 #define TRAILING_EDGE_PADDING   8.0f
+
+#define VERTICAL_PADDING        4.0f
 
 #define FELLOWSHIP_ICON_WIDTH   32.0f
 #define FELLOWSHIP_ICON_HEIGHT  32.0f
@@ -134,7 +136,7 @@
                              boundingSize:[self titleAndLocationLabelTextBoundingSize]];
     
     CGRect meetingLocationLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
-                                                  CGRectGetMaxY(self.meetingTitleLabel.frame),
+                                                  CGRectGetMaxY(self.meetingTitleLabel.frame) + VERTICAL_PADDING,
                                                   labelSize.width,
                                                   labelSize.height);
     
@@ -146,7 +148,7 @@
     MeetingFormat* format = self.meeting.formats.anyObject;
     CGFloat formatLabelWidth = [AAMeetingFormatLabel widthForText:format.localizedTitle boundingSize:CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX)];
     CGRect meetingChairpersonLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
-                                                     CGRectGetMaxY(self.meetingLocationLabel.frame),
+                                                     CGRectGetMaxY(self.meetingLocationLabel.frame) + VERTICAL_PADDING,
                                                      formatLabelWidth,
                                                      23.0f);
     
@@ -156,7 +158,7 @@
 - (void)layoutDetailTextView
 {
     CGRect meetingDetailTextViewFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
-                                                   CGRectGetMaxY(self.meetingFormatLabel.frame),
+                                                   CGRectGetMaxY(self.meetingFormatLabel.frame) + VERTICAL_PADDING,
                                                    self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING),
                                                    [self heightForTextView:self.meetingDetailTextView font:[UIFont stepsBodyFont]]);
     
@@ -217,7 +219,7 @@
 
 + (CGFloat)heightForCell:(AAMeetingInfoTableViewCell*)cell
 {
-    CGFloat height = TOP_EDGE_PADDING + BOTTOM_EDGE_PADDING;
+    CGFloat height = TOP_EDGE_PADDING + BOTTOM_EDGE_PADDING + 3 * VERTICAL_PADDING;
     
     height += [cell sizeForLabel:cell.meetingTitleLabel font:[UIFont stepsHeaderFont] boundingSize:[cell titleAndLocationLabelTextBoundingSize]].height;
     height += [cell sizeForLabel:cell.meetingLocationLabel font:[UIFont stepsSubheaderFont] boundingSize:[cell titleAndLocationLabelTextBoundingSize]].height;
