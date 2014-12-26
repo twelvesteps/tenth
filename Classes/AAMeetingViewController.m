@@ -10,9 +10,17 @@
 #import "AAMeetingInfoTableViewCell.h"
 #import "AAEditMeetingViewController.h"
 
-@interface AAMeetingViewController () <AAEditMeetingViewControllerDelegate>
+#import "AAUserMeetingsManager.h"
+
+#import "UIColor+AAAdditions.h"
+
+@interface AAMeetingViewController () <AAEditMeetingViewControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editDoneButton; // edit/done button
+
+@property (weak, nonatomic) IBOutlet UIButton *deleteMeetingButton;
+@property (weak, nonatomic) IBOutlet UIView *deleteMeetingButtonContainer;
+@property (weak, nonatomic) UIView* deleteMeetingButtonContainerSeparatorView;
 
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 
@@ -20,12 +28,81 @@
 
 @implementation AAMeetingViewController
 
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setup];
+}
+
+- (void)setup
+{
+    [self setupDeleteMeetingButton];
+}
+
+- (void)setupDeleteMeetingButton
+{
+    [self.deleteMeetingButton setTitleColor:[UIColor stepsRedColor] forState:UIControlStateNormal];
+    
+    UIView* separatorView = [[UIView alloc] init];
+    separatorView.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
+    [self.deleteMeetingButtonContainer addSubview:separatorView];
+    self.deleteMeetingButtonContainerSeparatorView = separatorView;
+    
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [self layoutDeleteMeetingButtonSeparatorView];
+}
+
+- (void)layoutDeleteMeetingButtonSeparatorView
+{
+    CGRect separatorViewFrame = CGRectMake(self.deleteMeetingButtonContainer.bounds.origin.x,
+                                           self.deleteMeetingButtonContainer.bounds.origin.y + SEPARATOR_HEIGHT,
+                                           self.deleteMeetingButtonContainer.bounds.size.width,
+                                           SEPARATOR_HEIGHT);
+    
+    self.deleteMeetingButtonContainerSeparatorView.frame = separatorViewFrame;
+}
+
 #pragma mark - UI Events
 
+#define DELETE_MEETING_ACTION_SHEET_TITLE  NSLocalizedString(@"Delete the meeting? This action cannot be undone", nil)
+
+- (IBAction)deleteMeetingButtonTapped:(UIButton *)sender
+{
+    [self presentDeleteMeetingActionSheet];
+}
+
+- (void)presentDeleteMeetingActionSheet
+{
+    UIActionSheet* deleteMeetingActionSheet = [[UIActionSheet alloc] initWithTitle:DELETE_MEETING_ACTION_SHEET_TITLE delegate:self
+                                                                 cancelButtonTitle:NSLocalizedString(@"Cancel", "Cancel meeting deletion")
+                                                            destructiveButtonTitle:NSLocalizedString(@"Delete", @"Delete the meeting")
+                                                                 otherButtonTitles:nil];
+    
+    [deleteMeetingActionSheet showInView:self.view];
+}
+
+
+#pragma mark - Action Sheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        [[AAUserMeetingsManager sharedManager] removeMeeting:self.meeting];
+        UINavigationController* controller = self.navigationController;
+        [controller popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark - UITableview Delegate and Datasource
 
-#define MEETING_INFO_CELL_REUSE_ID  @"MeetingInfoCell"
+#define MEETING_INFO_CELL_REUSE_ID      @"MeetingInfoCell"
 
 #define MEETING_INFO_CELL_SECTION   0
 #define MEETING_INFO_CELL_ROW       0
@@ -59,7 +136,6 @@
     
     return cell;
 }
-
 
 #pragma mark - Edit Meeting View Controller Delegate
 

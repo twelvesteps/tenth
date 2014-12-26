@@ -17,8 +17,7 @@
 @implementation AASeparatorTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
-    [self initSeparators];
+    [self setup];
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -26,15 +25,41 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        [self initSeparators];        
-    }
+        [self setup];
+    };
     
     return self;
+}
+
+- (void)initSeparators
+{
+    NSMutableArray* separators = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < self.separatorsCount; i++) {
+        UIView* separatorView = [[UIView alloc] init];
+        
+        separatorView.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
+        [self insertSubview:separatorView atIndex:0];
+        [separators addObject:separatorView];
+    }
+    
+    self.separatorViews = [separators copy];
+}
+
+- (void)setup
+{
+    _bottomSeparator = YES;
+    [self initSeparators];
 }
 
 - (void)setBottomSeparator:(BOOL)bottomSeparator
 {
     _bottomSeparator = bottomSeparator;
+    [self updateSeparators];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
     [self updateSeparators];
 }
 
@@ -51,20 +76,6 @@
     }
     
     self.separatorViews = nil;
-}
-
-- (void)initSeparators
-{
-    NSMutableArray* separators = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < self.separatorsCount; i++) {
-        UIView* separatorView = [[UIView alloc] init];
-        
-        separatorView.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
-        [self insertSubview:separatorView atIndex:0];
-        [separators addObject:separatorView];
-    }
-    
-    self.separatorViews = [separators copy];
 }
 
 - (NSInteger)separatorsCount

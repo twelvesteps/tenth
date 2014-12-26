@@ -153,6 +153,11 @@
 {
     AAMeetingTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:MEETING_CELL_REUSE_ID];
     
+    // Last cell in the section should not have a separator
+    if (indexPath.row == [self meetingCountForSection:indexPath.section] - 1) {
+        cell.bottomSeparator = NO;
+    }
+    
     Meeting* meeting = [self meetingForIndexPath:indexPath];
     cell.meeting = meeting;
     

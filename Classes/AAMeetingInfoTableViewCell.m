@@ -45,7 +45,7 @@
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
     
-    self.meetingFormatLabel.leftCircle = NO;
+    self.meetingFormatLabel.leftCircle = YES;
     self.meetingTitleLabel.font = [UIFont stepsHeaderFont];
     self.meetingLocationLabel.font = [UIFont stepsSubheaderFont];
     self.meetingDetailTextView.font = [UIFont stepsBodyFont];

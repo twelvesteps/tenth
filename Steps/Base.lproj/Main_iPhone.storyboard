@@ -488,8 +488,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="148" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pNt-BY-uOw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="148" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pNt-BY-uOw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MeetingInfoCell" rowHeight="148" id="avF-2q-c1a" customClass="AAMeetingInfoTableViewCell">
@@ -566,13 +566,39 @@ Details</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvr-Kv-MSZ">
+                                <rect key="frame" x="0.0" y="480" width="320" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jwg-TY-H4L">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Delete Meeting">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteMeetingButtonTapped:" destination="TLg-bw-LMZ" eventType="touchUpInside" id="fsT-MG-dyu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="jwg-TY-H4L" secondAttribute="trailing" id="Sv9-iT-SuR"/>
+                                    <constraint firstAttribute="bottom" secondItem="jwg-TY-H4L" secondAttribute="bottom" id="aYZ-PK-1MZ"/>
+                                    <constraint firstItem="jwg-TY-H4L" firstAttribute="top" secondItem="Vvr-Kv-MSZ" secondAttribute="top" id="bgU-0V-Xhf"/>
+                                    <constraint firstAttribute="height" constant="44" id="ozC-OW-ar6"/>
+                                    <constraint firstItem="jwg-TY-H4L" firstAttribute="leading" secondItem="Vvr-Kv-MSZ" secondAttribute="leading" id="ycb-Lz-PoF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="pNt-BY-uOw" secondAttribute="trailing" id="Dgm-TI-dZs"/>
-                            <constraint firstItem="pNt-BY-uOw" firstAttribute="top" secondItem="n23-H3-B6Z" secondAttribute="top" id="XBG-1M-Yud"/>
-                            <constraint firstAttribute="bottom" secondItem="pNt-BY-uOw" secondAttribute="bottom" id="eFN-c7-dpc"/>
-                            <constraint firstItem="pNt-BY-uOw" firstAttribute="leading" secondItem="n23-H3-B6Z" secondAttribute="leading" id="ee6-mk-Uts"/>
+                            <constraint firstItem="pNt-BY-uOw" firstAttribute="leading" secondItem="n23-H3-B6Z" secondAttribute="leading" id="D0B-po-t7F"/>
+                            <constraint firstAttribute="trailing" secondItem="Vvr-Kv-MSZ" secondAttribute="trailing" id="J9Y-0z-GB7"/>
+                            <constraint firstItem="Vvr-Kv-MSZ" firstAttribute="leading" secondItem="n23-H3-B6Z" secondAttribute="leading" id="YFL-n7-Aiv"/>
+                            <constraint firstItem="Vvr-Kv-MSZ" firstAttribute="top" secondItem="pNt-BY-uOw" secondAttribute="bottom" id="bKF-Ww-i2a"/>
+                            <constraint firstItem="0hW-hJ-KHD" firstAttribute="top" secondItem="Vvr-Kv-MSZ" secondAttribute="bottom" id="dl5-c7-n4Q"/>
+                            <constraint firstAttribute="trailing" secondItem="pNt-BY-uOw" secondAttribute="trailing" id="gN6-HI-XqZ"/>
+                            <constraint firstItem="pNt-BY-uOw" firstAttribute="top" secondItem="n23-H3-B6Z" secondAttribute="top" id="pcp-gV-1Wl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lnx-dh-qfA">
@@ -583,6 +609,8 @@ Details</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteMeetingButton" destination="jwg-TY-H4L" id="a4F-q3-g1l"/>
+                        <outlet property="deleteMeetingButtonContainer" destination="Vvr-Kv-MSZ" id="og6-b3-QFJ"/>
                         <outlet property="editDoneButton" destination="eZl-cj-gwT" id="aLL-jr-MTy"/>
                         <outlet property="tableView" destination="pNt-BY-uOw" id="oqP-gR-6nx"/>
                     </connections>
