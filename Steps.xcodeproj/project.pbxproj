@@ -29,6 +29,7 @@
 		8480B3FA1A4865600061A6C5 /* AAEditMeetingFormatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480B3F91A4865600061A6C5 /* AAEditMeetingFormatViewController.m */; };
 		848D76C11A45A60E001B3BBF /* MeetingDescriptor+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */; };
 		848D76C41A45AEDF001B3BBF /* MeetingDescriptor+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */; };
+		84980BC81A4DC60C00A498D6 /* AADecoratedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */; };
 		84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */; };
 		84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */; };
 		84B7FCFD1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCFC1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m */; };
@@ -195,6 +196,8 @@
 		848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MeetingDescriptor+Create.m"; path = "Classes/MeetingDescriptor+Create.m"; sourceTree = SOURCE_ROOT; };
 		848D76C21A45AEDF001B3BBF /* MeetingDescriptor+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MeetingDescriptor+Localization.h"; path = "Classes/MeetingDescriptor+Localization.h"; sourceTree = SOURCE_ROOT; };
 		848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MeetingDescriptor+Localization.m"; path = "Classes/MeetingDescriptor+Localization.m"; sourceTree = SOURCE_ROOT; };
+		84980BC61A4DC60C00A498D6 /* AADecoratedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADecoratedLabel.h; path = Classes/AADecoratedLabel.h; sourceTree = SOURCE_ROOT; };
+		84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADecoratedLabel.m; path = Classes/AADecoratedLabel.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF51A2CA2620010E3DC /* AAEditMeetingPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingPickerCell.h; path = Classes/AAEditMeetingPickerCell.h; sourceTree = SOURCE_ROOT; };
 		84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingPickerCell.m; path = Classes/AAEditMeetingPickerCell.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF81A2DCEC30010E3DC /* UIFont+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AAAdditions.h"; sourceTree = "<group>"; };
@@ -456,6 +459,8 @@
 				84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */,
 				E23996C4194969E100DD30C9 /* AACallButton.h */,
 				E23996C3194969E100DD30C9 /* AACallButton.m */,
+				84980BC61A4DC60C00A498D6 /* AADecoratedLabel.h */,
+				84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */,
 				E2DA1B3D194EBDA9001A178B /* AAPopoverListView.h */,
 				E2DA1B3E194EBDA9001A178B /* AAPopoverListView.m */,
 				E2A7E7131956B14A00510959 /* AAInterceptTouchesView.h */,
@@ -1075,6 +1080,7 @@
 				E2DADF8E1932E8F800E934E5 /* AASettingTableViewCell.m in Sources */,
 				84FEDF28191CDF3700767CB0 /* AAUserDataManager.m in Sources */,
 				E2EEF082192E547300CDEF0D /* Phone.m in Sources */,
+				84980BC81A4DC60C00A498D6 /* AADecoratedLabel.m in Sources */,
 				E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */,
 				848D76C11A45A60E001B3BBF /* MeetingDescriptor+Create.m in Sources */,
 				E2489FC31937756200861066 /* NBNumberFormat.m in Sources */,
