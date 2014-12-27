@@ -42,6 +42,23 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
 };
 
 
+/**
+ *  The AADecoratedLabel class provides a means to present text together with a
+ *  view (the decoration) adjacent. 
+ *
+ *  The decoration view can be any object that inherits from UIView. The view
+ *  will be displayed adjacent to the text according to the label's text and
+ *  decoration alignment values.
+ *
+ *  Example Layout: (with text and decoration left aligned)
+ *
+ *  ----------------------------------------------------------------------
+ *  |-Left Inset-<Decoration View>-Decoration Spacing-<Text>-Right Inset-|
+ *  ----------------------------------------------------------------------
+ *
+ *  @warning The AADecoratedLabel assumes that its frame and the frame of its
+ *  decoration view have been set. It has not been tested using autolayout.
+ */
 @interface AADecoratedLabel : UIView
 
 /**-----------------------------------------------------------------------------
@@ -53,6 +70,14 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
  *  The view to be displayed adjacent to the receiver's text
  */
 @property (nonatomic, weak) UIView* decorationView; // default is nil
+
+/**
+ *  Determines whether the decoration view needs to be redrawn in response to 
+ *  changes in the receiver's appearance or layout.
+ *  Setting this property to YES may result in a performance decrease as the 
+ *  decoration view will be completely redrawn.
+ */
+@property (nonatomic) BOOL redrawDecorationView; // default is NO
 
 
 /**-----------------------------------------------------------------------------
@@ -84,7 +109,13 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
  *  Determines the horizontal insets of the decoration view and the 
  *  text from the receiver's frame. The top and bottom values are ignored.
  */
-@property (nonatomic) UIEdgeInsets insets; // default is zero
+@property (nonatomic) UIEdgeInsets insets; // default is UIEdgeInsetsZero
+
+/**
+ *  Determines the horizontal distance between the decoration view and the text
+ *  of the receiver.
+ */
+@property (nonatomic) CGFloat decorationSpacing; // default is 8.0f
 
 /**
  *  The alignment of the text displayed by the receiver
