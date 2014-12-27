@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
 /**
  *  The font to use when displaying the receiver's text
  */
-@property (nonatomic, strong) UIFont* font; // default is [UIFont systemFontOfSize:13.0f]
+@property (nonatomic, strong) UIFont* font; // default is [UIFont systemFontOfSize:15.0f]
 
 /**
  *  The color to use when displaying the receiver's text
@@ -126,5 +126,17 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
  *  The alignment of the decoration view relative to the receiver's displayed text
  */
 @property (nonatomic) AADecorationAlignment decorationAlignment; // default is AATextAlignmentLeft
+
+/**
+ *  Returns the size needed to display the receiver with the receiver's current
+ *  text and decoration view. The width and height values will be non-negative
+ *  and rounded up to the nearest integer.
+ *
+ *  @param text         The text to be displayed
+ *  @param boundingSize The maximum size for the receiver's text
+ *
+ *  @return The size needed to display the receiver
+ */
+- (CGSize)sizeWithBoundingSize:(CGSize)boundingSize;
 
 @end

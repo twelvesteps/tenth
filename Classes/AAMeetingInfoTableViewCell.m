@@ -45,7 +45,7 @@
     self.meetingDetailTextView.textContainer.lineFragmentPadding = 0.0f;
     self.meetingDetailTextView.textContainerInset = UIEdgeInsetsZero;
     
-    self.meetingFormatLabel.leftCircle = YES;
+    self.meetingFormatLabel.decorationAlignment = AADecorationAlignmentLeft;
     self.meetingTitleLabel.font = [UIFont stepsHeaderFont];
     self.meetingLocationLabel.font = [UIFont stepsSubheaderFont];
     self.meetingDetailTextView.font = [UIFont stepsBodyFont];
@@ -146,7 +146,7 @@
 - (void)layoutFormatLabel
 {
     MeetingFormat* format = self.meeting.formats.anyObject;
-    CGFloat formatLabelWidth = [AAMeetingFormatLabel widthForText:format.localizedTitle boundingSize:CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX)];
+    CGFloat formatLabelWidth = [self.meetingFormatLabel sizeWithBoundingSize:CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX)].width;
     CGRect meetingChairpersonLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
                                                      CGRectGetMaxY(self.meetingLocationLabel.frame) + VERTICAL_PADDING,
                                                      formatLabelWidth,

@@ -10,7 +10,6 @@
 
 #import "AAMeetingTableViewCell.h"
 #import "AAMeetingFellowshipIcon.h"
-#import "AAMeetingLabel.h"
 
 #import "Meeting+AAAdditions.h"
 

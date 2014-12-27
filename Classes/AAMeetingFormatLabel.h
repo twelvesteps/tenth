@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AAMeetingLabel.h"
+#import "AADecoratedLabel.h"
+#import "MeetingFormat.h"
 
-@interface AAMeetingFormatLabel : AAMeetingLabel
+@interface AAMeetingFormatLabel : AADecoratedLabel
+
+@property (nonatomic) MeetingFormat* format;
 
 @end

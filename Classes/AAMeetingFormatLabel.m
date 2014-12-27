@@ -7,17 +7,19 @@
 //
 
 #import "AAMeetingFormatLabel.h"
-#import "AAUserSettingsManager.h"
+#import "AAMeetingFormatCircleDecorationView.h"
 
 @implementation AAMeetingFormatLabel
-
-@synthesize format = _format;
 
 - (void)setFormat:(MeetingFormat*)format
 {
     _format = format;
     
+    AAMeetingFormatCircleDecorationView* decorationView = [[AAMeetingFormatCircleDecorationView alloc] initWithFormat:self.format];
+    self.decorationView = decorationView;
+    
     self.text = format.localizedTitle;
 }
+
 
 @end

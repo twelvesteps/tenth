@@ -18,7 +18,7 @@
 #pragma mark - Lifecycle
 
 #define DEFAULT_DECORATION_SPACING      8.0f
-#define DECORATION_VIEW_FRAME_KEYPATH   @"frame"
+#define DEFAULT_FONT_SIZE               15.0f
 
 - (instancetype)init
 {
@@ -42,6 +42,11 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [self setup];
+}
+
 - (void)setup
 {
     _decorationAlignment = AADecorationAlignmentLeft;
@@ -52,33 +57,18 @@
 }
 
 
-- (void)dealloc
-{
-    [self.decorationView removeObserver:self forKeyPath:DECORATION_VIEW_FRAME_KEYPATH];
-}
-
 #pragma mark - PROPERTIES
 
 #pragma mark Decoration View Properties
 
 - (void)setDecorationView:(UIView *)decorationView
 {
-    if (self.decorationView) {
-        [self.decorationView removeObserver:self forKeyPath:DECORATION_VIEW_FRAME_KEYPATH];
-        
-        [self.decorationView removeFromSuperview];
+    if (_decorationView) {
+        [_decorationView removeFromSuperview];
     }
     
     [self addSubview:decorationView];
-    [decorationView addObserver:self forKeyPath:DECORATION_VIEW_FRAME_KEYPATH options:NSKeyValueObservingOptionNew context:nil];
     _decorationView = decorationView;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:DECORATION_VIEW_FRAME_KEYPATH]) {
-        [self setNeedsLayout];
-    }
 }
 
 
@@ -89,7 +79,8 @@
     if (!_textLabel) {
         UILabel* textLabel = [[UILabel alloc] init];
         textLabel.textColor = [UIColor darkTextColor];
-        textLabel.font = [UIFont systemFontOfSize:13.0f];
+        textLabel.font = [UIFont systemFontOfSize:DEFAULT_FONT_SIZE];
+        textLabel.textAlignment = [AADecoratedLabel convertTextAlignment:self.textAlignment];
         textLabel.backgroundColor = [UIColor clearColor];
         
         [self addSubview:textLabel];
@@ -97,6 +88,16 @@
     }
     
     return _textLabel;
+}
+
+- (void)setText:(NSString *)text
+{
+    self.textLabel.text = text;
+}
+
+- (NSString*)text
+{
+    return self.textLabel.text;
 }
 
 - (void)setTextColor:(UIColor *)textColor
@@ -139,6 +140,7 @@
 - (void)setTextAlignment:(AATextAlignment)textAlignment
 {
     _textAlignment = textAlignment;
+    self.textLabel.textAlignment = [AADecoratedLabel convertTextAlignment:textAlignment];
     
     [self setNeedsLayout];
 }
@@ -207,6 +209,7 @@
                 // AADecorationAlignmentRight
                 originX = ceilf(self.bounds.origin.x + self.insets.left);
             }
+            break;
             
         case AATextAlignmentCenter: {
             CGFloat decorationAndSpacingWidth = self.decorationView.frame.size.width + self.decorationSpacing;
@@ -216,6 +219,7 @@
             } else {
                 originX = ceilf((CGRectGetMaxX(self.bounds) - decorationAndTextWidth) / 2.0f);
             }
+            break;
         }
             
             
@@ -225,6 +229,7 @@
             } else {
                 originX = ceilf(CGRectGetMaxX(self.bounds) - (width + self.insets.right + self.decorationSpacing + self.decorationView.frame.size.width));
             }
+            break;
     }
     
     DLog(@"<DEBUG> Decorated label text origin x: %f", originX);
@@ -259,6 +264,38 @@
     }
     
     return decorationViewOrigin;
+}
+
+
+#pragma mark - Class Methods
+
++ (NSTextAlignment)convertTextAlignment:(AATextAlignment)alignment
+{
+    switch (alignment) {
+        case AATextAlignmentLeft:
+            return NSTextAlignmentLeft;
+
+        case AATextAlignmentCenter:
+            return NSTextAlignmentCenter;
+            
+        case AATextAlignmentRight:
+            return NSTextAlignmentRight;
+    }
+}
+
+- (CGSize)sizeWithBoundingSize:(CGSize)boundingSize
+{
+    CGFloat nonTextHorizontalSpace = (self.decorationView.frame.size.width + self.insets.left + self.insets.right + self.decorationSpacing);
+    boundingSize.width = MAX(boundingSize.width - nonTextHorizontalSpace, 0.0f);
+    boundingSize.height = MAX(boundingSize.height, 0.0f);
+    
+    CGSize textSize = [self.text boundingRectWithSize:boundingSize options:0 attributes:@{NSFontAttributeName : self.font} context:nil].size;
+    
+    CGSize totalSize = CGSizeMake(textSize.width + nonTextHorizontalSpace, textSize.height);
+    totalSize.width = ceilf(MIN(totalSize.width, boundingSize.width));
+    totalSize.height = ceilf(MIN(totalSize.height, boundingSize.height));
+    
+    return totalSize;
 }
 
 @end
