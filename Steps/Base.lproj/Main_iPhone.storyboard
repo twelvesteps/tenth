@@ -770,7 +770,6 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="formatLabel" destination="6NL-aW-1PM" id="pWK-X6-RlL"/>
-                                            <segue destination="RiW-vU-uBt" kind="push" identifier="formats" id="QAQ-MA-0dZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -807,70 +806,10 @@ Details</string>
             </objects>
             <point key="canvasLocation" x="3274" y="919"/>
         </scene>
-        <!--Edit Meeting Format View Controller-->
-        <scene sceneID="nkh-EA-z8E">
-            <objects>
-                <viewController id="RiW-vU-uBt" customClass="AAEditMeetingFormatViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="T7F-Rg-tGq"/>
-                        <viewControllerLayoutGuide type="bottom" id="yoX-54-8M5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pnm-zM-6GE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cnX-gV-MOs">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="J9i-La-mkb" customClass="AAEditMeetingFormatCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J9i-La-mkb" id="4dy-VS-hyE">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0a-Ma-Vgv" customClass="AAMeetingFormatLabel">
-                                                    <rect key="frame" x="14" y="10" width="298" height="23"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="4R8-OW-IBg"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="G0a-Ma-Vgv" firstAttribute="leading" secondItem="4dy-VS-hyE" secondAttribute="leading" constant="14" id="BUN-bL-Z0E"/>
-                                                <constraint firstAttribute="centerY" secondItem="G0a-Ma-Vgv" secondAttribute="centerY" id="MSu-FZ-sWn"/>
-                                                <constraint firstAttribute="trailing" secondItem="G0a-Ma-Vgv" secondAttribute="trailing" constant="8" id="OfU-VV-f77"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="formatLabel" destination="G0a-Ma-Vgv" id="khp-b2-2pK"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="cnX-gV-MOs" firstAttribute="leading" secondItem="pnm-zM-6GE" secondAttribute="leading" id="1Ey-Xo-gK0"/>
-                            <constraint firstItem="cnX-gV-MOs" firstAttribute="bottom" secondItem="yoX-54-8M5" secondAttribute="top" id="gvM-4L-dOf"/>
-                            <constraint firstItem="cnX-gV-MOs" firstAttribute="top" secondItem="pnm-zM-6GE" secondAttribute="top" id="hBG-7U-tZD"/>
-                            <constraint firstAttribute="trailing" secondItem="cnX-gV-MOs" secondAttribute="trailing" id="xEK-G5-ria"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="HvJ-Vg-OFm"/>
-                    <connections>
-                        <outlet property="tableView" destination="cnX-gV-MOs" id="doi-ae-ZYr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mcm-hA-FGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3767" y="1277"/>
-        </scene>
-        <!--Edit Meeting Program View Controller-->
+        <!--Edit Meeting Property View Controller-->
         <scene sceneID="bnd-mK-FTP">
             <objects>
-                <viewController id="zuW-eh-HAu" customClass="AAEditMeetingProgramViewController" sceneMemberID="viewController">
+                <viewController id="zuW-eh-HAu" customClass="AAEditMeetingPropertyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kkX-1t-8tB"/>
                         <viewControllerLayoutGuide type="bottom" id="tWa-7x-sYR"/>
@@ -882,15 +821,6 @@ Details</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rKj-Y1-jJ7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingProgramCell" id="ZSO-Nb-kGe" customClass="AASeparatorTableViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZSO-Nb-kGe" id="by3-4A-wKn">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -905,12 +835,12 @@ Details</string>
                     <navigationItem key="navigationItem" id="PSi-Gq-xxz"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="rKj-Y1-jJ7" id="wi8-7E-HEQ"/>
+                        <outlet property="tableView" destination="rKj-Y1-jJ7" id="ubq-W9-7UD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUi-3t-fGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3767" y="602"/>
+            <point key="canvasLocation" x="3799" y="919"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">

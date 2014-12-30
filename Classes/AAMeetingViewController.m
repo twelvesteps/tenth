@@ -33,12 +33,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setup];
 }
 
 - (void)setup
 {
     [self setupDeleteMeetingButton];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (void)setupDeleteMeetingButton
