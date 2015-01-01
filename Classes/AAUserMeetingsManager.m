@@ -10,6 +10,7 @@
 #import "MeetingDescriptor+Create.h"
 
 #import "UIColor+AAAdditions.h"
+#import "NSDate+AAAdditions.h"
 
 #define AA_MEETING_ITEM_NAME                    @"Meeting"
 #define AA_MEETING_FORMAT_ITEM_NAME             @"MeetingFormat"
@@ -129,8 +130,14 @@
 
 - (Meeting*)createMeeting
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
-                                         inManagedObjectContext:self.managedObjectContext];
+    Meeting* meeting = [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
+                                                     inManagedObjectContext:self.managedObjectContext];
+    meeting.startDate = [NSDate dateByCombiningWeekday:[NSDate date].weekday andStartTime:[[NSDate stepsReferenceDate] nearestHalfHour]];
+    meeting.duration = [NSDate oneHour];
+    
+    NSInteger weekday = meeting.startDate.weekday;
+    
+    return meeting;
 }
 
 - (MeetingFormat*)meetingFormatWithTitle:(NSString *)title

@@ -15,12 +15,21 @@
 
 @property (nonatomic, readonly) BOOL hasUserAddressBookAccess;
 
+/**-----------------------------------------------------------------------------
+ *  @name Accessing Manager
+ *------------------------------------------------------------------------------
+ */
 /**
  *  Gives access to the singelton instance of AAUserContactsManager
  *
  *  @return A shared singleton instance of AAUserContactsMananger
  */
 + (instancetype)sharedManager;
+
+/**-----------------------------------------------------------------------------
+ *  @name Creating and Removing Contacts
+ *------------------------------------------------------------------------------
+ */
 
 /**
  *  Creates a new, empty Contact object and places it in the user's object graph
@@ -47,6 +56,10 @@
  */
 - (void)removeAAContact:(Contact*)contact;
 
+/**-----------------------------------------------------------------------------
+ *  @name Fetching Contacts
+ *------------------------------------------------------------------------------
+ */
 /**
  *  Fetches all of the user's Contacts
  *
@@ -69,24 +82,6 @@
 - (Contact*)fetchContactForPersonRecord:(ABRecordRef)person;
 
 /**
- *  Fetches the Contact object set as the user's sponsor
- *
- *  @return The Contact set as the user's sponsor or nil if no such Contact exists.
- */
-- (Contact*)fetchSponsor;
-
-
-/**
- *  Sets the given contact as the user's sponsor. The current sponsor will be overwritten
- *  if it is a contact record different from the given contact.
- *
- *  @param contact The contact to be set as the user's sponsor.
- */
-- (void)setContactAsSponsor:(Contact*)contact;
-
-
-// *** USER ADDRESS BOOK ***
-/**
  *  Fetches the address book record matching the given contact. The method for matching
  *  contacts is similar to that described by fetchContactForPersonRecord:, however the
  *  person record will not be modified to match the given Contact.
@@ -105,6 +100,10 @@
  */
 - (NSArray*)fetchPersonRecords;
 
+/**-----------------------------------------------------------------------------
+ *  @name Syncing With User Address Book
+ *------------------------------------------------------------------------------
+ */
 /**
  *  Sets the Contact's properties to match the given person record. This method does
  *  not match the records prior to synchronization. Use the syncContactWithAssociatedPersonRecord:
@@ -125,4 +124,23 @@
  *  @return YES if matching and sync were successful, NO otherwise. Check console for error message.
  */
 - (BOOL)syncContactWithAssociatedPersonRecord:(Contact*)contact;
+
+/**-----------------------------------------------------------------------------
+ *  @name Sponsor
+ *------------------------------------------------------------------------------
+ */
+/**
+ *  Fetches the Contact object set as the user's sponsor
+ *
+ *  @return The Contact set as the user's sponsor or nil if no such Contact exists.
+ */
+- (Contact*)fetchSponsor;
+
+/**
+ *  Sets the given contact as the user's sponsor. The current sponsor will be overwritten
+ *  if it is a contact record different from the given contact.
+ *
+ *  @param contact The contact to be set as the user's sponsor.
+ */
+- (void)setContactAsSponsor:(Contact*)contact;
 @end

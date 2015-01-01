@@ -13,7 +13,10 @@
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
-// *** FETCHING ITEMS ***
+/**-----------------------------------------------------------------------------
+ *  @name Fetching Objects
+ *------------------------------------------------------------------------------
+ */
 /**
  *  Fetches all items with the given entity name matching the given predicate
  *  and sorts them according to the sort descriptors. Should only be called
@@ -29,7 +32,17 @@
                 withSortDescriptors:(NSArray*)descriptors
                       withPredicate:(NSPredicate*)predicate;
 
-// *** MAINTAINING PERSISTENCE ***
+/**-----------------------------------------------------------------------------
+ * @name Saving and Undo Changes
+ *------------------------------------------------------------------------------
+ */
+
+/**
+ *  Restores all objects in the data managers object graph to their most recently
+ *  saved states. 
+ */
+- (void)rollback;
+
 /**
  *  Saves the current state of the object graph to the backing persistent store.
  *

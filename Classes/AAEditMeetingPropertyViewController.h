@@ -7,7 +7,10 @@
 //
 
 #import "AAGroupedTableViewController.h"
+#import "AAEditMeetingPropertyTableViewDelegate.h"
 
 @interface AAEditMeetingPropertyViewController : AAGroupedTableViewController
+
+@property (nonatomic, strong) AAEditMeetingPropertyTableViewDelegate* meetingPropertyDelegate;
 
 @end

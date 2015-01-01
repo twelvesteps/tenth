@@ -2,14 +2,14 @@
 //  Meeting.h
 //  Steps
 //
-//  Created by Tom on 12/19/14.
+//  Created by Tom on 12/30/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MeetingFormat;
+@class MeetingFormat, MeetingProgram;
 
 @interface Meeting : NSManagedObject
 
@@ -20,16 +20,11 @@
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSSet *programs;
 @property (nonatomic, retain) NSSet *formats;
+@property (nonatomic, retain) MeetingProgram *program;
 @end
 
 @interface Meeting (CoreDataGeneratedAccessors)
-
-- (void)addProgramsObject:(NSManagedObject *)value;
-- (void)removeProgramsObject:(NSManagedObject *)value;
-- (void)addPrograms:(NSSet *)values;
-- (void)removePrograms:(NSSet *)values;
 
 - (void)addFormatsObject:(MeetingFormat *)value;
 - (void)removeFormatsObject:(MeetingFormat *)value;

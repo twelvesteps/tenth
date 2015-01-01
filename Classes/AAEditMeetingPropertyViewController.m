@@ -15,4 +15,18 @@
 
 @implementation AAEditMeetingPropertyViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.meetingPropertyDelegate.tableView = self.tableView;
+}
+
+- (void)setMeetingPropertyDelegate:(AAEditMeetingPropertyTableViewDelegate *)meetingPropertyDelegate
+{
+    _meetingPropertyDelegate = meetingPropertyDelegate;
+    
+    meetingPropertyDelegate.tableView = self.tableView;
+}
+
 @end

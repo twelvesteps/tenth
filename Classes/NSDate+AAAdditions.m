@@ -55,6 +55,21 @@
     return dateComponents.weekday;
 }
 
++ (NSDate*)stepsReferenceDate
+{
+    return [NSDate dateWithTimeIntervalSinceReferenceDate:0];
+}
+
++ (NSDate*)dateByCombiningWeekday:(NSInteger)weekday andStartTime:(NSDate*)startTime
+{
+    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDateComponents* dateComponents = [calendar components:(NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:startTime];
+    dateComponents.second = 0;
+    NSInteger weekdayOffset = weekday - dateComponents.weekday;
+    
+    return [calendar dateByAddingUnit:NSCalendarUnitDay value:weekdayOffset toDate:startTime options:0];
+}
+
 - (NSDate*)timeOfDay
 {
     NSCalendar* calender = [NSCalendar autoupdatingCurrentCalendar];

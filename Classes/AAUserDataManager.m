@@ -113,6 +113,11 @@
 
 #pragma mark - Persistence
 
+- (void)rollback
+{
+    [self.managedObjectContext rollback];
+}
+
 - (BOOL)synchronize
 {
     NSError* err;

@@ -26,4 +26,7 @@
 - (NSDate*)timeOfDay;
 - (NSDate*)nearestHalfHour;
 
++ (NSDate*)stepsReferenceDate;
+
++ (NSDate*)dateByCombiningWeekday:(NSInteger)weekday andStartTime:(NSDate*)startTime;
 @end

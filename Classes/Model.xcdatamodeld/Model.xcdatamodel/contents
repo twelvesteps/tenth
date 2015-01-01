@@ -27,7 +27,7 @@
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="formats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingFormat" inverseName="meetings" inverseEntity="MeetingFormat" syncable="YES"/>
-        <relationship name="programs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingProgram" inverseName="meetings" inverseEntity="MeetingProgram" syncable="YES"/>
+        <relationship name="program" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MeetingProgram" inverseName="meetings" inverseEntity="MeetingProgram" syncable="YES"/>
     </entity>
     <entity name="MeetingDescriptor" representedClassName="MeetingDescriptor" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
@@ -41,7 +41,7 @@
     <entity name="MeetingProgram" representedClassName="MeetingProgram" parentEntity="MeetingDescriptor" syncable="YES">
         <attribute name="shortTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="symbolType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="programs" inverseEntity="Meeting" syncable="YES"/>
+        <relationship name="meetings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meeting" inverseName="program" inverseEntity="Meeting" syncable="YES"/>
     </entity>
     <entity name="Phone" representedClassName="Phone" syncable="YES">
         <attribute name="number" optional="YES" attributeType="String" syncable="YES"/>

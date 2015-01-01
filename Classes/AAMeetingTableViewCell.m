@@ -38,7 +38,7 @@
     self.titleLabel.text = self.meeting.title;
     self.addressLabel.text = self.meeting.location;
     self.fellowshipIcon.format = [self.meeting.formats anyObject];
-    self.fellowshipIcon.program = [self.meeting.programs anyObject];
+    self.fellowshipIcon.program = self.meeting.program;
     self.fellowshipIcon.isOpen = self.meeting.openMeeting;
     
     [self setNeedsLayout];

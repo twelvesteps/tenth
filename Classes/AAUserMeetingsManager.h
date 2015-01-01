@@ -11,9 +11,6 @@
 #import "MeetingFormat.h"
 #import "MeetingProgram.h"
 
-static const NSString* AADidDeleteMeetingFormatNotification = @"MeetingFormatDeleted";
-static const NSString* AADidDeleteMeetingProgramNotification = @"MeetingProgramDeleted";
-
 @interface AAUserMeetingsManager : AAUserDataManager
 
 + (instancetype)sharedManager;

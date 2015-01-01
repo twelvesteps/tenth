@@ -103,6 +103,7 @@
     self.fellowshipNameLabel.text = fellowshipShortName;
     [self updateLabelColor];
     [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 - (void)updateLabelColor

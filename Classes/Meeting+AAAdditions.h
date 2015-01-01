@@ -17,6 +17,9 @@ typedef NS_ENUM(NSInteger, AAMeetingProgramSymbolType) {
 
 @property (nonatomic) BOOL openMeeting;
 
+- (void)setWeekday:(NSInteger)weekday;
+- (void)setStartTime:(NSDate*)startTime;
+
 - (NSDate*)endDate;
 
 - (NSString*)dayOfWeekString;

@@ -34,6 +34,19 @@
 }
 
 
+#pragma mark - Updating Start Date
+
+- (void)setStartTime:(NSDate *)startTime
+{
+    self.startDate = [NSDate dateByCombiningWeekday:self.startDate.weekday andStartTime:startTime];
+}
+
+- (void)setWeekday:(NSInteger)weekday
+{
+    self.startDate = [NSDate dateByCombiningWeekday:weekday andStartTime:self.startDate];
+}
+
+
 #pragma mark - Creating Strings
 
 - (NSString*)dayOfWeekString

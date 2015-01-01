@@ -737,7 +737,7 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="programNameLabel" destination="pxV-ov-Oau" id="8D9-0j-Ti5"/>
-                                            <segue destination="zuW-eh-HAu" kind="push" identifier="programs" id="LdH-jw-WPg"/>
+                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Program" id="LdH-jw-WPg"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="2Re-wz-I2L" customClass="AAEditMeetingFormatCell">
@@ -770,6 +770,7 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="formatLabel" destination="6NL-aW-1PM" id="pWK-X6-RlL"/>
+                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Format" id="7su-R1-jmc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1011,6 +1012,7 @@ Details</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="MTG-GX-Tev"/>
+        <segue reference="7su-R1-jmc"/>
         <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>

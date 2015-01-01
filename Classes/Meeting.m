@@ -2,12 +2,13 @@
 //  Meeting.m
 //  Steps
 //
-//  Created by Tom on 12/19/14.
+//  Created by Tom on 12/30/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
 #import "Meeting.h"
 #import "MeetingFormat.h"
+#import "MeetingProgram.h"
 
 
 @implementation Meeting
@@ -19,7 +20,7 @@
 @dynamic location;
 @dynamic startDate;
 @dynamic title;
-@dynamic programs;
 @dynamic formats;
+@dynamic program;
 
 @end
