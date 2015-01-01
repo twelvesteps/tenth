@@ -134,12 +134,21 @@
 {
     Meeting* meeting = [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
                                                      inManagedObjectContext:self.managedObjectContext];
-    meeting.startDate = [[NSDate date] nearestHalfHour];
+    meeting.startDate = [self defaultMeetingStartDate];
     meeting.duration = [NSDate oneHour];
         
     meeting.program = [self defaultMeetingProgram];
     
     return meeting;
+}
+
+- (NSDate*)defaultMeetingStartDate
+{
+    NSDate* referenceDate = [NSDate stepsReferenceDate];
+    NSDate* currentTime = [[NSDate date] nearestHalfHour];
+    NSDate* startTime = [NSDate dateByCombiningDayOfDate:referenceDate withTimeOfDate:currentTime];
+    
+    return [NSDate dateByCombiningWeekday:[NSDate date].weekday andStartTime:startTime];
 }
 
 - (MeetingFormat*)meetingFormatWithTitle:(NSString *)title

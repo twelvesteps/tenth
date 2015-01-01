@@ -57,7 +57,32 @@
 
 + (NSDate*)stepsReferenceDate
 {
-    return [NSDate dateWithTimeIntervalSinceReferenceDate:0];
+    // December 12th, 2014 (a Sunday)
+    NSDateComponents* components = [[NSDateComponents alloc] init];
+    
+    components.month = 12; // December 21st, 2014
+    components.day = 21;
+    components.year = 2014;
+    
+    NSDate* date = [[NSCalendar autoupdatingCurrentCalendar] dateFromComponents:components];
+
+    assert(date.weekday == 1);
+    
+    return date;
+}
+
++ (NSDate*)dateByCombiningDayOfDate:(NSDate*)day withTimeOfDate:(NSDate*)time
+{
+    NSCalendar* calendar = [NSCalendar autoupdatingCurrentCalendar];
+    
+    NSDateComponents* dayComponents = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:day];
+    NSDateComponents* timeComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:time];
+    
+    dayComponents.hour = timeComponents.hour;
+    dayComponents.minute = timeComponents.minute;
+    dayComponents.second = timeComponents.second;
+    
+    return [calendar dateFromComponents:dayComponents];
 }
 
 + (NSDate*)dateByCombiningWeekday:(NSInteger)weekday andStartTime:(NSDate*)startTime

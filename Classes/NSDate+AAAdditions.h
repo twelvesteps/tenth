@@ -29,4 +29,5 @@
 + (NSDate*)stepsReferenceDate;
 
 + (NSDate*)dateByCombiningWeekday:(NSInteger)weekday andStartTime:(NSDate*)startTime;
++ (NSDate*)dateByCombiningDayOfDate:(NSDate*)day withTimeOfDate:(NSDate*)time;
 @end

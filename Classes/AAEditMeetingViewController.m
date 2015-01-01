@@ -470,8 +470,9 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    NSString* result = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (textField.tag == TITLE_INPUT_FIELD_TAG) {
-        NSString* result = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        self.meeting.title = result;
         
         // Before saving is allowed a title must be provided for the meeting
         if ([[result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) { // no title entered
@@ -479,6 +480,8 @@
         } else { // title has been entered
             self.rightToolbarItem.enabled = YES;
         }
+    } else {
+        self.meeting.location = result;
     }
     
     return YES;
