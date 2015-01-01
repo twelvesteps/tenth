@@ -120,6 +120,9 @@
 
 - (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
+    self.meeting.title = self.titleTextField.text;
+    self.meeting.location = self.locationTextField.text;
+    
     [self.delegate viewControllerDidFinish:self];
 }
 
@@ -393,7 +396,6 @@
     [cell.openMeetingSwitch setOn:self.meeting.openMeeting animated:YES];
     [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
     
-    cell.fellowshipIcon.format = [self.meeting.formats anyObject];
     cell.fellowshipIcon.program = self.meeting.program;
     cell.fellowshipIcon.isOpen = self.meeting.openMeeting;
     self.fellowshipIcon = cell.fellowshipIcon;
@@ -498,7 +500,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    //
     if (textField.tag == TITLE_INPUT_FIELD_TAG) {
         [self.titleTextField resignFirstResponder];
         [self.locationTextField becomeFirstResponder];

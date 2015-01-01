@@ -76,6 +76,10 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    if (indexPath.row == self.meetingPrograms.count - 1) {
+        cell.bottomSeparator = NO;
+    }
+    
     return cell;
 }
 

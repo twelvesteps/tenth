@@ -7,6 +7,13 @@
 //
 
 #import "AADecoratedLabel.h"
+
+#import "AAMeetingFormatLabel.h"
+#import "AAMeetingProgramLabel.h"
+
+#import "MeetingFormat.h"
+#import "MeetingProgram.h"
+
 @interface AADecoratedLabel()
 
 @property (nonatomic, weak) UILabel* textLabel;
@@ -268,7 +275,7 @@
 
 
 #pragma mark - Class Methods
-
+#pragma mark Layout
 + (NSTextAlignment)convertTextAlignment:(AATextAlignment)alignment
 {
     switch (alignment) {
@@ -296,6 +303,26 @@
     totalSize.height = ceilf(MIN(totalSize.height, boundingSize.height));
     
     return totalSize;
+}
+
+#pragma mark Factory
++ (instancetype)decoratedLabelForMeetingDescriptor:(MeetingDescriptor *)descriptor
+{
+    if ([descriptor isKindOfClass:[MeetingFormat class]]) {
+        AAMeetingFormatLabel* formatLabel = [[AAMeetingFormatLabel alloc] init];
+        formatLabel.format = (MeetingFormat*)descriptor;
+        
+        return formatLabel;
+    }
+    
+    if ([descriptor isKindOfClass:[MeetingProgram class]]) {
+        AAMeetingProgramLabel* programLabel = [[AAMeetingProgramLabel alloc] init];
+        programLabel.program = (MeetingProgram*)descriptor;
+        
+        return programLabel;
+    }
+    
+    return nil;
 }
 
 @end

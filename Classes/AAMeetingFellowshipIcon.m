@@ -71,12 +71,6 @@
     self.fellowshipNameLabel = fellowshipNameLabel;
 }
 
-- (void)setFormat:(MeetingFormat*)format
-{
-    _format = format;
-    [self updateViews];
-}
-
 - (void)setProgram:(MeetingProgram*)program
 {
     _program = program;

@@ -85,6 +85,10 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    if (indexPath.row == self.meetingFormats.count - 1) {
+        cell.bottomSeparator = NO;
+    }
+    
     return cell;
 }
 

@@ -67,7 +67,6 @@
     self.meetingLocationLabel.text = self.meeting.location;
     self.meetingFormatLabel.format = [self.meeting.formats anyObject];
     self.meetingDetailTextView.text = [self detailText];
-    self.fellowshipIcon.format = [self.meeting.formats anyObject];
     self.fellowshipIcon.program = self.meeting.program;
     self.fellowshipIcon.isOpen = self.meeting.openMeeting;
 }

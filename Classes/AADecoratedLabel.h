@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
  *  @warning The AADecoratedLabel assumes that its frame and the frame of its
  *  decoration view have been set. It has not been tested using autolayout.
  */
+@class MeetingDescriptor;
 @interface AADecoratedLabel : UIView
 
 /**-----------------------------------------------------------------------------
@@ -138,5 +139,12 @@ typedef NS_ENUM(NSInteger, AATextAlignment){
  *  @return The size needed to display the receiver
  */
 - (CGSize)sizeWithBoundingSize:(CGSize)boundingSize;
+
+/**-----------------------------------------------------------------------------
+ *  @name Factory Methods
+ *------------------------------------------------------------------------------
+ */
+
++ (instancetype)decoratedLabelForMeetingDescriptor:(MeetingDescriptor*)descriptor;
 
 @end

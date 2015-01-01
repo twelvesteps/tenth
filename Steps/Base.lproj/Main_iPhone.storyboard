@@ -822,6 +822,37 @@ Details</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rKj-Y1-jJ7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingProgramCell" id="iUZ-Ar-XHc" customClass="AAEditMeetingProgramTypeCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iUZ-Ar-XHc" id="9CR-0h-aKj">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="q95-jo-9Iv" customClass="AAEditMeetingFormatCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q95-jo-9Iv" id="44E-9l-Adq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olU-9c-JSf" customClass="AAMeetingFormatLabel">
+                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="olU-9c-JSf" firstAttribute="top" secondItem="44E-9l-Adq" secondAttribute="top" id="2y3-aS-eWX"/>
+                                                <constraint firstAttribute="bottom" secondItem="olU-9c-JSf" secondAttribute="bottom" id="CPV-FJ-bY4"/>
+                                                <constraint firstAttribute="trailing" secondItem="olU-9c-JSf" secondAttribute="trailing" constant="8" id="Vjf-CD-7HT"/>
+                                                <constraint firstItem="olU-9c-JSf" firstAttribute="leading" secondItem="44E-9l-Adq" secondAttribute="leading" constant="14" id="v9U-wJ-0dL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="formatLabel" destination="olU-9c-JSf" id="9n6-xv-mwR"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

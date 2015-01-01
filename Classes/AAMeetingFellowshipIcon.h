@@ -14,7 +14,6 @@
 
 @interface AAMeetingFellowshipIcon : UIView
 
-@property (nonatomic) MeetingFormat* format;
 @property (nonatomic) MeetingProgram* program;
 @property (nonatomic) BOOL isOpen;
 
