@@ -12,6 +12,8 @@
 #import "UIColor+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 
+#define DEFAULT_MEETING_PROGAM_KEY              @"DefaultMeetingProgram"
+
 #define AA_MEETING_ITEM_NAME                    @"Meeting"
 #define AA_MEETING_FORMAT_ITEM_NAME             @"MeetingFormat"
 #define AA_MEETING_PROGRAM_ITEM_NAME            @"MeetingProgram"
@@ -157,15 +159,20 @@
 
 - (MeetingProgram*)defaultMeetingProgram
 {
-    return [self meetingProgramWithTitle:AA_MEETING_PROGRAM_AA_TITLE];
+    NSString* defaultProgramID = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_MEETING_PROGAM_KEY];
+    MeetingProgram* defaultProgram = [self fetchMeetingProgramWithIdentifier:defaultProgramID];
+    
+    if (defaultProgramID) {
+        return defaultProgram;
+    } else {
+        return [self meetingProgramWithTitle:AA_MEETING_PROGRAM_AA_TITLE];
+    }
 }
 
-
-#pragma mark - Altering Objects
-
-- (BOOL)meetingFormatShouldChangeTitle:(MeetingFormat *)format
+- (void)setDefaultMeetingProgram:(MeetingProgram *)program
 {
-    return format.localizeTitle.boolValue;
+    NSString* defaultProgramID = program.identifier;
+    [[NSUserDefaults standardUserDefaults] setObject:defaultProgramID forKey:DEFAULT_MEETING_PROGAM_KEY];
 }
 
 
