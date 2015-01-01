@@ -132,10 +132,10 @@
 {
     Meeting* meeting = [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
                                                      inManagedObjectContext:self.managedObjectContext];
-    meeting.startDate = [NSDate dateByCombiningWeekday:[NSDate date].weekday andStartTime:[[NSDate stepsReferenceDate] nearestHalfHour]];
+    meeting.startDate = [[NSDate date] nearestHalfHour];
     meeting.duration = [NSDate oneHour];
-    
-    NSInteger weekday = meeting.startDate.weekday;
+        
+    meeting.program = [self defaultMeetingProgram];
     
     return meeting;
 }
@@ -152,6 +152,12 @@
     return (MeetingProgram*)[MeetingProgram meetingDescriptorWithEntityName:AA_MEETING_PROGRAM_ITEM_NAME
                                                                       title:title
                                                      inManagedObjectContext:self.managedObjectContext];
+}
+
+
+- (MeetingProgram*)defaultMeetingProgram
+{
+    return [self meetingProgramWithTitle:AA_MEETING_PROGRAM_AA_TITLE];
 }
 
 
