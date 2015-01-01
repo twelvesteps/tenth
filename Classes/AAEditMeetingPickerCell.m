@@ -147,7 +147,7 @@
                                         titleLabelSize.width,
                                         titleLabelSize.height);
     
-    CGFloat descriptionLabelWidth = self.contentView.bounds.size.width - (CGRectGetMaxX(titleLabelFrame) + LABEL_SPACING + LABEL_RIGHT_PADDING);
+    CGFloat descriptionLabelWidth = self.bounds.size.width - (CGRectGetMaxX(titleLabelFrame) + LABEL_SPACING + LABEL_RIGHT_PADDING);
     CGRect descriptionLabelFrame = CGRectMake(CGRectGetMaxX(titleLabelFrame) + LABEL_SPACING,
                                               titleLabelFrame.origin.y,
                                               descriptionLabelWidth,
@@ -159,9 +159,9 @@
 
 - (void)layoutPicker
 {
-    CGRect pickerFrame = CGRectMake(self.contentView.bounds.origin.x,
-                                    self.contentView.bounds.origin.y + LABEL_BLOCK_HEIGHT,
-                                    self.contentView.bounds.size.width,
+    CGRect pickerFrame = CGRectMake(self.bounds.origin.x,
+                                    self.bounds.origin.y + LABEL_BLOCK_HEIGHT,
+                                    self.bounds.size.width,
                                     PICKER_BLOCK_HEIGHT);
     
     self.picker.frame = pickerFrame;
@@ -169,7 +169,7 @@
 
 - (CGSize)intrinsicSizeForLabel:(UILabel*)label
 {
-    CGSize labelSize = [label.text boundingRectWithSize:self.contentView.bounds.size
+    CGSize labelSize = [label.text boundingRectWithSize:self.bounds.size
                                                 options:0
                                              attributes:@{NSFontAttributeName : label.font}
                                                 context:nil].size;

@@ -235,11 +235,6 @@
 {
     if (indexPath.section == DATE_TIME_SECTION && [indexPath isEqual:self.selectedIndexPath]) {
         return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
-//    } else if (indexPath.section == MEETING_TYPE_SECTION &&
-//               indexPath.row == FORMAT_ROW && 
-//               [indexPath isEqual:self.selectedIndexPath]) {
-//        return TEXT_CELL_HEIGHT + PICKER_CELL_HEIGHT;
-//
     } else {
         return TEXT_CELL_HEIGHT;
     }

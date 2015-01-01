@@ -448,6 +448,8 @@
 				84B7FCFF1A2E1C470010E3DC /* AAEditMeetingDatePickerCell.m */,
 				84B7FCFB1A2E1BF30010E3DC /* AAEditMeetingDurationCell.h */,
 				84B7FCFC1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m */,
+				84E3C80A1A3151B800819EA4 /* AAMeetingDurationPickerView.h */,
+				84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */,
 				841DB0C61A29D21600DDB71D /* AAEditMeetingStartTimeCell.h */,
 				841DB0C71A29D21600DDB71D /* AAEditMeetingStartTimeCell.m */,
 				84B7FD011A2E201B0010E3DC /* AAEditMeetingWeekdayCell.h */,
@@ -480,8 +482,6 @@
 		84491B2F1918A767006073B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				84E3C80A1A3151B800819EA4 /* AAMeetingDurationPickerView.h */,
-				84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */,
 				E23996C4194969E100DD30C9 /* AACallButton.h */,
 				E23996C3194969E100DD30C9 /* AACallButton.m */,
 				84980BC61A4DC60C00A498D6 /* AADecoratedLabel.h */,
