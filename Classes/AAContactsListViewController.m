@@ -140,6 +140,21 @@
     [alertView show];
 }
 
+- (void)showNoContactsAlert
+{
+    NSString* alertTitle = NSLocalizedString(@"No Contacts Added", @"The user has not added any contacts to the application");
+    NSString* alertMessage = NSLocalizedString(@"Tap the '+' button in the top right of the screen to add contacts",
+                                               @"Direct the user to tap the '+' button in order to add new contacts");
+    
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                        message:alertMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:OK_BUTTON_TITLE, nil];
+    
+    [alertView show];
+}
+
 - (void)showPeoplePickerViewController
 {
     AAPeoplePickerViewController* picker = [[AAPeoplePickerViewController alloc] init];
@@ -210,10 +225,13 @@
         } else {
             [self showSponsorNotSetAlert];
         }
-    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_RANDOM_TITLE]) {
+    } else if ([[pv buttonTitleAtIndex:index] isEqualToString:CALL_RANDOM_TITLE] &&
+               self.contacts.count > 0) {
         NSUInteger randomNumber = arc4random() % self.contacts.count;
         Contact* contact = self.contacts[randomNumber];
         [self performSegueWithIdentifier:@"callContact" sender:contact];
+    } else {
+        [self showNoContactsAlert];
     }
 }
 
