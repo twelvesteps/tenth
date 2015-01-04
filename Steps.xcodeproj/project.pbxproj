@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8481D3791A59731500D76BF4 /* Mogenerator */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8481D37C1A59731500D76BF4 /* Build configuration list for PBXAggregateTarget "Mogenerator" */;
+			buildPhases = (
+				8481D37D1A59732D00D76BF4 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Mogenerator;
+			productName = Mogenerator;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		5123B5BC25496339F80A25CE /* libPods-Steps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB15AC9D228F07A7D6C5067 /* libPods-Steps.a */; };
 		84010C451A3B454600D80ED9 /* AAMeetingFormatLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84010C441A3B454600D80ED9 /* AAMeetingFormatLabel.m */; };
@@ -912,6 +926,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "spitzgoby LLC";
 				TargetAttributes = {
+					8481D3791A59731500D76BF4 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					84EBC3301915CD250063F4EA = {
 						DevelopmentTeam = ZV7JS29D52;
 						SystemCapabilities = {
@@ -945,6 +962,7 @@
 				84EBC3301915CD250063F4EA /* Steps */,
 				84EBC3541915CD250063F4EA /* StepsTests */,
 				84FAD129191A8F1800B72BC5 /* Steps_Tests */,
+				8481D3791A59731500D76BF4 /* Mogenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -1026,6 +1044,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		8481D37D1A59732D00D76BF4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mogenerator -m /Users/admin/Desktop/Steps/Classes/Model.xcdatamodeld/Model.xcdatamodel -O /Users/admin/Desktop/Steps/Classes/ --template-var arc=true";
 		};
 		D192E45B9A8A2DBC44EB9387 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1212,6 +1243,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8481D37A1A59731500D76BF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8481D37B1A59731500D76BF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		84EBC3641915CD250063F4EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1409,6 +1454,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8481D37C1A59731500D76BF4 /* Build configuration list for PBXAggregateTarget "Mogenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8481D37A1A59731500D76BF4 /* Debug */,
+				8481D37B1A59731500D76BF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		84EBC32C1915CD250063F4EA /* Build configuration list for PBXProject "Steps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

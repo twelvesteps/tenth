@@ -85,10 +85,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // grab row index paths to update
+    NSMutableArray* indexPaths = [[NSMutableArray alloc] init];
+    if (self.selectedIndexPath) {
+        [indexPaths addObject:self.selectedIndexPath];
+    }
+    [indexPaths addObject:indexPath];
+    
     self.selectedIndexPath = indexPath;
     self.meeting.program = self.meetingPrograms[indexPath.row];
-    
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

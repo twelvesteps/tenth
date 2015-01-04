@@ -18,15 +18,23 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="emails" inverseEntity="Contact" syncable="YES"/>
     </entity>
+    <entity name="Location" syncable="YES">
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locality" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="meetings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meeting" inverseName="location" inverseEntity="Meeting" syncable="YES"/>
+    </entity>
     <entity name="Meeting" representedClassName="Meeting" syncable="YES">
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isOpen" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="literature" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="formats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingFormat" inverseName="meetings" inverseEntity="MeetingFormat" syncable="YES"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="meetings" inverseEntity="Location" syncable="YES"/>
         <relationship name="program" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MeetingProgram" inverseName="meetings" inverseEntity="MeetingProgram" syncable="YES"/>
     </entity>
     <entity name="MeetingDescriptor" representedClassName="MeetingDescriptor" syncable="YES">
@@ -56,5 +64,6 @@
         <element name="MeetingFormat" positionX="529" positionY="423" width="128" height="75"/>
         <element name="MeetingProgram" positionX="358" positionY="423" width="128" height="88"/>
         <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
+        <element name="Location" positionX="610" positionY="200" width="128" height="133"/>
     </elements>
 </model>
