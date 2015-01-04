@@ -13,6 +13,7 @@
 #define STEPS_ORANGE_COLOR  @"orange"
 #define STEPS_GREEN_COLOR   @"green"
 #define STEPS_YELLOW_COLOR  @"yellow"
+#define STEPS_PURPLE_COLOR  @"purple"
 
 @class Meeting;
 @interface UIColor (AAAdditions)
@@ -30,6 +31,7 @@
 + (UIColor*)stepsOrangeColor;
 + (UIColor*)stepsGreenColor;
 + (UIColor*)stepsYellowColor;
++ (UIColor*)stepsPurpleColor;
 
 + (UIColor*)stepsTableViewCellSeparatorColor;
 @end
