@@ -39,22 +39,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    throwAbstractMethodException();
+    throwAbstractMethodException;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    throwAbstractMethodException();
+    throwAbstractMethodException;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    throwAbstractMethodException();
+    throwAbstractMethodException;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    throwAbstractMethodException();
+    throwAbstractMethodException;
 }
 
 @end

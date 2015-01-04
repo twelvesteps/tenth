@@ -80,7 +80,7 @@
                       STEPS_GREEN_COLOR     : UIColorWithRGB(0xBA, 0xD8, 0x0A), //#BAD80A
                       STEPS_ORANGE_COLOR    : UIColorWithRGB(0xFC, 0xA3, 0x11), //#FCA311
                       STEPS_YELLOW_COLOR    : UIColorWithRGB(0xF9, 0xD6, 0x16), //#F9D616
-                      STEPS_PURPLE_COLOR    : UIColorWithRGB(0xA0, 0x00, 0xDF),};
+                      STEPS_PURPLE_COLOR    : UIColorWithRGB(0xA3, 0x07, 0xFF),};
     });
     
     return colorMap;
