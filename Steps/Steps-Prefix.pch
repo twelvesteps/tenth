@@ -26,10 +26,10 @@
 // ALog always displays output regardless of the DEBUG setting
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-#ifndef throwAbstractMethodException()
-    #define throwAbstractMethodException() @throw [NSException exceptionWithName:NSInternalInconsistencyException\
-                                                                          reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__]\
-                                                                        userInfo:nil];
+#ifndef throwAbstractMethodException
+    #define throwAbstractMethodException @throw [NSException exceptionWithName:NSInternalInconsistencyException\
+                                                                        reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__]\
+                                                                      userInfo:nil];
 #endif
 
 

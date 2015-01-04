@@ -144,7 +144,6 @@
 
 - (void)layoutFormatLabel
 {
-    MeetingFormat* format = self.meeting.formats.anyObject;
     CGFloat formatLabelWidth = [self.meetingFormatLabel sizeWithBoundingSize:CGSizeMake(self.bounds.size.width - (LEADING_EDGE_PADDING + TRAILING_EDGE_PADDING), CGFLOAT_MAX)].width;
     CGRect meetingChairpersonLabelFrame = CGRectMake(self.meetingTitleLabel.frame.origin.x,
                                                      CGRectGetMaxY(self.meetingLocationLabel.frame) + VERTICAL_PADDING,

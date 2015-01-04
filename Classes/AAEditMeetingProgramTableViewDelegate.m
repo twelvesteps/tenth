@@ -60,7 +60,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_CELL_REUSE_ID];
+    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[tableView dequeueReusableCellWithIdentifier:PROGRAM_CELL_REUSE_ID];
     
     if (!cell) {
         cell = [[AAEditMeetingProgramTypeCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -88,7 +88,7 @@
     self.selectedIndexPath = indexPath;
     self.meeting.program = self.meetingPrograms[indexPath.row];
     
-    [self.tableView reloadData];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

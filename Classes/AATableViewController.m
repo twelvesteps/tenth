@@ -20,6 +20,9 @@
     // Do any additional setup after loading the view.
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -23,6 +23,11 @@
  *  meeting property will be automatically updated as the user interacts with
  *  the cells provided by the delegate.
  *
+ *  Each subclass of AAEditMeetingPropertyTableViewDelegate should explicitly 
+ *  declare any table view delegate or datasource methods that it implements.
+ *  These methods should be forwarded to the delegate by a proxy class, 
+ *  typically the view controller presenting the table view.
+ *
  *  Any changes made to a meeting object will not be made persistent by the 
  *  delegate. Changes must be saved by another object if they are to persist.
  *
@@ -35,13 +40,12 @@
  *  UITableViewDelegate and UITableViewDataSource have not been implemented by
  *  a subclass.
  */
-@interface AAEditMeetingPropertyTableViewDelegate : NSObject<UITableViewDelegate, UITableViewDataSource>
+@interface AAEditMeetingPropertyTableViewDelegate : NSObject
 
-/**
- *  The table view that makes calls to the delegate.
+/**-----------------------------------------------------------------------------
+ *  @name Set Delegate's Meeting Property
+ *------------------------------------------------------------------------------
  */
-@property (nonatomic, weak) UITableView* tableView;
-
 /**
  *  The Meeting object that is being edited by the delegate
  */
@@ -58,5 +62,20 @@
  *  @return A property delegate subclass matching the given identifier.
  */
 + (instancetype)meetingPropertyDelegateWithIdentifier:(NSString*)identifier meeting:(Meeting*)meeting;
+
+/**-----------------------------------------------------------------------------
+ *  @name Table View Delegate and Datasource Methods
+ *------------------------------------------------------------------------------
+ */
+
+/**
+ *  The following methods should be implemented by any subclass of the delegate.
+ *  Subclasses may also implement additional methods defined in the 
+ *  UITableViewDelegate and UITableViewDataSource protocols. 
+ */
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView;
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

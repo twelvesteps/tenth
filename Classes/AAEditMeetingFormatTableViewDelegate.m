@@ -69,7 +69,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[self.tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
+    AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
     if (!cell) {
         cell = [[AAEditMeetingFormatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FORMAT_CELL_REUSE_ID];
@@ -103,7 +103,7 @@
         [self.meeting addFormatsObject:[self.meetingFormats objectAtIndex:indexPath.row]];
     }
     
-    [self.tableView reloadData];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 

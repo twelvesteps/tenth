@@ -69,8 +69,6 @@
     [self setupNavigationBar];
     [self setupMeetingValues];
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 

@@ -35,40 +35,26 @@
     return delegate;
 }
 
-- (void)setTableView:(UITableView *)tableView
-{
-    _tableView = tableView;
-    tableView.delegate = self;
-    tableView.dataSource = self;
-}
-
-#pragma mark - Instance Methods
-
-- (AASeparatorTableViewCell*)separatorCellForIndexPath:(NSIndexPath *)indexPath
-{
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__] userInfo:nil];
-}
-
-- (void)updateMeetingPropertyWithIndexPaths:(NSArray *)indexPaths
-{
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__] userInfo:nil];
-}
-
 #pragma mark - Tableview Delegate and Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__] userInfo:nil];
+    throwAbstractMethodException();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__] userInfo:nil];
+    throwAbstractMethodException();
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"You must override %s in a subclass", __PRETTY_FUNCTION__] userInfo:nil];
+    throwAbstractMethodException();
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    throwAbstractMethodException();
 }
 
 @end

@@ -15,18 +15,28 @@
 
 @implementation AAEditMeetingPropertyViewController
 
-- (void)viewDidLoad
+#pragma mark - UITableView Delegate and Datasource
+
+// the following calls are forwarded to the meetingPropertyDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [super viewDidLoad];
-    
-    self.meetingPropertyDelegate.tableView = self.tableView;
+    return [self.meetingPropertyDelegate numberOfSectionsInTableView:tableView];
 }
 
-- (void)setMeetingPropertyDelegate:(AAEditMeetingPropertyTableViewDelegate *)meetingPropertyDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _meetingPropertyDelegate = meetingPropertyDelegate;
-    
-    meetingPropertyDelegate.tableView = self.tableView;
+    return [self.meetingPropertyDelegate tableView:tableView numberOfRowsInSection:section];
 }
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.meetingPropertyDelegate tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.meetingPropertyDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
 
 @end
