@@ -1,19 +1,13 @@
-//
-//  Email.m
-//  Steps
-//
-//  Created by tom on 5/22/14.
-//  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
-//
-
 #import "Email.h"
-#import "Contact.h"
 
+@interface Email ()
+
+// Private interface goes here.
+
+@end
 
 @implementation Email
 
-@dynamic title;
-@dynamic address;
-@dynamic contact;
+// Custom logic goes here.
 
 @end

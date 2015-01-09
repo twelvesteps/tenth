@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Contact" representedClassName="Contact" syncable="YES">
+    <entity name="Contact" representedClassName="Contact" parentEntity="GroupMember" syncable="YES">
         <attribute name="abFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="abLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="contactID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -11,6 +11,7 @@
         <attribute name="needsABLink" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sobrietyDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="emails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Email" inverseName="contact" inverseEntity="Email" syncable="YES"/>
+        <relationship name="milestones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SobrietyMilestone" inverseName="contact" inverseEntity="SobrietyMilestone" syncable="YES"/>
         <relationship name="phones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Phone" inverseName="contact" inverseEntity="Phone" syncable="YES"/>
     </entity>
     <entity name="Email" representedClassName="Email" syncable="YES">
@@ -18,7 +19,41 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="emails" inverseEntity="Contact" syncable="YES"/>
     </entity>
-    <entity name="Location" syncable="YES">
+    <entity name="Entity" representedClassName="Entity" syncable="YES">
+        <attribute name="creationDate" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="modificationDate" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+    </entity>
+    <entity name="Event" representedClassName="Event" parentEntity="GroupMember" syncable="YES">
+        <attribute name="duration" attributeType="Date" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="startDate" attributeType="Date" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" parentEntity="Entity" syncable="YES">
+        <attribute name="identifier" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupMember" inverseName="groups" inverseEntity="GroupMember" syncable="YES"/>
+    </entity>
+    <entity name="GroupMember" representedClassName="GroupMember" isAbstract="YES" parentEntity="Entity" syncable="YES">
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" parentEntity="MeetingDescriptor" syncable="YES">
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,21 +61,25 @@
         <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="meetings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meeting" inverseName="location" inverseEntity="Meeting" syncable="YES"/>
     </entity>
-    <entity name="Meeting" representedClassName="Meeting" syncable="YES">
-        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="Date" syncable="YES"/>
+    <entity name="Meeting" representedClassName="Meeting" parentEntity="Event" syncable="YES">
         <attribute name="isOpen" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="literature" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="formats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeetingFormat" inverseName="meetings" inverseEntity="MeetingFormat" syncable="YES"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="meetings" inverseEntity="Location" syncable="YES"/>
         <relationship name="program" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MeetingProgram" inverseName="meetings" inverseEntity="MeetingProgram" syncable="YES"/>
     </entity>
-    <entity name="MeetingDescriptor" representedClassName="MeetingDescriptor" syncable="YES">
-        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="localizeTitle" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="MeetingDescriptor" representedClassName="MeetingDescriptor" isAbstract="YES" parentEntity="Entity" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="localizeTitle" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="mogenerator.readonly" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MeetingFormat" representedClassName="MeetingFormat" parentEntity="MeetingDescriptor" syncable="YES">
         <attribute name="colorKey" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,14 +95,24 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="phones" inverseEntity="Contact" syncable="YES"/>
     </entity>
+    <entity name="SobrietyMilestone" representedClassName="SobrietyMilestone" parentEntity="Event" syncable="YES">
+        <attribute name="chipColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sobrietyLength" attributeType="Date" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="milestones" inverseEntity="Contact" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Contact" positionX="88" positionY="191" width="128" height="208"/>
-        <element name="Email" positionX="169" positionY="443" width="128" height="88"/>
-        <element name="Meeting" positionX="430" positionY="194" width="128" height="178"/>
-        <element name="MeetingDescriptor" positionX="448" positionY="531" width="128" height="88"/>
-        <element name="MeetingFormat" positionX="529" positionY="423" width="128" height="75"/>
-        <element name="MeetingProgram" positionX="358" positionY="423" width="128" height="88"/>
-        <element name="Phone" positionX="-0" positionY="441" width="128" height="88"/>
-        <element name="Location" positionX="610" positionY="200" width="128" height="133"/>
+        <element name="Contact" positionX="90" positionY="206" width="128" height="223"/>
+        <element name="Email" positionX="-74" positionY="342" width="128" height="88"/>
+        <element name="Event" positionX="270" positionY="29" width="128" height="103"/>
+        <element name="Group" positionX="-74" positionY="-97" width="128" height="88"/>
+        <element name="GroupMember" positionX="88" positionY="36" width="128" height="58"/>
+        <element name="Location" positionX="790" positionY="263" width="128" height="133"/>
+        <element name="Meeting" positionX="441" positionY="198" width="128" height="118"/>
+        <element name="MeetingDescriptor" positionX="790" positionY="-103" width="128" height="88"/>
+        <element name="MeetingFormat" positionX="628" positionY="168" width="128" height="75"/>
+        <element name="MeetingProgram" positionX="592" positionY="-18" width="128" height="88"/>
+        <element name="Phone" positionX="-74" positionY="209" width="128" height="88"/>
+        <element name="SobrietyMilestone" positionX="270" positionY="198" width="128" height="88"/>
+        <element name="Entity" positionX="223" positionY="-91" width="128" height="73"/>
     </elements>
 </model>

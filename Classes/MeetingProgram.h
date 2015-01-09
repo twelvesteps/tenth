@@ -1,29 +1,5 @@
-//
-//  MeetingProgram.h
-//  Steps
-//
-//  Created by Tom on 12/30/14.
-//  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
-//
+#import "_MeetingProgram.h"
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-#import "MeetingDescriptor.h"
-
-@class Meeting;
-
-@interface MeetingProgram : MeetingDescriptor
-
-@property (nonatomic, retain) NSString * shortTitle;
-@property (nonatomic, retain) NSNumber * symbolType;
-@property (nonatomic, retain) NSSet *meetings;
-@end
-
-@interface MeetingProgram (CoreDataGeneratedAccessors)
-
-- (void)addMeetingsObject:(Meeting *)value;
-- (void)removeMeetingsObject:(Meeting *)value;
-- (void)addMeetings:(NSSet *)values;
-- (void)removeMeetings:(NSSet *)values;
-
+@interface MeetingProgram : _MeetingProgram {}
+// Custom logic goes here.
 @end

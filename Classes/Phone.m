@@ -1,19 +1,13 @@
-//
-//  Phone.m
-//  Steps
-//
-//  Created by tom on 5/22/14.
-//  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
-//
-
 #import "Phone.h"
-#import "Contact.h"
 
+@interface Phone ()
+
+// Private interface goes here.
+
+@end
 
 @implementation Phone
 
-@dynamic title;
-@dynamic number;
-@dynamic contact;
+// Custom logic goes here.
 
 @end

@@ -1,34 +1,5 @@
-//
-//  Meeting.h
-//  Steps
-//
-//  Created by Tom on 12/30/14.
-//  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
-//
+#import "_Meeting.h"
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-
-@class MeetingFormat, MeetingProgram;
-
-@interface Meeting : NSManagedObject
-
-@property (nonatomic, retain) NSString * details;
-@property (nonatomic, retain) NSDate * duration;
-@property (nonatomic, retain) NSNumber * isOpen;
-@property (nonatomic, retain) NSString * literature;
-@property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSSet *formats;
-@property (nonatomic, retain) MeetingProgram *program;
-@end
-
-@interface Meeting (CoreDataGeneratedAccessors)
-
-- (void)addFormatsObject:(MeetingFormat *)value;
-- (void)removeFormatsObject:(MeetingFormat *)value;
-- (void)addFormats:(NSSet *)values;
-- (void)removeFormats:(NSSet *)values;
-
+@interface Meeting : _Meeting {}
+// Custom logic goes here.
 @end
