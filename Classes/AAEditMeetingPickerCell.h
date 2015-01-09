@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "AASeparatorTableViewCell.h"
-#import "Meeting+AAAdditions.h"
 
 @class AAEditMeetingPickerCell;
 @protocol AAEditMeetingPickerCellDelegate <NSObject>

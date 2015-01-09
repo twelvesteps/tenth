@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Meeting+AAAdditions.h"
 
 @class MeetingProgram;
 @class MeetingFormat;

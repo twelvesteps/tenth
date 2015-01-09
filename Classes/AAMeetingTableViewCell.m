@@ -11,9 +11,6 @@
 #import "AAMeetingTableViewCell.h"
 #import "AAMeetingFellowshipIcon.h"
 
-#import "Meeting+AAAdditions.h"
-
-
 @interface AAMeetingTableViewCell()
 
 @property (nonatomic, weak) AAMeetingLabel* meetingLabel;

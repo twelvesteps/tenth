@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AASeparatorTableViewCell.h"
-#import "Meeting+AAAdditions.h"
 
 #define AA_EDIT_MEETING_PROPERTY_FORMAT_IDENTIFIER      @"Format"
 #define AA_EDIT_MEETING_PROPERTY_PROGRAM_IDENTIFIER     @"Program"

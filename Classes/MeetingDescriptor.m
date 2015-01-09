@@ -64,7 +64,11 @@
 
 - (NSString*)localizedTitle
 {
-    return NSLocalizedString(self.title, @"Localized descriptor title");
+    if (self.localizeTitleValue) {
+        return NSLocalizedString(self.title, @"Localized descriptor title");
+    } else {
+        return self.title;
+    }
 }
 
 @end
