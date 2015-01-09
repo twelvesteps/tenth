@@ -58,6 +58,7 @@
 		8470E7171A5F634E00F9105B /* MeetingProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470E7071A5F634E00F9105B /* MeetingProgram.m */; };
 		8470E7181A5F634E00F9105B /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470E7091A5F634E00F9105B /* Phone.m */; };
 		8470E7191A5F634E00F9105B /* SobrietyMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470E70B1A5F634E00F9105B /* SobrietyMilestone.m */; };
+		8470E71C1A5FD85200F9105B /* NSDateFormatter+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470E71B1A5FD85200F9105B /* NSDateFormatter+AAAdditions.m */; };
 		8480B3F71A4862240061A6C5 /* AAEditMeetingFormatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8480B3F61A4862240061A6C5 /* AAEditMeetingFormatCell.m */; };
 		8481D3E11A5AC6BC00D76BF4 /* _Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481D3C81A5AC6BC00D76BF4 /* _Contact.m */; };
 		8481D3E21A5AC6BC00D76BF4 /* _Email.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481D3CA1A5AC6BC00D76BF4 /* _Email.m */; };
@@ -72,8 +73,6 @@
 		8481D3EC1A5AC6BC00D76BF4 /* _Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481D3DE1A5AC6BC00D76BF4 /* _Phone.m */; };
 		8481D3ED1A5AC6BC00D76BF4 /* _SobrietyMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481D3E01A5AC6BC00D76BF4 /* _SobrietyMilestone.m */; };
 		8483384E1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8483384D1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m */; };
-		848D76C11A45A60E001B3BBF /* MeetingDescriptor+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */; };
-		848D76C41A45AEDF001B3BBF /* MeetingDescriptor+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */; };
 		84980BC81A4DC60C00A498D6 /* AADecoratedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */; };
 		84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */; };
 		84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */; };
@@ -88,7 +87,6 @@
 		84CF222A1A44230B00052E92 /* AAUserContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CF22291A44230B00052E92 /* AAUserContactsManager.m */; };
 		84CF222D1A44232100052E92 /* AAUserMeetingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CF222C1A44232100052E92 /* AAUserMeetingsManager.m */; };
 		84D56E731A276FA20059A75A /* AAMeetingInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D56E721A276FA20059A75A /* AAMeetingInfoTableViewCell.m */; };
-		84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D56E781A287A6E0059A75A /* Meeting+AAAdditions.m */; };
 		84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */; };
 		84E3C80C1A3151B800819EA4 /* AAMeetingDurationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3C80B1A3151B800819EA4 /* AAMeetingDurationPickerView.m */; };
 		84E3C8121A31658100819EA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E3C8101A31658100819EA4 /* Localizable.strings */; };
@@ -262,6 +260,8 @@
 		8470E7091A5F634E00F9105B /* Phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Phone.m; path = Classes/Phone.m; sourceTree = SOURCE_ROOT; };
 		8470E70A1A5F634E00F9105B /* SobrietyMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SobrietyMilestone.h; path = Classes/SobrietyMilestone.h; sourceTree = SOURCE_ROOT; };
 		8470E70B1A5F634E00F9105B /* SobrietyMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SobrietyMilestone.m; path = Classes/SobrietyMilestone.m; sourceTree = SOURCE_ROOT; };
+		8470E71A1A5FD85200F9105B /* NSDateFormatter+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+AAAdditions.h"; sourceTree = "<group>"; };
+		8470E71B1A5FD85200F9105B /* NSDateFormatter+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+AAAdditions.m"; sourceTree = "<group>"; };
 		8480B3F51A4862240061A6C5 /* AAEditMeetingFormatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingFormatCell.h; path = Classes/AAEditMeetingFormatCell.h; sourceTree = SOURCE_ROOT; };
 		8480B3F61A4862240061A6C5 /* AAEditMeetingFormatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingFormatCell.m; path = Classes/AAEditMeetingFormatCell.m; sourceTree = SOURCE_ROOT; };
 		8481D3C71A5AC6BC00D76BF4 /* _Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Contact.h; path = Classes/_Contact.h; sourceTree = SOURCE_ROOT; };
@@ -290,10 +290,6 @@
 		8481D3E01A5AC6BC00D76BF4 /* _SobrietyMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _SobrietyMilestone.m; path = Classes/_SobrietyMilestone.m; sourceTree = SOURCE_ROOT; };
 		8483384C1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingFormatCircleDecorationView.h; path = Classes/AAMeetingFormatCircleDecorationView.h; sourceTree = SOURCE_ROOT; };
 		8483384D1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingFormatCircleDecorationView.m; path = Classes/AAMeetingFormatCircleDecorationView.m; sourceTree = SOURCE_ROOT; };
-		848D76BF1A45A60E001B3BBF /* MeetingDescriptor+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MeetingDescriptor+Create.h"; path = "Classes/MeetingDescriptor+Create.h"; sourceTree = SOURCE_ROOT; };
-		848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MeetingDescriptor+Create.m"; path = "Classes/MeetingDescriptor+Create.m"; sourceTree = SOURCE_ROOT; };
-		848D76C21A45AEDF001B3BBF /* MeetingDescriptor+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MeetingDescriptor+Localization.h"; path = "Classes/MeetingDescriptor+Localization.h"; sourceTree = SOURCE_ROOT; };
-		848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MeetingDescriptor+Localization.m"; path = "Classes/MeetingDescriptor+Localization.m"; sourceTree = SOURCE_ROOT; };
 		84980BC61A4DC60C00A498D6 /* AADecoratedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADecoratedLabel.h; path = Classes/AADecoratedLabel.h; sourceTree = SOURCE_ROOT; };
 		84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADecoratedLabel.m; path = Classes/AADecoratedLabel.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF51A2CA2620010E3DC /* AAEditMeetingPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingPickerCell.h; path = Classes/AAEditMeetingPickerCell.h; sourceTree = SOURCE_ROOT; };
@@ -320,8 +316,6 @@
 		84CF222C1A44232100052E92 /* AAUserMeetingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAUserMeetingsManager.m; path = Classes/AAUserMeetingsManager.m; sourceTree = SOURCE_ROOT; };
 		84D56E711A276FA20059A75A /* AAMeetingInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingInfoTableViewCell.h; path = Classes/AAMeetingInfoTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		84D56E721A276FA20059A75A /* AAMeetingInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingInfoTableViewCell.m; path = Classes/AAMeetingInfoTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		84D56E771A287A6E0059A75A /* Meeting+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Meeting+AAAdditions.h"; path = "Classes/Meeting+AAAdditions.h"; sourceTree = SOURCE_ROOT; };
-		84D56E781A287A6E0059A75A /* Meeting+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Meeting+AAAdditions.m"; path = "Classes/Meeting+AAAdditions.m"; sourceTree = SOURCE_ROOT; };
 		84E3C8071A309FE100819EA4 /* UILabel+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+AAAdditions.h"; sourceTree = "<group>"; };
 		84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+AAAdditions.m"; sourceTree = "<group>"; };
 		84E3C80A1A3151B800819EA4 /* AAMeetingDurationPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAMeetingDurationPickerView.h; path = Classes/AAMeetingDurationPickerView.h; sourceTree = SOURCE_ROOT; };
@@ -674,12 +668,6 @@
 				8470E7051A5F634E00F9105B /* MeetingFormat.m */,
 				8470E7061A5F634E00F9105B /* MeetingProgram.h */,
 				8470E7071A5F634E00F9105B /* MeetingProgram.m */,
-				84D56E771A287A6E0059A75A /* Meeting+AAAdditions.h */,
-				84D56E781A287A6E0059A75A /* Meeting+AAAdditions.m */,
-				848D76BF1A45A60E001B3BBF /* MeetingDescriptor+Create.h */,
-				848D76C01A45A60E001B3BBF /* MeetingDescriptor+Create.m */,
-				848D76C21A45AEDF001B3BBF /* MeetingDescriptor+Localization.h */,
-				848D76C31A45AEDF001B3BBF /* MeetingDescriptor+Localization.m */,
 			);
 			name = Meetings;
 			sourceTree = "<group>";
@@ -795,6 +783,8 @@
 				84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */,
 				84E3C8071A309FE100819EA4 /* UILabel+AAAdditions.h */,
 				84E3C8081A309FE100819EA4 /* UILabel+AAAdditions.m */,
+				8470E71A1A5FD85200F9105B /* NSDateFormatter+AAAdditions.h */,
+				8470E71B1A5FD85200F9105B /* NSDateFormatter+AAAdditions.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1191,9 +1181,7 @@
 				E2A7E7151956B14A00510959 /* AAInterceptTouchesView.m in Sources */,
 				84E3C8091A309FE100819EA4 /* UILabel+AAAdditions.m in Sources */,
 				8463C3601A3DDA1600DEDB13 /* AAGroupedTableViewController.m in Sources */,
-				84D56E791A287A6E0059A75A /* Meeting+AAAdditions.m in Sources */,
 				8481D3E81A5AC6BC00D76BF4 /* _Meeting.m in Sources */,
-				848D76C41A45AEDF001B3BBF /* MeetingDescriptor+Localization.m in Sources */,
 				8434EC661A31C3C600D85F32 /* AAMeetingSectionDividerView.m in Sources */,
 				841DB0CF1A29D59200DDB71D /* AAEditMeetingAddAlertCell.m in Sources */,
 				E2DADF871932E2F400E934E5 /* AASettingsViewController.m in Sources */,
@@ -1257,11 +1245,11 @@
 				842AE7C21A55449000C6DE2B /* AAEditMeetingProgramTypeCell.m in Sources */,
 				84980BC81A4DC60C00A498D6 /* AADecoratedLabel.m in Sources */,
 				E2980148193350D2007A0F49 /* Contact+AAAdditions.m in Sources */,
-				848D76C11A45A60E001B3BBF /* MeetingDescriptor+Create.m in Sources */,
 				E2489FC31937756200861066 /* NBNumberFormat.m in Sources */,
 				E2489FC41937756200861066 /* NBPhoneMetaData.m in Sources */,
 				8481D3EA1A5AC6BC00D76BF4 /* _MeetingFormat.m in Sources */,
 				84EBC3411915CD250063F4EA /* main.m in Sources */,
+				8470E71C1A5FD85200F9105B /* NSDateFormatter+AAAdditions.m in Sources */,
 				8481D3E71A5AC6BC00D76BF4 /* _Location.m in Sources */,
 				84B9FF421A18A33D008B197D /* AAMeetingsViewController.m in Sources */,
 				8470E7111A5F634E00F9105B /* Group.m in Sources */,

@@ -1,5 +1,12 @@
 #import "_MeetingDescriptor.h"
 
 @interface MeetingDescriptor : _MeetingDescriptor {}
-// Custom logic goes here.
+
++ (MeetingDescriptor*)meetingDescriptorWithEntityName:(NSString*)name
+                                                title:(NSString*)title
+                                        localizeTitle:(BOOL)localize
+                               inManagedObjectContext:(NSManagedObjectContext*)context;
+
+- (NSString*)localizedTitle;
+
 @end
