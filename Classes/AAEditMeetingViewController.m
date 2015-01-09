@@ -24,8 +24,6 @@
 #import "AAMeetingFellowshipIcon.h"
 #import "AAMeetingSectionDividerView.h"
 
-#import "MeetingDescriptor+Localization.h"
-#import "Meeting+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
 #import "UIFont+AAAdditions.h"

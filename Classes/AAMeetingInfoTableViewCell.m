@@ -8,13 +8,18 @@
 
 #import "AAUserSettingsManager.h"
 
+#import "TTTAddressFormatter.h"
+
+#import "Meeting.h"
+#import "Location.h"
+
 #import "AAMeetingInfoTableViewCell.h"
-#import "Meeting+AAAdditions.h"
 #import "AAMeetingFellowshipIcon.h"
 #import "AAMeetingFormatLabel.h"
 
 #import "UIFont+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
+#import "NSDateFormatter+AAAdditions.h"
 
 @interface AAMeetingInfoTableViewCell()
 
@@ -64,17 +69,19 @@
 - (void)updateViews
 {
     self.meetingTitleLabel.text = self.meeting.title;
-    self.meetingLocationLabel.text = self.meeting.location;
+    self.meetingLocationLabel.text = [self stringFromLocation:self.meeting.location];
     self.meetingFormatLabel.format = [self.meeting.formats anyObject];
     self.meetingDetailTextView.text = [self detailText];
     self.fellowshipIcon.program = self.meeting.program;
-    self.fellowshipIcon.isOpen = self.meeting.openMeeting;
+    self.fellowshipIcon.isOpen = self.meeting.isOpenValue;
 }
 
 - (NSString*)detailText
 {
-    NSString* detailText = [self.meeting dayOfWeekString];
-    detailText = [detailText stringByAppendingFormat:@"\n%@ - %@", [self.meeting startTimeString], [self.meeting endTimeString]];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    
+    NSString* detailText = [formatter stepsDayOfWeekStringFromDate:self.meeting.startDate];
+    detailText = [detailText stringByAppendingFormat:@"\n%@ - %@", [formatter stepsTimeStringFromDate:self.meeting.startDate], [formatter stepsTimeStringFromDate:self.meeting.endDate]];
     
     NSString* typesString = [self meetingTypesString];
     if (typesString) {
@@ -87,6 +94,16 @@
 - (NSString*)meetingTypesString
 {
     return nil;
+}
+
+- (NSString*)stringFromLocation:(Location*)location
+{
+    TTTAddressFormatter* formatter = [[TTTAddressFormatter alloc] init];
+    return [formatter stringFromAddressWithStreet:location.street
+                                         locality:location.locality
+                                           region:location.region
+                                       postalCode:location.postalCode
+                                          country:location.country];
 }
 
 #pragma mark - Layout

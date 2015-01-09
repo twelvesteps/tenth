@@ -7,6 +7,7 @@
 //
 
 #import "AAUserDataManager.h"
+#import "Meeting.h"
 #import "MeetingFormat.h"
 #import "MeetingProgram.h"
 

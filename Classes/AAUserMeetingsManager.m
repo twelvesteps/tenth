@@ -7,16 +7,11 @@
 //
 
 #import "AAUserMeetingsManager.h"
-#import "MeetingDescriptor+Create.h"
 
 #import "UIColor+AAAdditions.h"
 #import "NSDate+AAAdditions.h"
 
 #define DEFAULT_MEETING_PROGAM_KEY              @"DefaultMeetingProgram"
-
-#define AA_MEETING_ITEM_NAME                    @"Meeting"
-#define AA_MEETING_FORMAT_ITEM_NAME             @"MeetingFormat"
-#define AA_MEETING_PROGRAM_ITEM_NAME            @"MeetingProgram"
 
 #define AA_MEETING_PROGRAM_AA_TITLE             @"Alcoholics Anonymous"
 #define AA_MEETING_PROGRAM_NA_TITLE             @"Narcotics Anonymous"
@@ -62,8 +57,8 @@
 - (void)loadDefaultMeetingFormats
 {
     for (NSString* title in [AAUserMeetingsManager defaultMeetingFormatTitles]) {
-        MeetingFormat* format = [self meetingFormatWithTitle:title];
-        format.localizeTitle = @(YES);
+        MeetingFormat* format = [self meetingFormatWithTitle:title ];
+
         format.colorKey = [[AAUserMeetingsManager defaultMeetingFormatColorKeys] objectForKey:title];
     }
 }
@@ -74,9 +69,8 @@
     NSArray* programShortTitles = [AAUserMeetingsManager defaultMeetingProgramShortTitles];
     NSArray* programSymbolTypes = [AAUserMeetingsManager defaultMeetingProgramSymbolTypes];
     for (NSInteger i = 0; i < programTitles.count; i++) {
-        MeetingProgram* program = [self meetingProgramWithTitle:programTitles[i]];
+        MeetingProgram* program = [self meetingProgramWithTitle:programTitles[i] localizeTitle:YES];
         program.shortTitle = programShortTitles[i];
-        program.localizeTitle = @(YES);
         program.symbolType = programSymbolTypes[i];
     }
 }
@@ -132,7 +126,7 @@
 
 - (Meeting*)createMeeting
 {
-    Meeting* meeting = [NSEntityDescription insertNewObjectForEntityForName:AA_MEETING_ITEM_NAME
+    Meeting* meeting = [NSEntityDescription insertNewObjectForEntityForName:[Meeting entityName]
                                                      inManagedObjectContext:self.managedObjectContext];
     meeting.startDate = [self defaultMeetingStartDate];
     meeting.duration = [NSDate oneHour];
@@ -153,16 +147,25 @@
 
 - (MeetingFormat*)meetingFormatWithTitle:(NSString *)title
 {
-    return (MeetingFormat*)[MeetingFormat meetingDescriptorWithEntityName:AA_MEETING_FORMAT_ITEM_NAME
+    return [self meetingFormatWithTitle:title localizeTitle:NO];
+}
+
+- (MeetingFormat*)meetingFormatWithTitle:(NSString *)title localizeTitle:(BOOL)localize
+{
+    return (MeetingFormat*)[MeetingFormat meetingDescriptorWithEntityName:[MeetingFormat entityName]
                                                                     title:title
+                                                            localizeTitle:localize
                                                    inManagedObjectContext:self.managedObjectContext];
 }
 
 - (MeetingProgram*)meetingProgramWithTitle:(NSString *)title
 {
-    return (MeetingProgram*)[MeetingProgram meetingDescriptorWithEntityName:AA_MEETING_PROGRAM_ITEM_NAME
-                                                                      title:title
-                                                     inManagedObjectContext:self.managedObjectContext];
+    return [self meetingProgramWithTitle:title localizeTitle:NO];
+}
+
+- (MeetingProgram*)meetingProgramWithTitle:(NSString *)title localizeTitle:(BOOL)localize
+{
+    return (MeetingProgram*)[MeetingProgram meetingDescriptorWithEntityName:[MeetingProgram entityName] title:title localizeTitle:localize inManagedObjectContext:self.managedObjectContext];
 }
 
 
@@ -208,7 +211,7 @@
 - (NSArray*)fetchMeetings
 {
     NSSortDescriptor* sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES];
-    NSArray* meetings = [self fetchItemsForEntityName:AA_MEETING_ITEM_NAME
+    NSArray* meetings = [self fetchItemsForEntityName:[Meeting entityName]
                                   withSortDescriptors:@[sortByDate]
                                         withPredicate:nil];
     return meetings;
@@ -216,12 +219,12 @@
 
 - (NSArray*)fetchMeetingFormats
 {
-    return [self fetchMeetingDescriptorsWithEntityName:AA_MEETING_FORMAT_ITEM_NAME];
+    return [self fetchMeetingDescriptorsWithEntityName:[MeetingFormat entityName]];
 }
 
 - (NSArray*)fetchMeetingPrograms
 {
-    return [self fetchMeetingDescriptorsWithEntityName:AA_MEETING_PROGRAM_ITEM_NAME];
+    return [self fetchMeetingDescriptorsWithEntityName:[MeetingProgram entityName]];
 }
 
 - (NSArray*)fetchMeetingDescriptorsWithEntityName:(NSString*)name
@@ -236,12 +239,12 @@
 
 - (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString *)identifier
 {
-    return (MeetingFormat*)[self fetchMeetingDescriptorWithName:AA_MEETING_FORMAT_ITEM_NAME identifier:identifier];
+    return (MeetingFormat*)[self fetchMeetingDescriptorWithName:[MeetingFormat entityName] identifier:identifier];
 }
 
 - (MeetingProgram*)fetchMeetingProgramWithIdentifier:(NSString *)identifier
 {
-    return (MeetingProgram*)[self fetchMeetingDescriptorWithName:AA_MEETING_PROGRAM_ITEM_NAME identifier:identifier];
+    return (MeetingProgram*)[self fetchMeetingDescriptorWithName:[MeetingProgram entityName] identifier:identifier];
 }
 
 - (MeetingDescriptor*)fetchMeetingDescriptorWithName:(NSString*)name identifier:(NSString*)identifier

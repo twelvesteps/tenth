@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "AASeparatorTableViewCell.h"
 
+
 #define AA_EDIT_MEETING_PROPERTY_FORMAT_IDENTIFIER      @"Format"
 #define AA_EDIT_MEETING_PROPERTY_PROGRAM_IDENTIFIER     @"Program"
 #define AA_EDIT_MEETING_PROPERTY_LOCATION_IDENTIFIER    @"Location"
+
+@class Meeting;
 
 /**
  *  The AAEditMeetingPropertyDelegate interacts with the 

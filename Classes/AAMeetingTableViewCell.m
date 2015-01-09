@@ -11,6 +11,10 @@
 #import "AAMeetingTableViewCell.h"
 #import "AAMeetingFellowshipIcon.h"
 
+#import "Location.h"
+
+#import "NSDateFormatter+AAAdditions.h"
+
 @interface AAMeetingTableViewCell()
 
 @property (nonatomic, weak) AAMeetingLabel* meetingLabel;
@@ -30,12 +34,14 @@
 
 - (void)updateViews
 {
-    self.startDateLabel.text = [self.meeting startTimeString];
-    self.endDateLabel.text = [self.meeting endTimeString];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    
+    self.startDateLabel.text = [formatter stepsTimeStringFromDate:self.meeting.startDate];
+    self.endDateLabel.text = [formatter stepsTimeStringFromDate:self.meeting.endDate];
     self.titleLabel.text = self.meeting.title;
-    self.addressLabel.text = self.meeting.location;
+    self.addressLabel.text = self.meeting.location.title;
     self.fellowshipIcon.program = self.meeting.program;
-    self.fellowshipIcon.isOpen = self.meeting.openMeeting;
+    self.fellowshipIcon.isOpen = self.meeting.isOpenValue;
     
     [self setNeedsLayout];
     [self setNeedsDisplay];

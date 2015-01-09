@@ -8,7 +8,34 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Provides convenience methods on an NSDateFormatter object for predefined
+ *  styles used by the Steps iOS application.
+ */
 @interface NSDateFormatter (AAAdditions)
+
+/**
+ *  Returns a formatted string displaying the weekday, month, day, and year of
+ *  the given date in long format according to the device's current locale
+ *  settings.
+ *
+ *  @param date The date to be formatted into a string
+ *
+ *  @return A formatted, localized string representing the given date
+ */
+- (NSString*)stepsLongDateStringFromDate:(NSDate*)date;
+
+/**
+ *  Returns a formatted string displaying the month and day of the given date in
+ *  a short format according to the device's current locale settings.
+ *  If the year of the date differs from the current year then the year will
+ *  also be included in the string.
+ *
+ *  @param date The date to be formatted into a string
+ *
+ *  @return A formatted, localized string representing the given date
+ */
+- (NSString*)stepsShortDateStringFromDate:(NSDate*)date;
 
 /**
  *  Returns a string using the hour and minutes value of the given date. 
@@ -29,7 +56,7 @@
  *
  *  @return A localized string of the given date's weekday
  */
-- (NSString*)dayOfWeekStringFromDate:(NSDate*)date;
+- (NSString*)stepsDayOfWeekStringFromDate:(NSDate*)date;
 
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Meeting.h"
 #import "AASeparatorTableViewCell.h"
+
+@class Meeting;
 
 @interface AAMeetingInfoTableViewCell : AASeparatorTableViewCell
 

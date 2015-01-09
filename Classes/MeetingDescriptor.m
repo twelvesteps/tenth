@@ -1,4 +1,9 @@
+
+
 #import "MeetingDescriptor.h"
+#import "MeetingProgram.h"
+#import "MeetingFormat.h"
+#import "Location.h"
 
 @interface MeetingDescriptor ()
 
@@ -23,6 +28,47 @@
                                         localizeTitle:(BOOL)localize
                                inManagedObjectContext:(NSManagedObjectContext*)context
 {
+    if (![self validateMeetingDescriptorEntityName:name]) {
+        DLog(@"<DEBUG> Unrecognized meeting descriptor entity name: %@", name);
+        return nil;
+    }
+    
+    // fetch any existing descriptors
+    NSArray* results = [self fetchMeetingDescriptorsWithEntityName:name
+                                                             title:title
+                                                         inContext:context];
+    
+    if (results.count == 1) {
+        DLog(@"<DEBUG> Meeting descriptor found");
+        return [results firstObject];
+    } else if (results.count == 0) {
+        DLog(@"<DEBUG> No meeting descriptor with title: %@, creating...", title);
+        MeetingDescriptor* descriptor = [self createMeetingDescriptorWithEntityname:name
+                                                                              title:title
+                                                                      localizeTitle:localize
+                                                             inManagedObjectContext:context];
+        return descriptor;
+    } else {
+        DLog(@"<DEBUG> Multiple formats exist with the title: %@", title);
+        return nil;
+    }
+}
+
++ (BOOL)validateMeetingDescriptorEntityName:(NSString*)name
+{
+    if ([name isEqualToString:[MeetingProgram entityName]] ||
+        [name isEqualToString:[MeetingFormat entityName]] ||
+        [name isEqualToString:[Location entityName]]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
++ (NSArray*)fetchMeetingDescriptorsWithEntityName:(NSString*)name
+                                            title:(NSString*)title
+                                        inContext:(NSManagedObjectContext*)context
+{
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:name];
     NSPredicate* titlePredicate = [NSPredicate predicateWithFormat:@"title == %@", title];
     request.predicate = titlePredicate;
@@ -30,19 +76,19 @@
     NSError* err;
     NSArray* results = [context executeFetchRequest:request error:&err];
     
-    if (results.count == 1) {
-        DLog(@"<DEBUG> Meeting descriptor found");
-        return [results firstObject];
-    } else if (results.count == 0) {
-        MeetingDescriptor* descriptor = (MeetingDescriptor*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
-        descriptor.title = title;
-        descriptor.localizeTitleValue = localize; // default value
-        
-        return descriptor;
-    } else {
-        DLog(@"<DEBUG> Multiple formats with the given title already exist");
-        return nil;
-    }
+    return results;
+}
+
++ (MeetingDescriptor*)createMeetingDescriptorWithEntityname:(NSString*)name
+                                                      title:(NSString*)title
+                                              localizeTitle:(BOOL)localize
+                                     inManagedObjectContext:(NSManagedObjectContext*)context
+{
+    MeetingDescriptor* descriptor = (MeetingDescriptor*)[NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:context];
+    descriptor.title = title;
+    descriptor.localizeTitleValue = localize; // default value
+    
+    return descriptor;
 }
 
 

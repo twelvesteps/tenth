@@ -16,11 +16,24 @@
  *  @param context  The managed object context to insert the descriptor into.
  *
  *  @return A MeetingDescriptor child entity matching the entity name and title
+ *          or nil if the entity name does not describe a valid child entity
  */
 + (MeetingDescriptor*)meetingDescriptorWithEntityName:(NSString*)name
                                                 title:(NSString*)title
                                         localizeTitle:(BOOL)localize
                                inManagedObjectContext:(NSManagedObjectContext*)context;
+
+/**
+ *  Determines whether the given name describes a valid child entity. Override
+ *  this method in order to extend the number of child entities that can be 
+ *  created using 
+ *  meetingDescriptorWithEntityName:title:localizeTitle:inManagedObjectContext:
+ *
+ *  @param name The entity name to be validated
+ *
+ *  @return YES if the name describes a valid child entity, NO otherwise
+ */
++ (BOOL)validateMeetingDescriptorEntityName:(NSString*)name;
 
 /**
  *  Returns the localized title of the descriptor if localzieTitle is YES or
