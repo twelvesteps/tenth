@@ -138,11 +138,7 @@
 
 - (NSDate*)defaultMeetingStartDate
 {
-    NSDate* referenceDate = [NSDate stepsReferenceDate];
-    NSDate* currentTime = [[NSDate date] nearestHalfHour];
-    NSDate* startTime = [NSDate dateByCombiningDayOfDate:referenceDate withTimeOfDate:currentTime];
-    
-    return [NSDate dateByCombiningWeekday:[NSDate date].weekday andStartTime:startTime];
+    return [[NSDate date] nearestHalfHour];
 }
 
 - (MeetingFormat*)meetingFormatWithTitle:(NSString *)title

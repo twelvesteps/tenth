@@ -10,6 +10,8 @@
 #import "AAUserMeetingsManager.h"
 #import "AAUserSettingsManager.h"
 
+#import "Location.h"
+
 #import "AAEditMeetingViewController.h"
 #import "AAEditMeetingPropertyViewController.h"
 #import "AAEditMeetingPropertyTableViewDelegate.h"
@@ -25,6 +27,7 @@
 #import "AAMeetingSectionDividerView.h"
 
 #import "NSDate+AAAdditions.h"
+#import "NSDateFormatter+AAAdditions.h"
 #import "UIColor+AAAdditions.h"
 #import "UIFont+AAAdditions.h"
 
@@ -117,7 +120,7 @@
 - (IBAction)rightToolbarButtonTapped:(UIBarButtonItem *)sender
 {
     self.meeting.title = self.titleTextField.text;
-    self.meeting.location = self.locationTextField.text;
+    self.meeting.location.title = self.locationTextField.text;
     
     [self.delegate viewControllerDidFinish:self];
 }
@@ -131,14 +134,14 @@
 
 - (void)updateWeekdayWithCell:(AAEditMeetingWeekdayCell*)cell
 {
-    [self.meeting setWeekday:cell.selectedWeekday];
+    self.meeting.startDate = [NSDate dateByConvertingDate:self.meeting.startDate toWeekday:cell.selectedWeekday];
     cell.descriptionLabel.text = [cell currentWeekdaySymbol];
 }
 
 - (void)updateStartTimeWithCell:(AAEditMeetingStartTimeCell*)cell
 {
-    [self.meeting setStartTime:cell.datePicker.date];
-    cell.descriptionLabel.text = [self.meeting startTimeString];
+    self.meeting.startDate = [NSDate dateByCombiningDayOfDate:self.meeting.startDate withTimeOfDate:cell.datePicker.date];
+    cell.descriptionLabel.text = [[[NSDateFormatter alloc] init] stepsTimeStringFromDate:self.meeting.startDate];
 }
 
 - (void)updateDurationWithCell:(AAEditMeetingDurationCell*)cell
@@ -325,7 +328,7 @@
     }
     
     cell.titleLabel.text = NSLocalizedString(@"Weekday", @"Day of the week the meeting occurs");
-    cell.descriptionLabel.text = [NSCalendar autoupdatingCurrentCalendar].weekdaySymbols[self.meeting.startDate.weekday - 1];
+    cell.descriptionLabel.text = [cell weekdaySymbolForWeekday:(AADateWeekday)self.meeting.startDate.weekday];
     cell.selectedWeekday = self.meeting.startDate.weekday;
     
     return cell;
@@ -340,7 +343,7 @@
     }
     
     cell.titleLabel.text = NSLocalizedString(@"Starts", @"The meeting starts at the following time");
-    cell.descriptionLabel.text = [self.meeting startTimeString];
+    cell.descriptionLabel.text = [[[NSDateFormatter alloc] init] stepsTimeStringFromDate:self.meeting.startDate];
     cell.datePicker.date = self.meeting.startDate;
     
     return cell;
@@ -384,11 +387,11 @@
 {
     AAEditMeetingOpenCell* cell = (AAEditMeetingOpenCell*)[self.tableView dequeueReusableCellWithIdentifier:OPEN_MEETING_CELL_REUSE_ID];
     
-    [cell.openMeetingSwitch setOn:self.meeting.openMeeting animated:YES];
+    [cell.openMeetingSwitch setOn:self.meeting.isOpenValue animated:YES];
     [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
     
     cell.fellowshipIcon.program = self.meeting.program;
-    cell.fellowshipIcon.isOpen = self.meeting.openMeeting;
+    cell.fellowshipIcon.isOpen = self.meeting.isOpenValue;
     self.fellowshipIcon = cell.fellowshipIcon;
     
     return cell;
@@ -477,7 +480,7 @@
             self.rightToolbarItem.enabled = YES;
         }
     } else {
-        self.meeting.location = result;
+        self.meeting.location.title = result;
     }
     
     return YES;

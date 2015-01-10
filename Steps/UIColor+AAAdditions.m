@@ -7,7 +7,6 @@
 //
 
 #import "UIColor+AAAdditions.h"
-#import "Meeting+AAAdditions.h"
 
 @implementation UIColor (AAAdditions)
 
