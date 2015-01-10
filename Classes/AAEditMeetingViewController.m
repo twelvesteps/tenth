@@ -82,6 +82,7 @@
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
         self.shouldActivateTitleField = YES;
         self.meeting = [[AAUserMeetingsManager sharedManager] createMeeting];
+        self.meeting.location = [[AAUserMeetingsManager sharedManager] locationWithTitle:@""];
     }
 }
 
