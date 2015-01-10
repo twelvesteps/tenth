@@ -141,6 +141,14 @@
     return [[NSDate date] nearestHalfHour];
 }
 
+- (Location*)locationWithTitle:(NSString *)title
+{
+    return (Location*)[Location meetingDescriptorWithEntityName:[Location entityName]
+                                                          title:title
+                                                  localizeTitle:NO
+                                         inManagedObjectContext:self.managedObjectContext];
+}
+
 - (MeetingFormat*)meetingFormatWithTitle:(NSString *)title
 {
     return [self meetingFormatWithTitle:title localizeTitle:NO];

@@ -8,6 +8,7 @@
 
 #import "AAUserDataManager.h"
 #import "Meeting.h"
+#import "Location.h"
 #import "MeetingFormat.h"
 #import "MeetingProgram.h"
 
@@ -29,7 +30,7 @@
 + (instancetype)sharedManager;
 
 /**-----------------------------------------------------------------------------
- *  @name Create Meetings, Formats, and Programs
+ *  @name Create Meetings and Meeting Descriptors
  *------------------------------------------------------------------------------
  */
 /**
@@ -41,6 +42,15 @@
  *  @return A new meeting object with default values set for its properties.
  */
 - (Meeting*)createMeeting;
+
+/**
+ *  <#Description#>
+ *
+ *  @param title <#title description#>
+ *
+ *  @return <#return value description#>
+ */
+- (Location*)locationWithTitle:(NSString*)title;
 
 /**
  *  Fetches the meeting format with the given title or creates it if it doesn't
