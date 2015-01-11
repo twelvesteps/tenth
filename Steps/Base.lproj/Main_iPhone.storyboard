@@ -659,6 +659,24 @@ Details</string>
                                             <outlet property="textField" destination="ihA-ke-k3D" id="BUk-Bm-Ol0"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="2Zy-BZ-BO1">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Zy-BZ-BO1" id="gZg-G3-0Bg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmt-RJ-Qdi">
+                                                    <rect key="frame" x="14" y="11" width="120" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Location" id="IQx-Le-s9h"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MeetingOpenCell" id="KWc-Ms-k43" customClass="AAEditMeetingOpenCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -852,6 +870,28 @@ Details</string>
                                             <outlet property="formatLabel" destination="olU-9c-JSf" id="9n6-xv-mwR"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingDescriptorCell" id="NOy-is-DaR" customClass="AAMeetingDescriptorTableViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOy-is-DaR" id="LjL-cd-r9S">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgI-F2-SWm" customClass="AADecoratedLabel">
+                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="FgI-F2-SWm" secondAttribute="bottom" id="8HE-kq-D1n"/>
+                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="leading" secondItem="LjL-cd-r9S" secondAttribute="leading" constant="14" id="8PP-ek-x0n"/>
+                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="trailing" secondItem="LjL-cd-r9S" secondAttribute="trailingMargin" id="GCW-nf-wwM"/>
+                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="top" secondItem="LjL-cd-r9S" secondAttribute="top" id="ZSP-XV-HRw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptorLabel" destination="FgI-F2-SWm" id="smX-ZJ-Rxt"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -1043,7 +1083,7 @@ Details</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="MTG-GX-Tev"/>
-        <segue reference="7su-R1-jmc"/>
+        <segue reference="IQx-Le-s9h"/>
         <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>
