@@ -221,6 +221,17 @@
     return meetings;
 }
 
+- (NSArray*)fetchLocations
+{
+    NSSortDescriptor* sortByModificationDate = [NSSortDescriptor sortDescriptorWithKey:EntityAttributes.modificationDate ascending:NO];
+    
+    NSArray* locations = [self fetchItemsForEntityName:[Location entityName]
+                                   withSortDescriptors:@[sortByModificationDate]
+                                         withPredicate:nil];
+    
+    return locations;
+}
+
 - (NSArray*)fetchMeetingFormats
 {
     return [self fetchMeetingDescriptorsWithEntityName:[MeetingFormat entityName]];

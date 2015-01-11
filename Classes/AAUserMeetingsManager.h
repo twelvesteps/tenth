@@ -23,9 +23,9 @@
  *------------------------------------------------------------------------------
  */
 /**
- *  Returns the singleton instance of AAUserMeetingsManager.
+ *  Returns the singleton instance of AAUserMeetingsManager
  *
- *  @return The shared instance of AAUserMeetingsManager.
+ *  @return The shared instance of AAUserMeetingsManager
  */
 + (instancetype)sharedManager;
 
@@ -39,16 +39,19 @@
  *  Duration: One Hour
  *  Program: The User's default meeting program
  *
- *  @return A new meeting object with default values set for its properties.
+ *  @return A new meeting object with default values set for its properties
  */
 - (Meeting*)createMeeting;
 
 /**
- *  <#Description#>
+ *  Fetches the location with the given title or creates it if it doesn't exist
+ *  already
  *
- *  @param title <#title description#>
+ *  @param title The title of the meeting format to fetch or create. If 'nil'
+ *  the method returns 'nil'
  *
- *  @return <#return value description#>
+ *  @return A Location object with the given title or 'nil' if no title was 
+ *  provided
  */
 - (Location*)locationWithTitle:(NSString*)title;
 
@@ -60,19 +63,19 @@
  *  the method returns 'nil'.
  *
  *  @return A MeetingFormat object with the given title or 'nil' if no title
- *  was provided.
+ *  was provided
  */
 - (MeetingFormat*)meetingFormatWithTitle:(NSString*)title;
 
 /**
  *  Fetches the meeting program with the given title or creates it if it doesn't
- *  exist already.
+ *  exist already
  *
  *  @param title The title of the meeting program to fetch or create. If 'nil'
- *  the method returns 'nil'.
+ *  the method returns 'nil'
  *
  *  @return A meeting program object with the given title or 'nil' if no title
- *  was provided.
+ *  was provided
  */
 - (MeetingProgram*)meetingProgramWithTitle:(NSString*)title;
 
@@ -86,6 +89,14 @@
  *  @return An array of all the user's meetings sorted by start date
  */
 - (NSArray*)fetchMeetings;
+
+/**
+ *  Fetches all the available meeting locations
+ *
+ *  @return An array of the available meeting formats sorted by most recently
+ *  modified.
+ */
+- (NSArray*)fetchLocations;
 
 /**
  *  Fetches all the available meeting formats
@@ -102,12 +113,12 @@
 - (NSArray*)fetchMeetingPrograms;
 
 /**
- *  Fetches the meeting format with the given identifier.
+ *  Fetches the meeting format with the given identifier
  *
  *  @param identifier A lower case UUID of the format to be fetched
  *
  *  @return The format with the given identifier or 'nil' if no matching format 
- *  could be found.
+ *  could be found
  */
 - (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString*)identifier;
 
@@ -117,7 +128,7 @@
  *  @param identifier A lower case UUID of the program to be fetched
  *
  *  @return The program with the given identifier or 'nil' if no matching 
- *  program could be found.
+ *  program could be found
  */
 - (MeetingProgram*)fetchMeetingProgramWithIdentifier:(NSString*)identifier;
 
@@ -153,9 +164,9 @@
 /**
  *  Returns the default meeting program for newly created meetings as defined
  *  by the user. If no default meeting program has been set by the user then
- *  Alcoholics Anonymous is the fallback.
+ *  Alcoholics Anonymous is the fallback
  *
- *  @return The default meeting program defined by the user.
+ *  @return The default meeting program defined by the user
  */
 - (MeetingProgram*)defaultMeetingProgram;
 

@@ -26,9 +26,7 @@
 - (NSArray*)locations
 {
     if (!_locations) {
-#warning Uncomment this after completing fetchLocations
-//        _locations = [[AAUserMeetingsManager sharedManager] fetchLocations];
-        _locations = [[NSArray alloc] init];
+        _locations = [[AAUserMeetingsManager sharedManager] fetchLocations];
     }
     
     return _locations;
