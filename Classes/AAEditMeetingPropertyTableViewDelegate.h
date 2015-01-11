@@ -7,12 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AASeparatorTableViewCell.h"
 
-
+/**
+ *  The identifiers that AAEditMeetingPropertyTableViewDelegate can instantiate.
+ */
 #define AA_EDIT_MEETING_PROPERTY_FORMAT_IDENTIFIER      @"Format"
 #define AA_EDIT_MEETING_PROPERTY_PROGRAM_IDENTIFIER     @"Program"
 #define AA_EDIT_MEETING_PROPERTY_LOCATION_IDENTIFIER    @"Location"
+
+/**
+ *  The default reuse identifier for meeting descriptor cells
+ */
+#define AA_MEETING_DESCRIPTOR_CELL_REUSE_ID             @"MeetingDescriptorCell"
 
 @class Meeting;
 
