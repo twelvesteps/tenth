@@ -15,19 +15,30 @@
 
 #pragma mark - Class Methods
 
-+ (instancetype)meetingPropertyDelegateWithIdentifier:(NSString *)identifier meeting:(Meeting *)meeting
+- (instancetype)initWithPropertyName:(NSString*)name
+{
+    self = [super init];
+    if (self) {
+        _propertyName = name;
+    }
+    
+    return self;
+}
+
+
++ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString *)name meeting:(Meeting *)meeting
 {
     AAEditMeetingPropertyTableViewDelegate* delegate = nil;
-    if ([identifier isEqualToString:AA_EDIT_MEETING_PROPERTY_FORMAT_IDENTIFIER]) {
-        delegate = [[AAEditMeetingFormatTableViewDelegate alloc] init];
+    if ([name isEqualToString:AA_EDIT_MEETING_PROPERTY_FORMAT_NAME]) {
+        delegate = [[AAEditMeetingFormatTableViewDelegate alloc] initWithPropertyName:name];
     }
     
-    if ([identifier isEqualToString:AA_EDIT_MEETING_PROPERTY_PROGRAM_IDENTIFIER]) {
-        delegate = [[AAEditMeetingProgramTableViewDelegate alloc] init];
+    if ([name isEqualToString:AA_EDIT_MEETING_PROPERTY_PROGRAM_NAME]) {
+        delegate = [[AAEditMeetingProgramTableViewDelegate alloc] initWithPropertyName:name];
     }
     
-    if ([identifier isEqualToString:AA_EDIT_MEETING_PROPERTY_LOCATION_IDENTIFIER]) {
-        delegate = [[AAEditMeetingLocationTableViewDelegate alloc] init];
+    if ([name isEqualToString:AA_EDIT_MEETING_PROPERTY_LOCATION_NAME]) {
+        delegate = [[AAEditMeetingLocationTableViewDelegate alloc] initWithPropertyName:name];
     }
     
     delegate.meeting = meeting;

@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  The identifiers that AAEditMeetingPropertyTableViewDelegate can instantiate.
+ *  The names that AAEditMeetingPropertyTableViewDelegate can instantiate.
  */
-#define AA_EDIT_MEETING_PROPERTY_FORMAT_IDENTIFIER      @"Format"
-#define AA_EDIT_MEETING_PROPERTY_PROGRAM_IDENTIFIER     @"Program"
-#define AA_EDIT_MEETING_PROPERTY_LOCATION_IDENTIFIER    @"Location"
+#define AA_EDIT_MEETING_PROPERTY_FORMAT_NAME    @"Format"
+#define AA_EDIT_MEETING_PROPERTY_PROGRAM_NAME   @"Program"
+#define AA_EDIT_MEETING_PROPERTY_LOCATION_NAME  @"Location"
 
 /**
  *  The default reuse identifier for meeting descriptor cells
@@ -60,16 +60,21 @@
 @property (nonatomic, strong) Meeting* meeting;
 
 /**
- *  Creates an appropriate concrete object for the given identifier.
+ *  The delegate's current property name
+ */
+@property (nonatomic, strong, readonly) NSString* propertyName;
+
+/**
+ *  Creates an appropriate concrete object for the given name.
  *
- *  @param identifier Describes the type of delegate object to be created. If 
- *  the identifier does not match one of the AA_EDIT_MEETING_PROPERTY macros 
+ *  @param name Describes the type of delegate object to be created. If 
+ *  the name does not match one of the AA_EDIT_MEETING_PROPERTY macros 
  *  defined above no object will be returned.
  *  @param meeting  The meeting to be edited by the delegate.
  *
- *  @return A property delegate subclass matching the given identifier.
+ *  @return A property delegate subclass matching the given name.
  */
-+ (instancetype)meetingPropertyDelegateWithIdentifier:(NSString*)identifier meeting:(Meeting*)meeting;
++ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString*)name meeting:(Meeting*)meeting;
 
 /**-----------------------------------------------------------------------------
  *  @name Table View Delegate and Datasource Methods

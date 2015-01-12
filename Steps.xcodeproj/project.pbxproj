@@ -75,6 +75,7 @@
 		8481D3ED1A5AC6BC00D76BF4 /* _SobrietyMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481D3E01A5AC6BC00D76BF4 /* _SobrietyMilestone.m */; };
 		8483384E1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8483384D1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m */; };
 		84980BC81A4DC60C00A498D6 /* AADecoratedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */; };
+		849FD6EC1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 849FD6EB1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.m */; };
 		84B7FCF71A2CA2620010E3DC /* AAEditMeetingPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */; };
 		84B7FCFA1A2DCEC30010E3DC /* UIFont+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCF91A2DCEC30010E3DC /* UIFont+AAAdditions.m */; };
 		84B7FCFD1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B7FCFC1A2E1BF30010E3DC /* AAEditMeetingDurationCell.m */; };
@@ -295,6 +296,8 @@
 		8483384D1A4EF3CE00235BD4 /* AAMeetingFormatCircleDecorationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAMeetingFormatCircleDecorationView.m; path = Classes/AAMeetingFormatCircleDecorationView.m; sourceTree = SOURCE_ROOT; };
 		84980BC61A4DC60C00A498D6 /* AADecoratedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AADecoratedLabel.h; path = Classes/AADecoratedLabel.h; sourceTree = SOURCE_ROOT; };
 		84980BC71A4DC60C00A498D6 /* AADecoratedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AADecoratedLabel.m; path = Classes/AADecoratedLabel.m; sourceTree = SOURCE_ROOT; };
+		849FD6EA1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingPropertyViewFactory.h; path = Classes/AAEditMeetingPropertyViewFactory.h; sourceTree = "<group>"; };
+		849FD6EB1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingPropertyViewFactory.m; path = Classes/AAEditMeetingPropertyViewFactory.m; sourceTree = "<group>"; };
 		84B7FCF51A2CA2620010E3DC /* AAEditMeetingPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAEditMeetingPickerCell.h; path = Classes/AAEditMeetingPickerCell.h; sourceTree = SOURCE_ROOT; };
 		84B7FCF61A2CA2620010E3DC /* AAEditMeetingPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAEditMeetingPickerCell.m; path = Classes/AAEditMeetingPickerCell.m; sourceTree = SOURCE_ROOT; };
 		84B7FCF81A2DCEC30010E3DC /* UIFont+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AAAdditions.h"; sourceTree = "<group>"; };
@@ -542,6 +545,8 @@
 				842AE7B51A52D5BD00C6DE2B /* AAEditMeetingProgramTableViewDelegate.m */,
 				842AE7B71A52D5CF00C6DE2B /* AAEditMeetingLocationTableViewDelegate.h */,
 				842AE7B81A52D5CF00C6DE2B /* AAEditMeetingLocationTableViewDelegate.m */,
+				849FD6EA1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.h */,
+				849FD6EB1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.m */,
 			);
 			name = "Meeting Property Delegates";
 			sourceTree = "<group>";
@@ -1226,6 +1231,7 @@
 				E2249460193B9A3C00C5CD86 /* NBPhoneNumberUtil+AAAdditions.m in Sources */,
 				E2851C581961770B00567F1A /* AAContactSetSponsorTableViewCell.m in Sources */,
 				8470E7101A5F634E00F9105B /* Event.m in Sources */,
+				849FD6EC1A63CF5F00F505F1 /* AAEditMeetingPropertyViewFactory.m in Sources */,
 				84F7BBCB1A34B7F300BD6C0F /* AAEditMeetingOpenCell.m in Sources */,
 				84D56E731A276FA20059A75A /* AAMeetingInfoTableViewCell.m in Sources */,
 				84F7BBDD1A38192100BD6C0F /* AAUserSettingsManager.m in Sources */,
