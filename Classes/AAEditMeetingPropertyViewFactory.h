@@ -12,7 +12,7 @@ typedef NS_ENUM(NSInteger, AABarButtonActionType) {
     AABarButtonActionTypeAdd,
     AABarButtonActionTypeEdit,
     AABarButtonActionTypeCancel,
-    AABarButtonActionTypeConfirm,
+    AABarButtonActionTypeDone,
 };
 
 @class MeetingDescriptor;
@@ -67,24 +67,5 @@ typedef NS_ENUM(NSInteger, AABarButtonActionType) {
  *  @return A bar button corresponding to the style defined for the given action
  */
 + (UIBarButtonItem*)stepsBarButtonItemForAction:(AABarButtonActionType)type;
-
-/**
- *  Creates a new UIBarButtonItem with the given target action and adds it to
- *  the given navigation bar
- *
- *  @param type   The target action for the bar btuton
- *  @param bar    The nagivation bar to place the button within
- *  @param left   Determines whether the button should be placed on the left or
- *                right of the navigation bar
- *  @param action The target action to perform on touch up inside events
- *
- *  @return The bar button item that was created and wired
- */
-+ (UIBarButtonItem*)stepsBarButtonItemForAction:(AABarButtonActionType)type
-                                inNavigationBar:(UINavigationBar*)bar
-                                       leftSide:(BOOL)left
-                               witHTargetAction:(SEL)action;
-
-
 
 @end
