@@ -21,9 +21,20 @@ typedef NS_ENUM(NSInteger, AABarButtonActionType) {
 @interface AAEditMeetingPropertyViewFactory : NSObject
 
 /**-----------------------------------------------------------------------------
- *  @name Create Meeting Descriptor Table View Cells
+ *  @name Create Meeting Descriptor Views
  *------------------------------------------------------------------------------
  */
+
+/**
+*  Creates the appropriate subclass of UIView for the given descriptor to be
+*  used in an AADecoratedLabel.
+*  
+*
+*  @param descriptor The descriptor to create a decorator for
+*
+*  @return The newly created decorator view
+*/
++ (UIView*)decoratorViewForDescriptor:(MeetingDescriptor*)descriptor;
 
 /**
  *  Returns an AAMeetingDescriptorTableViewCell for the given descriptor with
