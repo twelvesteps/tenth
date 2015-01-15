@@ -26,20 +26,22 @@ typedef NS_ENUM(NSInteger, AABarButtonActionType) {
  */
 
 /**
-*  Creates the appropriate subclass of UIView for the given descriptor to be
-*  used in an AADecoratedLabel.
-*  
-*
-*  @param descriptor The descriptor to create a decorator for
-*
-*  @return The newly created decorator view
-*/
-+ (UIView*)decoratorViewForDescriptor:(MeetingDescriptor*)descriptor;
+ *  Creates the appropriate subclass of UIView for the given descriptor to be
+ *  used in an AADecoratedLabel.
+ *  Currently not implemented
+ *
+ *
+ *  @param descriptor The descriptor to create a decorator for
+ *
+ *  @return The newly created decorator view
+ */
+//+ (UIView*)decoratorViewForDescriptor:(MeetingDescriptor*)descriptor;
 
 /**
  *  Returns an AAMeetingDescriptorTableViewCell for the given descriptor with
  *  its views initialized. This method does not alter the frame of the cell
  *  or its subviews
+ *  Currently not implemented
  *
  *  @param tableView    The table view to degueue a reusable cell from
  *  @param descriptor   The descriptor that will be used in the cell. This value
@@ -49,19 +51,20 @@ typedef NS_ENUM(NSInteger, AABarButtonActionType) {
  *
  *  @return A meeting descriptor cell with its decorated label intialized
  */
-+ (AAMeetingDescriptorTableViewCell*)tableView:(UITableView*)tableView meetingDescriptorCellForDescriptor:(MeetingDescriptor*)descriptor reuseIdentifier:(NSString*)reuseID;
+//+ (AAMeetingDescriptorTableViewCell*)tableView:(UITableView*)tableView meetingDescriptorCellForDescriptor:(MeetingDescriptor*)descriptor reuseIdentifier:(NSString*)reuseID;
 
 /**
  *  Similar to tableView:meetingDescriptorCellForDescriptor:reuseIdentifier,
  *  except that it does not attempt to dequeue a reusable cell. A new cell is
  *  always instantiated.
+ *  Currently not implemented
  *
  *  @param descriptor The descriptor to be used in the cell. This value should 
  *                    not be nil
  *
  *  @return A meeting descriptor cell with its decorated label initialized.
  */
-+ (AAMeetingDescriptorTableViewCell*)meetingDescriptorCellForDescriptor:(MeetingDescriptor*)descriptor;
+//+ (AAMeetingDescriptorTableViewCell*)meetingDescriptorCellForDescriptor:(MeetingDescriptor*)descriptor;
 
 
 /**-----------------------------------------------------------------------------

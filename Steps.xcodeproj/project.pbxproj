@@ -574,6 +574,15 @@
 		846ABC25192B308200558785 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
+				8470E6F61A5F634E00F9105B /* Entity.h */,
+				8470E6F71A5F634E00F9105B /* Entity.m */,
+				8470E6F81A5F634E00F9105B /* Event.h */,
+				8470E6F91A5F634E00F9105B /* Event.m */,
+				8470E6FA1A5F634E00F9105B /* Group.h */,
+				8470E6FB1A5F634E00F9105B /* Group.m */,
+				8470E6FC1A5F634E00F9105B /* GroupMember.h */,
+				8470E6FD1A5F634E00F9105B /* GroupMember.m */,
+				8481D3C61A5A875C00D76BF4 /* Mogenerated */,
 				84CF22231A441E8800052E92 /* Meetings */,
 				84CF22241A441E8F00052E92 /* Contacts */,
 			);
@@ -836,15 +845,6 @@
 		84EBC37B19161DB00063F4EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8470E6F61A5F634E00F9105B /* Entity.h */,
-				8470E6F71A5F634E00F9105B /* Entity.m */,
-				8470E6F81A5F634E00F9105B /* Event.h */,
-				8470E6F91A5F634E00F9105B /* Event.m */,
-				8470E6FA1A5F634E00F9105B /* Group.h */,
-				8470E6FB1A5F634E00F9105B /* Group.m */,
-				8470E6FC1A5F634E00F9105B /* GroupMember.h */,
-				8470E6FD1A5F634E00F9105B /* GroupMember.m */,
-				8481D3C61A5A875C00D76BF4 /* Mogenerated */,
 				84FEDF08191BCBD700767CB0 /* Model.xcdatamodeld */,
 				846ABC25192B308200558785 /* Managed Objects */,
 				84CF222E1A44294900052E92 /* User Data Managers */,

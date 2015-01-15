@@ -51,7 +51,7 @@
 @interface AAEditMeetingPropertyTableViewDelegate : NSObject
 
 /**-----------------------------------------------------------------------------
- *  @name Set Delegate's Meeting Property
+ *  @name Properties
  *------------------------------------------------------------------------------
  */
 /**
@@ -65,6 +65,17 @@
 @property (nonatomic, strong, readonly) NSString* propertyName;
 
 /**
+ *  The delegate's meeting property is editable
+ */
+@property (nonatomic, readonly, getter=isEditable) BOOL editable;
+
+
+/**-----------------------------------------------------------------------------
+ *  @name Create
+ *------------------------------------------------------------------------------
+ */
+
+/**
  *  Creates an appropriate concrete object for the given name.
  *
  *  @param name Describes the type of delegate object to be created. If 
@@ -75,6 +86,7 @@
  *  @return A property delegate subclass matching the given name.
  */
 + (instancetype)meetingPropertyDelegateWithPropertyName:(NSString*)name meeting:(Meeting*)meeting;
+
 
 /**-----------------------------------------------------------------------------
  *  @name Table View Delegate and Datasource Methods

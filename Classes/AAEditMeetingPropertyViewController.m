@@ -15,6 +15,48 @@
 
 @implementation AAEditMeetingPropertyViewController
 
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    if (self.meetingPropertyDelegate.isEditable) {
+        [self loadEditButton];
+    }
+}
+
+- (void)loadEditButton
+{
+    [self loadBarButtonSystemItem:UIBarButtonSystemItemEdit action:@selector(editButtonTapped:)];
+}
+
+- (void)loadDoneButton
+{
+    [self loadBarButtonSystemItem:UIBarButtonSystemItemDone action:@selector(doneButtonTapped:)];
+}
+
+- (void)loadBarButtonSystemItem:(UIBarButtonSystemItem)item action:(SEL)action
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:item target:self action:action];
+}
+
+#pragma mark - UI Events
+
+- (void)editButtonTapped:(UIBarButtonItem*)sender
+{
+    [self loadDoneButton];
+    [self.tableView setEditing:YES animated:YES];
+    [self.tableView reloadData];
+}
+
+- (void)doneButtonTapped:(UIBarButtonItem*)sender
+{
+    [self loadEditButton];
+    [self.tableView setEditing:NO animated:YES];
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableView Delegate and Datasource
 
 // the following calls are forwarded to the meetingPropertyDelegate

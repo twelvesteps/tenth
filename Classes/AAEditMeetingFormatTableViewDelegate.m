@@ -52,6 +52,11 @@
     }
 }
 
+- (BOOL)isEditable
+{
+    return YES;
+}
+
 
 #pragma mark - Tableview Delegate and Datasource
 
