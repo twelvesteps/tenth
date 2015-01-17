@@ -514,7 +514,7 @@
 {
     if ([segue.destinationViewController isKindOfClass:[AAEditMeetingPropertyViewController class]]) {
         AAEditMeetingPropertyViewController* aaempvc = (AAEditMeetingPropertyViewController*)segue.destinationViewController;
-        AAEditMeetingPropertyTableViewDelegate* delegate = [AAEditMeetingPropertyTableViewDelegate meetingPropertyDelegateWithIdentifier:segue.identifier meeting:self.meeting];
+        AAEditMeetingPropertyTableViewDelegate* delegate = [AAEditMeetingPropertyTableViewDelegate meetingPropertyDelegateWithPropertyName:segue.identifier meeting:self.meeting];
         
         aaempvc.meetingPropertyDelegate = delegate;
     }

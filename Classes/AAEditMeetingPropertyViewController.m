@@ -80,5 +80,15 @@
     [self.meetingPropertyDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.meetingPropertyDelegate tableView:tableView canEditRowAtIndexPath:indexPath];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.meetingPropertyDelegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
+}
+
 
 @end

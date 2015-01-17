@@ -21,6 +21,7 @@
 #define AA_MEETING_DESCRIPTOR_CELL_REUSE_ID             @"MeetingDescriptorCell"
 
 @class Meeting;
+@class AAEditMeetingPropertyTableViewDelegate;
 
 /**
  *  The AAEditMeetingPropertyDelegate interacts with the 
@@ -48,6 +49,8 @@
  *  UITableViewDelegate and UITableViewDataSource have not been implemented by
  *  a subclass.
  */
+
+
 @interface AAEditMeetingPropertyTableViewDelegate : NSObject
 
 /**-----------------------------------------------------------------------------
@@ -69,6 +72,13 @@
  */
 @property (nonatomic, readonly, getter=isEditable) BOOL editable;
 
+/**
+ *  The navigation controller the delegate will use when pushing a view
+ *  controllers. If this property is not set the delegate will not attempt to 
+ *  push a view.
+ */
+@property (nonatomic, weak) UINavigationController* navigationController;
+
 
 /**-----------------------------------------------------------------------------
  *  @name Create
@@ -76,7 +86,8 @@
  */
 
 /**
- *  Creates an appropriate concrete object for the given name.
+ *  Creates a meeting property delegate object for the property with the 
+ *  given name and meeting.
  *
  *  @param name Describes the type of delegate object to be created. If 
  *  the name does not match one of the AA_EDIT_MEETING_PROPERTY macros 
@@ -85,7 +96,23 @@
  *
  *  @return A property delegate subclass matching the given name.
  */
-+ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString*)name meeting:(Meeting*)meeting;
++ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString*)name
+                                                meeting:(Meeting*)meeting;
+
+/**
+ *  Creates a meeting property delegate object for the property with the given
+ *  name and meeting in the given navigation controller.
+ *
+ *  @param name          Same as above
+ *  @param meeting       Same as above
+ *  @param navController The navigation controller to be used when pushing view
+ *  view controllers
+ *
+ *  @return A property delegate subclass matching the given name.
+ */
++ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString *)name
+                                                meeting:(Meeting *)meeting
+                                 inNavigationController:(UINavigationController*)navController;
 
 
 /**-----------------------------------------------------------------------------
@@ -101,6 +128,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView;
+
+/**
+ *  The following methods are optional. Subclasses may implement them or inherit
+ *  default behavior.
+ */
+// default: no op
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+// default: NO
+- (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
+// default: UITableViewCellEditingStyleNone
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

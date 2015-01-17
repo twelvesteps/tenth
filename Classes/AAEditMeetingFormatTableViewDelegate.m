@@ -12,6 +12,8 @@
 
 #import "AAEditMeetingFormatCell.h"
 
+#import "UIColor+AAAdditions.h"
+
 @interface AAEditMeetingFormatTableViewDelegate()
 
 @property (nonatomic, strong) NSArray* meetingFormats;
@@ -60,19 +62,50 @@
 
 #pragma mark - Tableview Delegate and Datasource
 
-#define FORMAT_CELL_REUSE_ID    @"MeetingFormatCell"
+#define ADD_FORMAT_SECTION  1
+#define FORMAT_LIST_SECTION 0
+
+#define ADD_FORMAT_CELL_REUSE_ID    @"AddFormatCell"
+#define FORMAT_CELL_REUSE_ID        @"MeetingFormatCell"
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    if (tableView.isEditing) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.meetingFormats.count;
+    if (tableView.isEditing && section == ADD_FORMAT_SECTION) {
+        return 1;
+    } else {
+        return self.meetingFormats.count;
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView.isEditing && indexPath.section == ADD_FORMAT_SECTION) {
+        return [self addMeetingFormatCell];
+    } else {
+        return [self tableView:tableView meetingFormatCellForRowAtIndexPath:indexPath];
+    }
+}
+
+- (UITableViewCell*)addMeetingFormatCell
+{
+    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ADD_FORMAT_CELL_REUSE_ID];
+    
+    cell.textLabel.text = NSLocalizedString(@"Create New Format", @"Create a new meeting format");
+    cell.textLabel.textColor = [UIColor stepsBlueColor];
+    
+    return cell;
+}
+
+- (AAEditMeetingFormatCell*)tableView:(UITableView*)tableView meetingFormatCellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     AAEditMeetingFormatCell* cell = (AAEditMeetingFormatCell*)[tableView dequeueReusableCellWithIdentifier:FORMAT_CELL_REUSE_ID];
     
@@ -80,21 +113,46 @@
         cell = [[AAEditMeetingFormatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FORMAT_CELL_REUSE_ID];
     }
     
+    [self tableView:tableView configureCell:cell forIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView*)tableView configureCell:(AAEditMeetingFormatCell*)cell forIndexPath:(NSIndexPath*)indexPath
+{
     cell.formatLabel.format = self.meetingFormats[indexPath.row];
     cell.formatLabel.decorationAlignment = AADecorationAlignmentLeft;
     cell.formatLabel.textAlignment = AATextAlignmentLeft;
     
-    if ([self.selectedIndexPaths containsObject:indexPath]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    cell.accessoryType = [self accessoryTypeForRowWithIndexPath:indexPath];
+    cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     if (indexPath.row == self.meetingFormats.count - 1) {
         cell.bottomSeparator = NO;
     }
-    
-    return cell;
+}
+
+- (UITableViewCellAccessoryType)accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.selectedIndexPaths containsObject:indexPath]) {
+        return UITableViewCellAccessoryCheckmark;
+    } else {
+        return UITableViewCellAccessoryNone;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath.section == FORMAT_LIST_SECTION;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == ADD_FORMAT_SECTION) {
+        return UITableViewCellEditingStyleNone;
+    } else {
+        return (UITableViewCellEditingStyle)3;
+    }
 }
 
 
