@@ -14,7 +14,7 @@
 #import "Location.h"
 
 #import "AAMeetingInfoTableViewCell.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 #import "AAMeetingFormatLabel.h"
 
 #import "UIFont+AAAdditions.h"
@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet AAMeetingFormatLabel *meetingFormatLabel;
 @property (weak, nonatomic) IBOutlet UITextView *meetingDetailTextView;
 
-@property (weak, nonatomic) IBOutlet AAMeetingFellowshipIcon *fellowshipIcon;
+@property (weak, nonatomic) IBOutlet AAMeetingProgramDecorationView *programDecorationView;
 
 @end
 
@@ -72,8 +72,8 @@
     self.meetingLocationLabel.text = [self stringFromLocation:self.meeting.location];
     self.meetingFormatLabel.format = [self.meeting.formats anyObject];
     self.meetingDetailTextView.text = [self detailText];
-    self.fellowshipIcon.program = self.meeting.program;
-    self.fellowshipIcon.isOpen = self.meeting.isOpenValue;
+    self.programDecorationView.program = self.meeting.program;
+    self.programDecorationView.isOpen = self.meeting.isOpenValue;
 }
 
 - (NSString*)detailText
@@ -127,7 +127,7 @@
     [self layoutLocationLabel];
     [self layoutFormatLabel];
     [self layoutDetailTextView];
-    [self layoutFellowshipIcon];
+    [self layoutProgramDecorationView];
 }
 
 - (void)layoutTitleLabel
@@ -180,17 +180,17 @@
     self.meetingDetailTextView.frame = meetingDetailTextViewFrame;
 }
 
-- (void)layoutFellowshipIcon
+- (void)layoutProgramDecorationView
 {
     CGFloat iconOriginX = MAX(CGRectGetMaxX(self.meetingTitleLabel.frame), CGRectGetMaxX(self.meetingLocationLabel.frame)) + TRAILING_EDGE_PADDING;
     CGFloat iconOriginY = (self.meetingTitleLabel.frame.origin.y + CGRectGetMaxY(self.meetingLocationLabel.frame)) / 2.0f - FELLOWSHIP_ICON_HEIGHT / 2.0f;
     
-    CGRect fellowshipIconFrame = CGRectMake(iconOriginX,
+    CGRect programDecorationViewFrame = CGRectMake(iconOriginX,
                                             iconOriginY,
                                             FELLOWSHIP_ICON_WIDTH,
                                             FELLOWSHIP_ICON_HEIGHT);
     
-    self.fellowshipIcon.frame = fellowshipIconFrame;
+    self.programDecorationView.frame = programDecorationViewFrame;
 }
 
 - (CGSize)sizeForLabel:(UILabel*)label font:(UIFont*)font boundingSize:(CGSize)boundingSize

@@ -44,7 +44,8 @@
     }
 }
 
-#pragma mark - Tableview Delegate and Datasource
+
+#pragma mark - AATableViewController Overrides
 
 #define PROGRAM_CELL_REUSE_ID   @"MeetingProgramCell"
 
@@ -58,9 +59,9 @@
     return self.meetingPrograms.count;
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (AASeparatorTableViewCell*)separatorCellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[tableView dequeueReusableCellWithIdentifier:PROGRAM_CELL_REUSE_ID];
+    AASeparatorTableViewCell* cell = (AASeparatorTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_CELL_REUSE_ID];
     
     if (!cell) {
         cell = [[AAEditMeetingProgramTypeCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -82,6 +83,9 @@
     
     return cell;
 }
+
+
+#pragma mark - Tableview Delegate and Datasource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -10,7 +10,7 @@
 #import "Meeting.h"
 #import "AASeparatorTableViewCell.h"
 
-@class AAMeetingFellowshipIcon;
+@class AAMeetingProgramDecorationView;
 @class AAMeetingLabel;
 @interface AAMeetingTableViewCell : AASeparatorTableViewCell
 
@@ -22,6 +22,6 @@
 @property (weak, nonatomic) IBOutlet UILabel* titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
-@property (weak, nonatomic) IBOutlet AAMeetingFellowshipIcon *fellowshipIcon;
+@property (weak, nonatomic) IBOutlet AAMeetingProgramDecorationView *programDecorationView;
 
 @end

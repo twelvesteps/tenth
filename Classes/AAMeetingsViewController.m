@@ -15,7 +15,7 @@
 
 #import "AAMeetingTableViewCell.h"
 #import "AAMeetingSectionDividerView.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 
 #import "NSDate+AAAdditions.h"
 #import "UIColor+AAAdditions.h"

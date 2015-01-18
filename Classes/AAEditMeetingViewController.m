@@ -22,7 +22,7 @@
 #import "AAEditMeetingProgramTypeCell.h"
 #import "AAEditMeetingFormatCell.h"
 #import "AAEditMeetingOpenCell.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 #import "AAMeetingSectionDividerView.h"
 
 #import "NSDate+AAAdditions.h"
@@ -41,7 +41,7 @@
 @property (weak, nonatomic) UITextField* titleTextField;
 @property (weak, nonatomic) UITextField* locationTextField;
 
-@property (weak, nonatomic) AAMeetingFellowshipIcon* fellowshipIcon;
+@property (weak, nonatomic) AAMeetingProgramDecorationView* programDecorationView;
 
 @property (nonatomic) BOOL shouldActivateTitleField;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
@@ -128,7 +128,7 @@
 - (void)openMeetingSwitchTapped:(UISwitch*)sender
 {
     self.meeting.isOpen = @(sender.isOn);
-    self.fellowshipIcon.isOpen = sender.isOn;
+    self.programDecorationView.isOpen = sender.isOn;
     [self.view endEditing:YES];
 }
 
@@ -390,9 +390,9 @@
     [cell.openMeetingSwitch setOn:self.meeting.isOpenValue animated:YES];
     [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
     
-    cell.fellowshipIcon.program = self.meeting.program;
-    cell.fellowshipIcon.isOpen = self.meeting.isOpenValue;
-    self.fellowshipIcon = cell.fellowshipIcon;
+    cell.programDecorationView.program = self.meeting.program;
+    cell.programDecorationView.isOpen = self.meeting.isOpenValue;
+    self.programDecorationView = cell.programDecorationView;
     
     return cell;
 }

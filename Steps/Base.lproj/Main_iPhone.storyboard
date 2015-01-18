@@ -402,7 +402,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ces-hK-nYa" customClass="AAMeetingFellowshipIcon">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ces-hK-nYa" customClass="AAMeetingProgramDecorationView">
                                                     <rect key="frame" x="74" y="12" width="32" height="32"/>
                                                     <color key="backgroundColor" red="0.72549019607843135" green="0.72549019607843135" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -442,7 +442,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="iz3-2k-4Ey" id="X54-zT-OSv"/>
                                             <outlet property="endDateLabel" destination="QmV-Ga-V9W" id="SW0-KA-VBT"/>
-                                            <outlet property="fellowshipIcon" destination="Ces-hK-nYa" id="Fe5-1p-WeY"/>
+                                            <outlet property="programDecorationView" destination="Ces-hK-nYa" id="CfN-NE-iiR"/>
                                             <outlet property="startDateLabel" destination="HNl-Hn-apW" id="gKE-w2-eJH"/>
                                             <outlet property="titleLabel" destination="Gdp-pV-KlY" id="VXK-eB-DK6"/>
                                             <segue destination="TLg-bw-LMZ" kind="push" identifier="setMeeting" id="95i-zP-kvr"/>
@@ -521,7 +521,7 @@ Details</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-Lh-jfj" customClass="AAMeetingFellowshipIcon">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-Lh-jfj" customClass="AAMeetingProgramDecorationView">
                                                     <rect key="frame" x="280" y="22" width="32" height="32"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -557,11 +557,11 @@ Details</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="fellowshipIcon" destination="1sW-Lh-jfj" id="Qc6-PH-aeb"/>
                                             <outlet property="meetingDetailTextView" destination="tN8-Lp-20d" id="937-3q-SHH"/>
                                             <outlet property="meetingFormatLabel" destination="zOI-QP-FJt" id="1Ss-6f-jP2"/>
                                             <outlet property="meetingLocationLabel" destination="4AD-Hq-mCb" id="jaF-73-K8j"/>
                                             <outlet property="meetingTitleLabel" destination="SsF-g8-lm8" id="yZM-rb-MkZ"/>
+                                            <outlet property="programDecorationView" destination="1sW-Lh-jfj" id="W3t-lw-yOS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -695,7 +695,7 @@ Details</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5F0-WA-qEz" customClass="AAMeetingFellowshipIcon">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5F0-WA-qEz" customClass="AAMeetingProgramDecorationView">
                                                     <rect key="frame" x="223" y="6" width="32" height="32"/>
                                                     <color key="backgroundColor" red="0.043137254899999998" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -715,8 +715,8 @@ Details</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="fellowshipIcon" destination="5F0-WA-qEz" id="PDA-GP-g9l"/>
                                             <outlet property="openMeetingSwitch" destination="mXn-xm-YzT" id="Q9o-lj-OuS"/>
+                                            <outlet property="programDecorationView" destination="5F0-WA-qEz" id="q3H-Vn-iAt"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingProgramCell" id="ELF-1i-gcR" customClass="AAEditMeetingProgramTypeCell">
@@ -875,6 +875,9 @@ Details</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Kjk-6G-azs"/>
+                    <connections>
+                        <outlet property="tableView" destination="mGV-6G-2JW" id="hhk-eZ-k35"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kna-f4-MHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

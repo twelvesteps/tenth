@@ -9,7 +9,7 @@
 #import "AAEditMeetingPropertyViewFactory.h"
 
 #import "AAMeetingDescriptorTableViewCell.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 #import "AAMeetingFormatCircleDecorationView.h"
 
 #import "MeetingFormat.h"
@@ -42,7 +42,7 @@
 
 + (UIView*)decoratorViewForMeetingProgram:(MeetingProgram*)program
 {
-    AAMeetingFellowshipIcon* icon = [[AAMeetingFellowshipIcon alloc] init];
+    AAMeetingProgramDecorationView* icon = [[AAMeetingProgramDecorationView alloc] init];
     icon.program = program;
     return icon;
 }

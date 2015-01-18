@@ -9,7 +9,7 @@
 #import "AAUserSettingsManager.h"
 
 #import "AAMeetingTableViewCell.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 
 #import "Location.h"
 
@@ -40,8 +40,8 @@
     self.endDateLabel.text = [formatter stepsTimeStringFromDate:self.meeting.endDate];
     self.titleLabel.text = self.meeting.title;
     self.addressLabel.text = self.meeting.location.title;
-    self.fellowshipIcon.program = self.meeting.program;
-    self.fellowshipIcon.isOpen = self.meeting.isOpenValue;
+    self.programDecorationView.program = self.meeting.program;
+    self.programDecorationView.isOpen = self.meeting.isOpenValue;
     
     [self setNeedsLayout];
     [self setNeedsDisplay];

@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AASeparatorTableViewCell.h"
 
-@class AAMeetingFellowshipIcon;
+@class AAMeetingProgramDecorationView;
 @interface AAEditMeetingOpenCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UISwitch *openMeetingSwitch;
-@property (weak, nonatomic) IBOutlet AAMeetingFellowshipIcon *fellowshipIcon;
+@property (weak, nonatomic) IBOutlet AAMeetingProgramDecorationView *programDecorationView;
 
 @end

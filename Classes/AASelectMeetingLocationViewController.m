@@ -10,6 +10,8 @@
 
 @interface AASelectMeetingLocationViewController ()
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation AASelectMeetingLocationViewController

@@ -7,7 +7,7 @@
 //
 
 #import "AAMeetingProgramLabel.h"
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 
 @implementation AAMeetingProgramLabel
 
@@ -15,7 +15,7 @@
 {
     _program = program;
     
-    AAMeetingFellowshipIcon* icon = [[AAMeetingFellowshipIcon alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+    AAMeetingProgramDecorationView* icon = [[AAMeetingProgramDecorationView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
     icon.program = program;
     self.decorationView = icon;
     
