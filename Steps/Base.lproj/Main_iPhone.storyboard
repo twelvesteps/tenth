@@ -659,7 +659,7 @@ Details</string>
                                             <outlet property="textField" destination="ihA-ke-k3D" id="BUk-Bm-Ol0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SelectLocationCell" id="2Zy-BZ-BO1">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="SelectLocationCell" id="2Zy-BZ-BO1">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Zy-BZ-BO1" id="gZg-G3-0Bg">
@@ -674,7 +674,7 @@ Details</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Location" id="IQx-Le-s9h"/>
+                                            <segue destination="OrP-8h-Rc0" kind="push" trigger="accessoryAction" id="drb-rq-hep"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MeetingOpenCell" id="KWc-Ms-k43" customClass="AAEditMeetingOpenCell">
@@ -755,7 +755,7 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="programNameLabel" destination="pxV-ov-Oau" id="8D9-0j-Ti5"/>
-                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Program" id="LdH-jw-WPg"/>
+                                            <segue destination="zuW-eh-HAu" kind="push" id="Ki0-Vc-4D7"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="2Re-wz-I2L" customClass="AAEditMeetingFormatCell">
@@ -788,7 +788,7 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="formatLabel" destination="6NL-aW-1PM" id="pWK-X6-RlL"/>
-                                            <segue destination="zuW-eh-HAu" kind="push" identifier="Format" id="7su-R1-jmc"/>
+                                            <segue destination="DCw-MR-4mg" kind="push" id="IDO-dK-kWF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -825,10 +825,65 @@ Details</string>
             </objects>
             <point key="canvasLocation" x="3274" y="919"/>
         </scene>
-        <!--Edit Meeting Property View Controller-->
+        <!--Select Meeting Location View Controller-->
+        <scene sceneID="hrt-fm-1C0">
+            <objects>
+                <viewController id="OrP-8h-Rc0" customClass="AASelectMeetingLocationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uyj-Wm-ZVW"/>
+                        <viewControllerLayoutGuide type="bottom" id="NNX-jx-K4n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gjC-yE-77y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mGV-6G-2JW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingLocationCell" id="df0-mH-Ch4" customClass="AAMeetingDescriptorTableViewCell">
+                                        <rect key="frame" x="10" y="10" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="df0-mH-Ch4" id="aZB-E9-HCl">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DRy-q6-Bor" customClass="AADecoratedLabel">
+                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DRy-q6-Bor" firstAttribute="trailing" secondItem="aZB-E9-HCl" secondAttribute="trailingMargin" id="6kf-a1-Pv3"/>
+                                                <constraint firstItem="DRy-q6-Bor" firstAttribute="leading" secondItem="aZB-E9-HCl" secondAttribute="leading" constant="14" id="CwZ-mN-m4Z"/>
+                                                <constraint firstItem="DRy-q6-Bor" firstAttribute="top" secondItem="aZB-E9-HCl" secondAttribute="top" id="Tw5-cN-TaP"/>
+                                                <constraint firstAttribute="bottom" secondItem="DRy-q6-Bor" secondAttribute="bottom" id="cXj-ch-Hlz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptorLabel" destination="DRy-q6-Bor" id="0fz-Tw-OXQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mGV-6G-2JW" firstAttribute="leading" secondItem="gjC-yE-77y" secondAttribute="leading" id="GTG-mb-mlB"/>
+                            <constraint firstItem="mGV-6G-2JW" firstAttribute="bottom" secondItem="NNX-jx-K4n" secondAttribute="top" id="LnV-sj-uIi"/>
+                            <constraint firstAttribute="trailing" secondItem="mGV-6G-2JW" secondAttribute="trailing" id="ORf-Tv-6OX"/>
+                            <constraint firstItem="mGV-6G-2JW" firstAttribute="top" secondItem="gjC-yE-77y" secondAttribute="top" id="QYu-rE-d3G"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kjk-6G-azs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kna-f4-MHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3799" y="205"/>
+        </scene>
+        <!--Select Meeting Program View Controller-->
         <scene sceneID="bnd-mK-FTP">
             <objects>
-                <viewController id="zuW-eh-HAu" customClass="AAEditMeetingPropertyViewController" sceneMemberID="viewController">
+                <viewController id="zuW-eh-HAu" customClass="AASelectMeetingProgramViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kkX-1t-8tB"/>
                         <viewControllerLayoutGuide type="bottom" id="tWa-7x-sYR"/>
@@ -848,50 +903,6 @@ Details</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="q95-jo-9Iv" customClass="AAEditMeetingFormatCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q95-jo-9Iv" id="44E-9l-Adq">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olU-9c-JSf" customClass="AAMeetingFormatLabel">
-                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="olU-9c-JSf" firstAttribute="top" secondItem="44E-9l-Adq" secondAttribute="top" id="2y3-aS-eWX"/>
-                                                <constraint firstAttribute="bottom" secondItem="olU-9c-JSf" secondAttribute="bottom" id="CPV-FJ-bY4"/>
-                                                <constraint firstAttribute="trailing" secondItem="olU-9c-JSf" secondAttribute="trailing" constant="8" id="Vjf-CD-7HT"/>
-                                                <constraint firstItem="olU-9c-JSf" firstAttribute="leading" secondItem="44E-9l-Adq" secondAttribute="leading" constant="14" id="v9U-wJ-0dL"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="formatLabel" destination="olU-9c-JSf" id="9n6-xv-mwR"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingDescriptorCell" id="NOy-is-DaR" customClass="AAMeetingDescriptorTableViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOy-is-DaR" id="LjL-cd-r9S">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgI-F2-SWm" customClass="AADecoratedLabel">
-                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="FgI-F2-SWm" secondAttribute="bottom" id="8HE-kq-D1n"/>
-                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="leading" secondItem="LjL-cd-r9S" secondAttribute="leading" constant="14" id="8PP-ek-x0n"/>
-                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="trailing" secondItem="LjL-cd-r9S" secondAttribute="trailingMargin" id="GCW-nf-wwM"/>
-                                                <constraint firstItem="FgI-F2-SWm" firstAttribute="top" secondItem="LjL-cd-r9S" secondAttribute="top" id="ZSP-XV-HRw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="descriptorLabel" destination="FgI-F2-SWm" id="smX-ZJ-Rxt"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -907,12 +918,70 @@ Details</string>
                     <navigationItem key="navigationItem" id="PSi-Gq-xxz"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="rKj-Y1-jJ7" id="ubq-W9-7UD"/>
+                        <outlet property="tableView" destination="rKj-Y1-jJ7" id="5MX-Xb-ofS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jUi-3t-fGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3799" y="919"/>
+        </scene>
+        <!--Select Meeting Format View Controller-->
+        <scene sceneID="XAl-rg-bMw">
+            <objects>
+                <viewController id="DCw-MR-4mg" customClass="AASelectMeetingFormatViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F1V-Wu-iYG"/>
+                        <viewControllerLayoutGuide type="bottom" id="8vz-6X-QhV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kVf-KY-NdH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-rl-cqq">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="MeetingFormatCell" id="lbs-Yz-Gnn" customClass="AAEditMeetingFormatCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lbs-Yz-Gnn" id="jUK-pv-9jN">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K20-gk-iUf" customClass="AAMeetingFormatLabel">
+                                                    <rect key="frame" x="14" y="0.0" width="259" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="K20-gk-iUf" firstAttribute="top" secondItem="jUK-pv-9jN" secondAttribute="top" id="8rG-oM-l0f"/>
+                                                <constraint firstAttribute="trailing" secondItem="K20-gk-iUf" secondAttribute="trailing" constant="8" id="fVf-3f-2OM"/>
+                                                <constraint firstAttribute="bottom" secondItem="K20-gk-iUf" secondAttribute="bottom" id="lld-r7-ncC"/>
+                                                <constraint firstItem="K20-gk-iUf" firstAttribute="leading" secondItem="jUK-pv-9jN" secondAttribute="leading" constant="14" id="yUN-nE-2ux"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="formatLabel" destination="K20-gk-iUf" id="ope-2t-3Yo"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ryO-rl-cqq" firstAttribute="leading" secondItem="kVf-KY-NdH" secondAttribute="leading" id="6pn-E8-2eJ"/>
+                            <constraint firstAttribute="trailing" secondItem="ryO-rl-cqq" secondAttribute="trailing" id="8p0-aR-Tc7"/>
+                            <constraint firstItem="ryO-rl-cqq" firstAttribute="bottom" secondItem="8vz-6X-QhV" secondAttribute="top" id="NnA-Tg-0r2"/>
+                            <constraint firstItem="ryO-rl-cqq" firstAttribute="top" secondItem="kVf-KY-NdH" secondAttribute="top" id="V6E-B0-cwR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mtH-S9-Zkx"/>
+                    <connections>
+                        <outlet property="tableView" destination="ryO-rl-cqq" id="rzC-fS-Dhz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ov0-LT-tfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3799" y="1634"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">
@@ -1083,7 +1152,6 @@ Details</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="MTG-GX-Tev"/>
-        <segue reference="IQx-Le-s9h"/>
         <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>

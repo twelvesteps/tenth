@@ -72,13 +72,6 @@
  */
 @property (nonatomic, readonly, getter=isEditable) BOOL editable;
 
-/**
- *  The navigation controller the delegate will use when pushing a view
- *  controllers. If this property is not set the delegate will not attempt to 
- *  push a view.
- */
-@property (nonatomic, weak) UINavigationController* navigationController;
-
 
 /**-----------------------------------------------------------------------------
  *  @name Create
@@ -99,21 +92,6 @@
 + (instancetype)meetingPropertyDelegateWithPropertyName:(NSString*)name
                                                 meeting:(Meeting*)meeting;
 
-/**
- *  Creates a meeting property delegate object for the property with the given
- *  name and meeting in the given navigation controller.
- *
- *  @param name          Same as above
- *  @param meeting       Same as above
- *  @param navController The navigation controller to be used when pushing view
- *  view controllers
- *
- *  @return A property delegate subclass matching the given name.
- */
-+ (instancetype)meetingPropertyDelegateWithPropertyName:(NSString *)name
-                                                meeting:(Meeting *)meeting
-                                 inNavigationController:(UINavigationController*)navController;
-
 
 /**-----------------------------------------------------------------------------
  *  @name Table View Delegate and Datasource Methods
@@ -127,6 +105,7 @@
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell*)tableView:(UITableView*)tableView editingCellForRowAtIndexPath:(NSIndexPath*)indexPath;
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView;
 
 /**

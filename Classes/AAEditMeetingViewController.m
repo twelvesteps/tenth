@@ -13,8 +13,7 @@
 #import "Location.h"
 
 #import "AAEditMeetingViewController.h"
-#import "AAEditMeetingPropertyViewController.h"
-#import "AAEditMeetingPropertyTableViewDelegate.h"
+#import "AASelectMeetingPropertyViewController.h"
 
 #import "AAEditMeetingTextInputCell.h"
 #import "AAEditMeetingWeekdayCell.h"
@@ -512,11 +511,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[AAEditMeetingPropertyViewController class]]) {
-        AAEditMeetingPropertyViewController* aaempvc = (AAEditMeetingPropertyViewController*)segue.destinationViewController;
-        AAEditMeetingPropertyTableViewDelegate* delegate = [AAEditMeetingPropertyTableViewDelegate meetingPropertyDelegateWithPropertyName:segue.identifier meeting:self.meeting];
+    if ([segue.destinationViewController isKindOfClass:[AASelectMeetingPropertyViewController class]]) {
+        AASelectMeetingPropertyViewController* aaempvc = (AASelectMeetingPropertyViewController*)segue.destinationViewController;
         
-        aaempvc.meetingPropertyDelegate = delegate;
+        aaempvc.meeting = self.meeting;
     }
 }
 
