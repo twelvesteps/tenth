@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AAMeetingDescriptorDecorationView.h"
 #import "MeetingFormat.h"
 
-@interface AAMeetingFormatCircleDecorationView : UIView
+@interface AAMeetingFormatCircleDecorationView : AAMeetingDescriptorDecorationView
 
 @property (nonatomic, strong) MeetingFormat* format;
 

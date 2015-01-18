@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class MeetingDescriptor;
+
 @interface AAMeetingDescriptorDecorationView : UIView
+
+/**
+ *  The descriptor decorated by the view
+ */
+@property (nonatomic, strong) MeetingDescriptor* descriptor;
+
+/**
+ *  Returns the default frame for the decoration view
+ *
+ *  @return The default frame for the decoration view
+ */
++ (CGRect)defaultFrame; // default implementation returns CGRectZero
 
 @end

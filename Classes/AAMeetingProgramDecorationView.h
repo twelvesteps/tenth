@@ -1,5 +1,5 @@
 //
-//  AAMeetingFellowshipIcon.h
+//  AAMeetingProgramDecorationView.h
 //  Steps
 //
 //  Created by Tom on 12/7/14.
@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AAMeetingDescriptorDecorationView.h"
 
 @class MeetingProgram;
 @class MeetingFormat;
 
-@interface AAMeetingFellowshipIcon : UIView
+@interface AAMeetingProgramDecorationView : AAMeetingDescriptorDecorationView
 
 @property (nonatomic) MeetingProgram* program;
 @property (nonatomic) BOOL isOpen;

@@ -10,4 +10,9 @@
 
 @implementation AAMeetingDescriptorDecorationView
 
++ (CGRect)defaultFrame
+{
+    return CGRectZero;
+}
+
 @end

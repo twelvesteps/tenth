@@ -1,12 +1,12 @@
 //
-//  AAMeetingFellowshipIcon.m
+//  AAMeetingProgramDecorationView.m
 //  Steps
 //
 //  Created by Tom on 12/7/14.
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AAMeetingFellowshipIcon.h"
+#import "AAMeetingProgramDecorationView.h"
 
 #import "AAUserSettingsManager.h"
 
@@ -14,14 +14,14 @@
 #import "UIColor+AAAdditions.h"
 
 
-@interface AAMeetingFellowshipIcon()
+@interface AAMeetingProgramDecorationView()
 
 @property (weak, nonatomic) UILabel* fellowshipNameLabel;
 @property (strong, nonatomic) UIColor* color;
 
 @end
 
-@implementation AAMeetingFellowshipIcon
+@implementation AAMeetingProgramDecorationView
 
 #pragma mark - Lifecycle and Properties
 
