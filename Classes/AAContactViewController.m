@@ -350,6 +350,7 @@
 - (void)updateContactDataWithPerson:(ABRecordRef)person
 {
     if (person) {
+        [[AAUserContactsManager sharedManager] synchronize];
         if (self.contact) {
             [[AAUserContactsManager sharedManager] syncContact:self.contact withPersonRecord:person];
             [self.tableView reloadData];
