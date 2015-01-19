@@ -716,7 +716,7 @@ Details</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="openMeetingSwitch" destination="mXn-xm-YzT" id="Q9o-lj-OuS"/>
-                                            <outlet property="programDecorationView" destination="5F0-WA-qEz" id="q3H-Vn-iAt"/>
+                                            <outlet property="programDecorationView" destination="5F0-WA-qEz" id="Yos-tI-GY3"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingProgramCell" id="ELF-1i-gcR" customClass="AAEditMeetingProgramTypeCell">

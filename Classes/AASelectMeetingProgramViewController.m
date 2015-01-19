@@ -92,6 +92,7 @@
     // grab row index paths to update
     NSMutableArray* indexPaths = [[NSMutableArray alloc] init];
     if (self.selectedIndexPath) {
+        // currently selected cell should also be updated with the new selection
         [indexPaths addObject:self.selectedIndexPath];
     }
     [indexPaths addObject:indexPath];
@@ -100,6 +101,7 @@
     self.meeting.program = self.meetingPrograms[indexPath.row];
     
     [tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

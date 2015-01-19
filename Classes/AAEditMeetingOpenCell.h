@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AASeparatorTableViewCell.h"
+#import "AAMeetingProgramDecorationView.h"
 
-@class AAMeetingProgramDecorationView;
 @interface AAEditMeetingOpenCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UISwitch *openMeetingSwitch;

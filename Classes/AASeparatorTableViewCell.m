@@ -17,6 +17,8 @@
 @implementation AASeparatorTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+    
     [self setup];
 }
 
