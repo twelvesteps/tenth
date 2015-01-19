@@ -47,6 +47,7 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         sharedManager = [[self alloc] init];
+        
         [sharedManager loadDefaultMeetingFormats];
         [sharedManager loadDefaultMeetingPrograms];
     });
@@ -54,24 +55,43 @@
     return sharedManager;
 }
 
+- (NSArray*)defaultMeetingPrograms
+{
+    if (!_defaultMeetingPrograms) {
+        _defaultMeetingPrograms = [self fetchDefaultMeetingPrograms];
+        
+        // default programs haven't been stored yet, insert them into object graph
+        if (_defaultMeetingPrograms.count == 0) {
+            [self loadDefaultMeetingPrograms];
+            _defaultMeetingPrograms = [self fetchDefaultMeetingPrograms];
+        }
+    }
+    
+    return _defaultMeetingPrograms;
+}
+
 - (void)loadDefaultMeetingFormats
 {
-    for (NSString* title in [AAUserMeetingsManager defaultMeetingFormatTitles]) {
-        MeetingFormat* format = [self meetingFormatWithTitle:title ];
+    if ([self fetchDefaultMeetingFormats].count == 0) {
+        for (NSString* title in [AAUserMeetingsManager defaultMeetingFormatTitles]) {
+            MeetingFormat* format = [self createMeetingFormatWithTitle:title localizeTitle:YES];
 
-        format.colorKey = [[AAUserMeetingsManager defaultMeetingFormatColorKeys] objectForKey:title];
+            format.colorKey = [[AAUserMeetingsManager defaultMeetingFormatColorKeys] objectForKey:title];
+        }
     }
 }
 
 - (void)loadDefaultMeetingPrograms
 {
-    NSArray* programTitles = [AAUserMeetingsManager defaultMeetingProgramTitles];
-    NSArray* programShortTitles = [AAUserMeetingsManager defaultMeetingProgramShortTitles];
-    NSArray* programSymbolTypes = [AAUserMeetingsManager defaultMeetingProgramSymbolTypes];
-    for (NSInteger i = 0; i < programTitles.count; i++) {
-        MeetingProgram* program = [self meetingProgramWithTitle:programTitles[i] localizeTitle:YES];
-        program.shortTitle = programShortTitles[i];
-        program.symbolType = programSymbolTypes[i];
+    if ([self fetchDefaultMeetingPrograms].count == 0) {
+        NSArray* programTitles = [AAUserMeetingsManager defaultMeetingProgramTitles];
+        NSArray* programShortTitles = [AAUserMeetingsManager defaultMeetingProgramShortTitles];
+        NSArray* programSymbolTypes = [AAUserMeetingsManager defaultMeetingProgramSymbolTypes];
+        for (NSInteger i = 0; i < programTitles.count; i++) {
+            MeetingProgram* program = [self createMeetingProgramWithTitle:programTitles[i] localizeTitle:YES];
+            program.shortTitle = programShortTitles[i];
+            program.symbolType = programSymbolTypes[i];
+        }
     }
 }
 
@@ -141,48 +161,67 @@
     return [[NSDate date] nearestHalfHour];
 }
 
-- (Location*)locationWithTitle:(NSString *)title
+- (Location*)createLocation
 {
-    return (Location*)[Location meetingDescriptorWithEntityName:[Location entityName]
-                                                          title:title
-                                                  localizeTitle:NO
-                                         inManagedObjectContext:self.managedObjectContext];
+    return (Location*)[Location createMeetingDescriptorWithEntityName:[Location entityName]
+                                                                title:@""
+                                                        localizeTitle:NO
+                                               inManagedObjectContext:self.managedObjectContext];
 }
 
-- (MeetingFormat*)meetingFormatWithTitle:(NSString *)title
+- (MeetingFormat*)createMeetingFormat
 {
-    return [self meetingFormatWithTitle:title localizeTitle:NO];
+    return [self createMeetingFormatWithTitle:@"" localizeTitle:NO];
 }
 
-- (MeetingFormat*)meetingFormatWithTitle:(NSString *)title localizeTitle:(BOOL)localize
+- (MeetingFormat*)createMeetingFormatWithTitle:(NSString *)title localizeTitle:(BOOL)localize
 {
-    return (MeetingFormat*)[MeetingFormat meetingDescriptorWithEntityName:[MeetingFormat entityName]
-                                                                    title:title
-                                                            localizeTitle:localize
-                                                   inManagedObjectContext:self.managedObjectContext];
+    return (MeetingFormat*)[MeetingFormat createMeetingDescriptorWithEntityName:[MeetingFormat entityName]
+                                                                          title:title
+                                                                  localizeTitle:localize
+                                                         inManagedObjectContext:self.managedObjectContext];
 }
 
-- (MeetingProgram*)meetingProgramWithTitle:(NSString *)title
+- (MeetingProgram*)createMeetingProgram
 {
-    return [self meetingProgramWithTitle:title localizeTitle:NO];
+    return [self createMeetingProgramWithTitle:@"" localizeTitle:NO];
 }
 
-- (MeetingProgram*)meetingProgramWithTitle:(NSString *)title localizeTitle:(BOOL)localize
+- (MeetingProgram*)createMeetingProgramWithTitle:(NSString *)title localizeTitle:(BOOL)localize
 {
-    return (MeetingProgram*)[MeetingProgram meetingDescriptorWithEntityName:[MeetingProgram entityName] title:title localizeTitle:localize inManagedObjectContext:self.managedObjectContext];
+    return (MeetingProgram*)[MeetingProgram createMeetingDescriptorWithEntityName:[MeetingProgram entityName]
+                                                                            title:title
+                                                                    localizeTitle:localize
+                                                           inManagedObjectContext:self.managedObjectContext];
 }
 
 
 - (MeetingProgram*)defaultMeetingProgram
 {
-    NSString* defaultProgramID = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_MEETING_PROGAM_KEY];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSString* defaultProgramID = [defaults objectForKey:DEFAULT_MEETING_PROGAM_KEY];
     MeetingProgram* defaultProgram = [self fetchMeetingProgramWithIdentifier:defaultProgramID];
     
     if (defaultProgramID) {
         return defaultProgram;
     } else {
-        return [self meetingProgramWithTitle:AA_MEETING_PROGRAM_AA_TITLE];
+        NSArray* defaultPrograms = [self fetchDefaultMeetingPrograms];
+        for (MeetingProgram* program in defaultPrograms) {
+            if ([program.title isEqualToString:AA_MEETING_PROGRAM_AA_TITLE]) {
+
+                defaultProgramID = program.identifier;
+                DLog(@"<DEBUG> No default program set, using AA, identifier: %@", defaultProgramID);
+                [defaults setObject:defaultProgramID forKey:DEFAULT_MEETING_PROGAM_KEY];
+                [defaults synchronize];
+
+                defaultProgram = program;
+                break;
+            }
+        }
     }
+    
+    NSAssert(defaultProgram, @"<ERROR> Unable to locate default meeting program");
+    return defaultProgram;
 }
 
 - (void)setDefaultMeetingProgram:(MeetingProgram *)program
@@ -252,6 +291,11 @@
     return descriptors;
 }
 
+- (Location*)fetchLocationWithIdentifier:(NSString *)identifier
+{
+    return (Location*)[self fetchMeetingDescriptorWithName:[Location entityName] identifier:identifier];
+}
+
 - (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString *)identifier
 {
     return (MeetingFormat*)[self fetchMeetingDescriptorWithName:[MeetingFormat entityName] identifier:identifier];
@@ -277,7 +321,25 @@
     }
 }
 
+- (NSArray*)fetchDefaultMeetingPrograms
+{
+    return [self fetchDefaultMeetingDescriptorsForEntityName:[MeetingProgram entityName]];
+}
 
+- (NSArray*)fetchDefaultMeetingFormats
+{
+    return [self fetchDefaultMeetingDescriptorsForEntityName:[MeetingFormat entityName]];
+}
+
+- (NSArray*)fetchDefaultMeetingDescriptorsForEntityName:(NSString*)entityName
+{
+    // Only default programs require localized titles
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"localizeTitle == YES", MeetingDescriptorAttributes.localizeTitle];
+    
+    NSArray* results = [self fetchItemsForEntityName:entityName withSortDescriptors:nil withPredicate:predicate];
+    
+    return results;
+}
 
 
 @end

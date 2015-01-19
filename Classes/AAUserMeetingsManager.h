@@ -53,7 +53,7 @@
  *  @return A Location object with the given title or 'nil' if no title was 
  *  provided
  */
-- (Location*)locationWithTitle:(NSString*)title;
+- (Location*)createLocation;
 
 /**
  *  Fetches the meeting format with the given title or creates it if it doesn't
@@ -65,7 +65,7 @@
  *  @return A MeetingFormat object with the given title or 'nil' if no title
  *  was provided
  */
-- (MeetingFormat*)meetingFormatWithTitle:(NSString*)title;
+- (MeetingFormat*)createMeetingFormat;
 
 /**
  *  Fetches the meeting program with the given title or creates it if it doesn't
@@ -77,7 +77,7 @@
  *  @return A meeting program object with the given title or 'nil' if no title
  *  was provided
  */
-- (MeetingProgram*)meetingProgramWithTitle:(NSString*)title;
+- (MeetingProgram*)createMeetingProgram;
 
 /**-----------------------------------------------------------------------------
  *  @name Fetch Meetings, Formats and Programs
@@ -99,6 +99,16 @@
 - (NSArray*)fetchLocations;
 
 /**
+ *  Fetches the location with the given identifier
+ *
+ *  @param identifier The unique identifier for the location
+ *
+ *  @return The location with the matching identifier or nil if no matching location
+ *          can be found
+ */
+- (Location*)fetchLocationWithIdentifier:(NSString*)identifier;
+
+/**
  *  Fetches all the available meeting formats
  *
  *  @return An array of the available meeting formats sorted alphabetically
@@ -106,21 +116,21 @@
 - (NSArray*)fetchMeetingFormats;
 
 /**
+ *  Fetches the meeting format with the given identifier
+ *
+ *  @param identifier A lower case UUID of the format to be fetched
+ *
+ *  @return The format with the given identifier or 'nil' if no matching format
+ *  could be found
+ */
+- (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString*)identifier;
+
+/**
  *  Fetches all the available meeting programs
  *
  *  @return An array of the available meeting programs sorted alphabetically
  */
 - (NSArray*)fetchMeetingPrograms;
-
-/**
- *  Fetches the meeting format with the given identifier
- *
- *  @param identifier A lower case UUID of the format to be fetched
- *
- *  @return The format with the given identifier or 'nil' if no matching format 
- *  could be found
- */
-- (MeetingFormat*)fetchMeetingFormatWithIdentifier:(NSString*)identifier;
 
 /**
  *  Fetches the meeting program with the given identifier.

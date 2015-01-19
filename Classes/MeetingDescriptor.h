@@ -3,25 +3,22 @@
 @interface MeetingDescriptor : _MeetingDescriptor {}
 
 /**
- *  Creates a new meeting descriptor with the given entity type and title or
- *  returns a descriptor with the given entity type and title if it already
- *  exsits.
+ *  Creates a new meeting descriptor with the given entity type and title
  *
  *  @param name     The name of the entity to be created. Must be a valid child
  *                  entity of MeetingDescriptor.
- *  @param title    The title for returned descriptor.
+ *  @param title    The title for the new descriptor
  *  @param localize Determines whether the descriptor's title should be 
- *                  localized. This value is ignored if a descriptor with the
- *                  given title already exists.
+ *                  localized
  *  @param context  The managed object context to insert the descriptor into.
  *
  *  @return A MeetingDescriptor child entity matching the entity name and title
  *          or nil if the entity name does not describe a valid child entity
  */
-+ (MeetingDescriptor*)meetingDescriptorWithEntityName:(NSString*)name
-                                                title:(NSString*)title
-                                        localizeTitle:(BOOL)localize
-                               inManagedObjectContext:(NSManagedObjectContext*)context;
++ (MeetingDescriptor*)createMeetingDescriptorWithEntityName:(NSString*)name
+                                                      title:(NSString*)title
+                                              localizeTitle:(BOOL)localize
+                                     inManagedObjectContext:(NSManagedObjectContext*)context;
 
 /**
  *  Determines whether the given name describes a valid child entity. Override
