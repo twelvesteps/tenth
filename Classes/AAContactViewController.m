@@ -102,7 +102,6 @@
 
 - (void)sobrietyDateDoneButtonTapped:(UIButton*)sender
 {
-
     self.contact.sobrietyDate = self.sobrietyDatePicker.date;
     self.selectDateMode = NO;
     [self removeSobrietyDatePickerFromView];
@@ -350,7 +349,6 @@
 - (void)updateContactDataWithPerson:(ABRecordRef)person
 {
     if (person) {
-        [[AAUserContactsManager sharedManager] synchronize];
         if (self.contact) {
             [[AAUserContactsManager sharedManager] syncContact:self.contact withPersonRecord:person];
             [self.tableView reloadData];
@@ -358,6 +356,7 @@
             self.contact = [[AAUserContactsManager sharedManager] createContactWithPersonRecord:person];
             [self.tableView reloadData];
         }
+        [[AAUserContactsManager sharedManager] synchronize];
     }
 }
 
