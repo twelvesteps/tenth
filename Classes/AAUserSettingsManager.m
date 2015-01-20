@@ -77,26 +77,4 @@
 
 #pragma mark - Default Meeting Settings
 
-- (MeetingProgram*)defaultMeetingProgram
-{
-    NSString* programID = [[NSUserDefaults standardUserDefaults] objectForKey:AA_USER_SETTING_DEFAULT_MEETING_FORMAT_KEY];
-    
-    if (!programID) {
-        programID = [self setDefaultMeetingProgram];
-    }
-    
-    MeetingProgram* program = [[AAUserMeetingsManager sharedManager] fetchMeetingProgramWithIdentifier:programID];
-    
-    return program;
-}
-
-- (NSString*)setDefaultMeetingProgram
-{
-    MeetingProgram* defaultProgram = [[AAUserMeetingsManager sharedManager] meetingProgramWithTitle:@"Alcoholics Anonymous"];
-    [[NSUserDefaults standardUserDefaults] setObject:defaultProgram.identifier forKey:AA_USER_SETTING_DEFAULT_MEETING_PROGRAM_KEY];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    return defaultProgram.identifier;
-}
-
 @end
