@@ -31,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteContactButton;
+@property (weak, nonatomic) IBOutlet UIView *deleteContactButtonContainer;
+@property (weak, nonatomic) UIView* deleteContactButtonSeparatorView;
 
 @property (weak, nonatomic) UIButton* selectedButton;
 @property (weak, nonatomic) UIDatePicker* sobrietyDatePicker;
@@ -97,6 +99,33 @@
 - (void)setupDeleteContactButton
 {
     [self.deleteContactButton setTitleColor:[UIColor stepsRedColor] forState:UIControlStateNormal];
+    
+    UIView* separatorView = [[UIView alloc] init];
+    separatorView.backgroundColor = [UIColor stepsTableViewCellSeparatorColor];
+    [self.deleteContactButtonContainer addSubview:separatorView];
+    self.deleteContactButtonSeparatorView = separatorView;
+}
+
+
+#pragma mark - Layout
+
+#define SEPARATOR_HEIGHT    0.5f
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [self layoutDeleteContactButtonSeparatorView];
+}
+
+- (void)layoutDeleteContactButtonSeparatorView
+{
+    CGRect separatorViewFrame = CGRectMake(self.deleteContactButtonContainer.bounds.origin.x,
+                                           self.deleteContactButtonContainer.bounds.origin.y + SEPARATOR_HEIGHT,
+                                           self.deleteContactButtonContainer.bounds.size.width,
+                                           SEPARATOR_HEIGHT);
+    
+    self.deleteContactButtonSeparatorView.frame = separatorViewFrame;
 }
 
 

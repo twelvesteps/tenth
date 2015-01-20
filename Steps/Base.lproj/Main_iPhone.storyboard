@@ -385,6 +385,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="deleteContactButton" destination="mcY-sa-uHm" id="s4E-kH-6uY"/>
+                        <outlet property="deleteContactButtonContainer" destination="DYK-vi-oWd" id="z91-mg-FRo"/>
                         <outlet property="rightToolbarButton" destination="XM9-eY-u7W" id="Zge-AU-phu"/>
                         <outlet property="tableView" destination="SxR-Mq-Jf8" id="E2D-4F-mJ6"/>
                     </connections>
