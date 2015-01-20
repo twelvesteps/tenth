@@ -80,8 +80,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYK-vi-oWd">
+                                <rect key="frame" x="0.0" y="480" width="320" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcY-sa-uHm">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Delete Contact">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteContactButtonTapped:" destination="6h0-85-ldh" eventType="touchUpInside" id="LGK-WU-iKA"/>
+                                            <action selector="deleteMeetingButtonTapped:" destination="TLg-bw-LMZ" eventType="touchUpInside" id="m4q-ZL-76o"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="mcY-sa-uHm" firstAttribute="leading" secondItem="DYK-vi-oWd" secondAttribute="leading" id="IZD-yJ-wnl"/>
+                                    <constraint firstItem="mcY-sa-uHm" firstAttribute="top" secondItem="DYK-vi-oWd" secondAttribute="top" id="PL6-rQ-Pe0"/>
+                                    <constraint firstAttribute="trailing" secondItem="mcY-sa-uHm" secondAttribute="trailing" id="TzX-Y1-3Z0"/>
+                                    <constraint firstAttribute="bottom" secondItem="mcY-sa-uHm" secondAttribute="bottom" id="YAo-xE-16q"/>
+                                    <constraint firstAttribute="height" constant="44" id="cTu-VT-hIt"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="nvs-Q8-FRw"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="112" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SxR-Mq-Jf8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="72" id="CL5-fb-jhH" customClass="AAContactNameAndImageTableViewCell">
@@ -343,7 +368,10 @@
                             <constraint firstItem="SxR-Mq-Jf8" firstAttribute="top" secondItem="LLm-jV-XTy" secondAttribute="top" id="76R-rW-7pl"/>
                             <constraint firstItem="SxR-Mq-Jf8" firstAttribute="leading" secondItem="LLm-jV-XTy" secondAttribute="leading" id="C0g-gm-84o"/>
                             <constraint firstAttribute="trailing" secondItem="SxR-Mq-Jf8" secondAttribute="trailing" id="SNX-QV-z5v"/>
-                            <constraint firstAttribute="bottom" secondItem="SxR-Mq-Jf8" secondAttribute="bottom" id="frJ-dt-QLM"/>
+                            <constraint firstItem="DYK-vi-oWd" firstAttribute="leading" secondItem="LLm-jV-XTy" secondAttribute="leading" id="YBr-Um-uzA"/>
+                            <constraint firstAttribute="trailing" secondItem="DYK-vi-oWd" secondAttribute="trailing" id="diJ-Jl-708"/>
+                            <constraint firstItem="DYK-vi-oWd" firstAttribute="top" secondItem="SxR-Mq-Jf8" secondAttribute="bottom" id="mgw-7C-Gn4"/>
+                            <constraint firstItem="8fx-bE-Phz" firstAttribute="top" secondItem="DYK-vi-oWd" secondAttribute="bottom" id="oDl-8v-Yur"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -356,6 +384,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="deleteContactButton" destination="mcY-sa-uHm" id="s4E-kH-6uY"/>
                         <outlet property="rightToolbarButton" destination="XM9-eY-u7W" id="Zge-AU-phu"/>
                         <outlet property="tableView" destination="SxR-Mq-Jf8" id="E2D-4F-mJ6"/>
                     </connections>

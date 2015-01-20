@@ -23,11 +23,14 @@
 #import "AAContactSobrietyDateTableViewCell.h"
 #import "AAContactSelectSobrietyDateTableViewCell.h"
 #import "AAContactSetSponsorTableViewCell.h"
+// Categories
+#import "UIColor+AAAdditions.h"
 
 @interface AAContactViewController () <UIAlertViewDelegate, UIActionSheetDelegate, ABNewPersonViewControllerDelegate, ABPeoplePickerNavigationControllerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, AAContactPhoneTableViewCellDelegate, AAContactEmailTableViewCellDelegate, AATelPromptDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightToolbarButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteContactButton;
 
 @property (weak, nonatomic) UIButton* selectedButton;
 @property (weak, nonatomic) UIDatePicker* sobrietyDatePicker;
@@ -39,6 +42,7 @@
 @implementation AAContactViewController
 
 #define CANCEL_BUTTON_TITLE             NSLocalizedString(@"Cancel", @"Cancel")
+#define DELETE_BUTTON_TITLE             NSLocalizedString(@"Delete", @"Delete")
 #define LINK_CONTACT_BUTTON_TITLE       NSLocalizedString(@"Link Contact", @"link contact with phone contacts")
 #define CREATE_CONTACT_BUTTON_TITLE     NSLocalizedString(@"Create Contact", @"create new contact")
 #define EDIT_BUTTON_TITLE               NSLocalizedString(@"Edit", @"edit")
@@ -56,13 +60,8 @@
 {
     [super viewWillAppear:animated];
     
-    if ([self needToLinkContact]) {
-        self.rightToolbarButton.title = LINK_CONTACT_BUTTON_TITLE;
-    } else if (!self.contact) {
-        self.rightToolbarButton.title = CREATE_CONTACT_BUTTON_TITLE;
-    } else {
-        self.rightToolbarButton.title = EDIT_BUTTON_TITLE;
-    }
+    [self setupRightToolbarItem];
+    [self setupDeleteContactButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,6 +81,22 @@
             [self showCallActionSheetWithContact:self.contact];
         }
     }
+}
+
+- (void)setupRightToolbarItem
+{
+    if ([self needToLinkContact]) {
+        self.rightToolbarButton.title = LINK_CONTACT_BUTTON_TITLE;
+    } else if (!self.contact) {
+        self.rightToolbarButton.title = CREATE_CONTACT_BUTTON_TITLE;
+    } else {
+        self.rightToolbarButton.title = EDIT_BUTTON_TITLE;
+    }
+}
+
+- (void)setupDeleteContactButton
+{
+    [self.deleteContactButton setTitleColor:[UIColor stepsRedColor] forState:UIControlStateNormal];
 }
 
 
@@ -107,6 +122,11 @@
     [self removeSobrietyDatePickerFromView];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3]
                   withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)deleteContactButtonTapped:(UIButton *)sender
+{
+    [self showConfirmDeleteActionSheet];
 }
 
 - (void)removeSobrietyDatePickerFromView
@@ -196,6 +216,9 @@
     [alert show];
 }
 
+#define ACTION_SHEET_CONFIRM_CALL_TAG   1000
+#define ACTION_SHEET_CONFIRM_DELETE_TAG 1001
+
 - (void)showCallActionSheetWithContact:(Contact*)contact
 {
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:contact.fullName
@@ -203,7 +226,7 @@
                                                     cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
-    
+    actionSheet.tag = ACTION_SHEET_CONFIRM_CALL_TAG;
     NSArray* sortedPhones = [[self.contact.phones allObjects] sortedArrayUsingSelector:@selector(comparePhoneNumbers:)];
     
     for (Phone* phone in sortedPhones) {
@@ -213,6 +236,19 @@
     
     [actionSheet addButtonWithTitle:CANCEL_BUTTON_TITLE];
     actionSheet.cancelButtonIndex = contact.phones.count;
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)showConfirmDeleteActionSheet
+{
+    NSString* deleteActionSheetTitle = NSLocalizedString(@"Delete Contact", @"Delete the currently displayed contact");
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:deleteActionSheetTitle
+                                                             delegate:self
+                                                    cancelButtonTitle:CANCEL_BUTTON_TITLE
+                                               destructiveButtonTitle:DELETE_BUTTON_TITLE
+                                                    otherButtonTitles:nil];
+    actionSheet.tag = ACTION_SHEET_CONFIRM_DELETE_TAG;
     
     [actionSheet showInView:self.view];
 }
@@ -278,6 +314,20 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    if (actionSheet.tag == ACTION_SHEET_CONFIRM_CALL_TAG) {
+        [self callContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+    } else if (actionSheet.tag == ACTION_SHEET_CONFIRM_DELETE_TAG) {
+        [self deleteContactActionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+    }
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)callContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
@@ -287,9 +337,13 @@
     }
 }
 
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+- (void)deleteContactActionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        [[AAUserContactsManager sharedManager] removeAAContact:self.contact];
+        [[AAUserContactsManager sharedManager] synchronize];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - ABViewController Delegates
@@ -631,6 +685,7 @@
     cell.delegate = self;
     cell.phone = phone;
     cell.titleLabel.text = [phone formattedTitle];
+    cell.titleLabel.textColor = [UIColor stepsBlueColor];
     cell.descriptionLabel.text = phone.number;
 
     // last item in phones should have a separator
@@ -653,6 +708,7 @@
     cell.delegate = self;
     cell.email = email;
     cell.titleLabel.text = [email formattedTitle];
+    cell.titleLabel.textColor = [UIColor stepsBlueColor];
     cell.descriptionLabel.text = email.address;
     
     if (indexPath.row != self.contact.emails.count - 1) {
@@ -666,6 +722,7 @@
 {
     AAContactSetSponsorTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"SetSponsorCell"];
     
+    cell.changeSponsorLabel.textColor = [UIColor stepsBlueColor];
     if ([self.contact.isSponsor boolValue]) {
         cell.changeSponsorLabel.text = NSLocalizedString(@"Remove as Sponsor",
                                                          @"Change the selected contact so that he or she is no longer listed as the user's sponsor");
@@ -699,7 +756,7 @@
     if (!self.selectDateMode) {
         cell.editButton.hidden = YES;
         cell.titleLabel.text = NSLocalizedString(@"Add Sobriety Date", @"Add the sobriety date for the current contact");
-        cell.titleLabel.textColor = [self.view tintColor];
+        cell.titleLabel.textColor = [UIColor stepsBlueColor];
         
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
     } else {
