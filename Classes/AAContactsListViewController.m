@@ -261,21 +261,6 @@
     return [contact fullName];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        self.deletedContactIndexPath = indexPath;
-        [[AAUserContactsManager sharedManager] removeAAContact:self.contacts[indexPath.row]];
-        [self reloadContacts];
-        [self.tableView reloadData];
-    }
-}
-
 
 #pragma mark - Navigation
 
