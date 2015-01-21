@@ -150,13 +150,6 @@
     cell.descriptionLabel.text = [AAMeetingDurationPickerView localizedDurationStringForDate:self.meeting.duration];
 }
 
-- (NSString*)timeStringForDate:(NSDate*)date
-{
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = [NSDateFormatter dateFormatFromTemplate:@"j:mm" options:0 locale:[NSLocale autoupdatingCurrentLocale]];
-    
-    return [formatter stringFromDate:date];
-}
 
 #pragma mark - Picker Cell Delegate
 
