@@ -98,12 +98,7 @@
 
 - (NSString*)stringFromLocation:(Location*)location
 {
-    TTTAddressFormatter* formatter = [[TTTAddressFormatter alloc] init];
-    return [formatter stringFromAddressWithStreet:location.street
-                                         locality:location.locality
-                                           region:location.region
-                                       postalCode:location.postalCode
-                                          country:location.country];
+    return self.meeting.location.title;
 }
 
 #pragma mark - Layout
