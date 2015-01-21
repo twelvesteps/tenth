@@ -697,7 +697,7 @@
     cell.contactNameLabel.text = self.contact.fullName;
     cell.sponsorLabel.hidden = ![self.contact.isSponsor boolValue];
     
-    cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.bounds.size.width, 0.0f, 0.0f);
+    cell.bottomSeparator = NO;
         
     return cell;
 }
@@ -717,9 +717,9 @@
     cell.titleLabel.textColor = [UIColor stepsBlueColor];
     cell.descriptionLabel.text = phone.number;
 
-    // last item in phones should have a separator
+    // only the last item in phones should have a separator
     if (indexPath.row != self.contact.phones.count - 1) {
-        cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.bounds.size.width, 0.0f, 0.0f);
+        cell.bottomSeparator = NO;
     }
     
     return cell;
@@ -740,8 +740,9 @@
     cell.titleLabel.textColor = [UIColor stepsBlueColor];
     cell.descriptionLabel.text = email.address;
     
+    // only the last item in emails should have a separator
     if (indexPath.row != self.contact.emails.count - 1) {
-        cell.separatorInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, cell.bounds.size.width);
+        cell.bottomSeparator = NO;
     }
     
     return cell;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 #import "Phone+AAAdditions.h"
 
 typedef NS_ENUM(NSUInteger, AAPhoneCellAction) {
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSUInteger, AAPhoneCellAction) {
 
 @end
 
-@interface AAContactPhoneTableViewCell : UITableViewCell
+@interface AAContactPhoneTableViewCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel* titleLabel;

@@ -22,19 +22,19 @@
 
 @implementation AAPeoplePickerViewController
 
-
 #pragma mark - Controller Lifecycle and Properties
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self setupNavigationBar];
     [self setupTableView];
+    
+    [[AAUserContactsManager sharedManager] synchronize];
 }
 
 
-#define NAV_BAR_HEIGHT      44.0f
+#define NAV_BAR_HEIGHT  44.0f
 
 - (void)setupNavigationBar
 {
@@ -167,22 +167,22 @@
     return emptyArray;
 }
 
+
 #pragma mark - UIEvents
 
 - (void)cancelButtonTapped:(UIBarButtonItem*)sender
 {
-    // objects have been stored in core data
-    for (Contact* contact in self.selectedPeople) {
-        [[AAUserContactsManager sharedManager] removeAAContact:contact];
-    }
-    
+    // undo changes to core data
+    [[AAUserContactsManager sharedManager] rollback];
     [self.peoplePickerDelegate peoplePickerNavigationControllerDidCancel:self];
 }
 
 - (void)doneButtonTapped:(UIBarButtonItem*)sender
 {
+    [[AAUserContactsManager sharedManager] synchronize];
     [self.peoplePickerDelegate peoplePickerNavigationController:self didSelectPeople:[self.selectedPeople copy]];
 }
+
 
 #pragma mark - UITableView Delegate and Datasource
 

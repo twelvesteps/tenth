@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
-@interface AAContactSobrietyDateTableViewCell : UITableViewCell
+@interface AAContactSobrietyDateTableViewCell : AASeparatorTableViewCell
 
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

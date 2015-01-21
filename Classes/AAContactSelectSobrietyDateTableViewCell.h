@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
-@interface AAContactSelectSobrietyDateTableViewCell : UITableViewCell
+@interface AAContactSelectSobrietyDateTableViewCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;

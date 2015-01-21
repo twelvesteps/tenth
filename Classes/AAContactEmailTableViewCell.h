@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 #import "Email+AAAdditions.h"
 
 @class AAContactEmailTableViewCell;
@@ -16,7 +17,7 @@
 
 @end
 
-@interface AAContactEmailTableViewCell : UITableViewCell
+@interface AAContactEmailTableViewCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
-@interface AAContactSetSponsorTableViewCell : UITableViewCell
+@interface AAContactSetSponsorTableViewCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *changeSponsorLabel;
 

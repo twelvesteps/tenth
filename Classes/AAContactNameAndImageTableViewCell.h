@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AASeparatorTableViewCell.h"
 
-@interface AAContactNameAndImageTableViewCell : UITableViewCell
+@interface AAContactNameAndImageTableViewCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView* contactImageView;
 @property (weak, nonatomic) IBOutlet UIButton* editImageButton;
