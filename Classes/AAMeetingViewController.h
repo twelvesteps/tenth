@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 spitzgoby LLC. All rights reserved.
 //
 
-#import "AATableViewController.h"
+#import "AAGroupedTableViewController.h"
 #import "Meeting.h"
 
-@interface AAMeetingViewController : AATableViewController
+@interface AAMeetingViewController : AAGroupedTableViewController
 
 @property (nonatomic, strong) Meeting* meeting;
 

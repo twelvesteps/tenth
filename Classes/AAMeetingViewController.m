@@ -110,7 +110,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -137,6 +137,12 @@
     
     return cell;
 }
+
+//- (AASeparatorTableViewCell*)separatorCellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//}
+
 
 #pragma mark - Edit Meeting View Controller Delegate
 

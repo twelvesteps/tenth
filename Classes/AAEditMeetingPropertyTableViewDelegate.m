@@ -7,7 +7,7 @@
 //
 
 #import "AAEditMeetingPropertyTableViewDelegate.h"
-#import "AAEditMeetingLocationTableViewDelegate.h"
+
 
 @implementation AAEditMeetingPropertyTableViewDelegate
 
@@ -28,12 +28,6 @@
 {
     DLog(@"<DEBUG> Instantiating property delegate with name: %@", name);
     AAEditMeetingPropertyTableViewDelegate* delegate = nil;
-    
-    if ([name isEqualToString:AA_EDIT_MEETING_PROPERTY_LOCATION_NAME]) {
-        delegate = [[AAEditMeetingLocationTableViewDelegate alloc] initWithPropertyName:name];
-    }
-    
-    delegate.meeting = meeting;
     
     return delegate;
 }

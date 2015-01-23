@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AASeparatorTableViewCell.h"
+#import "AAMeetingProgramDecorationView.h"
 
 @interface AAEditMeetingProgramTypeCell : AASeparatorTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *programNameLabel;
+@property (weak, nonatomic) IBOutlet AAMeetingProgramDecorationView* programDecorationView;
 
 @end

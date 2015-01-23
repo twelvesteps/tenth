@@ -13,6 +13,5 @@
 @interface AAEditMeetingOpenCell : AASeparatorTableViewCell
 
 @property (weak, nonatomic) IBOutlet UISwitch *openMeetingSwitch;
-@property (weak, nonatomic) IBOutlet AAMeetingProgramDecorationView *programDecorationView;
 
 @end

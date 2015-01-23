@@ -383,9 +383,7 @@
     [cell.openMeetingSwitch setOn:self.meeting.isOpenValue animated:YES];
     [cell.openMeetingSwitch addTarget:self action:@selector(openMeetingSwitchTapped:) forControlEvents:UIControlEventValueChanged];
     
-    cell.programDecorationView.program = self.meeting.program;
-    cell.programDecorationView.isOpen = self.meeting.isOpenValue;
-    self.programDecorationView = cell.programDecorationView;
+
     
     return cell;
 }
@@ -405,7 +403,9 @@
 {
     AAEditMeetingProgramTypeCell* cell = (AAEditMeetingProgramTypeCell*)[self.tableView dequeueReusableCellWithIdentifier:PROGRAM_TYPE_CELL_REUSE_ID];
     
-    cell.programNameLabel.text = self.meeting.program.localizedTitle;
+    cell.programDecorationView.program = self.meeting.program;
+    cell.programDecorationView.isOpen = self.meeting.isOpenValue;
+    self.programDecorationView = cell.programDecorationView;
     
     return cell;
 }

@@ -18,7 +18,11 @@
     AAMeetingFormatCircleDecorationView* decorationView = [[AAMeetingFormatCircleDecorationView alloc] initWithFormat:self.format];
     self.decorationView = decorationView;
     
-    self.text = format.localizedTitle;
+    if (_format) {
+        self.text = format.localizedTitle;
+    } else {
+        self.text = NSLocalizedString(@"None", @"No format has been selected for the meeting");
+    }
 }
 
 
