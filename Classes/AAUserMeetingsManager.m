@@ -158,7 +158,9 @@
 
 - (NSDate*)defaultMeetingStartDate
 {
-    return [[NSDate date] nearestHalfHour];
+    NSDate* base = [NSDate date];
+    NSDate* time = [base nearestHalfHour];
+    return [NSDate dateByCombiningDayOfDate:base withTimeOfDate:time];
 }
 
 - (Location*)createLocation
