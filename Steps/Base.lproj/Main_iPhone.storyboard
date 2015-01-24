@@ -520,7 +520,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingTitleCell" rowHeight="44" id="22d-Y3-e6u" customClass="AAMeetingDisplayTitleCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingTitleCell" rowHeight="44" id="22d-Y3-e6u" customClass="AAMeetingDisplayTitleCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="22d-Y3-e6u" id="OYF-xc-Qkn">
@@ -528,16 +528,16 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beginner's Meeting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpK-ct-LOS">
                                                     <rect key="frame" x="14" y="8" width="298" height="28"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fpK-ct-LOS" firstAttribute="top" secondItem="OYF-xc-Qkn" secondAttribute="topMargin" id="DYf-sx-KEc"/>
-                                                <constraint firstItem="fpK-ct-LOS" firstAttribute="leading" secondItem="OYF-xc-Qkn" secondAttribute="leadingMargin" constant="6" id="iBy-8G-u1P"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="fpK-ct-LOS" secondAttribute="trailing" constant="-33" id="klJ-OX-g8S"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="fpK-ct-LOS" secondAttribute="bottom" constant="-0.5" id="qOo-eL-4dn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fpK-ct-LOS" secondAttribute="bottom" constant="-0.5" id="2kk-3H-vmh"/>
+                                                <constraint firstItem="fpK-ct-LOS" firstAttribute="leading" secondItem="OYF-xc-Qkn" secondAttribute="leadingMargin" constant="6" id="W8C-hR-1ie"/>
+                                                <constraint firstItem="fpK-ct-LOS" firstAttribute="trailing" secondItem="OYF-xc-Qkn" secondAttribute="trailingMargin" id="cWs-Eu-Lqa"/>
+                                                <constraint firstItem="fpK-ct-LOS" firstAttribute="top" secondItem="OYF-xc-Qkn" secondAttribute="topMargin" id="hB8-M1-e8O"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -545,7 +545,7 @@
                                             <segue destination="9Os-Nr-DmM" kind="modal" identifier="title" id="RBA-BO-gza"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingTimeCell" rowHeight="44" id="YD4-NI-Anr" customClass="AAMeetingDisplayDateCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingTimeCell" rowHeight="44" id="YD4-NI-Anr" customClass="AAMeetingDisplayDateCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YD4-NI-Anr" id="8rJ-Yd-2Wb">
@@ -554,7 +554,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday january 21st from 7:00PM to 8:00PM" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huo-Qa-noJ">
                                                     <rect key="frame" x="14" y="0.0" width="298" height="44"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="oiX-kQ-xpo"/>
+                                                        <constraint firstAttribute="height" constant="44" id="IMv-ZS-6Te"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -562,10 +562,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Huo-Qa-noJ" secondAttribute="bottom" constant="-8.5" id="7RG-HL-u8p"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Huo-Qa-noJ" secondAttribute="trailing" constant="-33" id="ang-B2-xQs"/>
-                                                <constraint firstItem="Huo-Qa-noJ" firstAttribute="leading" secondItem="8rJ-Yd-2Wb" secondAttribute="leadingMargin" constant="6" id="i7o-ze-U9z"/>
-                                                <constraint firstItem="Huo-Qa-noJ" firstAttribute="top" secondItem="8rJ-Yd-2Wb" secondAttribute="top" id="n7P-dv-WIu"/>
+                                                <constraint firstItem="Huo-Qa-noJ" firstAttribute="leading" secondItem="8rJ-Yd-2Wb" secondAttribute="leadingMargin" constant="6" id="R0j-gw-CbR"/>
+                                                <constraint firstItem="Huo-Qa-noJ" firstAttribute="top" secondItem="8rJ-Yd-2Wb" secondAttribute="top" id="U0z-Gd-lFS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Huo-Qa-noJ" secondAttribute="bottom" constant="-8.5" id="UqI-Vr-Agh"/>
+                                                <constraint firstItem="Huo-Qa-noJ" firstAttribute="trailing" secondItem="8rJ-Yd-2Wb" secondAttribute="trailingMargin" id="ryl-rr-J1o"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -573,7 +573,7 @@
                                             <segue destination="9Os-Nr-DmM" kind="modal" identifier="startDate" id="4E8-nm-ipM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingLocationCell" rowHeight="44" id="caX-dG-1DJ" customClass="AAMeetingDisplayLocationCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingLocationCell" rowHeight="44" id="caX-dG-1DJ" customClass="AAMeetingDisplayLocationCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="caX-dG-1DJ" id="Pv5-Mn-9hj">
@@ -662,6 +662,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="programDecorationView" destination="MIu-Yn-4vI" id="Mcp-Cx-p5M"/>
+                                            <segue destination="zuW-eh-HAu" kind="push" identifier="editProgram" id="oue-qc-JiE"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MeetingFormatCell" rowHeight="44" id="FiQ-0E-8dH" customClass="AAEditMeetingFormatCell">
@@ -694,6 +695,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="formatLabel" destination="Eik-oo-Ggg" id="hGe-YM-8CG"/>
+                                            <segue destination="DCw-MR-4mg" kind="push" identifier="editFormat" id="ao2-0J-YWW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1071,7 +1073,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-rl-cqq">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-rl-cqq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1115,7 +1117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ov0-LT-tfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3799" y="1634"/>
+            <point key="canvasLocation" x="3383" y="205"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dp7-aQ-MkV">
@@ -1285,7 +1287,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w7c-Lc-0rq"/>
+        <segue reference="oue-qc-JiE"/>
         <segue reference="MTG-GX-Tev"/>
+        <segue reference="ao2-0J-YWW"/>
+        <segue reference="w7c-Lc-0rq"/>
     </inferredMetricsTieBreakers>
 </document>
