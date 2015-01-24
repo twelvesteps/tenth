@@ -8,6 +8,7 @@
 
 #import "AAMeetingViewController.h"
 #import "AAEditMeetingViewController.h"
+#import "AASelectMeetingPropertyViewController.h"
 
 #import "AAMeetingDisplayTitleCell.h"
 #import "AAMeetingDisplayLocationCell.h"
@@ -20,6 +21,7 @@
 #import "AAUserMeetingsManager.h"
 
 #import "UIColor+AAAdditions.h"
+#import "NSDateFormatter+AAAdditions.h"
 
 @interface AAMeetingViewController () <AAEditMeetingViewControllerDelegate, UIActionSheetDelegate>
 
@@ -233,9 +235,12 @@
 - (NSString*)meetingStartDateText
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterLongStyle;
+
+    NSString* timeString = [formatter stepsTimeStringFromDate:self.meeting.startDate];
+    timeString = [timeString stringByAppendingFormat:@"-%@", [formatter stepsTimeStringFromDate:self.meeting.endDate]];
+    NSString* startDateString = [NSString stringWithFormat:@"%@\n%@", timeString, [formatter stepsLongDateStringFromDate:self.meeting.startDate]];
     
-    return [formatter stringFromDate:self.meeting.startDate];
+    return startDateString;
 }
 
 - (AAMeetingDisplayLocationCell*)meetingLocationCell
@@ -308,6 +313,8 @@
     }
     
     cell.formatLabel.format = [self.meeting.formats anyObject];
+    cell.formatLabel.textAlignment = AATextAlignmentRight;
+    cell.formatLabel.decorationAlignment = AADecorationAlignmentLeft;
     
     return cell;
 }
@@ -331,8 +338,6 @@
 
 #pragma mark - Navigation
 
-#define EDIT_MEETING_SEGUE_ID   @"setMeeting"
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
@@ -345,6 +350,10 @@
             aaemvc.meeting = self.meeting;
             aaemvc.delegate = self;
         }
+    } else if ([segue.destinationViewController isKindOfClass:[AASelectMeetingPropertyViewController class]]) {
+        AASelectMeetingPropertyViewController* aasmpvc = (AASelectMeetingPropertyViewController*)segue.destinationViewController;
+        
+        aasmpvc.meeting = self.meeting;
     }
 }
 

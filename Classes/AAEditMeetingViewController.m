@@ -189,8 +189,8 @@
 
 #define MEETING_TYPE_SECTION            2
 #define OPEN_MEETING_ROW            0
-#define FORMAT_ROW                  1
-#define PROGRAM_ROW                 2
+#define PROGRAM_ROW                 1
+#define FORMAT_ROW                  2
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

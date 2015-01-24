@@ -183,33 +183,6 @@
     [sectionMeetings removeObjectAtIndex:indexPath.row];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Meeting* meeting = [self meetingForIndexPath:indexPath];
-        [[AAUserMeetingsManager sharedManager] removeMeeting:meeting];
-        
-        
-        if ([self meetingCountForSection:indexPath.section] == 1) {
-            [self deleteMeetingAtIndexPath:indexPath];
-            self.filteredMeetings = [self filterEmptyMeetings];
-
-            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else {
-            [self deleteMeetingAtIndexPath:indexPath];
-            self.filteredMeetings = [self filterEmptyMeetings];
-
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }        
-    }
-}
-
-
 #pragma mark - Edit Meeting View Controller
 
 - (void)viewControllerDidCancel:(AAEditMeetingViewController *)vc
