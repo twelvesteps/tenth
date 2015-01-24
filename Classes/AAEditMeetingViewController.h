@@ -7,6 +7,7 @@
 //
 
 #import "AAGroupedTableViewController.h"
+#import "Meeting.h"
 
 @class Meeting;
 @class AAEditMeetingViewController;
@@ -23,7 +24,30 @@
 
 @interface AAEditMeetingViewController : AAGroupedTableViewController
 
-@property (strong, nonatomic) Meeting* meeting; // default is nil, set to edit an existing meeting
+/**
+ *  The meeting property that should be selected when the edit screen loads. The
+ *  associated control will be made visible or assume first responder status.
+ *
+ *  The currently recognized values for this property are:
+ *  @"title" - The title field attains first responder status
+ *  @"location" - The location field attains first responder status
+ *  @"startDate" - The start time field displays its date picker
+ *  Assigning other values will have no effect.
+ *
+ *  This value should be set before the controller is displayed or it will have
+ *  no effect.
+ */
+@property (strong, nonatomic) NSString* selectedMeetingProperty;
+
+/**
+ *  The meeting being edited. If this value is nil after the controller's view
+ *  is loaded the controller will create a new meeting for this property.
+ */
+@property (strong, nonatomic) Meeting* meeting;
+
+/**
+ *  The delegate to receive messages about the controller's status
+ */
 @property (weak, nonatomic) id<AAEditMeetingViewControllerDelegate> delegate;
 
 @end

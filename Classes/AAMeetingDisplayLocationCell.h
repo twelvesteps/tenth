@@ -10,4 +10,6 @@
 
 @interface AAMeetingDisplayLocationCell : AASeparatorTableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
 @end

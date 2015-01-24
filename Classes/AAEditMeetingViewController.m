@@ -43,7 +43,6 @@
 
 @property (weak, nonatomic) AAMeetingProgramDecorationView* programDecorationView;
 
-@property (nonatomic) BOOL shouldActivateTitleField;
 @property (strong, nonatomic) NSIndexPath* selectedIndexPath;
 
 @end
@@ -76,10 +75,9 @@
 {
     if (self.meeting) {
         self.navigationBarTitle.title = NSLocalizedString(@"Edit Meeting", @"Edit the selected meeting's details");
-        self.shouldActivateTitleField = NO;
     } else {
         self.navigationBarTitle.title = NSLocalizedString(@"New Meeting", @"Create a new meeting");
-        self.shouldActivateTitleField = YES;
+        self.selectedMeetingProperty = MeetingDescriptorAttributes.title;
         self.meeting = [[AAUserMeetingsManager sharedManager] createMeeting];
         self.meeting.location = [[AAUserMeetingsManager sharedManager] createLocation];
     }
@@ -97,12 +95,9 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (self.shouldActivateTitleField) {
-        [self.titleTextField becomeFirstResponder];
-        self.shouldActivateTitleField = NO;
-    }
-
-    [self.tableView reloadData];
+    [super viewDidAppear:animated];
+    
+    [self assignFirstResponderToSelectedProperty];
 }
 
 
@@ -411,6 +406,20 @@
 }
 
 #pragma mark Cell Interaction
+
+- (void)assignFirstResponderToSelectedProperty
+{
+    if (self.selectedMeetingProperty) {
+        if ([self.selectedMeetingProperty isEqualToString:EventAttributes.title]) {
+            [self.titleTextField becomeFirstResponder];
+        } else if ([self.selectedMeetingProperty isEqualToString:EventAttributes.startDate]) {
+            self.selectedIndexPath = [NSIndexPath indexPathForRow:START_TIME_ROW inSection:DATE_TIME_SECTION];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:DATE_TIME_SECTION] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if ([self.selectedMeetingProperty isEqualToString:MeetingRelationships.location]) {
+            [self.locationTextField becomeFirstResponder];
+        }
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -10,4 +10,6 @@
 
 @interface AAMeetingDisplayDateCell : AASeparatorTableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
 @end

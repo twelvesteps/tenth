@@ -10,4 +10,6 @@
 
 @interface AAMeetingDisplayTitleCell : AASeparatorTableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end
